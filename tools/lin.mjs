@@ -1,0 +1,17 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const p = await b.newPage({ viewport:{width:1440,height:900}, colorScheme:'light' });
+const errs=[]; p.on('pageerror', e=>errs.push('PAGEERROR '+e.message));
+await p.goto('file://' + process.cwd() + '/Amiga-Constellation.html');
+await p.waitForTimeout(1200);
+await p.click('#v-graph'); await p.waitForTimeout(1500);
+await p.screenshot({ path:'/tmp/z-lineage.png' });
+const pos = await p.evaluate(()=>{ const G=window.__GRAPH;
+  const h=G.hubs.find(x=>(x.d&&x.d.label)==='Operating systems');
+  return h ? {x:h.x*G.k+G.tx, y:h.y*G.k+G.ty} : null; });
+const box = await p.locator('#gcanvas').boundingBox();
+await p.mouse.move(box.x+pos.x, box.y+pos.y);
+await p.waitForTimeout(500);
+await p.screenshot({ path:'/tmp/z-peek.png' });
+console.log(errs.length?errs.join('\n'):'ok');
+await b.close();
