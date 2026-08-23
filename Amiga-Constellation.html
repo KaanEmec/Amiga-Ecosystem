@@ -71,7 +71,6 @@
   --focus: #14568C;
 
   --r:   2px;
-  --r-2: 3px;
 
   /* Instrument Serif carries the display voice; Public Sans the reading
      voice; JetBrains Mono the numerals. All three degrade to system faces,
@@ -367,15 +366,7 @@ select:hover{border-color:var(--acc)}
 
 .scroll{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;padding:22px 22px 72px}
 
-.secthead{
-  display:flex;align-items:baseline;gap:14px;
-  margin:30px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line);
-}
-.secthead:first-child{margin-top:0}
-.secthead h2{font-size:24px;letter-spacing:0}
-.secthead .n{font-family:var(--f-mono);font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(286px,1fr));gap:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(286px,1fr));gap:16px;margin-bottom:10px}
 
 /* ---- the catalogue plate ------------------------------------------------
    Each entry is a museum plate: a 2px era rule, an era-tinted illustration
@@ -487,7 +478,6 @@ select:hover{border-color:var(--acc)}
 .gdetail button[aria-pressed="true"]{background:var(--acc-fill);color:#FFFFFF}
 .gcount{font-family:var(--f-mono);font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .gsm{padding:9px 14px;font-size:12.5px}
-.gtourlbl{flex:0 0 auto}
 .gtours{display:flex;gap:7px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
 .gchip{
   appearance:none;background:var(--surf);border:1px solid var(--line);color:var(--ink-2);
@@ -804,7 +794,6 @@ select:hover{border-color:var(--acc)}
 .cathead .chev{width:13px;height:13px;color:var(--acc);transition:transform .15s ease;flex:0 0 auto}
 .cathead[aria-expanded="true"] .chev{transform:rotate(90deg)}
 .cathead + .grid{margin-top:12px}
-.grid{margin-bottom:10px}
 
 .linkrow{display:flex;gap:8px;flex-wrap:wrap}
 .extlink{
@@ -823,7 +812,6 @@ select:hover{border-color:var(--acc)}
 }
 #groupby:hover{border-color:var(--acc)}
 .gess[aria-pressed="true"]{background:var(--acc-fill);border-color:var(--acc-fill);color:#FFFFFF}
-.gsep{width:1px;align-self:stretch;background:var(--line);margin:3px 3px}
 
 /* --- the graph bar: ONE row -------------------------------------------------
    It used to be three bands — controls, six wrapped route chips, and a caption
