@@ -762,7 +762,7 @@ function renderOverview(){
     b.style.setProperty('--era-t', eraTint(e.era));
     b.appendChild(plateEl(e,'front'));
     var t = el('div','fplate-t');
-    t.innerHTML = '<div class="fpline"><span class="fpn">'+e.n+'</span>'+
+    t.innerHTML = '<div class="fpline"><span class="fpn">'+esc(e.n)+'</span>'+
       '<span class="yr mono">'+e.y+'</span></div>'+
       '<div class="fpspec">'+esc(CAT_LABEL[e.cat])+'</div>';
     b.appendChild(t);
@@ -2538,8 +2538,9 @@ function graphInit(){
     }
     if(hn){
       tip.setAttribute('data-on','1');
-      tip.innerHTML = '<div class="n">'+hn.e.n+'</div><div class="m">'+hn.e.y+' · '+
-        (ST_LABEL[hn.e.st]||'')+' · '+(hn.e.arch||[]).map(function(a){return ARCH_LABEL[a]||a;}).join('/')+'</div>';
+      tip.innerHTML = '<div class="n">'+esc(hn.e.n)+'</div><div class="m">'+hn.e.y+' · '+
+        esc(ST_LABEL[hn.e.st]||'')+' · '+
+        esc((hn.e.arch||[]).map(function(a){return ARCH_LABEL[a]||a;}).join('/'))+'</div>';
       tip.style.left = Math.min(px + 14, GRAPH.W - 250) + 'px';
       tip.style.top  = Math.max(py - 10, 4) + 'px';
       cv.style.cursor = 'pointer';
@@ -2561,7 +2562,7 @@ function graphInit(){
         var act = (hh.tkind === 'g')
           ? (hh.collapsed ? 'click to open the shell' : 'click to close the shell')
           : 'click to read this cluster';
-        tip.innerHTML = '<div class="n">'+(hh.label || hh.d.label)+'</div><div class="m">'+
+        tip.innerHTML = '<div class="n">'+esc(hh.label || hh.d.label)+'</div><div class="m">'+
           cnt+' entries · '+act+'</div>';
         tip.style.left = Math.min(px + 14, GRAPH.W - 250) + 'px';
         tip.style.top  = Math.max(py - 10, 4) + 'px';
