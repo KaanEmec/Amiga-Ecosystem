@@ -108,7 +108,7 @@ function testDim(e, dim){
 function testQ(e){
   if(!S.q) return true;
   var terms = S.q.toLowerCase().split(/\s+/).filter(Boolean);
-  return terms.every(function(t){ return e._s.indexOf(t) !== -1; });
+  return terms.every(function(t){ return e._s.includes(t); });
 }
 var DIMS = ['arch','st','era','cat','kind'];
 function matches(e, skipDim){
@@ -187,9 +187,9 @@ function pictFor(e){
   if(e.kind === 'org') return 'bubble';
   if(e.kind === 'archive') return 'archive';
   if(e.kind === 'launcher') return 'pad';
-  if((e.tags||[]).indexOf('console') !== -1) return 'pad';
-  if((e.tags||[]).indexOf('bigbox') !== -1) return 'bigbox';
-  if(e.cat === 'hw-classic' && (e.tags||[]).indexOf('chipset') !== -1) return 'chip';
+  if((e.tags||[]).includes('console')) return 'pad';
+  if((e.tags||[]).includes('bigbox')) return 'bigbox';
+  if(e.cat === 'hw-classic' && (e.tags||[]).includes('chipset')) return 'chip';
   return PICT_BY_CAT[e.cat] || 'bulb';
 }
 function pictSvg(e){
@@ -264,7 +264,7 @@ var MARK_SHORT = [[0,'#663AB4'],[.092,'#623CB6'],[.181,'#5E41B8'],[.267,'#554CC1
   [1,'#79CCAC']];
 function markStops(list, id){
   return '<linearGradient id="'+id+'" gradientUnits="userSpaceOnUse" ' +
-    (id.indexOf('-l') > -1 ? 'x1="-92" y1="147.1" x2="95.6" y2="-152.9"'
+    (id.includes('-l') ? 'x1="-92" y1="147.1" x2="95.6" y2="-152.9"'
                            : 'x1="81.8" y1="130.8" x2="167.6" y2="268"') + '>' +
     list.map(function(st){ return '<stop offset="'+st[0]+'" stop-color="'+st[1]+'"/>'; }).join('') +
     '</linearGradient>';
@@ -987,7 +987,7 @@ function openDetail(id){
   var q = encodeURIComponent(e.n + ' Amiga');
   extlink('Wikipedia ↗', 'https://en.wikipedia.org/w/index.php?search=' + q);
   extlink('Web search ↗', 'https://duckduckgo.com/?q=' + q);
-  if(['soft','dev','shell','tech','distro','os'].indexOf(e.cat) !== -1)
+  if(['soft','dev','shell','tech','distro','os'].includes(e.cat))
     extlink('Aminet ↗', 'https://aminet.net/search?query=' + encodeURIComponent(e.n));
   s6.appendChild(lr);
   if(!e.u) s6.appendChild(el('div','facethelp',
@@ -1267,7 +1267,7 @@ function placeOnRect(items, cx0, cy0, w, h){
 var LABEL_GAP = 24, LABEL_LINE = 17, LABEL_TAIL = 8;
 function labelLines(h){
   var t = h.label || (h.d && h.d.label) || '';
-  return (t.length > 15 && t.indexOf(' ') > -1) ? 2 : 1;
+  return (t.length > 15 && t.includes(' ')) ? 2 : 1;
 }
 function labelReserve(h){
   /* Labels are drawn at a fixed SCREEN size, so in world units they get bigger
