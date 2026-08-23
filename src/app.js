@@ -80,6 +80,7 @@ var S = {
   q: '',
   f: { arch:{}, st:{}, era:{}, cat:{}, kind:{} },
   sort: 'year',
+  ess: false,
   sel: null,
   railOpen: false,
   open: { g:{}, c:{} },
@@ -87,11 +88,17 @@ var S = {
   filterSig: null
 };
 
-function activeCount(){
+/* Facets and search narrow by DIMMING what does not match; the map needs this
+   count to decide what to grey out. Essentials narrows by removing nodes
+   outright, so the map already expresses it structurally and must not dim on
+   it as well -- it has its own caption wording for that state. */
+function dimmingCount(){
   var n = 0;
   Object.keys(S.f).forEach(function(k){ n += Object.keys(S.f[k]).length; });
   return n + (S.q ? 1 : 0);
 }
+/* Everything the Reset button clears, Essentials included. */
+function activeCount(){ return dimmingCount() + (S.ess ? 1 : 0); }
 function facetOn(dim){ return Object.keys(S.f[dim]); }
 
 /* one predicate per dimension so facet counts can exclude their own dimension */
@@ -112,6 +119,7 @@ function testQ(e){
 }
 var DIMS = ['arch','st','era','cat','kind'];
 function matches(e, skipDim){
+  if(S.ess && (e.wt || 0) < 5) return false;
   if(!testQ(e)) return false;
   for(var i=0;i<DIMS.length;i++){
     if(DIMS[i] === skipDim) continue;
@@ -347,6 +355,7 @@ function buildShell(){
             '<div class="chips" id="chips"></div>'+
             '<button class="btn ghost gsm" id="expandall" type="button">Expand all</button>'+
             '<button class="btn ghost gsm" id="collapseall" type="button">Collapse all</button>'+
+            '<button class="btn ghost gsm" id="cess" type="button" aria-pressed="false"></button>'+
             '<div class="sortwrap"><label for="sort">Sort</label>'+
               '<select id="sort">'+
                 '<option value="year">Year, oldest first</option>'+
@@ -491,7 +500,33 @@ function buildRail(){
 function resetAll(){
   DIMS.forEach(function(d){ S.f[d] = {}; });
   S.q = ''; $('#search').value = '';
+  S.ess = false;
   render();
+}
+
+/* How many entries the weight-5 landmark filter keeps. */
+var ESS_N = ALL.filter(function(e){ return (e.wt || 0) >= 5; }).length;
+
+/* One notion of "essentials", shared by the catalogue and the lineage map:
+   the catalogue drops its non-landmark plates, the map re-forms its clusters
+   from what is left, and the rail count and chips report it like any other
+   filter. Both toggles read and write this single flag, so the two views can
+   never disagree about what is showing. */
+function setEss(on){
+  if(S.ess === on) return;
+  S.ess = on;
+  if(GRAPH.tour) tourEnd();
+  if(on && S.sel && (BY_ID[S.sel].wt || 0) < 5) closeDetail();
+  if(S.view === 'graph') graphRemap();
+  render();
+}
+
+/* both Essentials toggles reflect the one flag */
+function syncEss(){
+  ['#gess','#cess'].forEach(function(sel){
+    var b = $(sel);
+    if(b) b.setAttribute('aria-pressed', S.ess ? 'true' : 'false');
+  });
 }
 
 function syncRail(){
@@ -515,6 +550,7 @@ function syncRail(){
     var f = s.closest ? s.closest('.facet') : null;
     if(f) f.setAttribute('data-on', n ? '1' : '0');
   });
+  syncEss();
   var r = results();
   $('#rescount').textContent = r.length;
   $('#resetall').hidden = activeCount() === 0;
@@ -534,6 +570,7 @@ function buildChips(){
     ch.appendChild(x); c.appendChild(ch);
   }
   if(S.q) add('Search', '“'+S.q+'”', function(){ S.q=''; $('#search').value=''; render(); });
+  if(S.ess) add('Only', 'Essentials', function(){ setEss(false); });
   var maps = {arch:ARCH_LABEL, st:ST_LABEL, cat:CAT_LABEL, kind:KIND_LABEL};
   DIMS.forEach(function(dim){
     facetOn(dim).forEach(function(v){
@@ -870,7 +907,22 @@ function sectionHead(num, title, note){
 }
 
 /* ---------------------------------------------------------------- drawer */
+/* Raised for the remainder of the click that opens the sheet, so the
+   document-level dismiss handler can tell "the user clicked away" from "the
+   user just picked this entry". Cleared on the next turn of the event loop,
+   which is after the click has finished bubbling. */
+var OPENING = false;
+
+/* Whether the sheet is actually on screen. S.sel is a selection, which a
+   running route and the cluster board also set without opening anything. */
+function sheetOpen(){
+  var d = $('#drawer');
+  return !!d && d.getAttribute('data-open') === '1';
+}
+
 function openDetail(id){
+  OPENING = true;
+  setTimeout(function(){ OPENING = false; }, 0);
   var e = BY_ID[id]; if(!e) return;
   S.sel = id;
   var d = $('#drawer');
@@ -1096,7 +1148,7 @@ var GRAPH = {
   ready:false, nodes:[], byId:{}, hubs:[], superHubs:[], links:[],
   cv:null, cx:null, tx:0, ty:0, k:1, hover:null, hoverHub:null,
   W:0, H:0, dpr:1, raf:0, laidOut:false, anim:null,
-  groupBy:'domain', essOnly:false, present:{}, level:'clusters', zones:[], fitAxis:'both', kHint:1, grid:false,
+  groupBy:'domain', present:{}, level:'clusters', zones:[], fitAxis:'both', kHint:1, grid:false,
   exp:{g:{}, c:{}}, forceKey:'',
   tour:null, tourStep:0
 };
@@ -1124,7 +1176,7 @@ function graphBuild(){
 }
 
 function essFilter(list){
-  return GRAPH.essOnly ? list.filter(function(n){ return (n.e.wt||0) >= 5; }) : list;
+  return S.ess ? list.filter(function(n){ return (n.e.wt||0) >= 5; }) : list;
 }
 
 /* filters and search auto-open the matryoshka shells that contain matches */
@@ -1773,7 +1825,7 @@ function graphDraw(){
   var inkC = cssv('--ink'), ink3 = cssv('--ink-3'), ink4 = cssv('--ink-4');
   var accC = cssv('--acc'), surfC = cssv('--bg-deep'), lineC = cssv('--line');
 
-  var anyFilter = activeCount() > 0;
+  var anyFilter = dimmingCount() > 0;
   var match = {};
   results().forEach(function(e){ match[e.id] = 1; });
   var matchN = 0;
@@ -1863,7 +1915,7 @@ function graphDraw(){
   cx.globalAlpha = 1;
 
   /* lineage links among present nodes */
-  var essView = GRAPH.essOnly;
+  var essView = S.ess;
   GRAPH.links.forEach(function(l){
     if(!GRAPH.present[l.a.id] || !GRAPH.present[l.b.id]) return;
     var sameHub = l.a.e.cat === l.b.e.cat;
@@ -2038,12 +2090,12 @@ function tourStart(id){
   }
   var t = TOURS.find(function(x){ return x.id === id; });
   if(!t) return;
+  /* a route walks single entries, so it needs the full constellation back --
+     resetAll() clears the Essentials flag along with the facets, and the map
+     has to be re-laid-out from the restored node set. */
+  var wasEss = S.ess;
   if(activeCount()){ resetAll(); }
-  if(GRAPH.essOnly){
-    GRAPH.essOnly = false;
-    var eb = $('#gess'); if(eb) eb.setAttribute('aria-pressed','false');
-    graphLayout();
-  }
+  if(wasEss) graphLayout();
   GRAPH.tour = t; GRAPH.tourStep = 0;
   Array.prototype.forEach.call(document.querySelectorAll('.gchip[data-tour]'), function(b){
     b.setAttribute('aria-pressed', b.getAttribute('data-tour') === id ? 'true' : 'false');
@@ -2370,16 +2422,9 @@ function graphInit(){
   $('#glvl-a').addEventListener('click', function(){ setLevel('all'); });
   syncLevel();
 
-  var essN = ALL.filter(function(e){ return (e.wt||0) >= 5; }).length;
   var eb = $('#gess');
-  eb.textContent = 'Essentials only · ' + essN;
-  eb.addEventListener('click', function(){
-    GRAPH.essOnly = !GRAPH.essOnly;
-    eb.setAttribute('aria-pressed', GRAPH.essOnly ? 'true' : 'false');
-    if(GRAPH.tour) tourEnd();
-    if(S.sel && GRAPH.essOnly && !(BY_ID[S.sel] && (BY_ID[S.sel].wt||0) >= 5)) closeDetail();
-    graphRemap();
-  });
+  eb.textContent = 'Essentials only · ' + ESS_N;
+  eb.addEventListener('click', function(){ setEss(!S.ess); });
 
   $('#gopenall').addEventListener('click', function(){
     M.groups.forEach(function(g){
@@ -2490,7 +2535,7 @@ function graphInit(){
 
   function pick(px, py){
     var w = toWorld(px, py);
-    var anyFilter = activeCount() > 0;
+    var anyFilter = dimmingCount() > 0;
     var match = null;
     if(anyFilter){ match = {}; results().forEach(function(e){ match[e.id]=1; }); }
     var best = null, bd = 13/GRAPH.k;
@@ -2731,6 +2776,10 @@ function boot(){
     render();
   });
 
+  var cess = $('#cess');
+  cess.textContent = 'Essentials only · ' + ESS_N;
+  cess.addEventListener('click', function(){ setEss(!S.ess); });
+
   $('#cat-scroll').addEventListener('click', function(ev){
     var c = ev.target.closest('.card'); if(!c) return;
     openDetail(c.getAttribute('data-id'));
@@ -2747,17 +2796,21 @@ function boot(){
     $('#scrim').setAttribute('data-on','0');
   });
 
-  /* Clicking empty background dismisses the sheet. This is an allowlist of the
-     inert surfaces rather than a blocklist of controls, so collapsing a
-     section, changing a filter or pressing a toolbar button never closes the
-     sheet as a side effect. The canvas keeps its own rule for empty space. */
-  var BG = ['scroll','front','stage','pane','grid','lfinner','graphwrap','fplates','feras','froutes'];
+  /* Any click outside the sheet dismisses it, with two guards.
+     · OPENING — a card, a star on the map or a row on the cluster board all
+       sit outside the sheet, and their handlers run while the same click is
+       still bubbling towards this one. openDetail() raises OPENING for the
+       rest of that event so picking an entry cannot immediately drop it.
+     · a running route owns the selection. tourGo() sets S.sel to mark the
+       current stop, so S.sel is NOT the same thing as "the sheet is open" —
+       hence sheetOpen(), which reads the sheet itself. During a route the
+       sheet is dismissed by Escape or the route's own controls, otherwise
+       walking to the next stop would fight this handler. */
   document.addEventListener('click', function(ev){
-    if(!S.sel) return;
+    if(OPENING || GRAPH.tour || !sheetOpen()) return;
     var t = ev.target;
-    if(!t || !t.classList) return;
-    if(t.closest && t.closest('.drawer')) return;
-    for(var i=0;i<BG.length;i++) if(t.classList.contains(BG[i])){ closeDetail(); return; }
+    if(t && t.closest && t.closest('.drawer')) return;
+    closeDetail();
   });
 
   document.addEventListener('keydown', function(ev){

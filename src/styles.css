@@ -449,6 +449,9 @@ select:hover{border-color:var(--acc)}
 .btn:hover{background:var(--acc-fill-2)}
 .btn.ghost{background:var(--surf);border:1px solid var(--line);color:var(--ink-2)}
 .btn.ghost:hover{border-color:var(--acc);color:var(--acc)}
+/* a ghost button used as a toggle takes the same "on" treatment as the chips
+   in the graph bar, so "Essentials only" reads identically in both views */
+.btn.ghost[aria-pressed="true"]{background:var(--acc-fill);border-color:var(--acc-fill);color:#FFFFFF}
 
 /* --- graph --- */
 .gbar{
