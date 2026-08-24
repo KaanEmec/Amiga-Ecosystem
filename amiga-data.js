@@ -783,6 +783,8 @@ window.AMIGA_DATA = {
   "entries": [
     {
       "id": "lorraine",
+      "image": "images/landmarks/lorraine.jpg",
+      "imageCredit": "Photo: Pittrock / amiga-news.de",
       "name": "Lorraine prototype",
       "year": 1984,
       "category": "hw-classic",
@@ -939,6 +941,10 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a3000",
+      "image": "images/landmarks/a3000.jpg",
+      "imageCredit": "Photo: Joe Smith; retouch by Ubcule, public domain (Wikimedia Commons)",
+      "imageFit": "contain",
+      "imageBackground": "#f1f3f2",
       "name": "Amiga 3000",
       "year": 1990,
       "category": "hw-classic",
@@ -1075,6 +1081,10 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a600",
+      "image": "images/landmarks/a600.png",
+      "imageCredit": "Photo: Ajne01, CC BY-SA 4.0 (Wikimedia Commons)",
+      "imageFit": "contain",
+      "imageBackground": "#eef0ee",
       "name": "Amiga 600",
       "year": 1992,
       "category": "hw-classic",
@@ -1126,6 +1136,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a4000",
+      "image": "images/landmarks/a4000.jpg",
+      "imageCredit": "Photo: Old Crap Vintage Computing",
       "name": "Amiga 4000",
       "year": 1992,
       "category": "hw-classic",
@@ -1171,6 +1183,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "cd32",
+      "image": "images/landmarks/cd32.jpg",
+      "imageCredit": "Photo: Evan-Amos, public domain (Wikimedia Commons)",
       "name": "Amiga CD32",
       "year": 1993,
       "category": "hw-classic",
@@ -1306,6 +1320,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "draco",
+      "image": "images/landmarks/draco.jpg",
+      "imageCredit": "Photo: Tord and Valeria Magnussen / Amiga Hardware Database",
       "name": "MacroSystem DraCo",
       "year": 1994,
       "category": "hw-ng",
@@ -1512,6 +1528,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "peg2",
+      "image": "images/landmarks/peg2.jpg",
+      "imageCredit": "Hardware photo: AmigaOS.net",
       "name": "bplan Pegasos II",
       "year": 2003,
       "category": "hw-ng",
@@ -1695,6 +1713,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "x1000",
+      "image": "images/landmarks/x1000.jpg",
+      "imageCredit": "Photo: Adam Kliczek / memoriesstay.com, CC BY-SA 3.0 PL (Wikimedia Commons)",
       "name": "AmigaOne X1000",
       "year": 2010,
       "category": "hw-ng",
@@ -1766,6 +1786,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "x5000",
+      "image": "images/landmarks/x5000.jpg",
+      "imageCredit": "Product photo: Amiga On The Lake / Old School Game Blog",
       "name": "AmigaOne X5000/20",
       "year": 2016,
       "category": "hw-ng",
@@ -1840,6 +1862,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a1222",
+      "image": "images/landmarks/a1222.jpg",
+      "imageCredit": "Product photo: A-EON Technology / Rabbit Hole Computing",
       "name": "AmigaOne A1222 Plus",
       "year": 2024,
       "category": "hw-ng",
@@ -1910,6 +1934,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "thea500",
+      "image": "images/landmarks/thea500.jpg",
+      "imageCredit": "Product photo: Retro Games Ltd.",
       "name": "THEA500 Mini",
       "year": 2022,
       "category": "hw-fpga",
@@ -2172,6 +2198,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "mist",
+      "image": "images/landmarks/mist.jpg",
+      "imageCredit": "Photo: Ingmar's Retroblog",
       "name": "MiST",
       "year": 2013,
       "category": "hw-fpga",
@@ -2383,6 +2411,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "reamiga1200",
+      "image": "images/landmarks/reamiga1200.jpg",
+      "imageCredit": "Hardware photo: AmiBay community listing",
       "name": "ReAmiga 1200",
       "year": 2019,
       "category": "hw-fpga",
@@ -2554,6 +2584,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "blizzard12xx",
+      "image": "images/landmarks/blizzard12xx.jpg",
+      "imageCredit": "Photo: Amiga Hardware Database",
       "name": "phase5 Blizzard 12xx",
       "year": 1993,
       "category": "hw-accel",
@@ -2600,6 +2632,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "blizzardppc",
+      "image": "images/landmarks/blizzardppc.jpg",
+      "imageCredit": "Photo: Amiga Hardware Database",
       "name": "phase5 BlizzardPPC",
       "year": 1997,
       "category": "hw-accel",
@@ -2624,6 +2658,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "cyberstormppc",
+      "image": "images/landmarks/cyberstormppc.jpg",
+      "imageCredit": "Photo: Amiga Hardware Database",
       "name": "phase5 CyberStormPPC",
       "year": 1997,
       "category": "hw-accel",
@@ -3191,6 +3227,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "picasso",
+      "image": "images/landmarks/picasso.jpg",
+      "imageCredit": "Photo: Amiga Hardware Database",
       "name": "Picasso II / IV",
       "year": 1993,
       "category": "hw-gfx",
@@ -3286,6 +3324,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "indivision",
+      "image": "images/landmarks/indivision.jpg",
+      "imageCredit": "Hardware photo: Individual Computers",
       "name": "Indivision ECS / AGA",
       "year": 2008,
       "category": "hw-gfx",
@@ -3311,6 +3351,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "zz9000",
+      "image": "images/landmarks/zz9000.jpg",
+      "imageCredit": "Product photo: MNT Research",
       "name": "MNT ZZ9000",
       "year": 2019,
       "category": "hw-gfx",
@@ -3576,6 +3618,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "gotek",
+      "image": "images/landmarks/gotek.jpg",
+      "imageCredit": "Product photo: My Retro Store",
       "name": "Gotek + FlashFloppy",
       "year": 2012,
       "category": "hw-storage",
@@ -4246,6 +4290,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os2x",
+      "image": "images/landmarks/os2x.gif",
+      "imageCredit": "Screenshot: Greg Donner's Workbench archive",
       "name": "AmigaOS 2.x",
       "year": 1990,
       "category": "os",
@@ -4485,6 +4531,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "morphos1",
+      "image": "images/landmarks/morphos1.jpg",
+      "imageCredit": "Screenshot: operating-system.org",
       "name": "MorphOS 1.x",
       "year": 2000,
       "category": "os",
@@ -4553,6 +4601,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os40",
+      "image": "images/landmarks/os40.jpg",
+      "imageCredit": "Screenshot: AmiGANG",
       "name": "AmigaOS 4.0",
       "year": 2004,
       "category": "os",
@@ -4678,6 +4728,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os314",
+      "image": "images/landmarks/os314.png",
+      "imageCredit": "Screenshot: Greg Donner's Workbench archive",
       "name": "AmigaOS 3.1.4",
       "year": 2018,
       "category": "os",
@@ -4783,6 +4835,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "emu68",
+      "image": "images/landmarks/emu68.png",
+      "imageCredit": "Screenshot: Emu68 project documentation",
       "name": "Emu68",
       "year": 2020,
       "category": "os",
@@ -4827,6 +4881,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "amigados",
+      "image": "images/landmarks/amigados.png",
+      "imageCredit": "Screenshot: CCOM / Christian Corti",
       "name": "AmigaDOS",
       "year": 1985,
       "category": "shell",
@@ -4938,6 +4994,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "dopus4",
+      "image": "images/landmarks/dopus4.png",
+      "imageCredit": "Screenshot: ScummBlog",
       "name": "Directory Opus 4",
       "year": 1990,
       "category": "shell",
@@ -5120,6 +5178,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "magellan",
+      "image": "images/landmarks/magellan.jpg",
+      "imageCredit": "Screenshot: Directory Opus Resource Centre community",
       "name": "Directory Opus Magellan",
       "year": 1996,
       "category": "shell",
@@ -5813,6 +5873,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "pimiga",
+      "image": "images/landmarks/pimiga.png",
+      "imageCredit": "Screenshot: Mercury Vapour",
       "name": "PiMIGA",
       "year": 2020,
       "category": "distro",
@@ -6109,6 +6171,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "fsuae",
+      "image": "images/landmarks/fsuae.png",
+      "imageCredit": "Screenshot: FS-UAE project",
       "name": "FS-UAE",
       "year": 2011,
       "category": "emu",
@@ -6426,6 +6490,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "p96",
+      "image": "images/landmarks/p96.png",
+      "imageCredit": "Screenshot: Emu68 P96 setup documentation",
       "name": "P96 (Picasso96)",
       "year": 1996,
       "category": "tech",
@@ -6594,6 +6660,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "ahi",
+      "image": "images/landmarks/ahi.png",
+      "imageCredit": "Screenshot: AmigaOS Documentation Wiki",
       "name": "AHI — Audio Hardware Interface",
       "year": 1996,
       "category": "tech",
@@ -7553,6 +7621,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "sps",
+      "image": "images/landmarks/sps.png",
+      "imageCredit": "KryoFlux photo: Gareth Halfacree, CC BY-SA 2.0 (Wikimedia Commons)",
       "name": "Software Preservation Society (SPS/CAPS)",
       "year": 2001,
       "category": "pres",
@@ -7596,6 +7666,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "greaseweazle",
+      "image": "images/landmarks/greaseweazle.jpg",
+      "imageCredit": "Hardware photo: Keir Fraser / Greaseweazle project",
       "name": "Greaseweazle",
       "year": 2019,
       "category": "pres",
@@ -7716,6 +7788,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "hol",
+      "image": "images/landmarks/hol.png",
+      "imageCredit": "Archived site capture: Hall of Light / abime.net",
       "name": "Hall of Light",
       "year": 2001,
       "category": "pres",
@@ -8205,6 +8279,10 @@ window.AMIGA_DATA = {
     },
     {
       "id": "boingball",
+      "image": "images/landmarks/boingball.png",
+      "imageCredit": "LightWave render: Amiga Geek",
+      "imageFit": "contain",
+      "imageBackground": "#121315",
       "name": "The Boing Ball",
       "year": 1984,
       "category": "comm",

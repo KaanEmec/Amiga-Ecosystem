@@ -386,6 +386,16 @@ select:hover{border-color:var(--acc)}
 }
 .plate-lg{height:216px}
 .plate-lg .plate-pict svg{width:88px;height:88px}
+/* Detail-sheet images keep their natural aspect ratio. Wide screenshots stay
+   compact while portrait scans are allowed to grow vertically; the cap keeps
+   an unusually tall asset from becoming a scroll wall. Catalogue cards retain
+   their deliberately uniform 132px crop. */
+.plate-lg.plate-has-img{height:auto;min-height:0}
+.plate-lg.plate-has-img .plate-pict{display:none}
+.plate-lg.plate-has-img .plate-img{
+  position:relative;inset:auto;width:100%;height:auto;
+  max-height:min(72vh,720px);object-fit:contain!important;
+}
 .plate-front{height:158px}
 .plate-front .plate-pict svg{width:70px;height:70px}
 

@@ -219,7 +219,7 @@ function thumbEl(e, size){
    — offline, moved, blocked — the img removes itself and the pictogram is
    simply still there, so the page never shows a broken frame. */
 function plateEl(e, size){
-  var d = el('div','plate' + (size ? ' plate-' + size : ''));
+  var d = el('div','plate' + (size ? ' plate-' + size : '') + (e.img ? ' plate-has-img' : ''));
   d.style.setProperty('--era', eraColor(e.era));
   d.style.setProperty('--era-t', eraTint(e.era));
   var g = el('span','plate-pict'); g.innerHTML = pictSvg(e);
@@ -231,7 +231,12 @@ function plateEl(e, size){
     im.style.objectFit = e.imgFit;
     im.style.objectPosition = e.imgPos;
     if(e.imgBg) im.style.backgroundColor = e.imgBg;
-    im.addEventListener('error', function(){ if(im.parentNode) im.parentNode.removeChild(im); });
+    im.addEventListener('error', function(){
+      if(im.parentNode){
+        im.parentNode.classList.remove('plate-has-img');
+        im.parentNode.removeChild(im);
+      }
+    });
     im.src = e.img;
     d.appendChild(im);
   }
