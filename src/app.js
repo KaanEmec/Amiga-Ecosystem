@@ -28,6 +28,8 @@ var ALL = (RAW.entries || []).map(function(r){
     arch:r.arch || [], wt:r.weight || 1, by:r.by || '', d:r.what || '',
     w:r.why || '', ver:r.version, u:r.url, unv:r.unverified ? 1 : 0,
     img:r.image || '', imgCredit:r.imageCredit || '',
+    imgFit:r.imageFit || 'cover', imgPos:r.imagePosition || '50% 50%',
+    imgBg:r.imageBackground || '',
     rel:(r.related || []).slice(), tags:(r.tags || []).slice()
   };
 });
@@ -226,6 +228,9 @@ function plateEl(e, size){
     var im = document.createElement('img');
     im.className = 'plate-img';
     im.alt = e.n; im.loading = 'lazy'; im.decoding = 'async';
+    im.style.objectFit = e.imgFit;
+    im.style.objectPosition = e.imgPos;
+    if(e.imgBg) im.style.backgroundColor = e.imgBg;
     im.addEventListener('error', function(){ if(im.parentNode) im.parentNode.removeChild(im); });
     im.src = e.img;
     d.appendChild(im);

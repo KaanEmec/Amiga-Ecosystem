@@ -26,6 +26,9 @@ window.AMIGA_DATA = {
     "                   fails to load — offline, moved, blocked — the pictogram shows",
     "                   instead, so a bad link can never leave a broken frame.",
     "  entry.imageCredit  OPTIONAL source/licence line, shown in the detail drawer",
+    "  entry.imageFit     OPTIONAL CSS object-fit override: cover (default) or contain",
+    "  entry.imagePosition OPTIONAL CSS object-position override, e.g. 50% 20%",
+    "  entry.imageBackground OPTIONAL plate background for transparent/contained images",
     "  entry.related    ids this entry descends from (children are derived automatically)",
     "domains = graph clusters for the default view; tours = guided story routes.",
     "Snapshot: research verified August 2026."
@@ -799,6 +802,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a1000",
+      "image": "images/essentials/a1000.jpg",
+      "imageCredit": "Photo: Kaiiv, CC BY-SA 3.0 DE (Wikimedia Commons)",
       "name": "Amiga 1000",
       "year": 1985,
       "category": "hw-classic",
@@ -811,8 +816,6 @@ window.AMIGA_DATA = {
       "by": "Commodore",
       "what": "The first shipping Amiga: 68000 at 7.16 MHz, OCS chipset, 256 KB RAM, and Kickstart loaded from disk into writable control store.",
       "why": "Turned Lorraine into a consumer computer and set the software and expansion conventions everything else followed.",
-      "image": "images/a1000.jpg",
-      "imageCredit": "Photo: Rama & Musée Bolo, CC BY-SA 2.0 FR (Wikimedia Commons)",
       "related": [
         "lorraine"
       ],
@@ -844,6 +847,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a2000",
+      "image": "images/essentials/a2000.jpg",
+      "imageCredit": "Photo: Trafalgarcircle; retouch: Ubcule, public domain (Wikimedia Commons)",
       "name": "Amiga 2000",
       "year": 1987,
       "category": "hw-classic",
@@ -856,8 +861,6 @@ window.AMIGA_DATA = {
       "by": "Commodore",
       "what": "The expandable desktop Amiga: five Zorro II slots, a CPU slot, a video slot and ISA pass-throughs.",
       "why": "Its open slots made it the platform for Video Toaster systems, accelerators, graphics cards and decades of upgrades.",
-      "image": "images/a2000.jpg",
-      "imageCredit": "Photo: Trafalgarcircle, public domain (Wikimedia Commons)",
       "related": [
         "a1000"
       ],
@@ -870,6 +873,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a500",
+      "image": "images/essentials/a500.jpg",
+      "imageCredit": "Photo: Heinz Nixdorf MuseumsForum",
       "name": "Amiga 500",
       "year": 1987,
       "category": "hw-classic",
@@ -882,8 +887,6 @@ window.AMIGA_DATA = {
       "by": "Commodore",
       "what": "The cost-reduced keyboard wedge and best-selling Amiga: 68000, OCS (later ECS Agnus), 512 KB, with a trapdoor and side expansion bus.",
       "why": "The mass-market foundation — most people's mental image of an Amiga, and the target of an enormous games and demo library.",
-      "image": "images/a500.jpg",
-      "imageCredit": "Photo: Bill Bertram, CC BY-SA 2.5 (Wikimedia Commons)",
       "related": [
         "a1000"
       ],
@@ -1096,6 +1099,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "a1200",
+      "image": "images/essentials/a1200.jpg",
+      "imageCredit": "Photo: Wojciech Pędzich, CC BY-SA 4.0 (Wikimedia Commons)",
       "name": "Amiga 1200",
       "year": 1992,
       "category": "hw-classic",
@@ -1108,8 +1113,6 @@ window.AMIGA_DATA = {
       "by": "Commodore",
       "what": "The affordable AGA wedge: 68EC020 at 14 MHz, Alice/Lisa AGA chips, Gayle IDE and PCMCIA, 2 MB chip RAM, a 150-pin trapdoor with a real 32-bit bus, and a clockport.",
       "why": "Its balance of compatibility, AGA graphics and expandability made it the centre of the modern classic scene.",
-      "image": "images/a1200.jpg",
-      "imageCredit": "Photo: Wojciech Pędzich, CC BY-SA 4.0 (Wikimedia Commons)",
       "related": [
         "a600",
         "a4000"
@@ -2009,6 +2012,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "minimig",
+      "image": "images/essentials/minimig.jpg",
+      "imageCredit": "Photo: Electron9, public domain (Wikimedia Commons)",
       "name": "Minimig",
       "year": 2007,
       "category": "hw-fpga",
@@ -2189,6 +2194,10 @@ window.AMIGA_DATA = {
     },
     {
       "id": "mister",
+      "image": "images/essentials/mister.png",
+      "imageCredit": "Product photo: MiSTer Addons",
+      "imageFit": "contain",
+      "imageBackground": "#eef0ee",
       "name": "MiSTer FPGA",
       "year": 2017,
       "category": "hw-fpga",
@@ -2443,6 +2452,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "v4sa",
+      "image": "images/essentials/v4sa.jpg",
+      "imageCredit": "Product photo: Apollo Computer / Exec.pl",
       "name": "Vampire V4 Standalone",
       "year": 2019,
       "category": "hw-fpga",
@@ -2770,6 +2781,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "vampirev2",
+      "image": "images/essentials/vampirev2.jpg",
+      "imageCredit": "Photo: Epsilon's World",
       "name": "Vampire V2 accelerators",
       "year": 2014,
       "category": "hw-accel",
@@ -2920,6 +2933,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "pistorm",
+      "image": "images/essentials/pistorm.jpg",
+      "imageCredit": "Product photo: Retro Ready",
       "name": "PiStorm",
       "year": 2020,
       "category": "hw-accel",
@@ -2947,6 +2962,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "pistorm32",
+      "image": "images/essentials/pistorm32.jpg",
+      "imageCredit": "Product photo: AmigaKit",
       "name": "PiStorm32-Lite",
       "year": 2022,
       "category": "hw-accel",
@@ -4182,6 +4199,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os1x",
+      "image": "images/essentials/os1x.jpg",
+      "imageCredit": "Photo: Tduk (Alex Lozupone), CC BY-SA 3.0 (Wikimedia Commons)",
       "name": "AmigaOS / Workbench 1.x",
       "year": 1985,
       "category": "os",
@@ -4195,8 +4214,6 @@ window.AMIGA_DATA = {
       "what": "The launch operating system: pre-emptive multitasking with a windowing GUI on 256 KB, built partly on the TRIPOS heritage in BCPL. 1.3 (1988) added the FastFileSystem with hard-disk autobooting and the recoverable RAM disk.",
       "why": "It did in 1985 what mainstream desktop systems would not manage for years. The blue-and-orange palette was chosen for contrast on a television set.",
       "version": "1.0–1.3 (Kickstart V30–34)",
-      "image": "images/os1x.jpg",
-      "imageCredit": "Photo: Morn, CC0 (Wikimedia Commons)",
       "related": [
         "a1000"
       ],
@@ -4253,6 +4270,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os3x",
+      "image": "images/essentials/os3x.png",
+      "imageCredit": "Screenshot: Chiffre01, CC BY-SA 4.0 (Wikimedia Commons)",
       "name": "AmigaOS 3.0 / 3.1",
       "year": 1992,
       "category": "os",
@@ -4266,8 +4285,6 @@ window.AMIGA_DATA = {
       "what": "Shipped with the AGA machines: datatypes (system-wide file-format plugins), localised Workbench and CD-ROM foundations. 3.1 (1994) was Commodore's last release and was re-issued by Amiga Technologies in 1996.",
       "why": "For nearly 25 years, 3.1 *was* the compatibility standard — the baseline every 68k application, game and pack assumed.",
       "version": "3.1 (Kickstart V40)",
-      "image": "images/os3x.jpg",
-      "imageCredit": "Screenshot: Chiffre01, CC BY-SA 4.0 (Wikimedia Commons)",
       "related": [
         "os2x",
         "a1200"
@@ -4329,6 +4346,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "aros",
+      "image": "images/essentials/aros.png",
+      "imageCredit": "Screenshot: AROS project (SourceForge)",
       "name": "AROS Research Operating System",
       "year": 1995,
       "category": "os",
@@ -4607,6 +4626,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "morphos3",
+      "image": "images/essentials/morphos3.jpg",
+      "imageCredit": "Screenshot: MorphOS team, GPL (Wikimedia Commons)",
       "name": "MorphOS 3.x",
       "year": 2012,
       "category": "os",
@@ -4620,8 +4641,6 @@ window.AMIGA_DATA = {
       "what": "The long 3.x line: PowerBook G4 and many more PPC Macs, then in 3.10 (2018) the AmigaOne X5000 and ACube Sam460, followed by steady modernisation through 3.11–3.19.",
       "why": "It turned MorphOS into the most polished Amiga-like desktop in daily use, with genuinely modern applications — above all the Wayfarer browser.",
       "url": "https://www.morphos-team.net",
-      "image": "images/morphos3.jpg",
-      "imageCredit": "Screenshot: Xorxos, public domain (Wikimedia Commons)",
       "related": [
         "morphos2"
       ],
@@ -4632,6 +4651,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os41fe",
+      "image": "images/essentials/os41fe.png",
+      "imageCredit": "Screenshot: AmigaOS.net",
       "name": "AmigaOS 4.1 Final Edition",
       "year": 2014,
       "category": "os",
@@ -4646,8 +4667,6 @@ window.AMIGA_DATA = {
       "why": "The official AmigaOS as it stands today, on Classic PPC, AmigaOne, Pegasos II, Sam and X5000 hardware, the A1222 Plus, and under QEMU. AmigaOS 4.2 is announced but unreleased.",
       "version": "FE Update 3, 18 Oct 2025",
       "url": "https://www.hyperion-entertainment.com",
-      "image": "images/os41fe.jpg",
-      "imageCredit": "Screenshot: Blake Patterson, CC BY 2.0 (Wikimedia Commons)",
       "related": [
         "os40"
       ],
@@ -4710,6 +4729,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "os32",
+      "image": "images/essentials/os32.jpg",
+      "imageCredit": "Screenshot: AmigaOS 3.2 / TechSpot",
       "name": "AmigaOS 3.2",
       "year": 2021,
       "category": "os",
@@ -4735,6 +4756,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "morphos320",
+      "image": "images/essentials/morphos320.png",
+      "imageCredit": "Screenshot: Charlie / AmigaSpirit",
       "name": "MorphOS 3.20",
       "year": 2026,
       "category": "os",
@@ -4749,8 +4772,6 @@ window.AMIGA_DATA = {
       "why": "A fully functional free demo that merely slows after 30 minutes has made MorphOS the easiest next-gen system to actually try. Supporting brand-new hardware in 2026 signals continued PowerPC commitment; an x86-64 port remains discussed but unreleased.",
       "version": "30 May 2026 · €79 per machine",
       "url": "https://www.morphos-team.net",
-      "image": "images/morphos320.jpg",
-      "imageCredit": "Screenshot: MorphOS team, GPL (Wikimedia Commons)",
       "related": [
         "morphos3",
         "mirari"
@@ -4850,6 +4871,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "workbench",
+      "image": "images/essentials/workbench.png",
+      "imageCredit": "Screenshot: Greg Donner",
       "name": "Workbench",
       "year": 1985,
       "category": "shell",
@@ -4981,6 +5004,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "mui",
+      "image": "images/essentials/mui.png",
+      "imageCredit": "Release graphic: MorphOS team",
       "name": "Magic User Interface (MUI)",
       "year": 1992,
       "category": "shell",
@@ -5396,6 +5421,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "amigaforever",
+      "image": "images/essentials/amigaforever.png",
+      "imageCredit": "Screenshot: Cloanto / Amiga Forever",
       "name": "Amiga Forever",
       "year": 1997,
       "category": "distro",
@@ -5469,6 +5496,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "amikit",
+      "image": "images/essentials/amikit.jpg",
+      "imageCredit": "Screenshot: AmiKit",
       "name": "AmiKit",
       "year": 2005,
       "category": "distro",
@@ -5810,6 +5839,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "amigavision",
+      "image": "images/essentials/amigavision.jpg",
+      "imageCredit": "Screenshot: AmigaVision",
       "name": "AmigaVision",
       "year": 2021,
       "category": "distro",
@@ -5914,6 +5945,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "uae",
+      "image": "images/essentials/uae.png",
+      "imageCredit": "Screenshot: Wwwwolf, GPL (Wikimedia Commons)",
       "name": "UAE",
       "year": 1995,
       "category": "emu",
@@ -5958,6 +5991,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "winuae",
+      "image": "images/essentials/winuae.png",
+      "imageCredit": "Screenshot: Reindersweb / WinUAE",
       "name": "WinUAE",
       "year": 1997,
       "category": "emu",
@@ -6171,6 +6206,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "amiberry",
+      "image": "images/essentials/amiberry.jpg",
+      "imageCredit": "Screenshot: BlitterStudio",
       "name": "Amiberry",
       "year": 2016,
       "category": "emu",
@@ -6339,6 +6376,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "rtg",
+      "image": "images/essentials/rtg.jpg",
+      "imageCredit": "Photo: Amiga Hardware Database",
       "name": "RTG — Retargetable Graphics",
       "year": 1993,
       "category": "tech",
@@ -6974,6 +7013,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "wayfarer",
+      "image": "images/essentials/wayfarer.png",
+      "imageCredit": "Screenshot: MorphOS Library",
       "name": "Wayfarer",
       "year": 2019,
       "category": "soft",
@@ -7223,6 +7264,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "amigadebug",
+      "image": "images/essentials/amigadebug.png",
+      "imageCredit": "Screenshot: Bartman/Abyss, GPL-3.0",
       "name": "amiga-debug (VS Code)",
       "year": 2019,
       "category": "dev",
@@ -7354,6 +7397,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "scorpion",
+      "image": "images/essentials/scorpion.png",
+      "imageCredit": "Screenshot: Mixel's Lab",
       "name": "Scorpion Engine",
       "year": 2019,
       "category": "dev",
@@ -7482,6 +7527,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "whdload",
+      "image": "images/essentials/whdload.jpg",
+      "imageCredit": "Screenshot: Insert Disk 2",
       "name": "WHDLoad",
       "year": 1996,
       "category": "pres",
@@ -7622,6 +7669,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "aminet",
+      "image": "images/essentials/aminet.png",
+      "imageCredit": "Historical screenshot: Aminet",
       "name": "Aminet",
       "year": 1992,
       "category": "pres",
@@ -7866,6 +7915,10 @@ window.AMIGA_DATA = {
     },
     {
       "id": "eab",
+      "image": "images/essentials/eab.gif",
+      "imageCredit": "Logo: English Amiga Board",
+      "imageFit": "contain",
+      "imageBackground": "#121315",
       "name": "English Amiga Board (EAB)",
       "year": 2001,
       "category": "comm",
@@ -8100,6 +8153,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "demoscene",
+      "image": "images/essentials/demoscene.png",
+      "imageCredit": "Screenshot: Spaceballs, State of the Art (via Retro32)",
       "name": "The Amiga demoscene",
       "year": 1988,
       "category": "comm",
@@ -8123,6 +8178,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "trackers",
+      "image": "images/essentials/trackers.png",
+      "imageCredit": "Screenshot: ProTracker 1.1, CC BY-SA 4.0 (Wikimedia Commons)",
       "name": "Trackers & the MOD format",
       "year": 1987,
       "category": "comm",
@@ -8170,6 +8227,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "newgames",
+      "image": "images/essentials/newgames.png",
+      "imageCredit": "Screenshot: Metro Siege / BitBeamCannon & Pixelglass",
       "name": "The new games scene 2015–2026",
       "year": 2016,
       "category": "soft",
@@ -8263,6 +8322,9 @@ window.AMIGA_DATA = {
     },
     {
       "id": "cbm-bankrupt",
+      "image": "images/essentials/cbm-bankrupt.jpg",
+      "imageCredit": "Cover scan: Amiga Format issue 60 (Retro Commodore)",
+      "imagePosition": "50% 18%",
       "name": "Commodore bankruptcy",
       "year": 1994,
       "category": "brand",
@@ -8392,6 +8454,9 @@ window.AMIGA_DATA = {
     },
     {
       "id": "settlement2009",
+      "image": "images/essentials/settlement2009.png",
+      "imageCredit": "Court filing: U.S. District Court / Amiga Documents",
+      "imagePosition": "50% 10%",
       "name": "2009 Amiga Inc. v. Hyperion settlement",
       "year": 2009,
       "category": "brand",
@@ -8508,6 +8573,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "commodore2025",
+      "image": "images/essentials/commodore2025.png",
+      "imageCredit": "Product render: Commodore",
       "name": "Commodore returns",
       "year": 2025,
       "category": "brand",
@@ -8529,6 +8596,8 @@ window.AMIGA_DATA = {
     },
     {
       "id": "settlement2026",
+      "image": "images/essentials/settlement2026.png",
+      "imageCredit": "Page capture: Amiga Corporation",
       "name": "The 2026 settlement",
       "year": 2026,
       "category": "brand",
