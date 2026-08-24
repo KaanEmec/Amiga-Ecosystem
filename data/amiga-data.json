@@ -805,6 +805,8 @@
    "by": "Commodore",
    "what": "The first shipping Amiga: 68000 at 7.16 MHz, OCS chipset, 256 KB RAM, and Kickstart loaded from disk into writable control store.",
    "why": "Turned Lorraine into a consumer computer and set the software and expansion conventions everything else followed.",
+   "image": "images/a1000.jpg",
+   "imageCredit": "Photo: Rama & Musée Bolo, CC BY-SA 2.0 FR (Wikimedia Commons)",
    "related": [
     "lorraine"
    ],
@@ -848,6 +850,8 @@
    "by": "Commodore",
    "what": "The expandable desktop Amiga: five Zorro II slots, a CPU slot, a video slot and ISA pass-throughs.",
    "why": "Its open slots made it the platform for Video Toaster systems, accelerators, graphics cards and decades of upgrades.",
+   "image": "images/a2000.jpg",
+   "imageCredit": "Photo: Trafalgarcircle, public domain (Wikimedia Commons)",
    "related": [
     "a1000"
    ],
@@ -872,6 +876,8 @@
    "by": "Commodore",
    "what": "The cost-reduced keyboard wedge and best-selling Amiga: 68000, OCS (later ECS Agnus), 512 KB, with a trapdoor and side expansion bus.",
    "why": "The mass-market foundation — most people's mental image of an Amiga, and the target of an enormous games and demo library.",
+   "image": "images/a500.jpg",
+   "imageCredit": "Photo: Bill Bertram, CC BY-SA 2.5 (Wikimedia Commons)",
    "related": [
     "a1000"
    ],
@@ -1096,6 +1102,8 @@
    "by": "Commodore",
    "what": "The affordable AGA wedge: 68EC020 at 14 MHz, Alice/Lisa AGA chips, Gayle IDE and PCMCIA, 2 MB chip RAM, a 150-pin trapdoor with a real 32-bit bus, and a clockport.",
    "why": "Its balance of compatibility, AGA graphics and expandability made it the centre of the modern classic scene.",
+   "image": "images/a1200.jpg",
+   "imageCredit": "Photo: Wojciech Pędzich, CC BY-SA 4.0 (Wikimedia Commons)",
    "related": [
     "a600",
     "a4000"
@@ -4181,6 +4189,8 @@
    "what": "The launch operating system: pre-emptive multitasking with a windowing GUI on 256 KB, built partly on the TRIPOS heritage in BCPL. 1.3 (1988) added the FastFileSystem with hard-disk autobooting and the recoverable RAM disk.",
    "why": "It did in 1985 what mainstream desktop systems would not manage for years. The blue-and-orange palette was chosen for contrast on a television set.",
    "version": "1.0–1.3 (Kickstart V30–34)",
+   "image": "images/os1x.jpg",
+   "imageCredit": "Photo: Morn, CC0 (Wikimedia Commons)",
    "related": [
     "a1000"
    ],
@@ -4250,6 +4260,8 @@
    "what": "Shipped with the AGA machines: datatypes (system-wide file-format plugins), localised Workbench and CD-ROM foundations. 3.1 (1994) was Commodore's last release and was re-issued by Amiga Technologies in 1996.",
    "why": "For nearly 25 years, 3.1 *was* the compatibility standard — the baseline every 68k application, game and pack assumed.",
    "version": "3.1 (Kickstart V40)",
+   "image": "images/os3x.jpg",
+   "imageCredit": "Screenshot: Chiffre01, CC BY-SA 4.0 (Wikimedia Commons)",
    "related": [
     "os2x",
     "a1200"
@@ -4602,6 +4614,8 @@
    "what": "The long 3.x line: PowerBook G4 and many more PPC Macs, then in 3.10 (2018) the AmigaOne X5000 and ACube Sam460, followed by steady modernisation through 3.11–3.19.",
    "why": "It turned MorphOS into the most polished Amiga-like desktop in daily use, with genuinely modern applications — above all the Wayfarer browser.",
    "url": "https://www.morphos-team.net",
+   "image": "images/morphos3.jpg",
+   "imageCredit": "Screenshot: Xorxos, public domain (Wikimedia Commons)",
    "related": [
     "morphos2"
    ],
@@ -4626,6 +4640,8 @@
    "why": "The official AmigaOS as it stands today, on Classic PPC, AmigaOne, Pegasos II, Sam and X5000 hardware, the A1222 Plus, and under QEMU. AmigaOS 4.2 is announced but unreleased.",
    "version": "FE Update 3, 18 Oct 2025",
    "url": "https://www.hyperion-entertainment.com",
+   "image": "images/os41fe.jpg",
+   "imageCredit": "Screenshot: Blake Patterson, CC BY 2.0 (Wikimedia Commons)",
    "related": [
     "os40"
    ],
@@ -4727,6 +4743,8 @@
    "why": "A fully functional free demo that merely slows after 30 minutes has made MorphOS the easiest next-gen system to actually try. Supporting brand-new hardware in 2026 signals continued PowerPC commitment; an x86-64 port remains discussed but unreleased.",
    "version": "30 May 2026 · €79 per machine",
    "url": "https://www.morphos-team.net",
+   "image": "images/morphos320.jpg",
+   "imageCredit": "Screenshot: MorphOS team, GPL (Wikimedia Commons)",
    "related": [
     "morphos3",
     "mirari"
