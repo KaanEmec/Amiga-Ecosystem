@@ -4886,6 +4886,28 @@
    ]
   },
   {
+   "id": "conman",
+   "name": "ConMan",
+   "year": 1988,
+   "category": "shell",
+   "kind": "shell",
+   "status": "historic",
+   "arch": [
+    "68k"
+   ],
+   "weight": 2,
+   "what": "A replacement console handler for AmigaDOS 1.2 and later, adding line editing, command history and function-key recall to the bare native console.",
+   "why": "Console handling was left thin in the shipped system, and third-party handlers like this one set the expectations that KingCON and ViNCEd were later built to meet.",
+   "related": [
+    "amigashell"
+   ],
+   "tags": [
+    "console",
+    "cli"
+   ],
+   "unverified": true
+  },
+  {
    "id": "dopus4",
    "name": "Directory Opus 4",
    "year": 1990,
@@ -5091,6 +5113,32 @@
     "desktop",
     "open"
    ]
+  },
+  {
+   "id": "amiwm",
+   "name": "amiwm",
+   "year": 1998,
+   "category": "shell",
+   "kind": "shell",
+   "status": "active",
+   "arch": [
+    "x86",
+    "other"
+   ],
+   "weight": 2,
+   "by": "Marcus Comstedt",
+   "what": "A stacking window manager for the X Window System that reproduces the Workbench interface — screens, drawers and window gadgets — on Unix and Linux desktops. Source-available rather than free software: unmodified source may be redistributed for non-commercial purposes only.",
+   "why": "Treats the Workbench idiom as something portable in its own right, independent of both the chipset and the OS, and has kept it running on X11 for a quarter of a century.",
+   "version": "0.22pl2 (Apr 2023)",
+   "related": [
+    "workbench"
+   ],
+   "tags": [
+    "x11",
+    "unix",
+    "workbench-look"
+   ],
+   "unverified": true
   },
   {
    "id": "scalos",
@@ -5313,6 +5361,32 @@
     "launcher",
     "games"
    ]
+  },
+  {
+   "id": "amibench",
+   "name": "AmiBench",
+   "year": 2024,
+   "category": "shell",
+   "kind": "shell",
+   "status": "shipping",
+   "arch": [
+    "arm"
+   ],
+   "weight": 3,
+   "by": "AmigaKit Ltd",
+   "what": "AmigaKit's proprietary desktop environment, shipped as the installed system on the A600GS and A1200NG. It is built on the company’s System Release V46 — a modified AROS with an AROS Kickstart replacement ROM — supplemented by further AROS components. Copyright notices run from 2018; it reached buyers with the A600GS in June 2024.",
+   "why": "The appliance route taken to its conclusion: an AROS-derived Workbench pre-installed on low-cost ARM hardware, so the buyer meets a finished desktop instead of assembling one from an OS, an emulator and a disk image.",
+   "version": "46.2.1425 (Mar 2026)",
+   "url": "https://wiki.amiga.org/index.php/AmiBench",
+   "related": [
+    "aros"
+   ],
+   "tags": [
+    "desktop",
+    "proprietary",
+    "appliance"
+   ],
+   "unverified": true
   },
   {
    "id": "amigaforever",
