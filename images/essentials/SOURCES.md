@@ -23,16 +23,17 @@ Local copies are used by the catalog so the experience does not depend on remote
 | MorphOS 3.20 | `morphos320.png` | [AmigaSpirit](https://forum.amigaspirit.hu/index.php?action=vthread&forum=4&topic=399) — Charlie |
 | Workbench | `workbench.png` | [Greg Donner's Workbench archive](https://www.gregdonner.org/workbench/) |
 | Magic User Interface | `mui.png` | [MorphOS Team](https://www.morphos-team.net/) release graphic |
-| Amiga Forever | `amigaforever.png` | [Amiga Forever](https://www.amigaforever.com/screenshots/desktop-4k/) official screenshot |
+| Amiga Forever | `amigaforever.png` | [User-selected official screenshot](https://www.amigaforever.com/gfx/screens/screen-afwb-3x.png) |
 | AmiKit | `amikit.jpg` | [AmiKit](https://www.amikit.amiga.sk/) official screenshot |
 | AmigaVision | `amigavision.jpg` | [AmigaVision](https://amiga.vision/) official screenshot |
 | UAE | `uae.png` | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:E-UAE.png) — Wwwwolf, GPL |
 | WinUAE | `winuae.png` | [Reindersweb](https://www.reindersweb.de/) WinUAE screenshot |
-| Amiberry | `amiberry.jpg` | [BlitterStudio/amiberry](https://github.com/BlitterStudio/amiberry) project screenshot |
+| Amiberry | `amiberry.png` | [User-selected BlitterStudio artwork](https://i2.wp.com/blitterstudio.com/wp-content/uploads/2020/01/Logo-v3-1.png?resize=768%2C543&ssl=1) |
 | RTG | `rtg.jpg` | [Amiga Hardware Database](https://amiga.resource.cx/) Picasso IV photo |
 | Wayfarer | `wayfarer.png` | [MorphOS Library](https://library.morph.zone/) screenshot |
 | amiga-debug | `amigadebug.png` | [BartmanAbyss/vscode-amiga-debug](https://github.com/BartmanAbyss/vscode-amiga-debug) project screenshot, GPL-3.0 |
 | Scorpion Engine | `scorpion.png` | [Mixel's Lab](https://mixelslab.com/scorpion/) editor screenshot |
+| AMOS & AOZ Studio | `amospro.png` | [User-selected AMOS Professional screenshot](http://www.classicamiga.com/images/stories/jreviews/software/A/amospro.png) |
 | WHDLoad | `whdload.jpg` | [Insert Disk 2](https://www.insertdisk2.com/) tutorial screenshot |
 | Aminet | `aminet.png` | [Aminet](https://aminet.net/) historical screenshot |
 | English Amiga Board | `eab.gif` | [English Amiga Board](https://eab.abime.net/) official site logo |

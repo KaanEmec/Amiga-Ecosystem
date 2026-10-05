@@ -87,6 +87,7 @@ var S = {
   railOpen: false,
   open: { g:{}, c:{} },
   openedFirst: 0,
+  catalogInitialized: false,
   filterSig: null
 };
 
@@ -662,8 +663,20 @@ function renderCatalog(list){
   if(sig !== S.filterSig){
     S.filterSig = sig;
     S.open.c = {}; S.open.g = {};
-    S.openedFirst = filtering ? 1 : 0;
+    if(!S.catalogInitialized && !filtering){
+      /* The first unfiltered catalogue visit starts as a compact index:
+         Hardware is the only open top-level drawer, and its categories stay
+         folded until the visitor chooses one. Later visits preserve choices. */
+      M.groups.forEach(function(g){
+        S.open.g[g.id] = g.id === 'g-hw';
+        g.cats.forEach(function(c){ S.open.c[c.id] = false; });
+      });
+      S.openedFirst = 1;
+    }else{
+      S.openedFirst = filtering ? 1 : 0;
+    }
   }
+  S.catalogInitialized = true;
   if(!S.openedFirst){
     /* open the first section that has anything in it, so the catalogue never
        greets you as a wall of shut drawers */
@@ -792,16 +805,15 @@ function renderOverview(){
   r.appendChild(stats);
 
   /* ---------------- featured plates ----------------
-     One object from each of eight different sections, so the front page is a
-     cross-section of the whole collection rather than a top-eight list. */
+     A deliberate front-page cross-section: classic hardware, modern
+     accelerators, graphics, interfaces, distributions, emulation and
+     preservation. Keep the order editorial rather than data-driven. */
   r.appendChild(sectionHead('01','Selected objects',
-    'Eight of the three hundred and thirty. Any plate opens its full entry.'));
-  var picked = [], usedCat = {};
-  ['hw-classic','hw-fpga','hw-accel','os','shell','emu','distro','pres'].forEach(function(cid){
-    var best = ALL.filter(function(e){ return e.cat===cid; })
-                  .sort(function(a,b){ return (b.wt||0)-(a.wt||0) || a.y-b.y; })[0];
-    if(best && !usedCat[cid]){ usedCat[cid] = 1; picked.push(best); }
-  });
+    'Twelve of the three hundred and thirty-three. Any plate opens its full entry.'));
+  var picked = [
+    'a1200', 'v4sa', 'pistorm32', 'picasso', 'workbench',
+    'amithlon', 'pimiga', 'uae', 'whdload', 'amos', 'amigaforever', 'a6000'
+  ].map(function(id){ return BY_ID[id]; }).filter(Boolean);
   var fg = el('div','fplates');
   picked.forEach(function(e){
     var b = el('button','fplate'); b.type='button';
@@ -1048,7 +1060,7 @@ function openDetail(id){
   if(e.u) extlink('Official site ↗', e.u, true);
   var q = encodeURIComponent(e.n + ' Amiga');
   extlink('Wikipedia ↗', 'https://en.wikipedia.org/w/index.php?search=' + q);
-  extlink('Web search ↗', 'https://duckduckgo.com/?q=' + q);
+  extlink('Web search ↗', 'https://www.google.com/search?q=' + q);
   if(['soft','dev','shell','tech','distro','os'].includes(e.cat))
     extlink('Aminet ↗', 'https://aminet.net/search?query=' + encodeURIComponent(e.n));
   s6.appendChild(lr);
