@@ -158,3 +158,14 @@ and competed for CPU, so request rates are a lower bound.
 | Concurrent voting, 200 browsers | 150 returned 200 and 50 returned 429 (per-IP limit of 150/hour); count 150, equal to the successes |
 | Concurrent voting, one browser | 50 simultaneous PUTs add exactly 1 vote (3 rounds, new browser each) |
 | Image approval timing | not measured: the fetcher refuses a loopback image server (`image host resolves to a non-public address`), which is the intended SSRF guard |
+
+## License
+
+The source code — `cmd/`, `internal/`, `web/`, `tests/`, `deploy/` and the `Dockerfile` — is
+licensed under the GNU General Public License v3.0; see [`LICENSE`](LICENSE).
+
+The catalogue content in `data/`, the pictures in `images/` and the icons in `WBIcons/` are
+**not** covered by that license. The pictures belong to their photographers and publishers
+(each entry's `imageCredit` and `images/catalog-completion/SOURCES.md` name them), and some are
+available under their own terms, such as CC BY-SA or public domain. Amiga and related names
+are trademarks of their respective owners.
