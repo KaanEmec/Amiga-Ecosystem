@@ -5,7 +5,9 @@ Two ways to run one application instance behind an HTTPS reverse proxy: the root
 
 ## Coolify (live at amiga.kexperiments.com)
 
-Coolify builds the root `Dockerfile` from `main`, and Traefik routes the domain to port 8080.
+Coolify builds the root `Dockerfile` from the public repository, pinned to a release commit
+(Git Source → Commit SHA; currently `v1.0.0`), and Traefik routes the domain to port 8080. To
+upgrade, set the new release's commit SHA and press Deploy.
 Mount a persistent volume at `/data` (database, media, staging). Set `AMIGA_BASE_URL`,
 `AMIGA_SECRET`, `AMIGA_TURNSTILE_SITE_KEY`, `AMIGA_TURNSTILE_SECRET`, `AMIGA_TRUST_PROXY=1`
 and `AMIGA_CLIENT_IP_HEADER=CF-Connecting-IP` (the domain is proxied by Cloudflare); the image
