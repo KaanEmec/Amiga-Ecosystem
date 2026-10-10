@@ -1316,7 +1316,7 @@ function graphInit(){
     var r = cv.getBoundingClientRect();
     var hit = pick(ev.clientX - r.left, ev.clientY - r.top);
     if(hit && hit.type === 'node'){
-      openDetail(hit.n.id, cv);
+      openDetail(hit.n.id, cv, {x:ev.clientX, y:ev.clientY});
     } else if(hit && hit.type === 'hub'){
       lineageOpen(hit.h);
     } else {

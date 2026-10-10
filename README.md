@@ -112,8 +112,11 @@ Close, Escape, or clicking the backdrop returns focus to the originating object.
 During a guided route, reading related objects leaves the current stop intact.
 Global keyboard shortcuts are suspended while reading.
 
-Visible card images and titles animate into the hero. Canvas entries use a
-scale-and-fade entrance. Reduced-motion preferences disable these animations.
+In Overview and Catalogue, visible card images and titles fly into the hero
+over about 700ms and fly back on close. Objects opened from Lineage skip the
+flight: the dialog blooms out of the clicked star or card in about 600ms, with
+a brief flare at that point, and collapses back toward it on close. Timings
+live in `MOTION` in `detail.js`. Reduced-motion preferences disable these animations.
 The dialog makes the background inert, wraps Tab focus within its controls,
 and requires a browser with HTML dialog support; there are no additional
 libraries or network dependencies.

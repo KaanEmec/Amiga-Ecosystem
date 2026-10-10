@@ -9,8 +9,12 @@
 /* --------------------------------------------------------- object overlay
    Reading details owns no map state. The background DOM, selection, camera,
    and scroll containers are left in place for the entire modal session. */
-var DETAIL = {id:null, originId:null, source:null, opener:null, history:[], navigated:false,
+var DETAIL = {id:null, originId:null, source:null, at:null, opener:null, history:[], navigated:false,
   closing:false, motion:0, animations:[], clones:[], hidden:[], resizePending:false, imageSizes:{}};
+
+/* Dialog motion in ms. Lineage opens "bloom" from the clicked star instead of
+   flying a card's image and title into the hero. */
+var MOTION = {open:700, heroClose:500, close:250, navigate:150, bloomOpen:600, bloomClose:350};
 
 function detailOpen(){ return $('#detail-dialog').open; }
 function reducedMotion(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
@@ -21,6 +25,8 @@ function cancelDetailMotion(){
   DETAIL.clones.forEach(function(c){c.remove();});
   DETAIL.hidden.forEach(function(n){n.style.visibility = '';});
   DETAIL.animations = []; DETAIL.clones = []; DETAIL.hidden = [];
+  var panel = document.querySelector('#detail-dialog .detail-panel');
+  if(panel) panel.style.transformOrigin = '';
 }
 
 /* Reject clipped/offscreen sources so returning from a deep read never flies
@@ -39,29 +45,55 @@ function detailVisibleRect(node){
   return r;
 }
 
-function detailAnimate(node, frames, duration){
-  var a = node.animate(frames, {duration:duration, easing:'cubic-bezier(.2,.75,.2,1)', fill:'both'});
+function detailAnimate(node, frames, duration, delay){
+  var a = node.animate(frames, {duration:duration, delay:delay || 0, easing:'cubic-bezier(.2,.75,.2,1)', fill:'both'});
   DETAIL.animations.push(a);
 }
 
 function detailFlight(from, to, reverse){
   var a = detailVisibleRect(from), b = detailVisibleRect(to);
   if(!a || !b || (from.tagName === 'IMG' && (!from.complete || !from.naturalWidth))) return;
+  if(from.tagName !== 'IMG'){ detailTextFlight(from, to, a, b, reverse); return; }
   var copy = from.cloneNode(true), s = getComputedStyle(from), end = getComputedStyle(to);
   copy.removeAttribute('id'); copy.removeAttribute('tabindex'); copy.setAttribute('aria-hidden','true');
   copy.className = 'detail-flight';
   Object.assign(copy.style, {position:'fixed',margin:'0',left:a.left+'px',top:a.top+'px',
     width:a.width+'px',height:a.height+'px',maxWidth:'none',maxHeight:'none',
-    font:s.font,letterSpacing:s.letterSpacing,color:s.color,lineHeight:s.lineHeight,
     objectFit:'contain',objectPosition:s.objectPosition,background:s.backgroundColor,
     borderRadius:s.borderRadius,transformOrigin:'0 0',pointerEvents:'none'});
   $('#detail-dialog .detail-flight-layer').appendChild(copy); DETAIL.clones.push(copy);
   var target = reverse ? from : to;
   target.style.visibility = 'hidden'; DETAIL.hidden.push(target);
   detailAnimate(copy, [
-    {transform:'translate(0,0)',width:a.width+'px',height:a.height+'px',fontSize:s.fontSize,lineHeight:s.lineHeight,color:s.color},
-    {transform:'translate('+(b.left-a.left)+'px,'+(b.top-a.top)+'px)',width:b.width+'px',height:b.height+'px',fontSize:end.fontSize,lineHeight:end.lineHeight,color:end.color}
-  ], reverse ? 220 : 300);
+    {transform:'translate(0,0)',width:a.width+'px',height:a.height+'px'},
+    {transform:'translate('+(b.left-a.left)+'px,'+(b.top-a.top)+'px)',width:b.width+'px',height:b.height+'px'}
+  ], reverse ? MOTION.heroClose : MOTION.open);
+}
+
+/* Titles fly with transforms only (FLIP). The copy is laid out once at the
+   larger of the two titles and scaled toward the smaller one, so glyphs are
+   never clipped by an animating box and stay sharp at the large end. */
+function detailTextFlight(from, to, a, b, reverse){
+  var fs = getComputedStyle(from), ts = getComputedStyle(to);
+  var fromBig = parseFloat(fs.fontSize) >= parseFloat(ts.fontSize);
+  var big = fromBig ? fs : ts, bigR = fromBig ? a : b, smallR = fromBig ? b : a;
+  var k = parseFloat((fromBig ? ts : fs).fontSize) / parseFloat(big.fontSize) || 1;
+  var copy = document.createElement('div');
+  copy.className = 'detail-flight'; copy.setAttribute('aria-hidden','true');
+  copy.textContent = from.textContent;
+  Object.assign(copy.style, {position:'fixed',margin:'0',padding:'0',left:bigR.left+'px',top:bigR.top+'px',
+    width:(bigR.width+1)+'px',height:'auto',overflow:'visible',
+    fontFamily:big.fontFamily,fontSize:big.fontSize,fontWeight:big.fontWeight,fontStyle:big.fontStyle,
+    lineHeight:big.lineHeight,letterSpacing:big.letterSpacing,textTransform:big.textTransform,
+    whiteSpace:big.whiteSpace,textAlign:big.textAlign,transformOrigin:'0 0',pointerEvents:'none',zIndex:'1'});
+  $('#detail-dialog .detail-flight-layer').appendChild(copy); DETAIL.clones.push(copy);
+  var target = reverse ? from : to;
+  target.style.visibility = 'hidden'; DETAIL.hidden.push(target);
+  var small = 'translate('+(smallR.left-bigR.left)+'px,'+(smallR.top-bigR.top)+'px) scale('+k+')';
+  detailAnimate(copy, fromBig ?
+    [{transform:'none',color:fs.color},{transform:small,color:ts.color}] :
+    [{transform:small,color:fs.color},{transform:'none',color:ts.color}],
+    reverse ? MOTION.heroClose : MOTION.open);
 }
 
 function detailContentCopy(){
@@ -76,6 +108,37 @@ function detailContentCopy(){
   return copy;
 }
 
+/* Viewport point the lineage bloom grows from: the clicked star, else the
+   centre of the source element, else the centre of the screen. */
+function detailBloomPoint(){
+  if(DETAIL.at) return DETAIL.at;
+  var r = DETAIL.source && DETAIL.source.isConnected && DETAIL.source.getBoundingClientRect();
+  if(r && r.width && r.height) return {x:r.left + r.width/2, y:r.top + r.height/2};
+  return {x:innerWidth/2, y:innerHeight/2};
+}
+
+function detailBloom(panel, closing){
+  var pt = detailBloomPoint(), r = panel.getBoundingClientRect();
+  var at = (pt.x - r.left)+'px '+(pt.y - r.top)+'px';
+  var shut = {clipPath:'circle(0px at '+at+')', transform:'scale(.6)', opacity:0, filter:'blur(6px)'};
+  var open = {clipPath:'circle(150% at '+at+')', transform:'none', opacity:1, filter:'blur(0px)'};
+  panel.style.transformOrigin = at;
+  if(closing){ detailAnimate(panel, [open, shut], MOTION.bloomClose); return; }
+  detailAnimate(panel, [shut, {opacity:1, offset:.4}, open], MOTION.bloomOpen);
+  var ring = el('div','detail-bloom-ring');
+  ring.style.left = pt.x+'px'; ring.style.top = pt.y+'px';
+  $('#detail-dialog .detail-flight-layer').appendChild(ring); DETAIL.clones.push(ring);
+  detailAnimate(ring, [{transform:'translate(-50%,-50%) scale(1)', opacity:.9},
+    {transform:'translate(-50%,-50%) scale(6)', opacity:0}], 450);
+  var parts = Array.prototype.slice.call($('#detail-content').querySelectorAll('.detail-media, .dhead'))
+    .concat(Array.prototype.slice.call($('#detail-content .dbody').children, 0, 3));
+  parts.forEach(function(n, i){
+    var delay = 180 + i*60;
+    detailAnimate(n, [{opacity:0, transform:'translateY(12px)'}, {opacity:1, transform:'none'}],
+      Math.max(MOTION.bloomOpen - delay, 120), delay);
+  });
+}
+
 function detailTransition(kind, done, outgoing){
   cancelDetailMotion();
   if(reducedMotion() || !$('#detail-dialog').animate){ if(done) done(); return; }
@@ -83,7 +146,10 @@ function detailTransition(kind, done, outgoing){
   var panel = $('#detail-dialog .detail-panel');
   var source = DETAIL.source;
   var reverse = closing && !DETAIL.navigated && DETAIL.id === DETAIL.originId;
-  if(source && (opening || reverse)){
+  var bloom = !!(source && source.closest('#pane-graph'));
+  if(bloom && kind !== 'navigate'){
+    detailBloom(panel, closing);
+  }else if(source && (opening || reverse)){
     var sourceImage = source.querySelector('.plate-img');
     var sourceTitle = source.querySelector('.fpn, h3, .lfname');
     var heroImage = $('#detail-dialog .detail-image'), heroTitle = $('#detail-title');
@@ -93,11 +159,11 @@ function detailTransition(kind, done, outgoing){
   if(kind === 'navigate'){
     if(outgoing){
       $('#detail-dialog .detail-flight-layer').appendChild(outgoing); DETAIL.clones.push(outgoing);
-      detailAnimate(outgoing,[{opacity:1},{opacity:0}],150);
+      detailAnimate(outgoing,[{opacity:1},{opacity:0}],MOTION.navigate);
     }
-    detailAnimate($('#detail-content'), [{opacity:0},{opacity:1}],150);
-  }else detailAnimate(panel, closing ? [{opacity:1,transform:'none'},{opacity:0,transform:reverse ? 'scale(.98)' : 'none'}] :
-    [{opacity:0,transform:'scale(.98)'},{opacity:1,transform:'none'}], closing ? (reverse ? 220 : 150) : 300);
+    detailAnimate($('#detail-content'), [{opacity:0},{opacity:1}],MOTION.navigate);
+  }else if(!bloom) detailAnimate(panel, closing ? [{opacity:1,transform:'none'},{opacity:0,transform:reverse ? 'scale(.98)' : 'none'}] :
+    [{opacity:0,transform:'scale(.98)'},{opacity:1,transform:'none'}], closing ? (reverse ? MOTION.heroClose : MOTION.close) : MOTION.open);
   $('#detail-dialog').classList.toggle('detail-closing',closing);
   Promise.all(DETAIL.animations.map(function(a){return a.finished.catch(function(){});})).then(function(){
     if(token !== DETAIL.motion) return;
@@ -115,13 +181,14 @@ function scheduleDetailTransition(kind, outgoing){
   });
 }
 
-function openDetail(id, source){
+function openDetail(id, source, at){
   if(!BY_ID[id]) return;
   var d = $('#detail-dialog'), fresh = !d.open || DETAIL.closing, previousOpener = DETAIL.opener, outgoing;
   cancelDetailMotion(); DETAIL.closing = false; d.classList.remove('detail-closing');
   if(fresh){
     DETAIL.history = []; DETAIL.originId = id; DETAIL.navigated = false;
     DETAIL.source = source instanceof Element ? source : null;
+    DETAIL.at = at && isFinite(at.x) && isFinite(at.y) ? {x:at.x, y:at.y} : null;
     DETAIL.opener = DETAIL.source || (d.open ? previousOpener : document.activeElement);
     /* A tour may still be easing into its stop when Details is clicked. */
     if(GRAPH.anim){ cancelAnimationFrame(GRAPH.anim); GRAPH.anim = null; }
@@ -304,7 +371,7 @@ function finishDetailClose(){
   if(!opener || !opener.isConnected || !opener.getClientRects().length)
     opener = S.view === 'graph' && !LF.open ? $('#gcanvas') : $('#stage');
   opener.focus({preventScroll:true});
-  DETAIL.id = null; DETAIL.originId = null; DETAIL.source = null; DETAIL.opener = null;
+  DETAIL.id = null; DETAIL.originId = null; DETAIL.source = null; DETAIL.at = null; DETAIL.opener = null;
   DETAIL.history = []; DETAIL.closing = false; DETAIL.navigated = false;
   $('#detail-content').innerHTML = '';
   if(DETAIL.resizePending){

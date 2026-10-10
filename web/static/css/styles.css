@@ -672,7 +672,7 @@ select:hover{border-color:var(--acc)}
   overflow:hidden;font-family:var(--f-body);
 }
 .detail-dialog[open]{display:grid;place-items:center}
-.detail-dialog::backdrop{background:rgba(12,16,22,.42);transition:background .22s}
+.detail-dialog::backdrop{background:rgba(12,16,22,.42);transition:background .35s}
 .detail-dialog.detail-closing::backdrop{background:rgba(12,16,22,0)}
 .detail-panel{
   display:flex;flex-direction:column;min-height:0;width:min(1040px,100%);
@@ -697,6 +697,7 @@ select:hover{border-color:var(--acc)}
 .detail-no-image .thumb{margin-bottom:20px}
 .detail-flight-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden}
 .detail-flight{display:block;overflow:hidden;text-wrap:balance}
+.detail-bloom-ring{position:fixed;width:28px;height:28px;border:2px solid var(--era,var(--acc));border-radius:50%;pointer-events:none}
 @media (prefers-reduced-motion:reduce){
   .detail-dialog::backdrop,.rail,.card,.fplate,.fera,.froute,.lfcard,.cathead,.viewtoggle button,
   .gdetail button,.garrange button,.gchip,.iconbtn,.opt,.skip{transition:none}
