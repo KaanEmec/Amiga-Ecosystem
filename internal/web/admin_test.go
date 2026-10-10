@@ -229,7 +229,7 @@ func TestAdmin_Unauthenticated(t *testing.T) {
 	t.Parallel()
 	env := newAdminEnv(t)
 	for _, path := range []string{"/admin", "/admin/", "/admin/entries", "/admin/entries/a500", "/admin/entries/new",
-		"/admin/entries/a500/remove", "/admin/settings", "/admin/export", "/admin/import", "/admin/unknown/path"} {
+		"/admin/entries/a500/remove", "/admin/stats", "/admin/settings", "/admin/export", "/admin/import", "/admin/unknown/path"} {
 		t.Run("GET "+path, func(t *testing.T) {
 			rec := env.request(t, http.MethodGet, path, nil, nil, nil)
 			if rec.Code != http.StatusSeeOther || rec.Header().Get("Location") != "/admin/login" {

@@ -113,6 +113,7 @@ and a final preview, then **Accept**, **Edit & accept**, **Reject**, **Mark dupl
 **Hide spam**. Each acceptance is one transaction that updates the entry, records a revision
 and a moderation entry, and freezes the proposal; a second click is refused. Suggested
 images are fetched only when the owner asks, validated, and published as a local copy.
+`/admin/stats` shows cookie-free visitor counts: no cookie, a daily-rotating hashed visitor id, nothing identifying stored.
 
 <table>
   <tr>

@@ -62,6 +62,7 @@ In development a missing `AMIGA_SECRET` is generated once into `<data_dir>/secre
 - `images(id, suggestion_id, entry_id, source_url, source_page, credit, path, content_type, width, height, bytes, sha256, created_at)` — provenance for every published image.
 - `owner(id=1, username, password_hash, totp_secret, recovery_codes JSON, created_at)`, `sessions(token_hash PK, created_at, expires_at, last_seen)`, `login_attempts(key, at)`.
 - `rate_events(key, kind, at)` pruned on write; `settings(key PK, value)` for `submissions_paused`, `voting_paused`.
+- `pageviews(id, at, day, path, visitor, referrer)`, indexed on `day` and `(visitor, at)`; cookie-free analytics, pruned after 400 days.
 
 Schema conventions: STRICT tables, timestamps are INTEGER Unix seconds (UTC), JSON columns are TEXT checked with `json_valid`. Migrations are embedded SQL files (`internal/store/migrations/NNNN_*.sql`) tracked with `PRAGMA user_version`, each applied in its own transaction.
 
@@ -76,7 +77,7 @@ Admin (session + CSRF token in forms, Origin checked on every mutation):
 `/admin/login`, `/admin` (dashboard), `/admin/queue`, `/admin/suggestions/{id}` (current / diff / final preview + decisions:
 `POST …/accept` (`edit=1` for Edit & accept), `…/reject`, `…/duplicate`, `…/hide`, `…/preview` (triggers the image fetch)),
 `/admin/staged/{name}` (owner-only staged preview), `/admin/entries`, `/admin/entries/{id}` (edit, remove with dependency summary, restore),
-`/admin/entries/new`, `/admin/settings` (pauses, hidden spam).
+`/admin/entries/new`, `/admin/stats` (visitors), `/admin/settings` (pauses, hidden spam).
 
 `/api/catalog` returns the same object shape as `data/amiga-data.json` (`meta`, `domains`, `tours`, `entries`),
 excluding deleted entries and the `_readme` field guide (kept in exports). `data.js` fetches it before the rest of the UI boots.
@@ -100,6 +101,7 @@ excluding deleted entries and the `_readme` field guide (kept in exports). `data
 - Sessions: 32 random bytes, sha256 stored, cookie `amiga_admin` (HttpOnly, SameSite=Strict, Path=/admin, Secure in production), 12 h idle / 7 d absolute, new token on every login (a presented old one is deleted); password or TOTP reset signs out everywhere. CSRF: hidden `csrf` field = HMAC(secret, session hash), checked on every admin mutation together with `Sec-Fetch-Site` (must be same-origin when sent) and `Origin` (must equal `AMIGA_BASE_URL`, or the request host in development). Login is Origin-checked only. Admin and public mutations share one check (`sameOriginMutation`); only the admin side lets requests with neither header through, since it also requires the CSRF token (or, for login, has no session to ride on). All `/admin` responses carry `Cache-Control: no-store` and `X-Robots-Tag: noindex`; every unknown `/admin/*` path redirects anonymous visitors to the login page.
 - Local recovery is the CLI: `owner init` (env `AMIGA_OWNER_USER` / `AMIGA_OWNER_PASSWORD` or prompts), `owner reset-password`, `owner reset-totp`, `owner recovery-codes`, `owner unlock` (clears `login_attempts`).
 - Image fetcher (`images.Fetcher`): no environment proxy; the dialer resolves the host itself and dials only a vetted address (all answers must be public; blocks loopback, RFC 1918, CGNAT, link-local and metadata, ULA, multicast, unspecified, documentation, NAT64 and 6to4); redirects are re-vetted by the same dialer plus a scheme/credential check (max 3). Bytes are sniffed and decoded with `image.DecodeConfig` (format must match the sniffed type). Staged files are `staging/<128-bit hex>.<ext>` (0640); `Publish` re-reads and re-hashes the staged file before renaming it to `media/suggested/<entry>-<sha8>.<ext>`, and records provenance in `images` inside the catalogue transaction (path relative to the media dir; returned as `images/suggested/...`). The panel's "Fetch & attach" checks the rev before downloading.
+- Analytics (`internal/web/analytics.go`): a middleware records each 2xx/304 `GET` of `/` and `/suggestions*` after the response is written, skipping empty and bot-like User-Agents. No cookie: `visitor` = first 16 hex of sha256(secret ‖ UTC day ‖ client IP (`visitorIP`) ‖ User-Agent), so ids rotate daily and a returning visitor counts once per day. `referrer` is the Referer host only (empty for direct or same-site), query strings are dropped, a failed write is only logged, and rows older than 400 days are pruned at most hourly on the request path. A session starts when a visitor's previous view is absent or over 30 minutes earlier (`LAG` window). `/admin/stats` shows today / 7 / 30 days, a 30-day table and top pages and referrers.
 - Template partials (`web/templates/_*.html`) are embedded with an explicit `templates/_*.html` pattern, since directory embeds skip `_` files. Admin import goes through the global 1 MB request-body limit (the seed is ~280 KB).
 
 ### Review and decisions

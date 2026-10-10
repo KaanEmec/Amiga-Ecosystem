@@ -61,6 +61,7 @@ func (s *Server) registerAdminRoutes(mux *http.ServeMux) {
 	mux.Handle("POST /admin/suggestions/{id}/hide", owner(s.reviewHide))
 	mux.Handle("POST /admin/suggestions/{id}/preview", owner(s.reviewPreview))
 	mux.Handle("GET /admin/staged/{name}", owner(s.reviewStagedFile))
+	mux.Handle("GET /admin/stats", owner(s.adminStats))
 	mux.Handle("GET /admin/settings", owner(s.adminSettingsPage))
 	mux.Handle("POST /admin/settings", owner(s.adminSaveSettings))
 	mux.Handle("GET /admin/export", owner(s.adminExport))
@@ -271,6 +272,7 @@ type adminEvent struct {
 type adminDashboardView struct {
 	adminView
 	Counts            store.AdminCounts
+	Visitors7         int // unique visitors over the last 7 days (analytics.go)
 	Events            []adminEvent
 	SubmissionsPaused bool
 	VotingPaused      bool
@@ -289,7 +291,12 @@ func (s *Server) adminDashboard(w http.ResponseWriter, r *http.Request) {
 		s.adminFail(w, r, err)
 		return
 	}
-	v := adminDashboardView{adminView: s.adminViewFor(r, "Dashboard", "dashboard"), Counts: counts}
+	week, err := q.StatsSummary(ctx, daysAgo(time.Now(), 6))
+	if err != nil {
+		s.adminFail(w, r, err)
+		return
+	}
+	v := adminDashboardView{adminView: s.adminViewFor(r, "Dashboard", "dashboard"), Counts: counts, Visitors7: week.Visitors}
 	for _, ev := range log {
 		e := adminEvent{When: ev.CreatedAt, Action: ev.Action, Detail: string(ev.Detail)}
 		if ev.EntryID != nil {

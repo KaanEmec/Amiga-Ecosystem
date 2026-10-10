@@ -6,6 +6,7 @@
   <a class="admin-stat" href="/admin/queue"><b class="mono">{{.Counts.PendingSuggestions}}</b><span>pending suggestions</span></a>
   <div class="admin-stat"><b class="mono">{{.Counts.Revisions}}</b><span>revisions</span></div>
   <div class="admin-stat"><b class="mono">{{.Counts.Images}}</b><span>fetched images</span></div>
+  <a class="admin-stat" href="/admin/stats"><b class="mono">{{.Visitors7}}</b><span>visitors, 7 days</span></a>
 </div>
 {{if or .SubmissionsPaused .VotingPaused}}
 <p class="admin-flash admin-flash-warn">

@@ -1263,6 +1263,7 @@ a.admin-stat:hover{border-color:var(--acc);color:var(--ink)}
 .admin-table td{padding:9px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
 .admin-table tbody tr:hover{background:var(--surf-2)}
 .admin-table .admin-removed td{color:var(--ink-3)}
+.admin-meter{display:block;height:8px;min-width:1px;margin-top:6px;background:var(--acc-dim);border-radius:2px}
 .admin-detail{font-size:12px;color:var(--ink-3);word-break:break-word;max-width:420px}
 .admin-diff td{word-break:break-word}
 .admin-before{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--acc-dim)}

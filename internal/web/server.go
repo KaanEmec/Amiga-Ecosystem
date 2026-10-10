@@ -12,6 +12,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"sync/atomic"
 	"time"
 
 	"amigaconstellation/internal/catalog"
@@ -44,6 +45,8 @@ type Server struct {
 	// own field here and registers its routes from its own file.
 	suggest *suggestDeps // suggest.go (public suggestions, votes, spam)
 	admin   *adminDeps   // admin.go (owner auth, private panel)
+
+	pageviewsPruned atomic.Int64 // analytics.go: Unix time of the last prune
 }
 
 // Option configures optional server features.
@@ -106,6 +109,7 @@ func (s *Server) Handler() http.Handler {
 	s.registerAdminRoutes(mux)   // no-op until WithAdmin is used
 
 	var h http.Handler = mux
+	h = s.recordPageviews(h)
 	h = limitBody(h, maxBodyBytes)
 	h = securityHeaders(h, s.cfg.Production())
 	h = recoverPanics(h, s.log)
