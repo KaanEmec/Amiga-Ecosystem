@@ -9,12 +9,11 @@
 /* --------------------------------------------------------- object overlay
    Reading details owns no map state. The background DOM, selection, camera,
    and scroll containers are left in place for the entire modal session. */
-var DETAIL = {id:null, originId:null, source:null, at:null, opener:null, history:[], navigated:false,
-  closing:false, motion:0, animations:[], clones:[], hidden:[], resizePending:false, imageSizes:{}};
+var DETAIL = {id:null, source:null, at:null, opener:null, history:[],
+  closing:false, motion:0, animations:[], clones:[], resizePending:false, imageSizes:{}};
 
-/* Dialog motion in ms. Lineage opens "bloom" from the clicked star instead of
-   flying a card's image and title into the hero. */
-var MOTION = {open:700, heroClose:500, close:250, navigate:150, bloomOpen:600, bloomClose:350};
+/* Dialog motion in ms. Every open and close "blooms" from the opener. */
+var MOTION = {navigate:150, bloomOpen:600, bloomClose:350};
 
 function detailOpen(){ return $('#detail-dialog').open; }
 function reducedMotion(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
@@ -23,77 +22,14 @@ function cancelDetailMotion(){
   DETAIL.motion++;
   DETAIL.animations.forEach(function(a){a.cancel();});
   DETAIL.clones.forEach(function(c){c.remove();});
-  DETAIL.hidden.forEach(function(n){n.style.visibility = '';});
-  DETAIL.animations = []; DETAIL.clones = []; DETAIL.hidden = [];
+  DETAIL.animations = []; DETAIL.clones = [];
   var panel = document.querySelector('#detail-dialog .detail-panel');
   if(panel) panel.style.transformOrigin = '';
-}
-
-/* Reject clipped/offscreen sources so returning from a deep read never flies
-   toward a title or image outside its scroll container. */
-function detailVisibleRect(node){
-  if(!node || !node.isConnected || !node.getClientRects().length) return null;
-  var r = node.getBoundingClientRect();
-  if(r.width < 1 || r.height < 1 || r.top < 0 || r.left < 0 || r.bottom > innerHeight || r.right > innerWidth) return null;
-  for(var p=node.parentElement; p && p !== document.body; p=p.parentElement){
-    var s = getComputedStyle(p);
-    if(s.display === 'none' || s.visibility === 'hidden') return null;
-    var b = p.getBoundingClientRect();
-    if(/auto|scroll|hidden|clip/.test(s.overflowY) && (r.top < b.top-1 || r.bottom > b.bottom+1)) return null;
-    if(/auto|scroll|hidden|clip/.test(s.overflowX) && (r.left < b.left-1 || r.right > b.right+1)) return null;
-  }
-  return r;
 }
 
 function detailAnimate(node, frames, duration, delay){
   var a = node.animate(frames, {duration:duration, delay:delay || 0, easing:'cubic-bezier(.2,.75,.2,1)', fill:'both'});
   DETAIL.animations.push(a);
-}
-
-function detailFlight(from, to, reverse){
-  var a = detailVisibleRect(from), b = detailVisibleRect(to);
-  if(!a || !b || (from.tagName === 'IMG' && (!from.complete || !from.naturalWidth))) return;
-  if(from.tagName !== 'IMG'){ detailTextFlight(from, to, a, b, reverse); return; }
-  var copy = from.cloneNode(true), s = getComputedStyle(from), end = getComputedStyle(to);
-  copy.removeAttribute('id'); copy.removeAttribute('tabindex'); copy.setAttribute('aria-hidden','true');
-  copy.className = 'detail-flight';
-  Object.assign(copy.style, {position:'fixed',margin:'0',left:a.left+'px',top:a.top+'px',
-    width:a.width+'px',height:a.height+'px',maxWidth:'none',maxHeight:'none',
-    objectFit:'contain',objectPosition:s.objectPosition,background:s.backgroundColor,
-    borderRadius:s.borderRadius,transformOrigin:'0 0',pointerEvents:'none'});
-  $('#detail-dialog .detail-flight-layer').appendChild(copy); DETAIL.clones.push(copy);
-  var target = reverse ? from : to;
-  target.style.visibility = 'hidden'; DETAIL.hidden.push(target);
-  detailAnimate(copy, [
-    {transform:'translate(0,0)',width:a.width+'px',height:a.height+'px'},
-    {transform:'translate('+(b.left-a.left)+'px,'+(b.top-a.top)+'px)',width:b.width+'px',height:b.height+'px'}
-  ], reverse ? MOTION.heroClose : MOTION.open);
-}
-
-/* Titles fly with transforms only (FLIP). The copy is laid out once at the
-   larger of the two titles and scaled toward the smaller one, so glyphs are
-   never clipped by an animating box and stay sharp at the large end. */
-function detailTextFlight(from, to, a, b, reverse){
-  var fs = getComputedStyle(from), ts = getComputedStyle(to);
-  var fromBig = parseFloat(fs.fontSize) >= parseFloat(ts.fontSize);
-  var big = fromBig ? fs : ts, bigR = fromBig ? a : b, smallR = fromBig ? b : a;
-  var k = parseFloat((fromBig ? ts : fs).fontSize) / parseFloat(big.fontSize) || 1;
-  var copy = document.createElement('div');
-  copy.className = 'detail-flight'; copy.setAttribute('aria-hidden','true');
-  copy.textContent = from.textContent;
-  Object.assign(copy.style, {position:'fixed',margin:'0',padding:'0',left:bigR.left+'px',top:bigR.top+'px',
-    width:(bigR.width+1)+'px',height:'auto',overflow:'visible',
-    fontFamily:big.fontFamily,fontSize:big.fontSize,fontWeight:big.fontWeight,fontStyle:big.fontStyle,
-    lineHeight:big.lineHeight,letterSpacing:big.letterSpacing,textTransform:big.textTransform,
-    whiteSpace:big.whiteSpace,textAlign:big.textAlign,transformOrigin:'0 0',pointerEvents:'none',zIndex:'1'});
-  $('#detail-dialog .detail-flight-layer').appendChild(copy); DETAIL.clones.push(copy);
-  var target = reverse ? from : to;
-  target.style.visibility = 'hidden'; DETAIL.hidden.push(target);
-  var small = 'translate('+(smallR.left-bigR.left)+'px,'+(smallR.top-bigR.top)+'px) scale('+k+')';
-  detailAnimate(copy, fromBig ?
-    [{transform:'none',color:fs.color},{transform:small,color:ts.color}] :
-    [{transform:small,color:fs.color},{transform:'none',color:ts.color}],
-    reverse ? MOTION.heroClose : MOTION.open);
 }
 
 function detailContentCopy(){
@@ -108,8 +44,8 @@ function detailContentCopy(){
   return copy;
 }
 
-/* Viewport point the lineage bloom grows from: the clicked star, else the
-   centre of the source element, else the centre of the screen. */
+/* Viewport point the bloom grows from: the clicked star, else the centre of
+   the source element, else the centre of the screen. */
 function detailBloomPoint(){
   if(DETAIL.at) return DETAIL.at;
   var r = DETAIL.source && DETAIL.source.isConnected && DETAIL.source.getBoundingClientRect();
@@ -142,28 +78,14 @@ function detailBloom(panel, closing){
 function detailTransition(kind, done, outgoing){
   cancelDetailMotion();
   if(reducedMotion() || !$('#detail-dialog').animate){ if(done) done(); return; }
-  var token = DETAIL.motion, closing = kind === 'close', opening = kind === 'open';
-  var panel = $('#detail-dialog .detail-panel');
-  var source = DETAIL.source;
-  var reverse = closing && !DETAIL.navigated && DETAIL.id === DETAIL.originId;
-  var bloom = !!(source && source.closest('#pane-graph'));
-  if(bloom && kind !== 'navigate'){
-    detailBloom(panel, closing);
-  }else if(source && (opening || reverse)){
-    var sourceImage = source.querySelector('.plate-img');
-    var sourceTitle = source.querySelector('.fpn, h3, .lfname');
-    var heroImage = $('#detail-dialog .detail-image'), heroTitle = $('#detail-title');
-    if(closing){ detailFlight(heroImage, sourceImage, true); detailFlight(heroTitle, sourceTitle, true); }
-    else { detailFlight(sourceImage, heroImage, false); detailFlight(sourceTitle, heroTitle, false); }
-  }
+  var token = DETAIL.motion, closing = kind === 'close';
   if(kind === 'navigate'){
     if(outgoing){
       $('#detail-dialog .detail-flight-layer').appendChild(outgoing); DETAIL.clones.push(outgoing);
       detailAnimate(outgoing,[{opacity:1},{opacity:0}],MOTION.navigate);
     }
     detailAnimate($('#detail-content'), [{opacity:0},{opacity:1}],MOTION.navigate);
-  }else if(!bloom) detailAnimate(panel, closing ? [{opacity:1,transform:'none'},{opacity:0,transform:reverse ? 'scale(.98)' : 'none'}] :
-    [{opacity:0,transform:'scale(.98)'},{opacity:1,transform:'none'}], closing ? (reverse ? MOTION.heroClose : MOTION.close) : MOTION.open);
+  }else detailBloom($('#detail-dialog .detail-panel'), closing);
   $('#detail-dialog').classList.toggle('detail-closing',closing);
   Promise.all(DETAIL.animations.map(function(a){return a.finished.catch(function(){});})).then(function(){
     if(token !== DETAIL.motion) return;
@@ -172,8 +94,8 @@ function detailTransition(kind, done, outgoing){
   });
 }
 
-/* Cached images get a frame to settle before measuring the hero. A later load
-   cancels the flight instead of leaving a copy aimed at an obsolete box. */
+/* The panel gets a frame to lay out before the bloom measures it. A later
+   load cancels the pending motion instead of animating an obsolete panel. */
 function scheduleDetailTransition(kind, outgoing){
   var token = DETAIL.motion;
   requestAnimationFrame(function(){
@@ -186,14 +108,14 @@ function openDetail(id, source, at){
   var d = $('#detail-dialog'), fresh = !d.open || DETAIL.closing, previousOpener = DETAIL.opener, outgoing;
   cancelDetailMotion(); DETAIL.closing = false; d.classList.remove('detail-closing');
   if(fresh){
-    DETAIL.history = []; DETAIL.originId = id; DETAIL.navigated = false;
+    DETAIL.history = [];
     DETAIL.source = source instanceof Element ? source : null;
     DETAIL.at = at && isFinite(at.x) && isFinite(at.y) ? {x:at.x, y:at.y} : null;
     DETAIL.opener = DETAIL.source || (d.open ? previousOpener : document.activeElement);
     /* A tour may still be easing into its stop when Details is clicked. */
     if(GRAPH.anim){ cancelAnimationFrame(GRAPH.anim); GRAPH.anim = null; }
   }else if(DETAIL.id !== id){
-    outgoing = detailContentCopy(); DETAIL.navigated = true;
+    outgoing = detailContentCopy();
     DETAIL.history.push({id:DETAIL.id, scroll:$('#detail-content').scrollTop});
   }else return;
   DETAIL.id = id;
@@ -370,8 +292,8 @@ function finishDetailClose(){
   if(!opener || !opener.isConnected || !opener.getClientRects().length)
     opener = S.view === 'graph' && !LF.open ? $('#gcanvas') : $('#stage');
   opener.focus({preventScroll:true});
-  DETAIL.id = null; DETAIL.originId = null; DETAIL.source = null; DETAIL.at = null; DETAIL.opener = null;
-  DETAIL.history = []; DETAIL.closing = false; DETAIL.navigated = false;
+  DETAIL.id = null; DETAIL.source = null; DETAIL.at = null; DETAIL.opener = null;
+  DETAIL.history = []; DETAIL.closing = false;
   $('#detail-content').innerHTML = '';
   if(DETAIL.resizePending){
     DETAIL.resizePending=false;

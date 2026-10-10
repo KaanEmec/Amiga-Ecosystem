@@ -242,9 +242,17 @@ a:hover{color:var(--acc-soft);border-bottom-color:currentColor}
 @media (max-width:1080px){.toplink{width:40px;padding:0;justify-content:center}.toplink span{display:none}}
 .iconbtn svg.px{width:16px;height:16px}
 
-/* --- Screen Mode: the theme picker's popover (theme.js) ---
-   A small card hung under its button; each row previews a mode as three
-   stripes of its own palette, so the choice is visible before it is made. */
+/* --- Screen Mode: the theme picker's button and popover (theme.js) ---
+   The button shows the current mode's glyph, a "Theme" label and a caret so
+   it reads as a menu; below 1080px the label yields like .toplink's. Each
+   menu row leads with the same glyph its mode puts on the button. */
+.iconbtn.themebtn{
+  width:auto;padding:0 10px 0 12px;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+}
+.iconbtn.themebtn svg.themebtn-caret{width:10px;height:10px;transition:transform .15s}
+.themebtn[aria-expanded="true"] .themebtn-caret{transform:rotate(180deg)}
+@media (max-width:1080px){.iconbtn.themebtn{padding:0 8px;gap:4px}.themebtn-l{display:none}}
 .scrmode{
   position:fixed;z-index:80;width:272px;max-width:calc(100vw - 16px);
   background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);
@@ -262,9 +270,10 @@ a:hover{color:var(--acc-soft);border-bottom-color:currentColor}
 .scrmode-i:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 .scrmode-i[aria-checked="true"]{background:var(--acc-tint);border-left-color:var(--acc)}
 .scrmode-i[aria-checked="true"] b{color:var(--acc)}
-.scrmode-sw{display:flex;flex:0 0 auto;width:30px;height:22px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.scrmode-sw i{flex:1 1 0}
-.scrmode-sw i:first-child{flex-grow:1.6}
+.scrmode-ic{display:grid;place-items:center;flex:0 0 auto;width:32px;height:32px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--ink-2)}
+.scrmode-ic svg{width:18px;height:18px}
+.scrmode-ic svg.px{width:16px;height:16px}
+.scrmode-i[aria-checked="true"] .scrmode-ic{color:var(--acc);border-color:var(--acc)}
 .scrmode-t{display:flex;flex-direction:column;min-width:0;line-height:1.3}
 .scrmode-t b{font-family:var(--f-body);font-size:14px;font-weight:600}
 .scrmode-t small{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3)}
@@ -733,7 +742,6 @@ select:hover{border-color:var(--acc)}
 .detail-no-image .dhead{max-width:760px}
 .detail-no-image .thumb{margin-bottom:20px}
 .detail-flight-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden}
-.detail-flight{display:block;overflow:hidden;text-wrap:balance}
 .detail-bloom-ring{position:fixed;width:28px;height:28px;border:2px solid var(--era,var(--acc));border-radius:50%;pointer-events:none}
 @media (prefers-reduced-motion:reduce){
   .detail-dialog::backdrop,.rail,.card,.fplate,.fera,.froute,.lfcard,.cathead,.viewtoggle button,

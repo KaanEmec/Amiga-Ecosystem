@@ -3,16 +3,17 @@
    Screen Mode. A blocking classic script in <head> of the SPA shell and the
    suggestion layout: it applies the stored theme before first paint, then
    AmigaTheme.mount(button) turns an .iconbtn into the picker (role=menu
-   popover, one menuitemradio per mode). Nothing stored = follow the OS.
+   popover, one menuitemradio per mode, each shown by its glyph). Nothing
+   stored = Museum Mode Dark.
    ========================================================================== */
 (function(){
 'use strict';
 
 var KEY = 'amiga-theme', root = document.documentElement;
 var MODES = [
-  {id:'light', name:'Museum Mode Light', tag:'Paper and ink', sw:['#F2F3F5','#14161A','#B01B1B']},
-  {id:'dark', name:'Museum Mode Dark', tag:'After hours', sw:['#14161A','#FFFFFF','#FF6E5C']},
-  {id:'workbench', name:'Workbench Mode', tag:'Kickstart 1.3, interlaced', sw:['#0055aa','#ffffff','#ff8800']}
+  {id:'light', name:'Museum Mode Light', tag:'Paper and ink'},
+  {id:'dark', name:'Museum Mode Dark', tag:'After hours'},
+  {id:'workbench', name:'Workbench Mode', tag:'Kickstart 1.3, interlaced'}
 ];
 var SVG = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" ';
 var GLYPH = {
@@ -23,20 +24,22 @@ var GLYPH = {
     '<path fill="#fff" d="M4 1h7v5H4zM3 8h10v6H3z"/><path fill="#0055aa" d="M8 2h2v3H8z"/>'+
     '<path fill="#ff8800" d="M4 10h8v1H4zM4 12h6v1H4z"/></svg>'
 };
-var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+/* The closed button reads as a dropdown: current glyph, a label, a caret. */
+var CARET = '<svg class="themebtn-caret" viewBox="0 0 12 12" aria-hidden="true" focusable="false" fill="none" '+
+  'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>';
+var DEFAULT = 'dark';
 var mounts = [], uid = 0;
 
 function find(id){ for(var i = 0; i < MODES.length; i++) if(MODES[i].id === id) return MODES[i]; return null; }
 function stored(){ try{ var v = localStorage.getItem(KEY); return find(v) ? v : null; }catch(err){ return null; } }
-function get(){ return stored() || root.getAttribute('data-theme') || (mq && mq.matches ? 'dark' : 'light'); }
+function get(){ return stored() || DEFAULT; }
 
-var first = stored();
-if(first) root.setAttribute('data-theme', first);
+root.setAttribute('data-theme', get());
 
 function refresh(changed){
   var cur = get(), m = find(cur);
   mounts.forEach(function(p){
-    p.btn.innerHTML = GLYPH[cur];
+    p.btn.innerHTML = GLYPH[cur] + '<span class="themebtn-l">Theme</span>' + CARET;
     p.btn.setAttribute('aria-label', 'Screen Mode: ' + m.name);
     p.btn.title = 'Screen Mode: ' + m.name;
     p.items.forEach(function(it){ it.setAttribute('aria-checked', it.getAttribute('data-mode') === cur ? 'true' : 'false'); });
@@ -51,9 +54,6 @@ function set(name){
   refresh(true);
 }
 
-if(mq) (mq.addEventListener ? mq.addEventListener('change', onOS) : mq.addListener(onOS));
-function onOS(){ if(!stored()) refresh(true); }
-
 function mount(btn, opts){
   var n = ++uid, menuId = 'scrmode-' + n, headId = menuId + '-h';
   var pop = document.createElement('div');
@@ -63,12 +63,13 @@ function mount(btn, opts){
     '<div class="scrmode-list" role="menu" id="'+menuId+'" aria-labelledby="'+headId+'">' +
     MODES.map(function(m){
       return '<button type="button" class="scrmode-i" role="menuitemradio" tabindex="-1" data-mode="'+m.id+'">' +
-        '<span class="scrmode-sw" aria-hidden="true">' + m.sw.map(function(c){ return '<i style="background:'+c+'"></i>'; }).join('') + '</span>' +
+        '<span class="scrmode-ic" aria-hidden="true">' + GLYPH[m.id] + '</span>' +
         '<span class="scrmode-t"><b>'+m.name+'</b><small>'+m.tag+'</small></span></button>';
     }).join('') + '</div>';
   document.body.appendChild(pop);
   var p = {btn: btn, opts: opts || {}, pop: pop, items: [].slice.call(pop.querySelectorAll('.scrmode-i'))};
   mounts.push(p);
+  btn.classList.add('themebtn');
   btn.setAttribute('aria-haspopup', 'menu');
   btn.setAttribute('aria-expanded', 'false');
   btn.setAttribute('aria-controls', menuId);

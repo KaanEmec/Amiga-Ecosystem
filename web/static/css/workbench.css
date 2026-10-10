@@ -97,7 +97,7 @@
   :is(.eyebrow, .cardspec, .fpspec, .grouplbl, .lflab, .lfst, .st, .haslink,
       .tourtitle, .dfact .k, .sortwrap label, .glbl, .glegend .legttl, .facet > summary,
       .fstat .k, .froute-n, .froute-go, .peek-go, .sg-th, .sg-dr .k, .sg-dh,
-      .viewtoggle button, .sg-nav a, .gdetail button, .toplink, .btn, .lfback, #resetall,
+      .viewtoggle button, .sg-nav a, .gdetail button, .toplink, .themebtn, .btn, .lfback, #resetall,
       .sg-dlg-actions a) {
     text-transform: none; letter-spacing: 0;
   }
@@ -177,7 +177,9 @@
   .scrmode-i[aria-checked="true"] :is(b, small) { color: var(--wb-black); }
   .scrmode-t b { font-family: var(--wb-font); font-size: 16px; font-weight: 400; line-height: 1.25; }
   .scrmode-t small { font-size: 12px; color: var(--ink-3); }
-  .scrmode-sw { border: 1px solid var(--wb-black); border-radius: 0; }
+  .scrmode-ic { border: 1px solid var(--wb-blue); border-radius: 0; background: var(--wb-white); color: var(--wb-blue); }
+  .scrmode-i[aria-checked="true"] .scrmode-ic { color: var(--wb-blue); border-color: var(--wb-black); }
+  .themebtn-caret { transition: none; }
 
   /* ---- filter rail: a blue drawer with inverse tokens ---- */
   .rail {
