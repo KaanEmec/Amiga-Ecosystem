@@ -43,19 +43,13 @@ function boot(){
   buildShell();
   buildRail();
 
-  /* theme */
-  var stored = null;
-  try{ stored = localStorage.getItem('amiga-theme'); }catch(err){}
-  if(stored) document.documentElement.setAttribute('data-theme', stored);
-  $('#themebtn').addEventListener('click', function(){
-    var cur = document.documentElement.getAttribute('data-theme');
-    var isDark = cur ? cur === 'dark'
-      : !window.matchMedia('(prefers-color-scheme: light)').matches;
-    var next = isDark ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    try{ localStorage.setItem('amiga-theme', next); }catch(err){}
-    if(GRAPH.ready) GRAPH.draw();
-  });
+  /* Screen Mode (theme.js already applied the stored theme in <head>);
+     the canvas paints with resolved colours and fonts, so it redraws */
+  function redrawGraph(){ if(GRAPH.ready) GRAPH.draw(); }
+  AmigaTheme.mount($('#themebtn'), {onChange: function(){
+    redrawGraph();
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(redrawGraph);
+  }});
 
   /* search */
   var si = $('#search'), t = 0;

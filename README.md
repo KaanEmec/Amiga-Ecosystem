@@ -40,6 +40,7 @@ secrets live in `AMIGA_DATA_DIR` and are git-ignored.
 | `cmd/amiga`, `internal/` | the Go application (see `ARCHITECTURE.md`) |
 | `web/static/js/*.js` | the catalogue UI as classic scripts: `data.js` boots, then core, catalog, detail, lineage, app, actions |
 | `web/static/css/styles.css` | the design system, both themes, plus admin and suggestion sections |
+| `web/static/css/workbench.css` | Workbench Mode: Amiga Workbench 1.3 tokens, interlace overlay and component overrides (see `ARCHITECTURE.md`, Themes) |
 | `web/templates/` | the page shell and the server-rendered suggestion and admin pages |
 | `data/amiga-data.json` | seed content, read once; afterwards edit through `/admin` or `amiga import --replace` |
 | `images/` | seed pictures, copied once into the runtime media directory |
@@ -134,7 +135,7 @@ failures, authentication and throttling, stale approvals, removal dependencies, 
 image-fetch restrictions and transaction rollback. The layout test checks all five
 arrangements at four widths with Essentials on and off.
 
-Manual checks after a UI change: all three views in both themes, a guided route, the
+Manual checks after a UI change: all three views in all three themes (Museum Light, Museum Dark, Workbench), a guided route, the
 detail dialog (Back, Escape, backdrop, focus return, Tab containment), keyboard operation
 of the Arrange buttons, and a narrow screen. The console must show the entry/link counts
 and no `[data]` warnings.
@@ -164,8 +165,11 @@ and competed for CPU, so request rates are a lower bound.
 The source code — `cmd/`, `internal/`, `web/`, `tests/`, `deploy/` and the `Dockerfile` — is
 licensed under the GNU General Public License v3.0; see [`LICENSE`](LICENSE).
 
-The catalogue content in `data/`, the pictures in `images/` and the icons in `WBIcons/` are
-**not** covered by that license. The pictures belong to their photographers and publishers
+The catalogue content in `data/`, the pictures in `images/` and the Workbench 1.3 icons in
+`WBIcons/` and `web/static/img/wb/` (from [TAWS](https://taws.ch), rights not verified, see
+`WBIcons/README.md`) are **not** covered by that license. The Workbench Mode typeface is
+[Topaz Unicode](https://gitlab.com/Screwtapello/topaz-unicode) by Screwtape (ISC; licence text in
+`web/static/fonts/`). The pictures belong to their photographers and publishers
 (each entry's `imageCredit` and `images/catalog-completion/SOURCES.md` name them), and some are
 available under their own terms, such as CC BY-SA or public domain. Amiga and related names
 are trademarks of their respective owners.

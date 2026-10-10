@@ -17,17 +17,22 @@ import (
 // suggestLayout is the data every public suggestion page passes to
 // "public_layout".
 type suggestLayout struct {
-	Title   string
-	Section string // list, new, detail
-	SiteKey string // Turnstile site key; "" renders no widget
-	CSSURL  string
-	JSURL   string
+	Title    string
+	Section  string // list, new, detail
+	SiteKey  string // Turnstile site key; "" renders no widget
+	CSSURL   string
+	WBCSSURL string // Workbench Mode overrides, loaded after CSSURL
+	ThemeURL string // theme.js, blocking in <head> so the theme applies before first paint
+	JSURL    string
 }
 
 func (s *Server) suggestLayout(title, section string) suggestLayout {
 	return suggestLayout{
 		Title: title, Section: section, SiteKey: s.suggest.siteKey,
-		CSSURL: s.suggestAsset("static/css/styles.css"), JSURL: s.suggestAsset("static/js/suggest.js"),
+		CSSURL:   s.suggestAsset("static/css/styles.css"),
+		WBCSSURL: s.suggestAsset("static/css/workbench.css"),
+		ThemeURL: s.suggestAsset("static/js/theme.js"),
+		JSURL:    s.suggestAsset("static/js/suggest.js"),
 	}
 }
 

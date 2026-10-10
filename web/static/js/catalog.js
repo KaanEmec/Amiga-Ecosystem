@@ -15,7 +15,6 @@ function buildShell(){
       '<div class="brand">'+
         rainbowMark(26,'rb-top')+
         '<span class="wm"><b>Amiga</b> <i>Constellation</i></span>'+
-        '<span class="sub">A field guide</span>'+
       '</div>'+
       '<nav class="viewtoggle" role="group" aria-label="View">'+
         '<button id="v-overview" aria-pressed="false">Overview</button>'+
@@ -28,8 +27,8 @@ function buildShell(){
       '</div>'+
       '<div class="topright">'+
         '<button class="iconbtn" id="railtoggle" aria-label="Filters">'+ICON.menu+'</button>'+
-        '<a class="toplink" href="/suggestions" title="Suggestions">'+ICON.suggest+'<span>Suggestions</span></a>'+
-        '<button class="iconbtn" id="themebtn" aria-label="Toggle light and dark">'+ICON.sun+'</button>'+
+        '<a class="toplink" href="/suggestions" title="Suggest an entry or a correction">'+ICON.suggest+'<span>Suggest</span></a>'+
+        '<button class="iconbtn" id="themebtn" type="button" aria-label="Screen Mode"></button>'+
       '</div>'+
     '</header>'+
     '<div class="body">'+

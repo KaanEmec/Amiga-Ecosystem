@@ -1,6 +1,6 @@
 /* ==========================================================================
    The Amiga Constellation — suggest.js
-   Server-rendered suggestion pages (list, detail, form): theme toggle, +1
+   Server-rendered suggestion pages (list, detail, form): Screen Mode, +1
    votes via fetch, Turnstile widgets, and on the form: per-type fields,
    searchable entry and lineage pickers, and "did you mean" hints.
    Standalone classic script; it does not use the catalogue scripts.
@@ -29,10 +29,6 @@ function api(method, url, opts){
       return r.json().catch(function(){ return {}; }).then(function(j){ return {ok: r.ok, status: r.status, json: j}; });
     });
 }
-
-/* ------------------------------------------------------------- theme */
-var root = document.documentElement;
-try{ var stored = localStorage.getItem('amiga-theme'); if(stored) root.setAttribute('data-theme', stored); }catch(err){}
 
 /* --------------------------------------------------------- turnstile */
 function whenTurnstile(cb){
@@ -299,13 +295,7 @@ function setupForm(){
 
 function boot(){
   var tb = $('#sg-theme');
-  if(tb) tb.addEventListener('click', function(){
-    var cur = root.getAttribute('data-theme');
-    var isDark = cur ? cur === 'dark' : !window.matchMedia('(prefers-color-scheme: light)').matches;
-    var next = isDark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try{ localStorage.setItem('amiga-theme', next); }catch(err){}
-  });
+  if(tb && window.AmigaTheme) AmigaTheme.mount(tb);
   setupVoteWidget();
   setupVotes();
   setupFilters();

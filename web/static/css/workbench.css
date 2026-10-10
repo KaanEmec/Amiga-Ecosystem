@@ -1,0 +1,346 @@
+/* ==========================================================================
+   Workbench Mode — the Amiga Workbench 1.3 screen, as a third theme.
+   Derived from WBIcons/amiga.css (selector data-skin="amiga" became
+   data-theme="workbench"; unused optional components dropped). Loaded after
+   styles.css; every rule lives under :root[data-theme="workbench"], so the
+   Museum themes and the admin pages are untouched.
+
+   Blue screen, white title strips and white reading windows, orange for
+   selection with black text on it. Era colours keep their meaning. Every
+   token the dark block in styles.css sets is redefined here, so a dark OS
+   preference cannot show through.
+   ========================================================================== */
+
+/* Topaz Unicode KS13 by Screwtape (ISC, see web/static/fonts/). An 8×8
+   bitmap-derived face with a 0.5em advance: one bitmap pixel per CSS pixel at
+   16px, so it is crisp only at 16px multiples. It is used for display text
+   (--f-disp) set at 16px or 32px (48px for the largest titles on wide
+   screens); reading text, small mono labels and the canvas use the system
+   monospace stack instead. */
+@font-face {
+  font-family: "Topaz Unicode";
+  src: local("Topaz Unicode KS13"), url("/static/fonts/topaz-unicode-ks13.woff") format("woff");
+  font-display: swap;
+}
+
+:root[data-theme="workbench"] {
+  --wb-blue: #0055aa;
+  --wb-blue-deep: #004488;
+  --wb-white: #ffffff;
+  --wb-black: #000000;
+  --wb-orange: #ff8800;
+  --wb-orange-soft: #ffac4d;
+  --wb-orange-pale: #ffd9a8; /* 5.5:1 on the blue, for hovers on the desk */
+  --wb-orange-ink: #874000;
+  --wb-tint: #e8f0fa;
+  --wb-shadow: 2px 2px 0 #000000;
+  --wb-font: "Topaz Unicode", "Lucida Console", ui-monospace, Menlo, Consolas, monospace;
+  --wb-reading: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* the full token contract (styles.css :root and its dark block) */
+  --bg: var(--wb-blue);
+  --bg-deep: #f0f4f8; /* the canvas fills discs with it behind dark text */
+  --surf: var(--wb-white);
+  --surf-2: #f0f4f8;
+  --surf-3: #ccdcec;
+  --line: var(--wb-blue);
+  --line-soft: #9cb5cf;
+  --ink: var(--wb-black);
+  --ink-2: #172b40;
+  --ink-3: #43556a;
+  --ink-4: #526275;
+  --acc: var(--wb-blue);
+  --acc-soft: var(--wb-blue-deep);
+  --acc-fill: var(--wb-blue);
+  --acc-fill-2: var(--wb-blue-deep);
+  --acc-dim: #8caecc;
+  --acc-tint: var(--wb-tint);
+  --acc-glow: rgb(0 85 170 / .18);
+  --e1: #874000;
+  --e2: #14683a;
+  --e3: #0055aa;
+  --e4: #642477;
+  --e1-t: #fff2df;
+  --e2-t: #edf6ef;
+  --e3-t: #e8f0fa;
+  --e4-t: #f5edf8;
+  --ok: #14683a;
+  --warn: var(--wb-orange-ink);
+  --info: var(--wb-blue);
+  --off: #526275;
+  --focus: var(--wb-blue);
+  --r: 0px;
+  --f-disp: var(--wb-font);
+  --f-body: var(--wb-reading);
+  --f-mono: var(--wb-reading);
+  --f-canvas-disp: var(--wb-reading);
+  --f-canvas-mono: var(--wb-reading);
+  --f-canvas-sans: var(--wb-reading);
+  --rainbow: linear-gradient(var(--wb-white), var(--wb-white));
+  color-scheme: light;
+  scrollbar-color: var(--wb-white) var(--wb-blue);
+
+  /* ---- screen and the static interlace ---------------------------------
+     One darkened CSS pixel in every two, never animated. The dialog sits in
+     the top layer above body::after, so it carries its own copy. */
+  body { background: var(--wb-blue); letter-spacing: 0; -webkit-font-smoothing: auto; }
+  body::after, .detail-dialog::after {
+    content: ""; inset: 0; z-index: 1000; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, #000 0 1px, transparent 1px 2px);
+    opacity: .07;
+  }
+  body::after { position: fixed; }
+  .detail-dialog::after { position: absolute; }
+
+  /* ---- type, links, focus, native controls ---- */
+  :is(h1, h2, h3, h4) { font-weight: 400; letter-spacing: 0; }
+  :is(.eyebrow, .cardspec, .fpspec, .grouplbl, .lflab, .lfst, .st, .haslink,
+      .tourtitle, .dfact .k, .sortwrap label, .glbl, .glegend .legttl, .facet > summary,
+      .fstat .k, .froute-n, .froute-go, .peek-go, .sg-th, .sg-dr .k, .sg-dh,
+      .viewtoggle button, .sg-nav a, .gdetail button, .toplink, .btn, .lfback, #resetall,
+      .sg-dlg-actions a) {
+    text-transform: none; letter-spacing: 0;
+  }
+  a { text-decoration: underline; text-underline-offset: .2em; border-bottom: 0; }
+  :is(.btn, .toplink, .extlink, .sg-nav a, .sg-brand, .sg-title, .sg-dlg-actions a) { text-decoration: none; }
+  ::selection { color: var(--wb-black); background: var(--wb-orange); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 0; }
+  :is(input, textarea, select, #search) {
+    border: 2px solid var(--wb-blue); border-radius: 0; background: var(--wb-white);
+    color: var(--wb-black); accent-color: var(--wb-blue); box-shadow: inset 1px 1px 0 #9cb5cf;
+  }
+  :is(input, textarea)::placeholder { color: var(--ink-4); opacity: 1; }
+  select { font-family: var(--wb-reading); }
+  #search:focus, .sg-field :is(input, textarea, select):focus {
+    outline: 2px solid var(--wb-blue); outline-offset: 2px; box-shadow: none;
+  }
+  ::-webkit-scrollbar-track { background: var(--wb-blue); }
+  ::-webkit-scrollbar-thumb { background: var(--wb-white); border: 2px solid var(--wb-blue); border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--wb-orange-soft); }
+
+  /* ---- gadgets: white face, blue frame; orange when selected ---- */
+  :is(.iconbtn, .gchip, .lfback, .extlink, .btn.ghost, .toplink, .relbtn, .sg-vote, .sg-dlg-actions a,
+      .viewtoggle, .gdetail, .garrange) {
+    border: 2px solid var(--wb-blue); border-radius: 0; background: var(--wb-white);
+    color: var(--wb-blue); transition: none;
+  }
+  :is(.iconbtn, .gchip, .lfback, .extlink, .btn.ghost, .toplink, .relbtn, .sg-vote, .sg-dlg-actions a,
+      .viewtoggle button, .sg-nav a, .gdetail button, .garrange button):hover:not(:disabled) {
+    background: var(--wb-tint); color: var(--wb-blue-deep); border-color: var(--wb-blue-deep);
+  }
+  :is(.viewtoggle button, .sg-nav a, .gdetail button, .garrange button) {
+    color: var(--wb-blue); border-right-color: var(--wb-blue); border-radius: 0; transition: none;
+  }
+  .garrange { padding: 0; gap: 0; }
+  .garrange button { border-bottom: 0; border-right: 2px solid var(--wb-blue); }
+  .garrange button:last-child { border-right: 0; }
+  .btn { border: 2px solid var(--wb-blue); border-radius: 0; box-shadow: inset 0 0 0 1px var(--wb-white); }
+  :is(.btn.ghost, .gess, .gchip, .groutes > summary, .viewtoggle button, .gdetail button,
+      .garrange button, .sg-vote, .opt)[aria-pressed="true"],
+  :is(.btn.ghost, .gess, .gchip, .groutes > summary, .viewtoggle button, .gdetail button,
+      .garrange button, .sg-vote, .opt)[aria-pressed="true"]:hover,
+  .sg-nav a[aria-current="page"], .sg-typeopt:has(input:checked),
+  :is(.extlink.primary, .sg-dlg-actions a.primary, .sg-dlg-actions a.primary:hover) {
+    background: var(--wb-orange); color: var(--wb-black); border-color: var(--wb-blue);
+  }
+  .extlink.primary:hover { background: var(--wb-orange-soft); color: var(--wb-black); border-color: var(--wb-blue); }
+  .sg-vote:disabled { background: var(--surf-2); color: var(--ink-3); border-color: var(--line-soft); }
+
+  /* ---- screen title bar ---- */
+  .topbar { background: var(--wb-white); border-bottom: 2px solid var(--wb-blue); }
+  .topbar::after { content: none; }
+  .brand .wm { font-size: 32px; color: var(--wb-blue); }
+  .brand .wm :is(b, i) { color: inherit; font-style: normal; }
+  :is(.searchwrap svg, #searchclear) { color: var(--wb-blue); }
+  :is(.stagebar, .gbar, .lfbar, .lflegend) { background: var(--wb-white); border-color: var(--wb-blue); }
+  :is(.chip, .tag, .ac, .unv) { border-radius: 0; letter-spacing: 0; }
+  .chip { background: var(--wb-orange); border: 1px solid var(--wb-blue); color: var(--wb-black); }
+  .chip :is(b, button) { color: var(--wb-black); }
+
+  /* ---- Screen Mode: a Prefs requester under its gadget ---- */
+  .scrmode {
+    width: 304px; padding: 0 6px 6px; background: var(--wb-white); color: var(--wb-black);
+    border: 2px solid var(--wb-blue); border-radius: 0; box-shadow: 4px 4px 0 var(--wb-black);
+  }
+  .scrmode-h {
+    display: flex; align-items: center; gap: 10px; margin: 0 -6px 6px; padding: 6px 10px;
+    font-size: 16px; line-height: 1; color: var(--wb-blue); border-bottom: 2px solid var(--wb-blue);
+  }
+  .scrmode-h::before {
+    content: ""; flex: 0 0 38px; height: 26px;
+    background: url("../img/wb/Palette.png") 0 0 / 38px 26px no-repeat; image-rendering: pixelated;
+  }
+  .scrmode-i { border: 0; border-radius: 0; padding: 6px 8px; transition: none; }
+  .scrmode-i:hover { background: var(--wb-tint); }
+  .scrmode-i:focus-visible { outline: 2px solid var(--wb-blue); outline-offset: -2px; }
+  .scrmode-i[aria-checked="true"] { background: var(--wb-orange); }
+  .scrmode-i[aria-checked="true"] :is(b, small) { color: var(--wb-black); }
+  .scrmode-t b { font-family: var(--wb-font); font-size: 16px; font-weight: 400; line-height: 1.25; }
+  .scrmode-t small { font-size: 12px; color: var(--ink-3); }
+  .scrmode-sw { border: 1px solid var(--wb-black); border-radius: 0; }
+
+  /* ---- filter rail: a blue drawer with inverse tokens ---- */
+  .rail {
+    --ink: #fff; --ink-2: #fff; --ink-3: #fff; --ink-4: #fff;
+    --acc: #fff; --acc-soft: var(--wb-orange-pale); --focus: var(--wb-orange);
+    --line: #fff; --line-soft: rgb(255 255 255 / .5);
+    background: var(--wb-blue); border-right: 2px solid var(--wb-white);
+  }
+  .railhead { --focus: var(--wb-blue); background: var(--wb-white); border-bottom: 2px solid var(--wb-blue); }
+  :is(.railhead .count, .railhead .count b, #resetall) { color: var(--wb-blue); border-color: var(--wb-blue); }
+  /* white keeps 7:1 on the blue; the orange count badge carries the "active" state */
+  .facet > summary:hover, .facet[data-on="1"] > summary { color: var(--wb-white); }
+  .facet > summary:hover { text-decoration: underline; }
+  .facet > summary .on { color: var(--wb-black); background: var(--wb-orange); border: 1px solid var(--wb-white); border-radius: 0; }
+  .opt { border-radius: 0; transition: none; }
+  .opt:hover { background: var(--wb-white); color: var(--wb-blue); }
+  .opt[aria-pressed="true"] { font-weight: 400; }
+  .opt .n { color: inherit; }
+  .opt .box { border: 2px solid currentColor; border-radius: 0; background: transparent; }
+  .opt[aria-pressed="true"] .box { border-color: var(--wb-black); background: var(--wb-white); }
+  .opt[aria-pressed="true"] .box svg { color: var(--wb-black); }
+  :is(.opt .dot, .opt .swatch) { outline: 1px solid var(--wb-white); border-radius: 0; }
+  .opt[data-zero="1"] { opacity: .7; }
+
+  /* ---- stage: blue desk, white documents ---- */
+  :is(.stage, .scroll, .lfocus, .lfboard) { background: var(--wb-blue); }
+  :is(.card, .fplate, .fera, .froute, .lfcard) {
+    border: 2px solid var(--wb-blue); outline: 1px solid var(--wb-white); outline-offset: 0;
+    border-radius: 0; background: var(--wb-white); color: var(--wb-black);
+    box-shadow: var(--wb-shadow); transition: none;
+  }
+  :is(.card, .fplate, .fera, .froute, .lfcard):hover {
+    border-color: var(--wb-blue); outline: 2px solid var(--wb-orange); box-shadow: var(--wb-shadow); transform: none;
+  }
+  :is(.card, .lfcard)[aria-current="true"] { border: 2px solid var(--wb-blue); outline: 2px solid var(--wb-orange); box-shadow: var(--wb-shadow); }
+  :is(.card, .fplate, .fera, .froute, .lfcard):focus-visible { outline: 3px solid var(--wb-orange); outline-offset: 3px; }
+  :is(.plate, .detail-media, .thumb) { border-radius: 0; }
+  .plate::before { height: 2px; }
+  :is(.st i, .lfdot) { border-radius: 0; }
+  .card h3 { font-size: 16px; line-height: 1.5; }
+  /* group headings sit on the desk like drawers; categories are title strips */
+  .grouphead { color: var(--wb-white); border-bottom: 2px solid var(--wb-white); }
+  .grouphead :is(.n, .chev) { color: var(--wb-white); }
+  .grouphead:hover h2 { color: var(--wb-orange-pale); }
+  .grouphead h2 { font-size: 32px; line-height: 1.25; }
+  .cathead { border: 2px solid var(--wb-blue); outline: 1px solid var(--wb-white); background: var(--wb-white); transition: none; }
+  .cathead:hover { background: var(--wb-tint); }
+  .cathead h3 { font-size: 16px; }
+  .cathead .n { border-radius: 0; }
+  .cathead .preview { font-family: var(--f-mono); font-style: normal; font-size: 13px; }
+  .stage .empty { color: var(--wb-white); }
+  .stage .empty :is(h2, p) { color: inherit; }
+  .empty h2 { font-size: 32px; line-height: 1.25; }
+  /* the default blue ring vanishes on the blue desk; orange keeps 3:1 there */
+  :is(.grouphead, .cathead, .stage .empty .btn):focus-visible { outline-color: var(--wb-orange); }
+
+  /* ---- overview: white type on the desk, white windows for reading ---- */
+  .front {
+    --ink: #fff; --ink-2: #fff; --ink-3: #fff; --ink-4: #fff;
+    --acc: #fff; --acc-soft: var(--wb-orange-pale); --focus: var(--wb-orange);
+    color: var(--wb-white);
+  }
+  :is(.fstats, .ftax, .fcautions, .fhow, .fplate, .fera, .froute) {
+    --ink: #000; --ink-2: #172b40; --ink-3: #43556a; --ink-4: #526275;
+    --acc: var(--wb-blue); --acc-soft: var(--wb-blue-deep); --focus: var(--wb-blue);
+    color: var(--wb-black);
+  }
+  .fhero h1 { font-size: 32px; line-height: 1.25; }
+  .flede { font-size: 16px; }
+  .fsect { border-bottom: 2px solid var(--wb-white); }
+  .fsect h2 { font-size: 32px; line-height: 1.25; }
+  :is(.fstats, .ftax, .fcautions, .fhow) { border: 2px solid var(--wb-white); background: var(--wb-white); box-shadow: var(--wb-shadow); }
+  .fhow { padding: 20px; }
+  .fstat .v { font-size: 32px; }
+  :is(.fpn, .fera h3, .froute h3, .fthesis h3, .ftaxrow b, .fhow-s h3) { font-size: 16px; line-height: 1.5; }
+  .fhow-n { border-radius: 0; }
+  .ffoot code { background: var(--wb-white); color: var(--wb-blue); }
+
+  /* ---- lineage: white map paper, white requesters ---- */
+  .graphwrap { background: var(--wb-white); }
+  .gcap { background: var(--wb-white); border-top: 2px solid var(--wb-blue); }
+  :is(.groutes-p, .tourbar, #gtip, #gtip.peek) {
+    background: var(--wb-white); color: var(--wb-black); border: 2px solid var(--wb-blue);
+    border-radius: 0; box-shadow: var(--wb-shadow);
+  }
+  .tourbar::before { background: var(--wb-blue); height: 2px; }
+  :is(.tourname, #gtip .n, .peek-t) { font-size: 16px; line-height: 1.5; }
+  .groutes-p .gchip { border: 0; }
+  .lfhead, #pane-graph[data-lf="1"] .lfhead { background: var(--wb-blue); box-shadow: none; }
+  :is(.lflab, .lfyrs, .lfn) { color: var(--wb-white); }
+  .lfrule { background: var(--wb-white); }
+  .lfcard[data-chain="1"] { border-color: var(--wb-black); }
+  .lfname { font-weight: 400; }
+  .lfcrumb h2 { font-size: 32px; line-height: 1.25; }
+
+  /* ---- detail requester ---- */
+  .detail-dialog::backdrop { background: rgb(0 34 68 / .65); }
+  .detail-dialog.detail-closing::backdrop { background: rgb(0 34 68 / 0); }
+  .detail-panel {
+    border: 2px solid var(--wb-white); border-radius: 0;
+    box-shadow: 0 0 0 2px var(--wb-blue), 4px 4px 0 var(--wb-black);
+  }
+  .detail-toolbar { border-bottom: 3px double var(--wb-blue); }
+  .detail-media { border: 1px solid var(--wb-blue); }
+  .dhead h2 { font-size: 32px; line-height: 1.25; }
+  .dsec.why { border: 1px solid var(--wb-blue); border-left: 4px solid var(--era, var(--wb-blue)); }
+  .dfacts { border-color: var(--wb-blue); background: var(--wb-blue); }
+  .warnbox { background: #fff2df; color: var(--wb-black); border: 2px solid var(--wb-orange-ink); }
+  .scrim { background: rgb(0 34 68 / .65); }
+  .skip, .skip:focus { background: var(--wb-white); color: var(--wb-blue); border: 2px solid var(--wb-blue); }
+
+  /* ---- suggestion pages: one white window on the desk ---- */
+  .sg-wrap {
+    background: var(--wb-white); border: 2px solid var(--wb-white);
+    box-shadow: 0 0 0 2px var(--wb-blue), 4px 4px 0 var(--wb-black);
+    margin: 24px auto 40px; width: calc(100% - 32px);
+  }
+  .sg-head h1 { font-size: 32px; line-height: 1.25; }
+  :is(.sg-title, .sg-typename) { font-size: 16px; line-height: 1.5; }
+  .sg-h2 { font-size: 32px; line-height: 1.25; }
+  :is(.sg-filters, .sg-sec, .sg-hints, .sg-table, .sg-diff, .sg-results) { border: 2px solid var(--wb-blue); border-radius: 0; box-shadow: none; }
+  .sg-table { background: var(--wb-blue); }
+  .sg-typeopt { border: 2px solid var(--wb-blue); border-radius: 0; box-shadow: none; transition: none; }
+  .sg-result[aria-selected="true"], .sg-result:hover { background: var(--wb-orange); color: var(--wb-black); }
+  .sg-foot { border-top: 0; }
+  .sg-foot p { color: var(--wb-white); }
+
+  /* ---- Workbench 1.3 icons (pixel art, integer scale only) --------------
+     Withdraw them by deleting web/static/img/wb/ and this block. */
+  .fmark svg { display: none; }
+  .fmark::before {
+    content: ""; display: block; width: 126px; height: 76px;
+    background: url("../img/wb/Workbench.png") 0 0 / 126px 76px no-repeat;
+    image-rendering: pixelated;
+  }
+  .grouphead::before {
+    content: ""; flex: 0 0 73px; height: 34px; align-self: center;
+    background: url("../img/wb/DefDrawer.png") 0 0 / 73px 34px no-repeat;
+    image-rendering: pixelated;
+  }
+  .grouphead[aria-expanded="true"]::before { background-image: url("../img/wb/DefDrawerSel.png"); }
+
+  /* ---- environment ---- */
+  /* the 32px wordmark is wider than the serif one; drop "Constellation"
+     earlier so the search field keeps its room */
+  @media (max-width: 1320px) { .brand .wm i { display: none; } }
+  @media (max-width: 860px) {
+    .rail { box-shadow: none; }
+    .rail[data-open="1"] { box-shadow: 3px 0 0 var(--wb-black); }
+  }
+  @media (max-width: 760px) {
+    .brand .wm { font-size: 16px; }
+    .sg-wrap { margin: 16px auto 24px; }
+  }
+  @media (prefers-contrast: more) {
+    body::after, .detail-dialog::after { content: none; }
+    .opt[data-zero="1"] { opacity: 1; }
+  }
+  @media (forced-colors: active) {
+    body::after, .detail-dialog::after { content: none; }
+    :is(.card, .fplate, .fera, .froute, .lfcard, .detail-panel, .sg-wrap) { box-shadow: none; }
+  }
+  @media print {
+    body::after { content: none; }
+  }
+}

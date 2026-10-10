@@ -11,7 +11,7 @@ Implements `NewPLAN.md`. No deployment is performed; VPS files are prepared only
 |---|---|---|
 | Language / HTTP | Go 1.27, `net/http` with 1.22 method patterns, `html/template` | No framework; stdlib covers routing, templates, embedding |
 | Database | SQLite via `modernc.org/sqlite` (pure Go), WAL, `foreign_keys=ON`, single writer | cgo-free static Linux binary; one instance, light writes |
-| Frontend | Existing vanilla JS split into classic scripts (no bundler, no ESM) | Keeps the `vm`-based layout tests and zero build step |
+| Frontend | Existing vanilla JS split into classic scripts (no bundler, no ESM); CSS custom-property themes (see Themes) | Keeps the `vm`-based layout tests and zero build step |
 | Auth | Argon2id password + TOTP (`pquerna/otp`), server-side sessions, hashed recovery codes | One owner, no external IdP |
 | Spam | Cloudflare Turnstile + signed browser id cookie + Origin check + rate limits + honeypot + timing | Layered; Turnstile is skipped only when `APP_ENV != production` and no keys are set |
 | Images | Owner-triggered fetch only; validated with stdlib decoders (`image/{jpeg,png,gif}`, `x/image/webp`); stored as original bytes | No re-encoding, no ImageMagick; SSRF guarded by DNS + redirect checks |
@@ -32,7 +32,8 @@ internal/images              safe fetcher (SSRF guards, limits), staging, publis
 internal/turnstile           siteverify client (hostname/action checks), fail-closed policy
 internal/web                 http server: router, middleware, handlers (public, suggestions, admin), templates
 web/static/js/*.js           data.js, catalog.js, detail.js, lineage.js, suggest.js, admin.js (load order matters)
-web/static/css/styles.css    unchanged design system
+web/static/css/styles.css    design system (Museum light/dark tokens)
+web/static/css/workbench.css Workbench Mode token and component overrides
 web/templates/*.html         index (SPA shell), suggestions list/new/detail, admin pages
 data/amiga-data.json         seed content (read once)
 images/                      seed images (copied once into the media dir)
@@ -120,10 +121,34 @@ excluding deleted entries and the `_readme` field guide (kept in exports). `data
 - `GET /api/entries/search` compares the query with at most the 100 newest pending suggestions and is limited in memory (fixed one-minute window) to 60 requests per browser id and 600 per IP; over the limit it answers 429. Request logs carry no client address.
 - Pauses: settings `submissions_paused` / `voting_paused` = "1" refuse with 503 and a banner. Pending image suggestions show the URL as a link, never an `<img>`. `/#entry=<id>` opens that entry's dialog (`actions.js`).
 
+## Themes
+
+Three user-selectable themes: **Museum Mode Light**, **Museum Mode Dark** and
+**Workbench Mode** (Amiga Workbench 1.3 look with a faint static interlace).
+
+| Decision | Choice | Why |
+|---|---|---|
+| Selection model | One attribute, `<html data-theme="light|dark|workbench">`, stored in `localStorage["amiga-theme"]`; unset = follow `prefers-color-scheme` (Museum) | Reuses the existing key and attribute; no second axis to keep in sync |
+| Control | One `theme.js` (blocking, in `<head>`, shared by the SPA shell and the suggestion layout) applies the stored theme before first paint and exposes `AmigaTheme.mount(button)`: a "Screen Mode" icon button (sun / moon / pixel Workbench glyph for the current mode) opening a small popover with a swatch, name and tagline per mode; `role=menu`, arrow keys, Esc, click-outside | Three options need a picker; one shared script removes the duplicated toggle code and the load-time flash |
+| Workbench CSS | `web/static/css/workbench.css`, every rule scoped to `:root[data-theme="workbench"]`, loaded after `styles.css` on the SPA shell and the public suggestion layout | Overrides the Museum tokens and a few components only; `styles.css` stays the design system, admin pages are untouched |
+| Dark bleed | `workbench.css` sets `color-scheme: light` and redefines every token, so the dark `prefers-color-scheme` block in `styles.css` cannot show through | Same specificity, later file wins; tokens are the only contract |
+| Interlace | `body::after` fixed overlay, `pointer-events:none`, `repeating-linear-gradient` darkening one of every two CSS pixels at .07 opacity; off under `forced-colors: active` and `prefers-contrast: more` | Static, cheap, no animation, no canvas work |
+| Canvas | `lineage.js` reads colours via `cssv()` already; fonts now come from three tokens `--f-canvas-disp` / `--f-canvas-mono` / `--f-canvas-sans` (the last replaces the hardcoded `'Archivo'` label face; defined in `styles.css`, overridden in `workbench.css`) and the theme change triggers `GRAPH.draw()` | Keeps layout geometry identical, so the 40 layout tests still pass |
+| Typeface | Bundled `web/static/fonts/topaz-unicode-ks13.woff` (Topaz Unicode KS13 by Screwtape, ISC, licence file beside it) for display text at 16px multiples only; small mono text and canvas labels keep a system monospace | The only Workbench 1.3 Topaz under a redistribution-safe licence; an 8x8 bitmap face is unreadable below 16px |
+| Icons | A few Workbench 1.3 icon PNGs from `WBIcons/` copied to `web/static/img/wb/`, shown only in Workbench Mode with `image-rendering: pixelated` at integer scale; `Sel` variant for active state | Provenance in `WBIcons/README.md`; rights are not verified, see note |
+
+Origin: `WBIcons/amiga.css` is the appearance study the theme file is derived from
+(selector `data-skin="amiga"` became `data-theme="workbench"`, unused optional
+components dropped). The study and the icon inventory stay in `WBIcons/` as reference only.
+
+Note on icon rights: TAWS has no verified redistribution licence for the icon files.
+They ship in Workbench Mode on the owner's decision; remove `web/static/img/wb/` and
+the icon block in `workbench.css` to withdraw them without touching anything else.
+
 ## Verification
 
 - `go test ./...` with `-race`; `node tests/lineage-layout.cjs` must keep passing 40 cases.
-- Manual browser pass over both themes, three views, routes, dialog, keyboard, narrow width.
+- Manual browser pass over all three themes, three views, routes, dialog, keyboard, narrow width.
 - Idle memory target under 64 MB; measured numbers recorded in `README.md`.
 
 How the numbers in `README.md` were measured: a fresh data directory, the binary built with `go build ./cmd/amiga`, and `AMIGA_ADDR=127.0.0.1:8095` in development mode. Fidelity compares `amiga export` with `data/amiga-data.json` using `cmp`; persistence imports an edited export with `--replace`, restarts, and checks `/api/catalog`; restoration runs `amiga backup`, deletes `amiga.db*` and `media/`, copies the backup back and restarts. Idle RSS is `ps -o rss=` sampled three times over 30 s after startup and one catalogue request. Throughput uses a small Go client (50 keep-alive connections, 10 s, no compression) on the same machine, once plain and once with the current `ETag` in `If-None-Match`. Voting uses 200 separate cookie jars (each given an `amiga_vid` by `GET /suggestions`) firing `PUT /api/suggestions/{id}/vote` together, then 50 concurrent PUTs from one jar with `AMIGA_RATE_VOTE_HOUR_IP` raised to 1000 so the per-IP ceiling does not mask the one-vote-per-browser result. Image approval cannot be timed against a loopback server because the fetcher refuses non-public addresses; it needs a public image host. The backup does not include `<data_dir>/secret`, which signs cookies and form tokens; copy it separately if sessions and visitor ids must survive a restore.

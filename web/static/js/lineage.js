@@ -427,6 +427,8 @@ function graphRemap(){
 function cssv(name){
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888';
 }
+/* canvas font stacks, read once per frame from the theme tokens */
+var CF = {disp:'serif', mono:'monospace', sans:'sans-serif'};
 
 /* A cluster medallion: an era-composition ring, the count set large, and the
    label underneath. Every piece of text here is sized in SCREEN pixels
@@ -470,17 +472,17 @@ function drawMedallion(cx, h, dim, hover, eraCols, matchText){
   var numPx = Math.max(19, Math.min(30, R * 0.60));
   var subPx = Math.max(8.5, Math.min(10, R * 0.20));
   cx.fillStyle = inkC;
-  cx.font = (numPx/k) + "px 'Instrument Serif', Georgia, serif";
+  cx.font = (numPx/k) + 'px ' + CF.disp;
   cx.fillText(matchText || String(total), h.x, h.y + (numPx*0.17)/k);
   cx.fillStyle = ink3;
-  cx.font = '500 ' + (subPx/k) + "px 'JetBrains Mono', monospace";
+  cx.font = '500 ' + (subPx/k) + 'px ' + CF.mono;
   var sub = live ? live + ' LIVE' : 'ALL HISTORIC';
   if(cx.measureText(sub).width > (R*1.45)) sub = live ? live + ' LIVE' : '0 LIVE';
   cx.fillText(sub, h.x, h.y + (numPx*0.17 + subPx + 4)/k);
 
   /* label under the medallion, on the same reserve the layout allowed for */
   cx.fillStyle = hover ? accC : inkC;
-  cx.font = (16/k) + "px 'Instrument Serif', Georgia, serif";
+  cx.font = (16/k) + 'px ' + CF.disp;
   var label = h.label || h.d.label, lines = [label];
   if(labelLines(h) > 1){
     var w2 = label.split(' '), half = Math.ceil(w2.length/2);
@@ -510,7 +512,7 @@ function drawHubDisc(cx, h, dim, surfC, inkC, ink3, lineC, hover, countText){
   var label = h.label || h.d.label;
   var words = label.split(' ');
   var fs2 = h.hubR >= 26 ? 8.5 : (h.hubR <= 16 ? 6.6 : 7.8);
-  cx.font = '700 ' + fs2 + 'px ' + "'Archivo', sans-serif";
+  cx.font = '700 ' + fs2 + 'px ' + CF.sans;
   if(words.length > 2){
     var half = Math.ceil(words.length/2);
     cx.fillText(words.slice(0,half).join(' '), h.x, h.y - 3.5);
@@ -522,7 +524,7 @@ function drawHubDisc(cx, h, dim, surfC, inkC, ink3, lineC, hover, countText){
     cx.fillText(label, h.x, h.y + 1);
   }
   cx.fillStyle = ink3;
-  cx.font = '600 ' + (h.hubR <= 16 ? 6 : 6.8) + 'px ' + "'JetBrains Mono', monospace";
+  cx.font = '600 ' + (h.hubR <= 16 ? 6 : 6.8) + 'px ' + CF.mono;
   cx.fillText(countText, h.x, h.y + (h.hubR <= 16 ? 10 : 12));
   cx.textAlign = 'left';
   cx.globalAlpha = 1;
@@ -569,6 +571,7 @@ function graphDraw(){
   var eraCols = M.eras.map(function(_,i){ return cssv('--e'+(i+1)); });
   var inkC = cssv('--ink'), ink3 = cssv('--ink-3'), ink4 = cssv('--ink-4');
   var accC = cssv('--acc'), surfC = cssv('--bg-deep'), lineC = cssv('--line');
+  CF.disp = cssv('--f-canvas-disp'); CF.mono = cssv('--f-canvas-mono'); CF.sans = cssv('--f-canvas-sans');
 
   var anyFilter = dimmingCount() > 0;
   var match = {};
@@ -602,7 +605,7 @@ function graphDraw(){
       cx.strokeStyle = cssv('--line-soft');
       cx.strokeRect(z.x + .5/GRAPH.k, z.y + .5/GRAPH.k, z.w, z.h);
       cx.fillStyle = ink3;
-      cx.font = '500 ' + (12/GRAPH.k) + "px 'JetBrains Mono', monospace";
+      cx.font = '500 ' + (12/GRAPH.k) + 'px ' + CF.mono;
       var panelTitle = z.label.toUpperCase();
       var words = panelTitle.split(' '), lines = [], line = '';
       words.forEach(function(word){
@@ -686,9 +689,9 @@ function graphDraw(){
     cx.beginPath(); cx.arc(GRAPH.center.x, GRAPH.center.y, GRAPH.center.r, 0, 6.2832);
     cx.fillStyle = inkC; cx.fill();
     cx.fillStyle = surfC; cx.textAlign = 'center';
-    cx.font = '18px ' + "'Instrument Serif', Georgia, serif";
+    cx.font = '18px ' + CF.disp;
     cx.fillText('Amiga', GRAPH.center.x, GRAPH.center.y + 3);
-    cx.font = '500 7.5px ' + "'JetBrains Mono', monospace";
+    cx.font = '500 7.5px ' + CF.mono;
     cx.fillText('1984–2026', GRAPH.center.x, GRAPH.center.y + 14);
     cx.textAlign = 'left';
   }
@@ -735,7 +738,7 @@ function graphDraw(){
   var presentN = Object.keys(GRAPH.present).length;
   var few = essView || presentN <= 150;
   var fs = Math.max(9, Math.min(12.5, 11/Math.sqrt(GRAPH.k)));
-  cx.font = '700 ' + fs + "px 'Archivo', 'Helvetica Neue', Helvetica, sans-serif";
+  cx.font = '700 ' + fs + 'px ' + CF.sans;
   var placed = [];
   GRAPH.hubs.forEach(function(h){
     placed.push({x:h.x - h.hubR, y:h.y - h.hubR, w:h.hubR*2, h:h.hubR*2});

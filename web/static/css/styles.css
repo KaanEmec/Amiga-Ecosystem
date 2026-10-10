@@ -66,6 +66,10 @@
   --f-disp: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
   --f-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* the lineage canvas cannot use var(); lineage.js reads these per frame */
+  --f-canvas-disp: 'Instrument Serif', Georgia, serif;
+  --f-canvas-mono: 'JetBrains Mono', monospace;
+  --f-canvas-sans: 'Archivo', 'Helvetica Neue', Helvetica, sans-serif;
 
   --rail: 290px;
   --bar:  64px;
@@ -171,12 +175,6 @@ a:hover{color:var(--acc-soft);border-bottom-color:currentColor}
 .brand .wm i{color:var(--ink-3);font-style:italic}
 @media (max-width:1180px){.brand .wm i{display:none}}
 @media (max-width:640px){.brand .wm{font-size:24px}}
-.brand .sub{
-  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-3);
-  padding-left:14px;border-left:1px solid var(--line);
-}
-@media (max-width:900px){.brand .sub{display:none}}
 
 .viewtoggle{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:0;gap:0}
 .viewtoggle button{
@@ -189,7 +187,8 @@ a:hover{color:var(--acc-soft);border-bottom-color:currentColor}
 .viewtoggle button[aria-pressed="true"]{background:var(--acc-fill);color:#FFFFFF}
 .viewtoggle button[aria-pressed="true"]:hover{background:var(--acc-fill-2);color:#FFFFFF}
 
-.searchwrap{flex:1 1 auto;max-width:480px;position:relative;display:flex;align-items:center}
+/* the search field takes whatever the bar leaves free, up to a readable width */
+.searchwrap{flex:1 1 auto;min-width:0;max-width:560px;position:relative;display:flex;align-items:center}
 .searchwrap svg{position:absolute;left:13px;width:16px;height:16px;color:var(--ink-3);pointer-events:none}
 #search{
   width:100%;background:var(--bg);color:var(--ink);
@@ -239,7 +238,36 @@ a:hover{color:var(--acc-soft);border-bottom-color:currentColor}
 }
 .toplink:hover{color:var(--acc);border-color:var(--acc);background:var(--acc-tint)}
 .toplink svg{width:18px;height:18px;flex:0 0 auto}
-@media (max-width:760px){.toplink{width:40px;padding:0;justify-content:center}.toplink span{display:none}}
+/* below 1080px the label yields its width to the search field */
+@media (max-width:1080px){.toplink{width:40px;padding:0;justify-content:center}.toplink span{display:none}}
+.iconbtn svg.px{width:16px;height:16px}
+
+/* --- Screen Mode: the theme picker's popover (theme.js) ---
+   A small card hung under its button; each row previews a mode as three
+   stripes of its own palette, so the choice is visible before it is made. */
+.scrmode{
+  position:fixed;z-index:80;width:272px;max-width:calc(100vw - 16px);
+  background:var(--surf);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:0 12px 32px rgba(20,22,26,.20);padding:6px;
+}
+.scrmode[hidden]{display:none}
+.scrmode-h{font-family:var(--f-disp);font-size:20px;line-height:1;padding:8px 10px 10px;color:var(--ink)}
+.scrmode-list{display:flex;flex-direction:column;gap:2px}
+.scrmode-i{
+  appearance:none;display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:transparent;border:0;border-left:2px solid transparent;border-radius:var(--r);
+  padding:8px 10px;color:var(--ink);font:inherit;cursor:pointer;
+}
+.scrmode-i:hover{background:var(--surf-2)}
+.scrmode-i:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.scrmode-i[aria-checked="true"]{background:var(--acc-tint);border-left-color:var(--acc)}
+.scrmode-i[aria-checked="true"] b{color:var(--acc)}
+.scrmode-sw{display:flex;flex:0 0 auto;width:30px;height:22px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.scrmode-sw i{flex:1 1 0}
+.scrmode-sw i:first-child{flex-grow:1.6}
+.scrmode-t{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.scrmode-t b{font-family:var(--f-body);font-size:14px;font-weight:600}
+.scrmode-t small{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3)}
 #railtoggle{display:none}
 @media (max-width:860px){#railtoggle{display:grid}}
 
