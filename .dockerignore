@@ -1,0 +1,9 @@
+.git
+runtime
+dist
+tests
+WBIcons
+*.db
+*.db-wal
+*.db-shm
+.DS_Store

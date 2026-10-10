@@ -84,10 +84,16 @@ func (s *Server) sameOriginMutation(r *http.Request, headerless bool) bool {
 	return strings.EqualFold(origin, want)
 }
 
-// visitorIP is the peer address, or the last X-Forwarded-For hop (the one
-// our reverse proxy appended) when AMIGA_TRUST_PROXY=1.
+// visitorIP is the peer address, or when AMIGA_TRUST_PROXY=1 the
+// AMIGA_CLIENT_IP_HEADER value or the last X-Forwarded-For hop (the one our
+// reverse proxy appended).
 func (s *Server) visitorIP(r *http.Request) string {
 	if s.cfg.TrustProxyForwarding {
+		if h := s.cfg.ClientIPHeader; h != "" {
+			if ip, err := netip.ParseAddr(strings.TrimSpace(r.Header.Get(h))); err == nil {
+				return ip.Unmap().String()
+			}
+		}
 		if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
 			hops := strings.Split(xff, ",")
 			if ip, err := netip.ParseAddr(strings.TrimSpace(hops[len(hops)-1])); err == nil {

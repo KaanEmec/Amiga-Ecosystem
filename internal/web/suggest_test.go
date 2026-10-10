@@ -582,3 +582,28 @@ func TestRateIP(t *testing.T) {
 		t.Errorf("rateIP(v4) = %q", got)
 	}
 }
+
+func TestVisitorIP(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name string
+		cfg  config.Config
+		want string
+	}{
+		{"peer address without trust", config.Config{ClientIPHeader: "CF-Connecting-IP"}, "192.0.2.1"},
+		{"last forwarded hop", config.Config{TrustProxyForwarding: true}, "198.51.100.7"},
+		{"client ip header", config.Config{TrustProxyForwarding: true, ClientIPHeader: "CF-Connecting-IP"}, "203.0.113.9"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			r := httptest.NewRequest(http.MethodGet, "/", nil)
+			r.RemoteAddr = "192.0.2.1:1234"
+			r.Header.Set("X-Forwarded-For", "10.0.0.1, 198.51.100.7")
+			r.Header.Set("CF-Connecting-IP", "203.0.113.9")
+			if got := (&Server{cfg: tt.cfg}).visitorIP(r); got != tt.want {
+				t.Errorf("visitorIP() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}

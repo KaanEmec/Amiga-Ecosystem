@@ -1,7 +1,15 @@
 # VPS preparation
 
-Nothing here deploys anything. It prepares the artefacts for one Linux VPS with one
-application instance behind an HTTPS reverse proxy.
+Two ways to run one application instance behind an HTTPS reverse proxy: the root
+`Dockerfile` (used by Coolify), or the binary with systemd described below.
+
+## Coolify (live at amiga.kexperiments.com)
+
+Coolify builds the root `Dockerfile` from `main`, and Traefik routes the domain to port 8080.
+Mount a persistent volume at `/data` (database, media, staging). Set `AMIGA_BASE_URL`,
+`AMIGA_SECRET`, `AMIGA_TURNSTILE_SITE_KEY`, `AMIGA_TURNSTILE_SECRET`, `AMIGA_TRUST_PROXY=1`
+and `AMIGA_CLIENT_IP_HEADER=CF-Connecting-IP` (the domain is proxied by Cloudflare); the image
+sets the rest. Create the owner once from the container's terminal: `amiga owner init`.
 
 ## Build the Linux binary
 

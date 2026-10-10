@@ -46,6 +46,9 @@ type Config struct {
 	// browser ids (cookies) are free to mint.
 	RateVotePerSuggestionIP int  // AMIGA_RATE_VOTE_SUGGESTION_IP, default 20
 	TrustProxyForwarding    bool // AMIGA_TRUST_PROXY=1: client IP is the last X-Forwarded-For hop
+	// AMIGA_CLIENT_IP_HEADER, with AMIGA_TRUST_PROXY=1: a header that carries
+	// the client IP instead, e.g. CF-Connecting-IP behind Cloudflare.
+	ClientIPHeader string
 }
 
 // Production reports whether the app runs with production policies.
@@ -115,6 +118,7 @@ func Load(getenv func(string) string) (Config, error) {
 		*r.dst = n
 	}
 	cfg.TrustProxyForwarding = get("AMIGA_TRUST_PROXY", "") == "1"
+	cfg.ClientIPHeader = get("AMIGA_CLIENT_IP_HEADER", "")
 
 	secret, err := loadSecret(getenv("AMIGA_SECRET"), cfg)
 	if err != nil {
