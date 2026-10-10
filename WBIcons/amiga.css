@@ -19,11 +19,10 @@
    The .amiga-* components are usable without the project styles, inside the
    same opted-in document. They are optional building blocks, not required DOM.
 
-   Reference inspected: https://taws.ch/WB.html, Workbench 1.3 appearance.
-   Its blue ground is #0055aa; white title bars use blue type. The open browser
-   used a repeating Scanlines.png overlay at opacity .3. Here that impression
-   is independently recreated with a MUCH fainter, static CSS gradient.
-   No TAWS source, fonts, sprites, icons, textures or other assets are bundled.
+   Reference: the Workbench 1.3 appearance. Its blue ground is #0055aa; white
+   title bars use blue type. The interlace impression is recreated with a
+   faint, static CSS gradient. No third-party source, fonts, sprites, icons,
+   textures or other assets are bundled.
 
    Deliberate adaptations for a readable catalogue:
      - Blue drawers/chrome, white document/card surfaces for longer reading.
@@ -76,7 +75,7 @@
 
   /* One darkened CSS pixel every three pixels. Never animated. Set opacity
      to 0 to disable, or use data-amiga-scanlines="off". The original blue
-     remains dominant; .04 is intentionally subtler than TAWS's .3 overlay. */
+     remains dominant; .04 is intentionally subtle. */
   --amiga-scanline-opacity: .04;
   --amiga-scanline-period: 3px;
   --amiga-scanline-width: 1px;

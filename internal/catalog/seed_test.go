@@ -16,11 +16,11 @@ func TestCatalog_Seed(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !res.Seeded || res.Entries != 333 || res.Links != 422 || res.Images != 159 {
-		t.Errorf("Seed() = %+v, want 333 entries, 422 links, 159 images", res)
+	if !res.Seeded || res.Entries != 332 || res.Links != 421 || res.Images != 159 {
+		t.Errorf("Seed() = %+v, want 332 entries, 421 links, 159 images", res)
 	}
-	if n, _ := st.Q().CountEntries(ctx); n != 333 {
-		t.Errorf("entries in db = %d, want 333", n)
+	if n, _ := st.Q().CountEntries(ctx); n != 332 {
+		t.Errorf("entries in db = %d, want 332", n)
 	}
 	revs, err := st.Q().ListRevisions(ctx, "lorraine")
 	if err != nil || len(revs) != 1 || revs[0].Actor != "seed" || revs[0].Rev != 1 {
@@ -40,8 +40,8 @@ func TestCatalog_Seed(t *testing.T) {
 	if again != (SeedResult{}) {
 		t.Errorf("second Seed() = %+v, want no-op", again)
 	}
-	if n, _ := st.Q().CountRevisions(ctx); n != 333 {
-		t.Errorf("revisions after second seed = %d, want 333", n)
+	if n, _ := st.Q().CountRevisions(ctx); n != 332 {
+		t.Errorf("revisions after second seed = %d, want 332", n)
 	}
 }
 

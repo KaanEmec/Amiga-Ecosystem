@@ -8690,28 +8690,6 @@
    ]
   },
   {
-   "id": "taws",
-   "name": "TAWS — Amiga Workbench Simulation",
-   "year": 2010,
-   "category": "soft",
-   "kind": "app",
-   "status": "active",
-   "arch": [
-    "web"
-   ],
-   "weight": 2,
-   "by": "Michael Rupp",
-   "what": "A browser-based simulation of Workbench 1.x through 3.x in JavaScript, continuously updated.",
-   "why": "The easiest possible way to show someone what a Workbench actually is — no ROMs, no emulator, no install.",
-   "url": "https://www.taws.ch",
-   "related": [
-    "workbench"
-   ],
-   "tags": [
-    "web"
-   ]
-  },
-  {
    "id": "ppaint",
    "name": "Personal Paint, IGNITION & productivity",
    "year": 1994,

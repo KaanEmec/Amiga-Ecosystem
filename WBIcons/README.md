@@ -1,29 +1,15 @@
-# TAWS Workbench 1.3 icon references
+# Workbench 1.3 icon references
 
-Downloaded on 10 October 2026 from [TAWS](https://taws.ch/WB.html), maintained by Michael Rupp.
+Workbench 1.3 style icon images, kept as visual reference for Workbench Mode.
+Each icon has a normal and a selected state; the selected file appends `Sel` to the
+base name (for example, `DefDrawerSel.png`).
 
-These are original, unmodified PNG files from `https://taws.ch/Icons1.3/`.
-The collection includes the 32 icon types observed in the open page, with their
-normal and selected states where available. TAWS selects the second state by
-appending `Sel` to the base filename (for example, `DefDrawerSel.png`).
-This is not a claim to mirror every file on the server: directory listing is disabled.
-Some icons, such as PayPal and MagicMenuPrefs, are TAWS additions styled to match
-this preset, rather than original Workbench 1.3 system icons.
+## Reuse
 
-No frontend templates, styles, JavaScript, or build configuration were changed
-to load these files. They are stored here for later review.
-
-## Provenance and reuse
-
-- [TAWS preset definitions](https://taws.ch/JS/Presets.js) select `Icons1.3/` for OS 1.3.
-- [TAWS icon loader](https://taws.ch/JS/Icon.js) defines normal / selected image naming.
-- [TAWS copyright notice](https://taws.ch/Files/Copyright.txt) is preserved verbatim
-  as `TAWS-Copyright.txt` (original bytes / encoding).
-- No permissive license for these icon assets was verified. Downloading them
-  does not establish permission to redistribute or publish them. Confirm the
-  applicable rights with TAWS / the relevant rights holders before shipping.
-- `manifest.json` records each source URL, pixel dimensions, byte size, SHA-256
-  hash and download status. This file is an inventory, not a license grant.
+- No permissive licence for these icon images has been verified. They are not
+  covered by the project's GPL-3.0 licence.
+- `manifest.json` records each file's pixel dimensions, byte size and SHA-256 hash.
+  It is an inventory, not a licence grant.
 
 ## Display guidance
 

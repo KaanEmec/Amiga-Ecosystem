@@ -135,13 +135,13 @@ Three user-selectable themes: **Museum Mode Light**, **Museum Mode Dark** and
 | Interlace | `body::after` fixed overlay, `pointer-events:none`, `repeating-linear-gradient` darkening one of every two CSS pixels at .07 opacity; off under `forced-colors: active` and `prefers-contrast: more` | Static, cheap, no animation, no canvas work |
 | Canvas | `lineage.js` reads colours via `cssv()` already; fonts now come from three tokens `--f-canvas-disp` / `--f-canvas-mono` / `--f-canvas-sans` (the last replaces the hardcoded `'Archivo'` label face; defined in `styles.css`, overridden in `workbench.css`) and the theme change triggers `GRAPH.draw()` | Keeps layout geometry identical, so the 40 layout tests still pass |
 | Typeface | Bundled `web/static/fonts/topaz-unicode-ks13.woff` (Topaz Unicode KS13 by Screwtape, ISC, licence file beside it) for display text at 16px multiples only; small mono text and canvas labels keep a system monospace | The only Workbench 1.3 Topaz under a redistribution-safe licence; an 8x8 bitmap face is unreadable below 16px |
-| Icons | A few Workbench 1.3 icon PNGs from `WBIcons/` copied to `web/static/img/wb/`, shown only in Workbench Mode with `image-rendering: pixelated` at integer scale; `Sel` variant for active state | Provenance in `WBIcons/README.md`; rights are not verified, see note |
+| Icons | A few Workbench 1.3 icon PNGs from `WBIcons/` copied to `web/static/img/wb/`, shown only in Workbench Mode with `image-rendering: pixelated` at integer scale; `Sel` variant for active state | Inventory in `WBIcons/README.md`; rights are not verified, see note |
 
 Origin: `WBIcons/amiga.css` is the appearance study the theme file is derived from
 (selector `data-skin="amiga"` became `data-theme="workbench"`, unused optional
 components dropped). The study and the icon inventory stay in `WBIcons/` as reference only.
 
-Note on icon rights: TAWS has no verified redistribution licence for the icon files.
+Note on icon rights: no redistribution licence has been verified for the icon files.
 They ship in Workbench Mode on the owner's decision; remove `web/static/img/wb/` and
 the icon block in `workbench.css` to withdraw them without touching anything else.
 

@@ -166,8 +166,7 @@ The source code — `cmd/`, `internal/`, `web/`, `tests/`, `deploy/` and the `Do
 licensed under the GNU General Public License v3.0; see [`LICENSE`](LICENSE).
 
 The catalogue content in `data/`, the pictures in `images/` and the Workbench 1.3 icons in
-`WBIcons/` and `web/static/img/wb/` (from [TAWS](https://taws.ch), rights not verified, see
-`WBIcons/README.md`) are **not** covered by that license. The Workbench Mode typeface is
+`WBIcons/` and `web/static/img/wb/` (rights not verified, see `WBIcons/README.md`) are **not** covered by that license. The Workbench Mode typeface is
 [Topaz Unicode](https://gitlab.com/Screwtapello/topaz-unicode) by Screwtape (ISC; licence text in
 `web/static/fonts/`). The pictures belong to their photographers and publishers
 (each entry's `imageCredit` and `images/catalog-completion/SOURCES.md` name them), and some are

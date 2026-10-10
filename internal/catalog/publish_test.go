@@ -135,8 +135,8 @@ func TestCatalog_Create_InvalidRollsBack(t *testing.T) {
 			if !errors.As(err, &ve) {
 				t.Fatalf("err = %v, want *ValidationError", err)
 			}
-			if n := revCount(t, st); n != 333 {
-				t.Errorf("revisions = %d, want 333", n)
+			if n := revCount(t, st); n != 332 {
+				t.Errorf("revisions = %d, want 332", n)
 			}
 		})
 	}

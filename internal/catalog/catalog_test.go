@@ -130,14 +130,14 @@ func TestCatalog_Import(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if stats.Created != 333 {
-		t.Errorf("created = %d, want 333", stats.Created)
+	if stats.Created != 332 {
+		t.Errorf("created = %d, want 332", stats.Created)
 	}
 	if _, err := cat.Import(ctx, seed, "test"); !errors.Is(err, ErrNotEmpty) {
 		t.Errorf("second Import err = %v, want ErrNotEmpty", err)
 	}
-	if n, _ := st.Q().CountRevisions(ctx); n != 333 {
-		t.Errorf("revisions = %d, want 333", n)
+	if n, _ := st.Q().CountRevisions(ctx); n != 332 {
+		t.Errorf("revisions = %d, want 332", n)
 	}
 }
 
@@ -183,7 +183,7 @@ func TestCatalog_ImportReplace(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if stats.Updated != 1 || stats.Deleted != 1 || stats.Created != 0 || stats.Unchanged != 331 {
+	if stats.Updated != 1 || stats.Deleted != 1 || stats.Created != 0 || stats.Unchanged != 330 {
 		t.Errorf("stats = %+v", stats)
 	}
 	changed, _ := ParseEntry(seed.Entries[1])
@@ -208,8 +208,8 @@ func TestCatalog_ImportReplace(t *testing.T) {
 		t.Error("cache was not invalidated by ImportReplace")
 	}
 	exp, _ := cat.Export(ctx)
-	if len(exp.Entries) != 332 {
-		t.Errorf("export has %d entries, want 332", len(exp.Entries))
+	if len(exp.Entries) != 331 {
+		t.Errorf("export has %d entries, want 331", len(exp.Entries))
 	}
 
 	// Re-importing the seed restores the dropped entry.
@@ -221,7 +221,7 @@ func TestCatalog_ImportReplace(t *testing.T) {
 		t.Errorf("restore stats = %+v", stats)
 	}
 	exp, _ = cat.Export(ctx)
-	if len(exp.Entries) != 333 || !reflect.DeepEqual(decoded(t, exp.Entries[drop]), decoded(t, seed.Entries[drop])) {
+	if len(exp.Entries) != 332 || !reflect.DeepEqual(decoded(t, exp.Entries[drop]), decoded(t, seed.Entries[drop])) {
 		t.Error("restored entry missing or out of order")
 	}
 }
@@ -238,8 +238,8 @@ func TestCatalog_ImportReplace_InvalidIsAtomic(t *testing.T) {
 	if _, err := cat.ImportReplace(ctx, bad, "test"); err == nil {
 		t.Fatal("invalid document accepted")
 	}
-	if n, _ := st.Q().CountRevisions(ctx); n != 333 {
-		t.Errorf("revisions = %d after rejected import, want 333", n)
+	if n, _ := st.Q().CountRevisions(ctx); n != 332 {
+		t.Errorf("revisions = %d after rejected import, want 332", n)
 	}
 }
 

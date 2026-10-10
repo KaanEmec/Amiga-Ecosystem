@@ -63,7 +63,7 @@ func TestServer_handleCatalog(t *testing.T) {
 	if err := json.Unmarshal(rec.Body.Bytes(), &doc); err != nil {
 		t.Fatal(err)
 	}
-	if len(doc.Entries) != 333 || doc.Meta == nil || doc.Domains == nil || doc.Tours == nil || doc.Readme != nil {
+	if len(doc.Entries) != 332 || doc.Meta == nil || doc.Domains == nil || doc.Tours == nil || doc.Readme != nil {
 		t.Errorf("catalogue shape: %d entries, meta=%v domains=%v tours=%v readme=%v",
 			len(doc.Entries), doc.Meta != nil, doc.Domains != nil, doc.Tours != nil, doc.Readme != nil)
 	}
