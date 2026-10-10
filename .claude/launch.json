@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "amiga", "runtimeExecutable": "go", "runtimeArgs": ["run", "./cmd/amiga", "serve"], "port": 8080 }
+  ]
+}
