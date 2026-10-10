@@ -1,0 +1,21 @@
+{{define "content"}}
+<p class="admin-crumbs"><a href="/admin/entries">Entries</a> / <a href="/admin/entries/{{.ID}}">{{.Name}}</a></p>
+<h1 class="admin-h1">Remove {{.Name}}</h1>
+<section class="admin-card">
+  <h2>What this removal changes</h2>
+  {{template "admin_deps" .Deps}}
+</section>
+<form method="post" action="/admin/entries/{{.ID}}/remove" class="admin-form admin-card">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <input type="hidden" name="rev" value="{{.Rev}}">
+  <label>Reason (kept in the revision history)
+    <input name="reason" maxlength="500">
+  </label>
+  <label class="admin-check"><input type="checkbox" name="confirm" value="1" required> I understand: remove this entry and apply the cleanup above in one step.</label>
+  <div class="admin-actions">
+    <button type="submit" class="admin-btn admin-btn-danger">Remove entry</button>
+    <a class="admin-btn" href="/admin/entries/{{.ID}}">Cancel</a>
+  </div>
+</form>
+{{end}}
+{{template "admin_layout" .}}

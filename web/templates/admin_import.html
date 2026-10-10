@@ -1,0 +1,28 @@
+{{define "content"}}
+<h1 class="admin-h1">Import / export</h1>
+<section class="admin-card">
+  <h2>Export</h2>
+  <p>Download the live catalogue (removed entries excluded) as JSON, in the same shape as <code>data/amiga-data.json</code>.
+  Taxonomy, domains and guided routes are edited this way in v1.</p>
+  <a class="admin-btn" href="/admin/export">Download JSON</a>
+</section>
+{{with .Stats}}
+<section class="admin-card">
+  <h2>Import result</h2>
+  <p class="mono">{{.Created}} created · {{.Updated}} updated · {{.Restored}} restored · {{.Deleted}} removed · {{.Unchanged}} unchanged</p>
+</section>
+{{end}}
+<form method="post" action="/admin/import" enctype="multipart/form-data" class="admin-form admin-card">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <h2>Import (replace)</h2>
+  <p>The file is validated in full first. If it is valid, the catalogue is made to match it in one transaction:
+  changed entries get new revisions, entries missing from the file are removed, removed entries present in it are restored,
+  and meta, domains and tours are replaced.</p>
+  <label>Catalogue JSON
+    <input type="file" name="catalog" accept="application/json,.json" required>
+  </label>
+  <label class="admin-check"><input type="checkbox" name="confirm" value="1" required> Replace the live catalogue with this file.</label>
+  <div class="admin-actions"><button type="submit" class="admin-btn admin-btn-danger">Validate and import</button></div>
+</form>
+{{end}}
+{{template "admin_layout" .}}

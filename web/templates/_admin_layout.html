@@ -1,0 +1,42 @@
+{{define "admin_layout"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="same-origin">
+<meta name="color-scheme" content="light dark">
+<title>{{.Title}} · Owner panel · Amiga Constellation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Public+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="/static/css/styles.css">
+<script src="/static/js/admin.js" defer></script>
+</head>
+<body class="admin">
+<header class="admin-bar">
+  <a class="admin-brand" href="/admin"><span class="admin-wm">Amiga Constellation</span><span class="admin-sub">Owner panel</span></a>
+  {{if .SignedIn}}
+  <nav class="admin-nav" aria-label="Owner panel">
+    <a href="/admin"{{if eq .Section "dashboard"}} aria-current="page"{{end}}>Dashboard</a>
+    <a href="/admin/queue"{{if eq .Section "queue"}} aria-current="page"{{end}}>Queue</a>
+    <a href="/admin/entries"{{if eq .Section "entries"}} aria-current="page"{{end}}>Entries</a>
+    <a href="/admin/settings"{{if eq .Section "settings"}} aria-current="page"{{end}}>Settings</a>
+    <a href="/admin/import"{{if eq .Section "data"}} aria-current="page"{{end}}>Import / export</a>
+    <a href="/" class="admin-ext">Public site</a>
+    <form method="post" action="/admin/logout" class="admin-inline">
+      <input type="hidden" name="csrf" value="{{.CSRF}}">
+      <button type="submit" class="admin-btn admin-btn-quiet">Sign out</button>
+    </form>
+  </nav>
+  {{end}}
+</header>
+<main class="admin-main" id="main">
+{{with .Notice}}<p class="admin-flash admin-flash-ok" role="status">{{.}}</p>{{end}}
+{{with .Error}}<p class="admin-flash admin-flash-err" role="alert">{{.}}</p>{{end}}
+{{with .Problems}}<ul class="admin-problems">{{range .}}<li>{{.}}</li>{{end}}</ul>{{end}}
+{{template "content" .}}
+</main>
+</body>
+</html>
+{{end}}

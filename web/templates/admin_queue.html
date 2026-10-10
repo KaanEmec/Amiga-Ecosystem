@@ -1,0 +1,46 @@
+{{define "content"}}
+<h1 class="admin-h1">Review queue</h1>
+<form method="get" action="/admin/queue" class="admin-filter" role="search">
+  <label>Type
+    <select name="type">{{range .Types}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</select>
+  </label>
+  <label>Status
+    <select name="status">{{range .Statuses}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</select>
+  </label>
+  <label class="admin-grow">Entry id
+    <input type="search" name="entry" value="{{.Entry}}" class="mono" placeholder="e.g. a1200">
+  </label>
+  <label>Sort
+    <select name="sort">{{range .Sorts}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</select>
+  </label>
+  <button type="submit" class="admin-btn">Filter</button>
+</form>
+<p class="admin-muted">{{.Total}} suggestion{{if ne .Total 1}}s{{end}}{{if gt .Pages 1}}, page {{.Page}} of {{.Pages}}{{end}}.</p>
+<div class="admin-tablewrap">
+<table class="admin-table">
+  <thead><tr><th>#</th><th>Proposal</th><th>Type</th><th>Entry</th><th>Support</th><th>Submitted</th><th>Status</th></tr></thead>
+  <tbody>
+  {{range .Rows}}
+  <tr>
+    <td class="mono"><a href="/admin/suggestions/{{.ID}}">#{{.ID}}</a></td>
+    <td><a href="/admin/suggestions/{{.ID}}">{{.Title}}</a>{{with .Summary}}<div class="admin-hint">{{.}}</div>{{end}}</td>
+    <td class="admin-nowrap">{{.TypeLabel}}</td>
+    <td class="mono">{{with .EntryID}}<a href="/admin/entries/{{.}}">{{.}}</a>{{else}}<span class="admin-muted">new</span>{{end}}</td>
+    <td class="mono">+{{.Votes}}</td>
+    <td class="mono admin-nowrap">{{date .Created}}</td>
+    <td><span class="admin-tag{{if eq .Status "hidden" "rejected"}} admin-tag-off{{end}}">{{.StatusLabel}}</span>{{if .Stale}} <span class="admin-tag admin-tag-warn">stale</span>{{end}}</td>
+  </tr>
+  {{else}}
+  <tr><td colspan="7" class="admin-muted">No suggestions match.</td></tr>
+  {{end}}
+  </tbody>
+</table>
+</div>
+{{if or .PrevURL .NextURL}}
+<nav class="admin-actions admin-pager" aria-label="Pages">
+  {{with .PrevURL}}<a class="admin-btn" href="{{.}}" rel="prev">Previous</a>{{end}}
+  {{with .NextURL}}<a class="admin-btn" href="{{.}}" rel="next">Next</a>{{end}}
+</nav>
+{{end}}
+{{end}}
+{{template "admin_layout" .}}

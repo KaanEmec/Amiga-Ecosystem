@@ -1,0 +1,138 @@
+{{define "content"}}
+<div class="sg-wrap">
+  <p class="sg-back"><a href="/suggestions">← All suggestions</a></p>
+  <header class="sg-head">
+    <span class="eyebrow">Suggest</span>
+    <h1>Suggest an addition or change</h1>
+    <p class="sg-lede">Propose a missing entry, correct one, ask for a removal or offer a better picture. Suggestions are public as soon as they are sent and are reviewed by the editor. Importance and verification are set by the editor.</p>
+  </header>
+
+  {{if .SubmissionsPaused}}<p class="warnbox sg-note"><b>New suggestions are paused</b> for the moment. Please come back later.</p>{{end}}
+  {{if .Errors}}
+  <div class="sg-errors" role="alert" tabindex="-1" id="sg-errors">
+    <b>Your suggestion was not sent yet.</b>
+    <ul>{{range .Errors}}<li>{{.}}</li>{{end}}</ul>
+  </div>
+  {{end}}
+
+  <form class="sg-form" method="post" action="/suggestions/new" data-type="{{.V.Type}}">
+    <fieldset class="sg-types">
+      <legend class="eyebrow">What would you like to suggest?</legend>
+      <div class="sg-typegrid">
+        {{range .TypeOptions}}
+        <label class="sg-typeopt"><input type="radio" name="type" value="{{.ID}}"{{if eq .ID $.V.Type}} checked{{end}}>
+          <span class="sg-typename">{{.Label}}</span>
+          <span class="sg-typehelp">{{if eq .ID "new"}}Something the catalogue is missing{{else if eq .ID "change"}}Correct or improve an entry{{else if eq .ID "remove"}}An entry that does not belong{{else}}A picture for an entry{{end}}</span>
+        </label>
+        {{end}}
+      </div>
+    </fieldset>
+
+    <div class="sg-layout">
+      <div class="sg-col">
+        <section class="sg-sec" data-for="change remove image">
+          <h2 class="sg-h2">Entry</h2>
+          <div class="sg-field sg-picker" data-picker="entry">
+            <label for="sg-entry"><span class="eyebrow">Which entry? <span class="sg-req">required</span></span></label>
+            <input id="sg-entry" name="entry" value="{{.V.Entry}}" data-label="{{.EntryName}}" autocomplete="off" spellcheck="false" placeholder="Entry id, e.g. a1200" aria-describedby="sg-entry-help">
+            <span class="sg-help" id="sg-entry-help">{{if .EntryName}}Selected: <b>{{.EntryName}}</b>. {{end}}Type a name to search the catalogue.</span>
+          </div>
+          {{if .Pending}}
+          <div class="sg-pending">
+            <span class="eyebrow">Already pending for {{.EntryName}}</span>
+            <ul>{{range .Pending}}<li><a href="/suggestions/{{.ID}}">#{{.ID}} {{.TypeLabel}}</a> {{.Summary}} <span class="mono">+{{.Votes}}</span></li>{{end}}</ul>
+            <span class="sg-help">If one of these covers your idea, a +1 there helps more than a new suggestion.</span>
+          </div>
+          {{end}}
+        </section>
+
+        <section class="sg-sec" data-for="new change">
+          <h2 class="sg-h2">Entry details</h2>
+          <p class="sg-help" data-for="change">The fields show the entry as it is now. Edit only what should change; unchanged fields are ignored.</p>
+          <div class="sg-row">
+            <label class="sg-field sg-grow"><span class="eyebrow">Name <span class="sg-req">required</span></span>
+              <input name="f_name" value="{{.V.Name}}" maxlength="120" autocomplete="off" data-hint-source></label>
+            <label class="sg-field sg-year"><span class="eyebrow">Year <span class="sg-req">required</span></span>
+              <input name="f_year" value="{{.V.Year}}" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="1992"></label>
+          </div>
+          <label class="sg-field" data-for="new"><span class="eyebrow">Id (optional)</span>
+            <input name="f_id" value="{{.V.ID}}" maxlength="64" pattern="[a-z0-9]+(-[a-z0-9]+)*" placeholder="derived from the name, e.g. amiga-1200" spellcheck="false"></label>
+          <div class="sg-row">
+            <label class="sg-field sg-grow"><span class="eyebrow">Category <span class="sg-req">required</span></span>
+              <select name="f_category"><option value="">Choose…</option>
+                {{range .Options.Groups}}<optgroup label="{{.Label}}">{{range .Cats}}<option value="{{.ID}}"{{if eq .ID $.V.Category}} selected{{end}}>{{.Label}}</option>{{end}}</optgroup>{{end}}
+              </select></label>
+            <label class="sg-field sg-grow"><span class="eyebrow">Kind <span class="sg-req">required</span></span>
+              <select name="f_kind"><option value="">Choose…</option>{{range .Options.Kinds}}<option value="{{.ID}}"{{if eq .ID $.V.Kind}} selected{{end}}>{{.Label}}</option>{{end}}</select></label>
+            <label class="sg-field sg-grow"><span class="eyebrow">Status <span class="sg-req">required</span></span>
+              <select name="f_status"><option value="">Choose…</option>{{range .Options.Statuses}}<option value="{{.ID}}"{{if eq .ID $.V.Status}} selected{{end}}>{{.Label}}</option>{{end}}</select></label>
+          </div>
+          <fieldset class="sg-field sg-checks"><legend class="eyebrow">Architectures <span class="sg-req">at least one</span></legend>
+            {{range .Options.Archs}}<label class="sg-check"><input type="checkbox" name="f_arch" value="{{.ID}}"{{if $.V.HasArch .ID}} checked{{end}}> {{.Label}}</label>{{end}}
+          </fieldset>
+          <label class="sg-field"><span class="eyebrow">Made by</span>
+            <input name="f_by" value="{{.V.By}}" maxlength="200" placeholder="Company, team or person"></label>
+          <label class="sg-field"><span class="eyebrow">What it is <span class="sg-req">required</span></span>
+            <textarea name="f_what" rows="3" maxlength="1200">{{.V.What}}</textarea></label>
+          <label class="sg-field"><span class="eyebrow">Why it matters <span class="sg-req">required</span></span>
+            <textarea name="f_why" rows="3" maxlength="1200">{{.V.Why}}</textarea></label>
+          <div class="sg-field sg-picker" data-picker="related">
+            <label for="sg-related"><span class="eyebrow">Descends from (lineage)</span></label>
+            <div class="sg-chips" aria-label="Selected entries (untick to remove)">{{range .Related}}<label class="chip sg-chip"><input type="checkbox" name="f_related" value="{{.ID}}" checked> {{.Label}}</label>{{end}}</div>
+            <input id="sg-related" name="f_related_add" autocomplete="off" spellcheck="false" placeholder="Entry ids, comma separated" aria-describedby="sg-related-help">
+            <span class="sg-help" id="sg-related-help">Earlier entries this one grew out of. Type a name to search.</span>
+          </div>
+          <div class="sg-row">
+            <label class="sg-field sg-grow"><span class="eyebrow">Tags</span>
+              <input name="f_tags" value="{{.V.Tags}}" placeholder="comma, separated" spellcheck="false"></label>
+            <label class="sg-field sg-grow"><span class="eyebrow">Version</span>
+              <input name="f_version" value="{{.V.Version}}" maxlength="200"></label>
+          </div>
+          <label class="sg-field"><span class="eyebrow">Official site</span>
+            <input name="f_url" type="url" value="{{.V.URL}}" placeholder="https://…" spellcheck="false"></label>
+        </section>
+
+        <section class="sg-sec" data-for="image">
+          <h2 class="sg-h2">Image</h2>
+          <label class="sg-field"><span class="eyebrow">Image URL <span class="sg-req">required</span></span>
+            <input name="image_url" type="url" value="{{.V.ImageURL}}" placeholder="https://…/photo.jpg" spellcheck="false"></label>
+          <label class="sg-field"><span class="eyebrow">Credit and licence <span class="sg-req">required</span></span>
+            <input name="image_credit" value="{{.V.ImageCredit}}" maxlength="200" placeholder="e.g. Photo by …, CC BY-SA 4.0"></label>
+          <label class="sg-field"><span class="eyebrow">Source page</span>
+            <input name="image_source_page" type="url" value="{{.V.ImageSourcePage}}" placeholder="https://… (where the image is published)" spellcheck="false"></label>
+          <p class="sg-help">JPEG, PNG, GIF or WebP. The image is fetched and checked by the editor, never loaded automatically.</p>
+        </section>
+
+        <section class="sg-sec">
+          <h2 class="sg-h2">Why, and where from</h2>
+          <label class="sg-field"><span class="eyebrow">Reason <span class="sg-req" data-for="remove image">required</span></span>
+            <textarea name="reason" rows="4" maxlength="2000">{{.V.Reason}}</textarea></label>
+          <label class="sg-field"><span class="eyebrow">Sources</span>
+            <textarea name="sources" rows="3" placeholder="One http(s) link per line" spellcheck="false">{{.V.Sources}}</textarea></label>
+          <label class="sg-field"><span class="eyebrow">Short summary (optional)</span>
+            <input name="summary" value="{{.V.Summary}}" maxlength="300" placeholder="Written for you if left blank"></label>
+          <label class="sg-field"><span class="eyebrow">Contact (optional, never shown)</span>
+            <input name="contact" value="{{.V.Contact}}" maxlength="200" autocomplete="email" placeholder="Email, in case the editor has a question"></label>
+        </section>
+
+        <div class="sg-hp" aria-hidden="true">
+          <label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <input type="hidden" name="form_ts" value="{{.FormTS}}">
+        {{if .SiteKey}}<div class="sg-ts" data-sitekey="{{.SiteKey}}" data-action="suggest"></div>{{end}}
+        <div class="sg-submit">
+          <button class="btn" type="submit"{{if .SubmissionsPaused}} disabled{{end}}>Send suggestion</button>
+          <span class="sg-help">It appears publicly as <b>Pending</b> right away.</span>
+        </div>
+      </div>
+
+      <aside class="sg-hints" aria-live="polite" hidden>
+        <span class="eyebrow">Did you mean</span>
+        <div class="sg-hint-entries"></div>
+        <div class="sg-hint-sugs"></div>
+      </aside>
+    </div>
+  </form>
+</div>
+{{end}}
+{{template "public_layout" .}}

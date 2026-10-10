@@ -1,0 +1,1117 @@
+/* ========================================================================== 
+   amiga.css — Workbench 1.3 inspired appearance study
+   Prepared for Amiga Constellation, 10 October 2026.
+
+   STATUS: standalone proposal. Not imported by or installed in the project.
+
+   Future integration contract (documentation only):
+     1. Load this file AFTER the existing styles.css.
+     2. Opt in with <html data-skin="amiga">.
+     3. Remove data-skin, or use data-skin="museum", to restore Museum styling.
+        data-theme remains reserved for the existing light/dark preference.
+        This historical preset deliberately keeps its light/blue palette in
+        either preference; it does not invent a dark Workbench 1.3.
+     4. Optional: <html data-skin="amiga" data-amiga-scanlines="off">.
+     5. Optional: data-amiga-font="topaz" selects the locally available face.
+
+   The project adapter below changes appearance, not catalogue/graph geometry,
+   routing, interactions, hidden states, or the existing responsive layout.
+   The .amiga-* components are usable without the project styles, inside the
+   same opted-in document. They are optional building blocks, not required DOM.
+
+   Reference inspected: https://taws.ch/WB.html, Workbench 1.3 appearance.
+   Its blue ground is #0055aa; white title bars use blue type. The open browser
+   used a repeating Scanlines.png overlay at opacity .3. Here that impression
+   is independently recreated with a MUCH fainter, static CSS gradient.
+   No TAWS source, fonts, sprites, icons, textures or other assets are bundled.
+
+   Deliberate adaptations for a readable catalogue:
+     - Blue drawers/chrome, white document/card surfaces for longer reading.
+     - Orange means selection; black text on orange avoids white-on-orange.
+     - Existing era colors remain as semantic accents, adjusted for contrast.
+     - No CRT curvature, glow, blur, animation, flicker, or font smoothing hacks.
+     - Photos keep normal image rendering; only .amiga-pixel-art is pixelated.
+
+   Limits of CSS alone:
+     - Does not add the theme selector, persistence, window dragging or gadgets.
+     - Does not trigger a redraw of the existing canvas when a skin is changed.
+       A future integration must reuse the app's canvas redraw path.
+       Canvas font names are hardcoded in JS and cannot be replaced by CSS.
+     - The existing JS detail flight animation is outside this appearance file.
+     - Print styles here must be paired with the project's print/export flow
+       if a full multi-pane catalogue export is wanted.
+   ========================================================================== */
+
+/* Optional LOCAL fonts only. No download, remote request, or bundled binary.
+   Register a separately licensed face as "Amiga Topaz" in a future integration
+   if consistent bitmap typography is desired on machines without these fonts. */
+@font-face {
+  font-family: "Amiga Topaz Local";
+  src: local("Topaz1"), local("Topaz"), local("Topaz a500"), local("Topaz_a500");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* 01. Palette, shape, type and the existing frontend token bridge. */
+:root[data-skin="amiga"] {
+  --amiga-blue: #0055aa;
+  --amiga-blue-deep: #004488;
+  --amiga-white: #ffffff;
+  --amiga-black: #000000;
+  --amiga-orange: #ff8800;
+  --amiga-orange-soft: #ffac4d;
+  --amiga-orange-ink: #874000;
+  --amiga-paper: #ffffff;
+  --amiga-paper-alt: #f0f4f8;
+  --amiga-muted: #43556a;
+  --amiga-frame: #ffffff;
+  --amiga-frame-width: 2px;
+  --amiga-shadow: 2px 2px 0 #000000;
+  --amiga-font: "Amiga Topaz", "Amiga Topaz Local", "Lucida Console",
+    ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  --amiga-reading-font: ui-monospace, "SFMono-Regular", Menlo, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  /* One darkened CSS pixel every three pixels. Never animated. Set opacity
+     to 0 to disable, or use data-amiga-scanlines="off". The original blue
+     remains dominant; .04 is intentionally subtler than TAWS's .3 overlay. */
+  --amiga-scanline-opacity: .04;
+  --amiga-scanline-period: 3px;
+  --amiga-scanline-width: 1px;
+  --amiga-scanline-z: 1000;
+  --amiga-scanline-image: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 1) 0,
+    rgb(0 0 0 / 1) var(--amiga-scanline-width),
+    transparent var(--amiga-scanline-width),
+    transparent var(--amiga-scanline-period)
+  );
+
+  /* Global tokens use readable white document surfaces. Blue containers
+     receive their own inverse tokens below, including readable link colors. */
+  --bg: var(--amiga-blue);
+  /* The canvas also uses bg-deep as a disc fill behind dark text. Keep that
+     token light; blue screen/drawer backgrounds use amiga-blue explicitly. */
+  --bg-deep: var(--amiga-paper-alt);
+  --surf: var(--amiga-paper);
+  --surf-2: var(--amiga-paper-alt);
+  --surf-3: #ccdcec;
+  --line: var(--amiga-blue);
+  --line-soft: #9cb5cf;
+  --ink: var(--amiga-black);
+  --ink-2: #172b40;
+  --ink-3: var(--amiga-muted);
+  --ink-4: #526275;
+  --acc: var(--amiga-blue);
+  --acc-soft: var(--amiga-blue-deep);
+  --acc-fill: var(--amiga-blue);
+  --acc-fill-2: var(--amiga-blue-deep);
+  --acc-dim: #8caecc;
+  --acc-tint: #e8f0fa;
+  --acc-glow: rgb(0 85 170 / .18);
+  --e1: #874000;
+  --e2: #14683a;
+  --e3: #0055aa;
+  --e4: #642477;
+  --e1-t: #fff2df;
+  --e2-t: #edf6ef;
+  --e3-t: #e8f0fa;
+  --e4-t: #f5edf8;
+  --ok: #14683a;
+  --warn: var(--amiga-orange-ink);
+  --info: var(--amiga-blue);
+  --off: #526275;
+  --focus: var(--amiga-blue);
+  --r: 0px;
+  --f-disp: var(--amiga-font);
+  --f-body: var(--amiga-reading-font);
+  --f-mono: var(--amiga-font);
+  /* Replaces decorative museum rainbow rules with the screen's white edge. */
+  --rainbow: linear-gradient(var(--amiga-white), var(--amiga-white));
+  color-scheme: light;
+  background: var(--amiga-blue);
+  scrollbar-color: var(--amiga-white) var(--amiga-blue);
+  scrollbar-width: auto;
+}
+
+:root[data-skin="amiga"][data-amiga-font="topaz"] {
+  --f-body: var(--amiga-font);
+}
+
+/* 02. Screen and static interlace impression. body::after covers ordinary
+   content; native top-layer dialogs need their own overlay. Neither overlay
+   captures clicks, selects text, reserves space, or creates an animation. */
+:root[data-skin="amiga"] body {
+  margin: 0;
+  background: var(--amiga-blue);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+:root[data-skin="amiga"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--amiga-scanline-z);
+  pointer-events: none;
+  user-select: none;
+  background-image: var(--amiga-scanline-image);
+  opacity: var(--amiga-scanline-opacity);
+}
+
+:root[data-skin="amiga"] :is(.detail-dialog, .amiga-requester)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--amiga-scanline-z);
+  pointer-events: none;
+  user-select: none;
+  background-image: var(--amiga-scanline-image);
+  opacity: var(--amiga-scanline-opacity);
+}
+
+:root[data-skin="amiga"][data-amiga-scanlines="off"] {
+  --amiga-scanline-opacity: 0;
+}
+
+/* 03. Shared typography, links, keyboard focus and native controls. */
+:root[data-skin="amiga"] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--f-disp);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+:root[data-skin="amiga"] :is(.eyebrow, .mono, .cardspec, .fpspec,
+  .grouplbl, .lflab, .lfst, .st, .haslink, .tourtitle,
+  .dfact .k, .sortwrap label, .glbl, .glegend .legttl) {
+  font-family: var(--f-mono);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+:root[data-skin="amiga"] a {
+  color: var(--acc);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+  border-bottom: 0;
+}
+
+:root[data-skin="amiga"] a:hover { color: var(--acc-soft); }
+
+:root[data-skin="amiga"] :is(code, pre, kbd, samp) {
+  font-family: var(--amiga-reading-font);
+}
+
+:root[data-skin="amiga"] kbd {
+  padding: .1em .35em;
+  border: 1px solid currentColor;
+  border-radius: 0;
+}
+
+:root[data-skin="amiga"] ::selection {
+  color: var(--amiga-black);
+  background: var(--amiga-orange);
+}
+
+:root[data-skin="amiga"] :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+:root[data-skin="amiga"] :is(input, textarea, select) {
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+  font: inherit;
+  accent-color: var(--amiga-blue);
+  caret-color: var(--amiga-blue);
+  box-shadow: inset 1px 1px 0 #9cb5cf;
+}
+
+:root[data-skin="amiga"] :is(input, textarea)::placeholder {
+  color: #526275;
+  opacity: 1;
+}
+
+:root[data-skin="amiga"] :is(input, textarea, select):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+:root[data-skin="amiga"] :is(input, textarea)[aria-invalid="true"] {
+  border-style: dashed;
+  border-color: var(--amiga-orange-ink);
+}
+
+:root[data-skin="amiga"] textarea {
+  min-height: 8rem;
+  padding: .6rem .75rem;
+  resize: vertical;
+}
+
+:root[data-skin="amiga"] :is(input[type="checkbox"], input[type="radio"]) {
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  box-shadow: none;
+}
+
+:root[data-skin="amiga"] input[type="range"] { accent-color: var(--amiga-blue); }
+:root[data-skin="amiga"] input[type="file"]::file-selector-button {
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+  padding: .35rem .65rem;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  font: inherit;
+  cursor: pointer;
+}
+
+:root[data-skin="amiga"] :is(button, input, textarea, select):disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+/* Blue tracks and white rectangular thumbs, not modern pill scrollbars. */
+:root[data-skin="amiga"] ::-webkit-scrollbar { width: 14px; height: 14px; }
+:root[data-skin="amiga"] ::-webkit-scrollbar-track {
+  background: var(--amiga-blue);
+  border: 1px solid var(--amiga-white);
+}
+:root[data-skin="amiga"] ::-webkit-scrollbar-thumb {
+  background: var(--amiga-white);
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] ::-webkit-scrollbar-thumb:hover { background: #ffac4d; }
+:root[data-skin="amiga"] ::-webkit-scrollbar-corner { background: var(--amiga-blue); }
+
+/* 04. Native-looking white-and-blue gadgets. The more specific active-state
+   group below intentionally overrides existing white text on selected buttons. */
+:root[data-skin="amiga"] :is(.btn, .iconbtn, .gchip, .lfback, .extlink,
+  .peek-go, .amiga-button, .amiga-gadget) {
+  box-sizing: border-box;
+  appearance: none;
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  box-shadow: inset 0 0 0 1px var(--amiga-white);
+  font-family: var(--amiga-font);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: none;
+}
+
+:root[data-skin="amiga"] :is(.btn, .extlink, .amiga-button) {
+  min-height: 36px;
+  padding: 7px 14px;
+}
+
+:root[data-skin="amiga"] :is(.btn, .iconbtn, .gchip, .lfback, .extlink,
+  .peek-go, .amiga-button, .amiga-gadget):hover:not(:disabled) {
+  background: #e8f0fa;
+  color: var(--amiga-blue-deep);
+  border-color: var(--amiga-blue-deep);
+}
+
+:root[data-skin="amiga"] :is(.btn, .iconbtn, .gchip, .lfback, .extlink,
+  .peek-go, .amiga-button, .amiga-gadget):active:not(:disabled) {
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  box-shadow: inset 0 0 0 1px var(--amiga-white);
+}
+
+:root[data-skin="amiga"] :is(.viewtoggle, .gdetail, .garrange) {
+  background: var(--amiga-white);
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+}
+
+:root[data-skin="amiga"] :is(.viewtoggle, .gdetail, .garrange) button {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border-radius: 0;
+  border-right-color: var(--amiga-blue);
+  font-family: var(--amiga-font);
+  text-transform: none;
+  letter-spacing: 0;
+  transition: none;
+}
+
+:root[data-skin="amiga"] :is(.viewtoggle, .gdetail, .garrange) button:hover {
+  background: #e8f0fa;
+  color: var(--amiga-blue-deep);
+}
+
+:root[data-skin="amiga"] :is(.btn.ghost, .gess, .gchip,
+  .groutes > summary, .viewtoggle button, .gdetail button,
+  .garrange button, .amiga-button)[aria-pressed="true"],
+:root[data-skin="amiga"] :is(.btn.ghost, .gess, .gchip,
+  .groutes > summary, .viewtoggle button, .gdetail button,
+  .garrange button, .amiga-button)[aria-pressed="true"]:hover,
+:root[data-skin="amiga"] :is(.extlink.primary, .amiga-button--primary) {
+  background: var(--amiga-orange);
+  color: var(--amiga-black);
+  border-color: var(--amiga-blue);
+}
+
+:root[data-skin="amiga"] :is(.extlink.primary, .amiga-button--primary):hover:not(:disabled) {
+  background: var(--amiga-orange-soft);
+  color: var(--amiga-black);
+  border-color: var(--amiga-blue);
+}
+
+/* 05. Screen title and toolbars. The actual brand remains intact. */
+:root[data-skin="amiga"] .topbar {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border-bottom: 2px solid var(--amiga-blue);
+  box-shadow: 0 2px 0 var(--amiga-white);
+}
+:root[data-skin="amiga"] .topbar::after { content: none; }
+:root[data-skin="amiga"] .brand .wm {
+  font-family: var(--amiga-font);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -.025em;
+  color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] .brand .wm :is(b, i) {
+  color: inherit;
+  font-weight: inherit;
+  font-style: normal;
+}
+:root[data-skin="amiga"] .brand .sub {
+  color: var(--amiga-blue);
+  border-color: var(--amiga-blue);
+  letter-spacing: 0;
+  text-transform: none;
+}
+:root[data-skin="amiga"] #search {
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] #search:focus {
+  outline: 2px solid var(--amiga-blue);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+:root[data-skin="amiga"] :is(.searchwrap svg, #searchclear) {
+  color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] :is(.stagebar, .gbar, .lfbar, .lflegend) {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border-color: var(--amiga-blue);
+  box-shadow: 0 2px 0 var(--amiga-white);
+}
+:root[data-skin="amiga"] :is(.chip, .tag, .ac, .unv) {
+  border-radius: 0;
+  letter-spacing: 0;
+}
+:root[data-skin="amiga"] .chip {
+  background: var(--amiga-orange);
+  border: 1px solid var(--amiga-blue);
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] .chip :is(b, button) { color: var(--amiga-black); }
+
+/* 06. Blue filter drawer. Local inverse tokens keep subordinate text legible.
+   White document widgets below reset their own ink rather than inheriting it. */
+:root[data-skin="amiga"] .rail {
+  --ink: #ffffff;
+  --ink-2: #ffffff;
+  --ink-3: #ffffff;
+  --ink-4: #ffffff;
+  --acc: #ffffff;
+  --acc-soft: #ffac4d;
+  --focus: #ff8800;
+  --line: #ffffff;
+  --line-soft: rgb(255 255 255 / .5);
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  border-right: 2px solid var(--amiga-white);
+}
+:root[data-skin="amiga"] .railhead {
+  background: var(--amiga-white);
+  border-bottom: 2px solid var(--amiga-blue);
+  color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] .railhead .count,
+:root[data-skin="amiga"] .railhead .count b,
+:root[data-skin="amiga"] #resetall {
+  color: var(--amiga-blue);
+  border-color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] #resetall {
+  font-family: var(--amiga-font);
+  text-transform: none;
+  letter-spacing: 0;
+}
+:root[data-skin="amiga"] .facet > summary {
+  color: var(--amiga-white);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+:root[data-skin="amiga"] .facet > summary:hover,
+:root[data-skin="amiga"] .facet[data-on="1"] > summary {
+  color: var(--amiga-orange-soft);
+}
+:root[data-skin="amiga"] .facet > summary .on {
+  color: var(--amiga-black);
+  background: var(--amiga-orange);
+  border: 1px solid var(--amiga-white);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] .opt {
+  color: var(--amiga-white);
+  font-family: var(--amiga-font);
+  border-radius: 0;
+  transition: none;
+}
+:root[data-skin="amiga"] .opt:hover {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] .opt[aria-pressed="true"],
+:root[data-skin="amiga"] .opt[aria-pressed="true"]:hover {
+  background: var(--amiga-orange);
+  color: var(--amiga-black);
+  font-weight: 400;
+}
+:root[data-skin="amiga"] .opt .n { color: inherit; opacity: 1; }
+:root[data-skin="amiga"] .opt .box {
+  border: 2px solid var(--amiga-white);
+  border-radius: 0;
+  background: var(--amiga-blue);
+}
+:root[data-skin="amiga"] .opt[aria-pressed="true"] .box {
+  border-color: var(--amiga-black);
+  background: var(--amiga-white);
+}
+:root[data-skin="amiga"] .opt[aria-pressed="true"] .box svg {
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] :is(.opt .dot, .opt .swatch) {
+  border: 1px solid var(--amiga-white);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] .opt[data-zero="1"] { opacity: .7; }
+
+/* 07. Blue stage and white catalogue documents. Structural layout is retained.
+   Era stripes retain their meaning; museum paper tints become clean surfaces. */
+:root[data-skin="amiga"] :is(.stage, .scroll, .lfocus, .lfboard) {
+  background: var(--amiga-blue);
+}
+:root[data-skin="amiga"] :is(.card, .fplate, .fera, .froute, .lfcard) {
+  border: 2px solid var(--amiga-blue);
+  outline: 1px solid var(--amiga-white);
+  outline-offset: 0;
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+  box-shadow: var(--amiga-shadow);
+  transition: none;
+}
+:root[data-skin="amiga"] :is(.card, .fplate, .fera, .froute, .lfcard):hover {
+  border-color: var(--amiga-blue);
+  outline-color: var(--amiga-orange);
+  box-shadow: var(--amiga-shadow);
+  transform: none;
+}
+:root[data-skin="amiga"] :is(.card, .lfcard)[aria-current="true"] {
+  border: 2px solid var(--amiga-blue);
+  outline: 2px solid var(--amiga-orange);
+  outline-offset: 0;
+  box-shadow: var(--amiga-shadow);
+}
+:root[data-skin="amiga"] :is(.card h3, .fpn, .fera h3, .froute h3) {
+  font-size: 18px;
+  line-height: 1.3;
+}
+:root[data-skin="amiga"] :is(.plate, .detail-media, .thumb) {
+  border-radius: 0;
+  background: var(--amiga-white);
+  border-color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] .plate { border-bottom: 1px solid var(--amiga-blue); }
+:root[data-skin="amiga"] .plate::before { height: 2px; }
+:root[data-skin="amiga"] :is(.st i, .lfdot) { border-radius: 0; }
+:root[data-skin="amiga"] .empty {
+  margin-block: 2rem;
+  padding: 28px;
+  border: 2px solid var(--amiga-white);
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+}
+:root[data-skin="amiga"] .empty :is(h2, p) { color: inherit; }
+
+/* Catalogue accordion headings double as white Workbench title strips. */
+:root[data-skin="amiga"] :is(.grouphead, .cathead) {
+  padding: 10px 12px;
+  border: 2px solid var(--amiga-white);
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  box-shadow: inset 0 0 0 1px var(--amiga-blue);
+  transition: none;
+}
+:root[data-skin="amiga"] :is(.grouphead h2, .cathead h3) {
+  font-size: 19px;
+  color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] :is(.grouphead, .cathead):hover {
+  border-color: var(--amiga-orange);
+  background: var(--amiga-white);
+}
+
+/* 08. Overview: desktop headings above separate white reading windows. */
+:root[data-skin="amiga"] .front {
+  --ink: #ffffff;
+  --ink-2: #ffffff;
+  --ink-3: #ffffff;
+  --ink-4: #ffffff;
+  --acc: #ffffff;
+  --acc-soft: #ffac4d;
+  --focus: #ff8800;
+  color: var(--amiga-white);
+}
+:root[data-skin="amiga"] :is(.fstats, .ftax, .fcautions, .fhow,
+  .fplate, .fera, .froute) {
+  --ink: #000000;
+  --ink-2: #172b40;
+  --ink-3: #43556a;
+  --ink-4: #526275;
+  --acc: #0055aa;
+  --acc-soft: #004488;
+  --focus: #0055aa;
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] .fhero h1 {
+  font-size: clamp(26px, 4.5vw, 46px);
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+:root[data-skin="amiga"] .flede { font-size: 16px; }
+:root[data-skin="amiga"] .fsect {
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--amiga-white);
+}
+:root[data-skin="amiga"] .fsect h2 { font-size: 23px; }
+:root[data-skin="amiga"] :is(.fstats, .ftax, .fcautions, .fhow) {
+  border: 2px solid var(--amiga-white);
+  border-radius: 0;
+  background: var(--amiga-white);
+  box-shadow: var(--amiga-shadow);
+}
+:root[data-skin="amiga"] :is(.fstat, .ftaxrow, .fcaution) {
+  background: var(--amiga-white);
+}
+:root[data-skin="amiga"] .fstat .v { font-family: var(--amiga-font); font-size: 30px; }
+:root[data-skin="amiga"] :is(.fstat .k, .froute-n, .froute-go) {
+  text-transform: none;
+  letter-spacing: 0;
+}
+:root[data-skin="amiga"] .fhow { padding: 20px; }
+:root[data-skin="amiga"] .fhow-n {
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+}
+:root[data-skin="amiga"] .ffoot code {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border-radius: 0;
+}
+
+/* 09. Map, lineage board, route menu and peek panel. Canvas colors read the
+   root token bridge; drawing and coordinates remain application-owned. */
+:root[data-skin="amiga"] .graphwrap {
+  /* White map paper keeps existing canvas text and era colors readable. */
+  background: var(--amiga-white);
+  box-shadow: inset 0 0 0 2px var(--amiga-blue);
+}
+:root[data-skin="amiga"] :is(.gcap, .groutes-p, .tourbar, #gtip) {
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+  box-shadow: var(--amiga-shadow);
+  backdrop-filter: none;
+}
+:root[data-skin="amiga"] .tourbar::before { background: var(--amiga-blue); height: 2px; }
+:root[data-skin="amiga"] :is(.tourname, #gtip .n, .peek-t) { font-size: 19px; }
+:root[data-skin="amiga"] :is(.groutes-p .gchip, .groutes-p .gchip:hover) {
+  border: 0;
+  border-radius: 0;
+  color: var(--amiga-blue);
+  background: var(--amiga-white);
+}
+:root[data-skin="amiga"] .groutes-p .gchip[aria-pressed="true"] {
+  color: var(--amiga-black);
+  background: var(--amiga-orange);
+}
+:root[data-skin="amiga"] .lfhead {
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+}
+:root[data-skin="amiga"] #pane-graph[data-lf="1"] .lfhead {
+  background: var(--amiga-blue);
+  box-shadow: none;
+}
+:root[data-skin="amiga"] :is(.lflab, .lfyrs, .lfn) { color: var(--amiga-white); }
+:root[data-skin="amiga"] .lfrule { background: var(--amiga-white); }
+:root[data-skin="amiga"] .lfcard[data-chain="1"] { border-color: var(--amiga-black); }
+:root[data-skin="amiga"] .lfname { font-family: var(--amiga-font); font-weight: 400; }
+
+/* 10. Detail requester, reading sheet, facts, relations and notices. */
+:root[data-skin="amiga"] .detail-dialog { color: var(--amiga-black); }
+:root[data-skin="amiga"] .detail-dialog::backdrop {
+  background: rgb(0 34 68 / .65);
+  backdrop-filter: none;
+  transition: none;
+}
+:root[data-skin="amiga"] .detail-panel {
+  border: 2px solid var(--amiga-white);
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+  box-shadow: 0 0 0 2px var(--amiga-blue), 4px 4px 0 var(--amiga-black);
+}
+:root[data-skin="amiga"] .detail-toolbar {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border-bottom: 3px double var(--amiga-blue);
+}
+:root[data-skin="amiga"] .detail-media { border: 1px solid var(--amiga-blue); }
+:root[data-skin="amiga"] .dhead h2 {
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: 0;
+}
+:root[data-skin="amiga"] :is(.detail-intro, .dsec p) { line-height: 1.75; }
+:root[data-skin="amiga"] .dsec.why {
+  background: #e8f0fa;
+  border: 1px solid var(--amiga-blue);
+  border-left: 4px solid var(--amiga-blue);
+}
+:root[data-skin="amiga"] :is(.dfacts, .tag) {
+  border-color: var(--amiga-blue);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] .dfacts { background: var(--amiga-blue); }
+:root[data-skin="amiga"] .relbtn {
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  font-family: var(--amiga-font);
+  transition: none;
+}
+:root[data-skin="amiga"] .relbtn:hover { background: #e8f0fa; }
+:root[data-skin="amiga"] .warnbox {
+  background: #fff2df;
+  color: var(--amiga-black);
+  border: 2px solid var(--amiga-orange-ink);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] .warnbox b { color: var(--amiga-orange-ink); }
+:root[data-skin="amiga"] .scrim { background: rgb(0 34 68 / .65); }
+
+/* 11. Optional reusable Workbench components; no required application changes.
+
+   Example window (the gadgets need real behavior if ever added to the app):
+   <section class="amiga-window" aria-labelledby="window-title">
+     <header class="amiga-titlebar">
+       <button class="amiga-gadget amiga-gadget--close" aria-label="Close"></button>
+       <h2 id="window-title">System</h2>
+       <button class="amiga-gadget amiga-gadget--depth" aria-label="Send back"></button>
+     </header>
+     <div class="amiga-window__body">...</div>
+     <footer class="amiga-statusbar">3 objects</footer>
+   </section>
+   Use .amiga-window--document for a white reading area, or
+   data-active="false" for a visually inactive (still operable) window.
+ */
+:root[data-skin="amiga"] .amiga-desktop {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(12px, 3vw, 32px);
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  font-family: var(--amiga-font);
+}
+:root[data-skin="amiga"] .amiga-screenbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  min-height: 26px;
+  padding: 2px 8px;
+  border-bottom: 2px solid var(--amiga-blue);
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  font: 16px/1.3 var(--amiga-font);
+}
+:root[data-skin="amiga"] .amiga-window {
+  --focus: #ff8800;
+  --acc: #ffffff;
+  --acc-soft: #ffac4d;
+  box-sizing: border-box;
+  min-width: 0;
+  border: 2px solid var(--amiga-white);
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  box-shadow: 0 0 0 1px var(--amiga-blue), var(--amiga-shadow);
+  font-family: var(--amiga-font);
+}
+:root[data-skin="amiga"] .amiga-titlebar {
+  --focus: #0055aa;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 2px;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border-bottom: 2px solid var(--amiga-blue);
+  box-shadow: 0 1px 0 var(--amiga-white);
+  font: 16px/1.2 var(--amiga-font);
+}
+:root[data-skin="amiga"] .amiga-titlebar > :is(h2, h3, .amiga-title) {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit;
+}
+:root[data-skin="amiga"] .amiga-window[data-active="false"] > .amiga-titlebar {
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  border-bottom-color: var(--amiga-white);
+}
+:root[data-skin="amiga"] .amiga-gadget {
+  display: inline-grid;
+  place-items: center;
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 23px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+:root[data-skin="amiga"] .amiga-gadget--close::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border: 2px solid currentColor;
+}
+:root[data-skin="amiga"] .amiga-gadget--depth::before,
+:root[data-skin="amiga"] .amiga-gadget--depth::after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 8px;
+  border: 1px solid currentColor;
+}
+:root[data-skin="amiga"] .amiga-gadget--depth::before { top: 3px; left: 4px; }
+:root[data-skin="amiga"] .amiga-gadget--depth::after { top: 7px; left: 8px; }
+:root[data-skin="amiga"] .amiga-window__body {
+  padding: 16px;
+  overflow-wrap: anywhere;
+}
+:root[data-skin="amiga"] .amiga-window--document {
+  --focus: #0055aa;
+  --acc: #0055aa;
+  --acc-soft: #004488;
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] .amiga-window--document > .amiga-window__body {
+  font-family: var(--amiga-reading-font);
+  line-height: 1.75;
+}
+:root[data-skin="amiga"] .amiga-statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 4px 8px;
+  border-top: 1px solid var(--amiga-white);
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  font: 13px/1.5 var(--amiga-font);
+}
+:root[data-skin="amiga"] .amiga-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+:root[data-skin="amiga"] .amiga-field {
+  display: grid;
+  gap: 6px;
+  margin-block: 12px;
+}
+:root[data-skin="amiga"] .amiga-field :is(input:not([type="checkbox"]):not([type="radio"]), select) {
+  min-height: 36px;
+  padding: 6px 8px;
+}
+:root[data-skin="amiga"] .amiga-help { font-size: 13px; line-height: 1.6; }
+:root[data-skin="amiga"] .amiga-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border: 2px solid var(--amiga-blue);
+}
+:root[data-skin="amiga"] .amiga-menu :is(a, button) {
+  display: block;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--amiga-blue);
+  font: 16px/1.4 var(--amiga-font);
+  text-decoration: none;
+  cursor: pointer;
+}
+:root[data-skin="amiga"] .amiga-menu :is(a, button):hover,
+:root[data-skin="amiga"] .amiga-menu [aria-current="page"] {
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+}
+:root[data-skin="amiga"] .amiga-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 16px 12px;
+  align-items: start;
+}
+:root[data-skin="amiga"] .amiga-icon {
+  appearance: none;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 64px;
+  padding: 8px 4px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--amiga-white);
+  font: 16px/1.3 var(--amiga-font);
+  text-align: center;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+:root[data-skin="amiga"] .amiga-icon:is(:hover, [aria-pressed="true"], [aria-selected="true"]) {
+  border-color: var(--amiga-white);
+  background: var(--amiga-orange);
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] .amiga-icon :is(img, svg) {
+  width: 48px;
+  height: 40px;
+  object-fit: contain;
+}
+:root[data-skin="amiga"] .amiga-pixel-art { image-rendering: pixelated; }
+:root[data-skin="amiga"] .amiga-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+  font-family: var(--amiga-reading-font);
+}
+:root[data-skin="amiga"] .amiga-table :is(th, td) {
+  padding: 8px 12px;
+  border: 1px solid var(--amiga-blue);
+  text-align: left;
+}
+:root[data-skin="amiga"] .amiga-table th {
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  font-family: var(--amiga-font);
+  font-weight: 400;
+}
+:root[data-skin="amiga"] .amiga-table tr[aria-selected="true"] > td {
+  background: var(--amiga-orange);
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] .amiga-requester {
+  --focus: #ff8800;
+  --acc: #ffffff;
+  --acc-soft: #ffac4d;
+  box-sizing: border-box;
+  position: fixed;
+  max-width: min(540px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  overflow: auto;
+  border: 2px solid var(--amiga-white);
+  border-radius: 0;
+  background: var(--amiga-blue);
+  color: var(--amiga-white);
+  box-shadow: 0 0 0 2px var(--amiga-blue), var(--amiga-shadow);
+  font-family: var(--amiga-font);
+}
+:root[data-skin="amiga"] .amiga-requester::backdrop { background: rgb(0 34 68 / .65); }
+:root[data-skin="amiga"] .amiga-notice {
+  padding: 12px 16px;
+  border: 2px solid var(--amiga-blue);
+  background: var(--amiga-white);
+  color: var(--amiga-black);
+}
+:root[data-skin="amiga"] .amiga-notice--warning {
+  border-color: var(--amiga-orange-ink);
+  background: #fff2df;
+}
+/* Guru styling is opt-in for an actual error, never for ordinary empty states. */
+:root[data-skin="amiga"] .amiga-guru {
+  padding: 16px;
+  border: 3px solid #ff6666;
+  background: var(--amiga-black);
+  color: #ff6666;
+  font: 16px/1.6 var(--amiga-font);
+  text-align: center;
+}
+
+/* 12. Responsive refinements. Existing layout breakpoints remain authoritative.
+   The proposal keeps native zoom and real text rather than scaling a desktop. */
+@media (max-width: 860px) {
+  :root[data-skin="amiga"] .rail {
+    border-right: 2px solid var(--amiga-white);
+    box-shadow: 3px 0 0 var(--amiga-black);
+  }
+}
+@media (max-width: 760px) {
+  :root[data-skin="amiga"] .brand .wm { font-size: 18px; }
+  :root[data-skin="amiga"] :is(.detail-hero, .dbody) { padding: 20px; }
+}
+@media (max-width: 470px) {
+  :root[data-skin="amiga"] .brand .wm { font-size: 16px; }
+  :root[data-skin="amiga"] .amiga-titlebar { gap: 4px; }
+  :root[data-skin="amiga"] .amiga-window__body { padding: 12px; }
+  :root[data-skin="amiga"] .amiga-actions > .amiga-button { flex: 1 1 auto; }
+  :root[data-skin="amiga"] .amiga-table :is(th, td) { padding: 6px; }
+}
+@media (pointer: coarse) {
+  :root[data-skin="amiga"] :is(.btn, .iconbtn, .gchip, .lfback, .extlink,
+    .amiga-button, .amiga-gadget, .amiga-menu a, .amiga-menu button) {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  :root[data-skin="amiga"] :is(.viewtoggle, .gdetail, .garrange) button {
+    min-height: 44px;
+  }
+}
+
+/* 13. Accessibility: static texture can be removed independently; high contrast
+   and forced-color modes remove it automatically. Existing sr/hidden behavior
+   is never replaced by global display declarations. */
+:root[data-skin="amiga"] .skip {
+  background: var(--amiga-white);
+  color: var(--amiga-blue);
+  border: 2px solid var(--amiga-blue);
+  border-radius: 0;
+}
+:root[data-skin="amiga"] .skip:focus { color: var(--amiga-blue); }
+/* A focused selected card still needs a distinct keyboard indicator. */
+:root[data-skin="amiga"] :is(.card, .fplate, .fera, .froute, .lfcard):focus-visible {
+  outline: 3px solid var(--amiga-orange);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--amiga-white);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-skin="amiga"] :is(.card, .fplate, .fera, .froute, .lfcard,
+    .rail, .scrim, .opt, .iconbtn, .amiga-button) {
+    transition: none;
+    animation: none;
+  }
+}
+@media (prefers-contrast: more) {
+  :root[data-skin="amiga"] { --amiga-scanline-opacity: 0; }
+  :root[data-skin="amiga"] :is(.opt[data-zero="1"], button:disabled) { opacity: 1; }
+  :root[data-skin="amiga"] :is(button, input, textarea, select):disabled {
+    border-style: dashed;
+  }
+}
+@media (forced-colors: active) {
+  :root[data-skin="amiga"] { --amiga-scanline-opacity: 0; }
+  :root[data-skin="amiga"] :is(body, .rail, .front, .stage, .scroll,
+    .lfocus, .lfboard, .amiga-desktop, .amiga-window, .amiga-requester) {
+    background: Canvas;
+    color: CanvasText;
+    box-shadow: none;
+  }
+  :root[data-skin="amiga"] :is(.card, .fplate, .fera, .froute, .lfcard,
+    .detail-panel, .amiga-window, .amiga-requester, .amiga-notice) {
+    border-color: CanvasText;
+    outline-color: CanvasText;
+    box-shadow: none;
+  }
+  :root[data-skin="amiga"] :focus-visible { outline-color: Highlight; }
+}
+
+/* No screen texture or colored page grounds in printed documents. This does
+   not expand hidden catalogue panes or paginate the app's fixed-height shell. */
+@media print {
+  :root[data-skin="amiga"] {
+    --amiga-scanline-opacity: 0;
+    --bg: #ffffff;
+    --bg-deep: #ffffff;
+    --ink: #000000;
+    --ink-2: #000000;
+    --ink-3: #000000;
+    --ink-4: #000000;
+  }
+  :root[data-skin="amiga"] body::after,
+  :root[data-skin="amiga"] :is(.detail-dialog, .amiga-requester)::after { display: none; }
+  :root[data-skin="amiga"] :is(body, .front, .rail, .stage, .scroll,
+    .lfocus, .lfboard, .lfhead, .amiga-desktop, .amiga-window,
+    .amiga-statusbar, .amiga-requester) {
+    --ink: #000000;
+    --ink-2: #000000;
+    --ink-3: #000000;
+    --ink-4: #000000;
+    --acc: #000000;
+    background: #ffffff;
+    color: #000000;
+    box-shadow: none;
+  }
+  :root[data-skin="amiga"] :is(.lflab, .lfyrs, .lfn, .empty h2, .empty p) { color: #000000; }
+  :root[data-skin="amiga"] :is(.card, .fplate, .fera, .froute, .lfcard,
+    .detail-panel, .amiga-window, .fstats, .ftax, .fcautions, .fhow) {
+    border: 1px solid #000000;
+    outline: 0;
+    box-shadow: none;
+  }
+}

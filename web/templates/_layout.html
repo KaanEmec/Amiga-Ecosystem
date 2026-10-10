@@ -1,0 +1,48 @@
+{{/* Public layout for server-rendered pages (suggestions). Pages define
+     "content" and call {{template "public_layout" .}} with data that embeds
+     suggestLayout (Title, Section, SiteKey, CSSURL, JSURL). */}}
+{{define "public_layout"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{.Title}} · Amiga Constellation</title>
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Public+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="{{.CSSURL}}">
+<script src="{{.JSURL}}" defer></script>
+{{if .SiteKey}}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>{{end}}
+</head>
+<body class="sg-body" data-section="{{.Section}}">
+<a class="skip" href="#sg-main">Skip to content</a>
+<header class="topbar sg-top">
+  <a class="brand sg-brand" href="/" aria-label="Amiga Constellation, back to the catalogue">
+    <svg class="sg-mark" viewBox="0 0 24 16" width="30" height="20" aria-hidden="true"><g transform="skewX(-28) translate(8 0)"><rect x="0" y="0" width="3.2" height="16" fill="#B01B1B"/><rect x="3.2" y="0" width="3.2" height="16" fill="#8A5200"/><rect x="6.4" y="0" width="3.2" height="16" fill="#6E6000"/><rect x="9.6" y="0" width="3.2" height="16" fill="#14683A"/><rect x="12.8" y="0" width="3.2" height="16" fill="#14568C"/><rect x="16" y="0" width="3.2" height="16" fill="#5B2270"/></g></svg>
+    <span class="wm"><b>Amiga</b> <i>Constellation</i></span>
+    <span class="sub">Suggestions</span>
+  </a>
+  <nav class="viewtoggle sg-nav" aria-label="Site">
+    <a href="/"{{if eq .Section "catalogue"}} aria-current="page"{{end}}>Catalogue</a>
+    <a href="/suggestions"{{if or (eq .Section "list") (eq .Section "detail")}} aria-current="page"{{end}}>Suggestions</a>
+    <a href="/suggestions/new"{{if eq .Section "new"}} aria-current="page"{{end}}>Suggest</a>
+  </nav>
+  <div class="topright">
+    <button class="iconbtn" id="sg-theme" type="button" aria-label="Toggle light and dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  </div>
+</header>
+<main id="sg-main" class="sg-main" tabindex="-1">
+{{template "content" .}}
+</main>
+<footer class="sg-foot">
+  <p>Suggestions are reviewed by the catalogue's editor. +1s show support; they never accept a proposal on their own.</p>
+</footer>
+</body>
+</html>
+{{end}}
+
+{{define "sg_status"}}<span class="st sg-st" data-tone="{{.StatusTone}}"><i></i>{{.StatusLabel}}</span>{{end}}
+
+{{define "sg_vote"}}<button class="sg-vote" type="button" data-id="{{.ID}}" aria-pressed="{{if .Voted}}true{{else}}false{{end}}"{{if not .Open}} disabled title="Voting is closed for resolved suggestions"{{end}} aria-label="+1 suggestion {{.ID}} ({{.Votes}} so far)"><span class="sg-plus">+1</span><span class="sg-count mono">{{.Votes}}</span></button>{{end}}

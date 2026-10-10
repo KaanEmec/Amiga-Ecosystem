@@ -1,0 +1,66 @@
+{{define "content"}}
+<div class="sg-wrap">
+  <header class="sg-head">
+    <span class="eyebrow">Reader suggestions</span>
+    <h1>Proposals for the catalogue</h1>
+    <p class="sg-lede">New entries, corrections, removals and pictures proposed by readers. Everything here is public as soon as it is sent; the editor reviews each one. Add a +1 to anything you would like to see accepted.</p>
+    <div class="sg-actions">
+      <a class="btn sg-btn" href="/suggestions/new">Suggest something</a>
+    </div>
+  </header>
+  {{if .SubmissionsPaused}}<p class="warnbox sg-note"><b>New suggestions are paused</b> for the moment. Existing ones remain visible.</p>{{end}}
+  {{if .VotingPaused}}<p class="warnbox sg-note"><b>Voting is paused</b> for the moment. Totals are kept.</p>{{end}}
+
+  <form class="sg-filters" method="get" action="/suggestions" role="search">
+    <label class="sg-field sg-grow"><span class="eyebrow">Search</span>
+      <input type="search" name="q" value="{{.P.Query}}" placeholder="Entry, title or summary" autocomplete="off"></label>
+    <label class="sg-field"><span class="eyebrow">Type</span>
+      <select name="type">{{range .TypeOptions}}<option value="{{.ID}}"{{if eq .ID $.P.Type}} selected{{end}}>{{.Label}}</option>{{end}}</select></label>
+    <label class="sg-field"><span class="eyebrow">Status</span>
+      <select name="status">{{range .StatusOptions}}<option value="{{.ID}}"{{if eq .ID $.P.Status}} selected{{end}}>{{.Label}}</option>{{end}}</select></label>
+    <label class="sg-field"><span class="eyebrow">Sort</span>
+      <select name="sort"><option value="newest"{{if eq .P.Sort "newest"}} selected{{end}}>Newest first</option><option value="supported"{{if eq .P.Sort "supported"}} selected{{end}}>Most supported</option></select></label>
+    <button class="btn ghost sg-apply" type="submit">Apply</button>
+  </form>
+
+  <p class="sg-count-line mono" aria-live="polite">{{.Total}} suggestion{{if ne .Total 1}}s{{end}}{{if gt .Pages 1}} · page {{.Page}} of {{.Pages}}{{end}}</p>
+
+  {{if .Items}}
+  <div class="sg-table" role="table" aria-label="Suggestions">
+    <div class="sg-tr sg-th" role="row">
+      <span role="columnheader">Type</span><span role="columnheader">Entry / summary</span>
+      <span role="columnheader">Date</span><span role="columnheader">Status</span><span role="columnheader">Support</span>
+    </div>
+    {{range .Items}}
+    <div class="sg-tr" role="row">
+      <span class="sg-type" role="cell"><span class="ac">{{.TypeLabel}}</span></span>
+      <span class="sg-main-cell" role="cell">
+        <a class="sg-title" href="/suggestions/{{.ID}}">{{.Title}}</a>
+        <span class="sg-summary">{{.Summary}}</span>
+      </span>
+      <span class="sg-date mono" role="cell">{{date .CreatedAt}}</span>
+      <span role="cell">{{template "sg_status" .}}</span>
+      <span role="cell">{{template "sg_vote" .}}</span>
+    </div>
+    {{end}}
+  </div>
+  {{else}}
+  <div class="empty sg-empty">
+    <h2>Nothing here yet</h2>
+    <p>{{if or .P.Query .P.Type .P.Status}}No suggestions match these filters.{{else}}No one has suggested anything so far.{{end}}</p>
+    <a class="btn" href="/suggestions/new">Make the first suggestion</a>
+  </div>
+  {{end}}
+
+  {{if gt .Pages 1}}
+  <nav class="sg-pager" aria-label="Pages">
+    {{if .PrevURL}}<a class="extlink" href="{{.PrevURL}}" rel="prev">← Previous</a>{{else}}<span></span>{{end}}
+    <span class="mono">{{.Page}} / {{.Pages}}</span>
+    {{if .NextURL}}<a class="extlink" href="{{.NextURL}}" rel="next">Next →</a>{{else}}<span></span>{{end}}
+  </nav>
+  {{end}}
+  {{if .SiteKey}}<div class="sg-vote-ts" data-sitekey="{{.SiteKey}}" data-action="vote"></div>{{end}}
+  <p class="sg-vote-msg" role="status" aria-live="polite" hidden></p>
+</div>
+{{end}}
+{{template "public_layout" .}}

@@ -1,0 +1,220 @@
+{{define "review_notes"}}
+  <div class="admin-grid">
+    <label>Public decision note <span class="admin-muted">(optional, shown on the suggestion page)</span>
+      <textarea name="decision_note" rows="2" maxlength="1000">{{.DecisionNote}}</textarea></label>
+    <label>Internal note <span class="admin-muted">(private)</span>
+      <textarea name="internal_note" rows="2" maxlength="1000">{{.Internal}}</textarea></label>
+  </div>
+{{end}}
+{{define "review_reviewed"}}{{if .Stale}}
+  <label class="admin-check admin-confirm"><input type="checkbox" name="reviewed" value="1" required> I reviewed the newer changes (rev {{.S.BaseRev}} → {{.EntryRev}}) and want to publish over them.</label>
+{{end}}{{end}}
+{{define "content"}}
+<p class="admin-crumbs"><a href="/admin/queue">Queue</a> / <span class="mono">#{{.S.ID}}</span></p>
+<div class="admin-head">
+  <h1 class="admin-h1">#{{.S.ID}} {{.S.Title}}</h1>
+  <div class="admin-actions">
+    <span class="admin-tag">{{.TypeLabel}}</span>
+    <span class="admin-tag{{if or .Hidden (eq .S.Status "rejected")}} admin-tag-off{{end}}">{{.StatusLabel}}</span>
+    <span class="admin-tag mono">+{{.S.Votes}}</span>
+    {{if .Stale}}<span class="admin-tag admin-tag-warn">stale</span>{{end}}
+    {{if not .Hidden}}<a class="admin-btn admin-btn-quiet" href="/suggestions/{{.S.ID}}">Public page</a>{{end}}
+  </div>
+</div>
+
+<section class="admin-card">
+  <h2>Submission <span class="admin-muted admin-small">private details are shown only here</span></h2>
+  <dl class="admin-dl">
+    <dt>Summary</dt><dd>{{.S.Summary}}</dd>
+    {{with .S.Reason}}<dt>Reason</dt><dd class="admin-pre">{{.}}</dd>{{end}}
+    {{with .Sources}}<dt>Sources</dt><dd><ul class="admin-links">{{range .}}<li><a href="{{.}}" rel="noopener noreferrer nofollow ugc" target="_blank" class="mono">{{.}}</a></li>{{end}}</ul></dd>{{end}}
+    <dt>Contact</dt><dd>{{with .S.Contact}}{{.}}{{else}}<span class="admin-muted">none given</span>{{end}}</dd>
+    <dt>Submitted</dt><dd class="mono">{{datetime .S.CreatedAt}}</dd>
+    {{with .S.DecidedAt}}<dt>Decided</dt><dd class="mono">{{datetime .}}</dd>{{end}}
+    {{with .S.DecisionNote}}<dt>Decision note</dt><dd class="admin-pre">{{.}}</dd>{{end}}
+    {{with .S.InternalNote}}<dt>Internal note</dt><dd class="admin-pre">{{.}}</dd>{{end}}
+    {{with .S.DuplicateOf}}<dt>Duplicate of</dt><dd><a href="/admin/suggestions/{{.}}" class="mono">#{{.}}</a></dd>{{end}}
+  </dl>
+</section>
+
+{{if .Stale}}
+<section class="admin-card admin-card-warn" role="note">
+  <h2>Conflict: the entry changed after this proposal</h2>
+  <p>The visitor saw rev {{.S.BaseRev}}; the entry is now at rev {{.EntryRev}}. Fields marked <span class="admin-tag admin-tag-warn">changed since</span> were edited in between.
+  Accepting requires confirming that you reviewed these newer revisions.</p>
+  <ol class="admin-revs">
+  {{range .Newer}}
+    <li>
+      <div class="admin-rev-head">
+        <span class="admin-tag mono">rev {{.Rev}}</span> <span class="admin-tag">{{.Kind}}</span>
+        <span class="mono admin-muted">{{datetime .When}}</span> <span class="admin-muted">by {{.Actor}}</span>{{with .Reason}} <span>“{{.}}”</span>{{end}}
+      </div>
+      {{if .Changes}}
+      <div class="admin-tablewrap">
+      <table class="admin-table admin-diff">
+        <thead><tr><th>Field</th><th>Before</th><th>After</th></tr></thead>
+        <tbody>{{range .Changes}}<tr><td class="mono">{{.Key}}</td><td class="admin-before">{{.Before}}</td><td class="admin-after">{{.After}}</td></tr>{{end}}</tbody>
+      </table>
+      </div>
+      {{end}}
+    </li>
+  {{end}}
+  </ol>
+</section>
+{{end}}
+
+<div class="admin-panels">
+  <section class="admin-card" aria-labelledby="p-current">
+    <h2 id="p-current">Current entry</h2>
+    {{if eq .EntryState "live"}}
+      <p class="admin-hint"><a href="/admin/entries/{{.S.EntryID}}" class="mono">{{.S.EntryID}}</a> · rev {{.EntryRev}}</p>
+      <table class="admin-table admin-kv"><tbody>
+      {{range .Current}}<tr><th scope="row">{{.Label}}</th><td>{{.Proposed}}</td></tr>{{end}}
+      </tbody></table>
+    {{else if eq .EntryState "removed"}}
+      <p class="admin-flash admin-flash-warn">The entry <a href="/admin/entries/{{.S.EntryID}}" class="mono">{{.S.EntryID}}</a> has been removed. Restore it before accepting.</p>
+    {{else if eq .EntryState "missing"}}
+      <p class="admin-flash admin-flash-warn">The entry <span class="mono">{{.S.EntryID}}</span> no longer exists.</p>
+    {{else}}
+      <p class="admin-muted">No current entry: this proposes a new one.</p>
+      {{if .ExistingNew}}<p class="admin-flash admin-flash-warn">An entry with the proposed id exists now. Change the id with Edit &amp; accept, or mark this as a duplicate.</p>{{end}}
+    {{end}}
+  </section>
+
+  <section class="admin-card" aria-labelledby="p-diff">
+    <h2 id="p-diff">Proposed differences</h2>
+    {{if eq .S.Type "change"}}
+      <table class="admin-table admin-diff"><thead><tr><th>Field</th><th>{{if .Pending}}Current{{else}}At proposal{{end}}</th><th>Proposed</th></tr></thead><tbody>
+      {{range .Diff}}<tr{{if .Conflict}} class="admin-conflict"{{end}}>
+        <th scope="row">{{.Label}}{{if .Conflict}} <span class="admin-tag admin-tag-warn">changed since</span>{{end}}</th>
+        <td class="admin-before">{{with .Current}}{{.}}{{else}}—{{end}}{{if .Conflict}}<span class="admin-hint">visitor saw: {{with .Snapshot}}{{.}}{{else}}—{{end}}</span>{{end}}</td>
+        <td class="admin-after">{{if .Removed}}<em>remove this field</em>{{else}}{{.Proposed}}{{end}}</td>
+      </tr>{{end}}
+      </tbody></table>
+    {{else if eq .S.Type "new"}}
+      <table class="admin-table admin-kv"><tbody>
+      {{range .Diff}}<tr><th scope="row">{{.Label}}</th><td class="admin-after">{{.Proposed}}</td></tr>{{end}}
+      </tbody></table>
+      <p class="admin-hint">Importance (weight) and “unverified” are set by you on acceptance.</p>
+    {{else if eq .S.Type "remove"}}
+      <p>Remove <b>{{.EntryName}}</b> from the catalogue.</p>
+      {{with .Deps}}<h3 class="admin-h3">What this removal changes</h3>{{template "admin_deps" .}}{{end}}
+    {{else if eq .S.Type "image"}}
+      {{with .Image}}
+      <dl class="admin-dl">
+        <dt>Image URL</dt><dd><a href="{{.URL}}" rel="noopener noreferrer nofollow ugc" target="_blank" class="mono admin-break">{{.URL}}</a></dd>
+        <dt>Credit</dt><dd>{{.Credit}}</dd>
+        {{with .SourcePage}}<dt>Source page</dt><dd><a href="{{.}}" rel="noopener noreferrer nofollow ugc" target="_blank" class="mono admin-break">{{.}}</a></dd>{{end}}
+      </dl>
+      {{end}}
+      <p class="admin-hint">Nothing is downloaded until you ask: Preview fetches the file through the safe fetcher into the private staging area.</p>
+      {{if .Pending}}
+      <form method="post" action="/admin/suggestions/{{.S.ID}}/preview" class="admin-inline">
+        <input type="hidden" name="csrf" value="{{.CSRF}}">
+        <button type="submit" class="admin-btn">{{if .Staged}}Fetch again{{else}}Preview image{{end}}</button>
+      </form>
+      {{end}}
+    {{end}}
+  </section>
+
+  <section class="admin-card" aria-labelledby="p-final">
+    <h2 id="p-final">Final preview</h2>
+    {{if .Pending}}
+      {{with .FinalNote}}<p>{{.}}</p>{{end}}
+      {{with .Staged}}
+      <figure class="admin-staged">
+        <img src="/admin/staged/{{.Name}}" alt="Staged copy of the suggested image" width="{{.Width}}" height="{{.Height}}">
+        <figcaption class="admin-hint">{{.Width}}×{{.Height}} px · {{.Bytes}} bytes · {{.ContentType}}<br>
+          fetched from <span class="mono admin-break">{{.FinalURL}}</span></figcaption>
+      </figure>
+      {{else}}{{if eq .S.Type "image"}}<p class="admin-muted">Not fetched yet. Accept fetches it if you have not previewed it.</p>{{end}}{{end}}
+      {{if .Final}}
+      <p class="admin-hint">As it would be published with the weight and verification below. Highlighted fields differ from the live entry.</p>
+      <table class="admin-table admin-kv"><tbody>
+      {{range .Final}}<tr{{if .Conflict}} class="admin-changed"{{end}}><th scope="row">{{.Label}}</th><td>{{.Proposed}}</td></tr>{{end}}
+      </tbody></table>
+      {{end}}
+    {{else}}
+      {{if .Final}}
+      <p class="admin-hint">Published version (stored separately from the visitor's proposal).</p>
+      <table class="admin-table admin-kv"><tbody>
+      {{range .Final}}<tr><th scope="row">{{.Label}}</th><td>{{.Proposed}}</td></tr>{{end}}
+      </tbody></table>
+      {{else}}<p class="admin-muted">{{if eq .S.Type "remove"}}{{if or (eq .S.Status "accepted") (eq .S.Status "accepted_edited")}}Entry removed; there is no final document.{{else}}Nothing was published.{{end}}{{else}}Nothing was published.{{end}}</p>{{end}}
+    {{end}}
+  </section>
+</div>
+
+{{if .Pending}}
+<h2 class="admin-h2">Decision</h2>
+<form method="post" action="/admin/suggestions/{{.S.ID}}/accept" class="admin-form admin-card">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <input type="hidden" name="rev" value="{{.EntryRev}}">
+  <h3 class="admin-h3">Accept</h3>
+  <p class="admin-hint">Publishes the proposal as shown in the final preview, records the decision and its history together, and cannot apply twice.</p>
+  {{if .Edit}}
+  <div class="admin-grid">
+    <label>Weight
+      <select name="weight" required>{{range .Weights}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</select>
+    </label>
+  </div>
+  <label class="admin-check"><input type="checkbox" name="unverified" value="1"{{if .Unverified}} checked{{end}}> Unverified (details not yet confirmed)</label>
+  {{end}}
+  {{if eq .S.Type "remove"}}
+  <label class="admin-check admin-confirm"><input type="checkbox" name="confirm" value="1" required> I understand: remove this entry and apply the cleanup listed above in one step.</label>
+  {{end}}
+  {{template "review_reviewed" .}}
+  {{template "review_notes" .}}
+  <div class="admin-actions"><button type="submit" class="admin-btn {{if eq .S.Type "remove"}}admin-btn-danger{{else}}admin-btn-primary{{end}}">{{if eq .S.Type "remove"}}Accept and remove entry{{else}}Accept{{end}}</button></div>
+</form>
+
+{{if or .Edit (eq .S.Type "image")}}
+<details class="admin-card admin-details"{{if .Error}} open{{end}}>
+  <summary><h3 class="admin-h3">Edit &amp; accept</h3> <span class="admin-hint">Adjust before publishing. The visitor's proposal is kept unchanged; your version is stored as the final one and shown as “Accepted with edits”.</span></summary>
+  <form method="post" action="/admin/suggestions/{{.S.ID}}/accept" class="admin-form">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <input type="hidden" name="rev" value="{{.EntryRev}}">
+    <input type="hidden" name="edit" value="1">
+    {{if .Edit}}{{template "admin_entry_fields" .Edit}}{{else}}
+    <div class="admin-grid">
+      <label>Credit <input name="credit" value="{{.Credit}}" maxlength="500"></label>
+      <label>Source page <input type="url" name="source_page" value="{{.SourcePage}}" maxlength="2048"></label>
+    </div>
+    {{end}}
+    {{template "review_reviewed" .}}
+    {{template "review_notes" .}}
+    <div class="admin-actions"><button type="submit" class="admin-btn admin-btn-primary">Edit &amp; accept</button></div>
+  </form>
+</details>
+{{end}}
+
+<div class="admin-panels">
+  <form method="post" action="/admin/suggestions/{{.S.ID}}/reject" class="admin-form admin-card">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <h3 class="admin-h3">Reject</h3>
+    <label>Public decision note <span class="admin-muted">(optional)</span><textarea name="decision_note" rows="2" maxlength="1000">{{.DecisionNote}}</textarea></label>
+    <label>Internal note <span class="admin-muted">(private)</span><textarea name="internal_note" rows="2" maxlength="1000">{{.Internal}}</textarea></label>
+    <div class="admin-actions"><button type="submit" class="admin-btn">Reject</button></div>
+  </form>
+  <form method="post" action="/admin/suggestions/{{.S.ID}}/duplicate" class="admin-form admin-card">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <h3 class="admin-h3">Mark duplicate</h3>
+    <label>Original suggestion number <input name="duplicate_of" value="{{.DuplicateOf}}" required inputmode="numeric" pattern="#?[0-9]+" class="mono" placeholder="e.g. 12"></label>
+    <p class="admin-hint">Votes stay with each suggestion; they are not merged.</p>
+    <label>Internal note <span class="admin-muted">(private)</span><textarea name="internal_note" rows="2" maxlength="1000">{{.Internal}}</textarea></label>
+    <div class="admin-actions"><button type="submit" class="admin-btn">Mark duplicate</button></div>
+  </form>
+</div>
+{{end}}
+
+{{if not .Hidden}}
+<form method="post" action="/admin/suggestions/{{.S.ID}}/hide" class="admin-form admin-card admin-card-quiet">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <h3 class="admin-h3">Hide as spam</h3>
+  <p class="admin-hint">Removes it from every public page and API, whatever its status. Published changes stay published.</p>
+  <label>Internal note <span class="admin-muted">(private; blank keeps the current one)</span><input name="internal_note" maxlength="1000"></label>
+  <div class="admin-actions"><button type="submit" class="admin-btn admin-btn-danger">Hide spam</button></div>
+</form>
+{{end}}
+{{end}}
+{{template "admin_layout" .}}

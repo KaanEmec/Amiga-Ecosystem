@@ -1,0 +1,35 @@
+{{define "content"}}
+<div class="admin-head">
+  <h1 class="admin-h1">Entries</h1>
+  <a class="admin-btn admin-btn-primary" href="/admin/entries/new">New entry</a>
+</div>
+<form method="get" action="/admin/entries" class="admin-filter" role="search">
+  <label class="admin-grow">Search name or id
+    <input type="search" name="q" value="{{.Q}}" placeholder="e.g. a1200, Workbench">
+  </label>
+  <label class="admin-check"><input type="checkbox" name="deleted" value="1"{{if .Deleted}} checked{{end}}> Include removed</label>
+  <button type="submit" class="admin-btn">Filter</button>
+</form>
+<p class="admin-muted">{{.Live}} live, {{.Removed}} removed. Showing {{len .Rows}}.</p>
+<div class="admin-tablewrap">
+<table class="admin-table">
+  <thead><tr><th>Name</th><th>Id</th><th>Year</th><th>Category</th><th>Weight</th><th>Rev</th><th>Updated</th></tr></thead>
+  <tbody>
+  {{range .Rows}}
+  <tr{{if .Deleted}} class="admin-removed"{{end}}>
+    <td><a href="/admin/entries/{{.ID}}">{{.Name}}</a>{{if .Deleted}} <span class="admin-tag admin-tag-off">removed</span>{{end}}</td>
+    <td class="mono">{{.ID}}</td>
+    <td class="mono">{{.Year}}</td>
+    <td>{{.Category}}</td>
+    <td class="mono">{{.Weight}}</td>
+    <td class="mono">{{.Rev}}</td>
+    <td class="mono admin-nowrap">{{date .Updated}}</td>
+  </tr>
+  {{else}}
+  <tr><td colspan="7" class="admin-muted">No entries match.</td></tr>
+  {{end}}
+  </tbody>
+</table>
+</div>
+{{end}}
+{{template "admin_layout" .}}

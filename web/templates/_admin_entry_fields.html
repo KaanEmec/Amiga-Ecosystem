@@ -1,0 +1,83 @@
+{{define "admin_entry_fields"}}
+  <section class="admin-card">
+    <h2>Identity</h2>
+    <div class="admin-grid">
+      <label>Id (slug)
+        {{if .IsNew}}<input name="id" value="{{.Form.ID}}" required pattern="[a-z0-9]+(-[a-z0-9]+)*" maxlength="64" class="mono">
+        <span class="admin-hint">Lowercase letters, digits and inner hyphens. Cannot change later.</span>
+        {{else}}<input value="{{.ID}}" readonly class="mono">{{end}}
+      </label>
+      <label>Name <input name="name" value="{{.Form.Name}}" required maxlength="200"></label>
+      <label>Year <input name="year" value="{{.Form.Year}}" inputmode="numeric" required pattern="[0-9]{4}" class="mono"></label>
+      <label>By <input name="by" value="{{.Form.By}}" maxlength="200"></label>
+      <label>Version <input name="version" value="{{.Form.Version}}" maxlength="100"></label>
+      <label>Website <input type="url" name="url" value="{{.Form.URL}}" maxlength="2048"></label>
+    </div>
+  </section>
+
+  <section class="admin-card">
+    <h2>Classification</h2>
+    <div class="admin-grid">
+      <label>Category
+        <select name="category" required>
+          <option value="">Choose…</option>
+          {{range .Categories}}<optgroup label="{{.Label}}">{{range .Options}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</optgroup>{{end}}
+        </select>
+      </label>
+      <label>Kind
+        <select name="kind" required>
+          <option value="">Choose…</option>
+          {{range .Kinds}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+        </select>
+      </label>
+      <label>Status
+        <select name="status" required>
+          <option value="">Choose…</option>
+          {{range .Statuses}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+        </select>
+      </label>
+      <label>Weight
+        <select name="weight" required>
+          {{range .Weights}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+        </select>
+      </label>
+    </div>
+    <fieldset class="admin-checks">
+      <legend>Architectures</legend>
+      {{range .Archs}}<label class="admin-check"><input type="checkbox" name="arch" value="{{.Value}}"{{if .Selected}} checked{{end}}> {{.Label}}</label>{{end}}
+    </fieldset>
+    <label class="admin-check"><input type="checkbox" name="unverified" value="1"{{if .Form.Unverified}} checked{{end}}> Unverified (details not yet confirmed)</label>
+  </section>
+
+  <section class="admin-card">
+    <h2>Text</h2>
+    <label>What it is <textarea name="what" rows="4" required maxlength="4000">{{.Form.What}}</textarea></label>
+    <label>Why it matters <textarea name="why" rows="4" required maxlength="4000">{{.Form.Why}}</textarea></label>
+    <label>Tags <input name="tags" value="{{.Form.Tags}}" maxlength="500"><span class="admin-hint">Comma separated.</span></label>
+  </section>
+
+  <section class="admin-card">
+    <h2>Lineage: related entries</h2>
+    <p class="admin-hint">Ancestors and close relatives this entry links to on the lineage map. Selected entries are listed first.</p>
+    <div class="admin-picker" data-picker>
+      <input type="search" class="admin-picker-filter" placeholder="Filter entries…" aria-label="Filter related entries" hidden>
+      <div class="admin-picker-list">
+        {{range .Related}}<label class="admin-check"><input type="checkbox" name="related" value="{{.Value}}"{{if .Selected}} checked{{end}}> {{.Label}} <span class="mono admin-muted">{{.Value}}</span></label>{{end}}
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-card">
+    <h2>Image</h2>
+    <div class="admin-grid">
+      <label>Image path or URL <input name="image" value="{{.Form.Image}}" maxlength="2048" class="mono"></label>
+      <label>Credit <input name="imageCredit" value="{{.Form.ImageCredit}}" maxlength="500"></label>
+      <label>Fit
+        <select name="imageFit">{{range .Fits}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</select>
+      </label>
+      <label>Background <input name="imageBackground" value="{{.Form.ImageBackground}}" maxlength="40" class="mono" placeholder="#111315"></label>
+      <label>Position <input name="imagePosition" value="{{.Form.ImagePosition}}" maxlength="40" class="mono" placeholder="50% 20%"></label>
+    </div>
+    {{if and .Form.Image (not .IsNew)}}<p class="admin-hint">Current: <span class="mono">{{.Form.Image}}</span></p>{{end}}
+  </section>
+{{end}}

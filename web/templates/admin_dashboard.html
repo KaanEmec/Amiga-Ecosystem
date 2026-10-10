@@ -1,0 +1,43 @@
+{{define "content"}}
+<h1 class="admin-h1">Dashboard</h1>
+<div class="admin-stats">
+  <a class="admin-stat" href="/admin/entries"><b class="mono">{{.Counts.LiveEntries}}</b><span>live entries</span></a>
+  <a class="admin-stat" href="/admin/entries?deleted=1"><b class="mono">{{.Counts.DeletedEntries}}</b><span>removed</span></a>
+  <a class="admin-stat" href="/admin/queue"><b class="mono">{{.Counts.PendingSuggestions}}</b><span>pending suggestions</span></a>
+  <div class="admin-stat"><b class="mono">{{.Counts.Revisions}}</b><span>revisions</span></div>
+  <div class="admin-stat"><b class="mono">{{.Counts.Images}}</b><span>fetched images</span></div>
+</div>
+{{if or .SubmissionsPaused .VotingPaused}}
+<p class="admin-flash admin-flash-warn">
+  {{if .SubmissionsPaused}}Submissions are paused. {{end}}{{if .VotingPaused}}Voting is paused. {{end}}
+  <a href="/admin/settings">Change</a>
+</p>
+{{end}}
+<div class="admin-actions">
+  <a class="admin-btn admin-btn-primary" href="/admin/queue">Review queue</a>
+  <a class="admin-btn" href="/admin/entries/new">New entry</a>
+  <a class="admin-btn" href="/admin/entries">Browse entries</a>
+  <a class="admin-btn" href="/admin/export">Export JSON</a>
+</div>
+<section class="admin-card">
+  <h2>Recent publications</h2>
+  {{if .Events}}
+  <div class="admin-tablewrap">
+  <table class="admin-table">
+    <thead><tr><th>When</th><th>Action</th><th>Entry</th><th>Detail</th></tr></thead>
+    <tbody>
+    {{range .Events}}
+    <tr>
+      <td class="mono admin-nowrap">{{datetime .When}}</td>
+      <td><span class="admin-tag">{{.Action}}</span></td>
+      <td>{{with .EntryID}}<a href="/admin/entries/{{.}}">{{.}}</a>{{end}}{{with .SuggestionID}} <a href="/admin/suggestions/{{.}}" class="mono">#{{.}}</a>{{end}}</td>
+      <td class="mono admin-detail">{{.Detail}}</td>
+    </tr>
+    {{end}}
+    </tbody>
+  </table>
+  </div>
+  {{else}}<p class="admin-muted">Nothing published from the panel yet.</p>{{end}}
+</section>
+{{end}}
+{{template "admin_layout" .}}

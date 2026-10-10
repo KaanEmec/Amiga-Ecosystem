@@ -1,0 +1,321 @@
+/* ==========================================================================
+   The Amiga Constellation — detail.js
+   the object detail dialog
+   Load order (classic scripts sharing one global scope, no modules):
+   data.js -> core.js -> catalog.js -> detail.js -> lineage.js -> app.js
+   ========================================================================== */
+'use strict';
+
+/* --------------------------------------------------------- object overlay
+   Reading details owns no map state. The background DOM, selection, camera,
+   and scroll containers are left in place for the entire modal session. */
+var DETAIL = {id:null, originId:null, source:null, opener:null, history:[], navigated:false,
+  closing:false, motion:0, animations:[], clones:[], hidden:[], resizePending:false, imageSizes:{}};
+
+function detailOpen(){ return $('#detail-dialog').open; }
+function reducedMotion(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+function cancelDetailMotion(){
+  DETAIL.motion++;
+  DETAIL.animations.forEach(function(a){a.cancel();});
+  DETAIL.clones.forEach(function(c){c.remove();});
+  DETAIL.hidden.forEach(function(n){n.style.visibility = '';});
+  DETAIL.animations = []; DETAIL.clones = []; DETAIL.hidden = [];
+}
+
+/* Reject clipped/offscreen sources so returning from a deep read never flies
+   toward a title or image outside its scroll container. */
+function detailVisibleRect(node){
+  if(!node || !node.isConnected || !node.getClientRects().length) return null;
+  var r = node.getBoundingClientRect();
+  if(r.width < 1 || r.height < 1 || r.top < 0 || r.left < 0 || r.bottom > innerHeight || r.right > innerWidth) return null;
+  for(var p=node.parentElement; p && p !== document.body; p=p.parentElement){
+    var s = getComputedStyle(p);
+    if(s.display === 'none' || s.visibility === 'hidden') return null;
+    var b = p.getBoundingClientRect();
+    if(/auto|scroll|hidden|clip/.test(s.overflowY) && (r.top < b.top-1 || r.bottom > b.bottom+1)) return null;
+    if(/auto|scroll|hidden|clip/.test(s.overflowX) && (r.left < b.left-1 || r.right > b.right+1)) return null;
+  }
+  return r;
+}
+
+function detailAnimate(node, frames, duration){
+  var a = node.animate(frames, {duration:duration, easing:'cubic-bezier(.2,.75,.2,1)', fill:'both'});
+  DETAIL.animations.push(a);
+}
+
+function detailFlight(from, to, reverse){
+  var a = detailVisibleRect(from), b = detailVisibleRect(to);
+  if(!a || !b || (from.tagName === 'IMG' && (!from.complete || !from.naturalWidth))) return;
+  var copy = from.cloneNode(true), s = getComputedStyle(from), end = getComputedStyle(to);
+  copy.removeAttribute('id'); copy.removeAttribute('tabindex'); copy.setAttribute('aria-hidden','true');
+  copy.className = 'detail-flight';
+  Object.assign(copy.style, {position:'fixed',margin:'0',left:a.left+'px',top:a.top+'px',
+    width:a.width+'px',height:a.height+'px',maxWidth:'none',maxHeight:'none',
+    font:s.font,letterSpacing:s.letterSpacing,color:s.color,lineHeight:s.lineHeight,
+    objectFit:'contain',objectPosition:s.objectPosition,background:s.backgroundColor,
+    borderRadius:s.borderRadius,transformOrigin:'0 0',pointerEvents:'none'});
+  $('#detail-dialog .detail-flight-layer').appendChild(copy); DETAIL.clones.push(copy);
+  var target = reverse ? from : to;
+  target.style.visibility = 'hidden'; DETAIL.hidden.push(target);
+  detailAnimate(copy, [
+    {transform:'translate(0,0)',width:a.width+'px',height:a.height+'px',fontSize:s.fontSize,lineHeight:s.lineHeight,color:s.color},
+    {transform:'translate('+(b.left-a.left)+'px,'+(b.top-a.top)+'px)',width:b.width+'px',height:b.height+'px',fontSize:end.fontSize,lineHeight:end.lineHeight,color:end.color}
+  ], reverse ? 220 : 300);
+}
+
+function detailContentCopy(){
+  if(reducedMotion()) return null;
+  var sc = $('#detail-content'), r = sc.getBoundingClientRect();
+  var copy = el('div','detail-outgoing'), content = sc.cloneNode(true);
+  content.removeAttribute('id');
+  content.querySelectorAll('[id]').forEach(function(n){n.removeAttribute('id');});
+  Object.assign(copy.style,{position:'fixed',left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',overflow:'hidden'});
+  Object.assign(content.style,{overflow:'visible',scrollbarGutter:'auto',height:'auto',width:sc.clientWidth+'px',transform:'translateY(-'+sc.scrollTop+'px)'});
+  copy.appendChild(content);
+  return copy;
+}
+
+function detailTransition(kind, done, outgoing){
+  cancelDetailMotion();
+  if(reducedMotion() || !$('#detail-dialog').animate){ if(done) done(); return; }
+  var token = DETAIL.motion, closing = kind === 'close', opening = kind === 'open';
+  var panel = $('#detail-dialog .detail-panel');
+  var source = DETAIL.source;
+  var reverse = closing && !DETAIL.navigated && DETAIL.id === DETAIL.originId;
+  if(source && (opening || reverse)){
+    var sourceImage = source.querySelector('.plate-img');
+    var sourceTitle = source.querySelector('.fpn, h3, .lfname');
+    var heroImage = $('#detail-dialog .detail-image'), heroTitle = $('#detail-title');
+    if(closing){ detailFlight(heroImage, sourceImage, true); detailFlight(heroTitle, sourceTitle, true); }
+    else { detailFlight(sourceImage, heroImage, false); detailFlight(sourceTitle, heroTitle, false); }
+  }
+  if(kind === 'navigate'){
+    if(outgoing){
+      $('#detail-dialog .detail-flight-layer').appendChild(outgoing); DETAIL.clones.push(outgoing);
+      detailAnimate(outgoing,[{opacity:1},{opacity:0}],150);
+    }
+    detailAnimate($('#detail-content'), [{opacity:0},{opacity:1}],150);
+  }else detailAnimate(panel, closing ? [{opacity:1,transform:'none'},{opacity:0,transform:reverse ? 'scale(.98)' : 'none'}] :
+    [{opacity:0,transform:'scale(.98)'},{opacity:1,transform:'none'}], closing ? (reverse ? 220 : 150) : 300);
+  $('#detail-dialog').classList.toggle('detail-closing',closing);
+  Promise.all(DETAIL.animations.map(function(a){return a.finished.catch(function(){});})).then(function(){
+    if(token !== DETAIL.motion) return;
+    cancelDetailMotion();
+    if(done) done();
+  });
+}
+
+/* Cached images get a frame to settle before measuring the hero. A later load
+   cancels the flight instead of leaving a copy aimed at an obsolete box. */
+function scheduleDetailTransition(kind, outgoing){
+  var token = DETAIL.motion;
+  requestAnimationFrame(function(){
+    if(token === DETAIL.motion && detailOpen() && !DETAIL.closing) detailTransition(kind,null,outgoing);
+  });
+}
+
+function openDetail(id, source){
+  if(!BY_ID[id]) return;
+  var d = $('#detail-dialog'), fresh = !d.open || DETAIL.closing, previousOpener = DETAIL.opener, outgoing;
+  cancelDetailMotion(); DETAIL.closing = false; d.classList.remove('detail-closing');
+  if(fresh){
+    DETAIL.history = []; DETAIL.originId = id; DETAIL.navigated = false;
+    DETAIL.source = source instanceof Element ? source : null;
+    DETAIL.opener = DETAIL.source || (d.open ? previousOpener : document.activeElement);
+    /* A tour may still be easing into its stop when Details is clicked. */
+    if(GRAPH.anim){ cancelAnimationFrame(GRAPH.anim); GRAPH.anim = null; }
+  }else if(DETAIL.id !== id){
+    outgoing = detailContentCopy(); DETAIL.navigated = true;
+    DETAIL.history.push({id:DETAIL.id, scroll:$('#detail-content').scrollTop});
+  }else return;
+  DETAIL.id = id;
+  renderDetail(id);
+  if(!d.open) d.showModal();
+  $('#detail-content').scrollTop = 0;
+  (fresh ? $('#detail-close') : $('#detail-title')).focus({preventScroll:true});
+  scheduleDetailTransition(fresh ? 'open' : 'navigate',outgoing);
+}
+
+function detailBack(){
+  if(!DETAIL.history.length || DETAIL.closing) return;
+  cancelDetailMotion();
+  var outgoing = detailContentCopy();
+  var previous = DETAIL.history.pop(); DETAIL.id = previous.id;
+  renderDetail(previous.id);
+  $('#detail-title').focus({preventScroll:true});
+  $('#detail-content').scrollTop = previous.scroll;
+  scheduleDetailTransition('navigate',outgoing);
+}
+
+function renderDetail(id){
+  var e = BY_ID[id], d = $('#detail-dialog'), sc = $('#detail-content');
+  d.style.setProperty('--era', eraColor(e.era)); d.style.setProperty('--era-t', eraTint(e.era));
+  sc.innerHTML = '';
+  $('#detail-back').disabled = !DETAIL.history.length;
+  $('#detail-back').setAttribute('aria-label',DETAIL.history.length ? 'Back to '+BY_ID[DETAIL.history[DETAIL.history.length-1].id].n : 'Back');
+  var hero = el('div','detail-hero' + (e.img ? '' : ' detail-no-image'));
+  if(e.img){
+    var media = el('div','detail-media');
+    var image = document.createElement('img'); image.className = 'detail-image';
+    image.alt = e.n; image.decoding = 'async';
+    var size = DETAIL.imageSizes[e.img];
+    if(!size){
+      var loaded = Array.from(document.querySelectorAll('#app .plate-img')).find(function(im){
+        return im.getAttribute('src') === e.img && im.complete && im.naturalWidth;
+      });
+      if(loaded) size = DETAIL.imageSizes[e.img] = [loaded.naturalWidth, loaded.naturalHeight];
+    }
+    if(size){image.width=size[0]; image.height=size[1];}
+    if(e.imgBg) media.style.backgroundColor = e.imgBg;
+    image.addEventListener('load',function(){
+      DETAIL.imageSizes[e.img] = [image.naturalWidth,image.naturalHeight];
+      if(!size && DETAIL.id === id && DETAIL.animations.length && !DETAIL.closing) cancelDetailMotion();
+    });
+    image.addEventListener('error',function(){
+      if(!image.isConnected) return;
+      cancelDetailMotion(); media.remove(); hero.classList.add('detail-no-image');
+      h.prepend(thumbEl(e,'lg'));
+      if(DETAIL.closing) finishDetailClose();
+    });
+    image.src = e.img; media.appendChild(image); hero.appendChild(media);
+  }
+  var h = el('div','dhead');
+  if(!e.img) h.appendChild(thumbEl(e,'lg'));
+  var ht = el('div','dhead-t');
+  ht.appendChild(el('div','eyebrow', 'Plate ' + plateNo(e) + ' · ' + CAT_LABEL[e.cat]));
+  var title = el('h2', null, e.n); title.id = 'detail-title'; title.tabIndex = -1;
+  ht.appendChild(title);
+  if(e.by) ht.appendChild(el('div','by', e.by));
+  h.appendChild(ht);
+  var meta = el('div','dmeta');
+  meta.appendChild(statusEl(e));
+  (e.arch||[]).forEach(function(a){ meta.appendChild(el('span','ac', ARCH_LABEL[a]||a)); });
+  h.appendChild(meta);
+  var intro = el('p','detail-intro',e.d); h.appendChild(intro);
+  hero.appendChild(h); sc.appendChild(hero);
+
+  var b = el('div','dbody');
+
+  if(e.unv){
+    var w = el('div','warnbox dsec');
+    w.innerHTML = '<b>Partly unverified.</b> Some details in this entry — typically current availability, '+
+      'exact version or attribution — could not be confirmed against a primary source in August 2026.';
+    b.appendChild(w);
+  }
+
+  if(e.w){
+    var s2 = el('div','dsec why');
+    s2.appendChild(el('span','eyebrow','Why it matters'));
+    s2.appendChild(el('p', null, e.w));
+    b.appendChild(s2);
+  }
+
+  var s3 = el('div','dsec');
+  s3.appendChild(el('span','eyebrow','Facts'));
+  var facts = el('div','dfacts');
+  function fact(k,v){
+    if(!v) return;
+    var f = el('div','dfact');
+    f.appendChild(el('div','k',k));
+    var vv = el('div','v'); vv.textContent = v; f.appendChild(vv);
+    facts.appendChild(f);
+  }
+  fact('Year', String(e.y) + '  ·  ' + ERA_OF[e.era].label);
+  fact('Kind', KIND_LABEL[e.kind] || e.kind);
+  fact('Status', ST_LABEL[e.st] || e.st);
+  fact('Architecture', (e.arch||[]).map(function(a){ return ARCH_LABEL[a]||a; }).join(', '));
+  fact('Detail', e.ver);
+  s3.appendChild(facts);
+  b.appendChild(s3);
+
+  function relSection(title, ids, note){
+    if(!ids || !ids.length) return;
+    var s = el('div','dsec');
+    s.appendChild(el('span','eyebrow', title));
+    if(note) s.appendChild(el('div','facethelp', note));
+    var list = el('div','rellist');
+    ids.forEach(function(rid){
+      var t = BY_ID[rid]; if(!t) return;
+      var rb = el('button','relbtn'); rb.type='button';
+      rb.style.setProperty('--era', eraColor(t.era));
+      var bar = el('span','bar'); rb.appendChild(bar);
+      rb.appendChild(el('span', null, t.n));
+      rb.appendChild(el('span','yr', String(t.y)));
+      rb.addEventListener('click', function(){ openDetail(rid); });
+      list.appendChild(rb);
+    });
+    s.appendChild(list);
+    b.appendChild(s);
+  }
+  relSection('Descends from', e.rel);
+  relSection('Led to', e.children);
+
+  /* links: official when verified, plus generated searches for everything */
+  var s6 = el('div','dsec');
+  s6.appendChild(el('span','eyebrow','Links'));
+  var lr = el('div','linkrow');
+  function extlink(label, href, primary){
+    var a = el('a','extlink' + (primary ? ' primary' : ''), label);
+    a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    lr.appendChild(a);
+  }
+  if(e.u) extlink('Official site ↗', e.u, true);
+  var q = encodeURIComponent(e.n + ' Amiga');
+  extlink('Wikipedia ↗', 'https://en.wikipedia.org/w/index.php?search=' + q);
+  extlink('Web search ↗', 'https://www.google.com/search?q=' + q);
+  if(['soft','dev','shell','tech','distro','os'].includes(e.cat))
+    extlink('Aminet ↗', 'https://aminet.net/search?query=' + encodeURIComponent(e.n));
+  s6.appendChild(lr);
+  if(!e.u) s6.appendChild(el('div','facethelp',
+    'No verified official page for this entry — the searches above are the reliable route.'));
+  b.appendChild(s6);
+  /* Phase 2 extension point: lets a later script add actions (e.g. "suggest a
+     change") to the links area. Nothing defines this hook yet. */
+  if(window.AMIGA_DETAIL_ACTIONS) window.AMIGA_DETAIL_ACTIONS(e, s6);
+
+  if(e.imgCredit){
+    var s7 = el('div','dsec');
+    s7.appendChild(el('span','eyebrow','Image'));
+    s7.appendChild(el('div','facethelp', e.imgCredit));
+    b.appendChild(s7);
+  }
+
+  if(e.tags && e.tags.length){
+    var s5 = el('div','dsec');
+    s5.appendChild(el('span','eyebrow','Tags'));
+    var tr = el('div','tagrow');
+    e.tags.forEach(function(t){ tr.appendChild(el('span','tag', t)); });
+    s5.appendChild(tr);
+    b.appendChild(s5);
+  }
+
+  sc.appendChild(b);
+}
+function closeDetail(){
+  if(!detailOpen() || DETAIL.closing) return;
+  DETAIL.closing = true;
+  detailTransition('close',finishDetailClose);
+}
+function finishDetailClose(){
+  cancelDetailMotion();
+  var d = $('#detail-dialog'); d.close(); d.classList.remove('detail-closing');
+  var opener = DETAIL.opener;
+  if(!opener || !opener.isConnected || !opener.getClientRects().length)
+    opener = S.view === 'graph' && !LF.open ? $('#gcanvas') : $('#stage');
+  opener.focus({preventScroll:true});
+  DETAIL.id = null; DETAIL.originId = null; DETAIL.source = null; DETAIL.opener = null;
+  DETAIL.history = []; DETAIL.closing = false; DETAIL.navigated = false;
+  $('#detail-content').innerHTML = '';
+  if(DETAIL.resizePending){
+    DETAIL.resizePending=false;
+    if(S.view === 'graph') graphResize(true);
+    if(LF.open && LF.redraw) LF.redraw();
+  }
+}
+function markSelection(){
+  Array.prototype.forEach.call(document.querySelectorAll('.card'), function(c){
+    if(c.getAttribute('data-id') === S.sel) c.setAttribute('aria-current','true');
+    else c.removeAttribute('aria-current');
+  });
+}

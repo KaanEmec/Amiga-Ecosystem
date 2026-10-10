@@ -1,0 +1,6 @@
+# HTTPS reverse proxy with Caddy (automatic certificates). Replace the domain.
+amiga.example.org {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8080
+	# Suggested image downloads are fetched by the app, not the proxy; nothing else to allow.
+}

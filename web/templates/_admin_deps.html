@@ -1,0 +1,20 @@
+{{define "admin_deps"}}{{/* a catalog.Dependencies removal summary */}}
+  {{if .Empty}}
+  <p>Nothing else refers to this entry.</p>
+  {{else}}
+  <ul class="admin-deps">
+    {{if .Featured}}<li><b>Featured placement:</b> weight {{.Weight}} makes it a landmark plate; it disappears from the featured set.</li>{{end}}
+    {{with .RelatedBy}}
+    <li><b>{{len .}} lineage link{{if ne (len .) 1}}s{{end}}</b> will be dropped from these entries (each gets a new revision):
+      <ul>{{range .}}<li><a href="/admin/entries/{{.ID}}">{{.Name}}</a> <span class="mono admin-muted">{{.ID}}</span></li>{{end}}</ul>
+    </li>
+    {{end}}
+    {{with .TourStops}}
+    <li><b>{{len .}} guided-route stop{{if ne (len .) 1}}s{{end}}</b> will be dropped:
+      <ul>{{range .}}<li>{{.TourLabel}} <span class="admin-muted">(step {{.Step}})</span></li>{{end}}</ul>
+    </li>
+    {{end}}
+  </ul>
+  <p class="admin-muted">Restoring the entry later does not re-add these links or stops.</p>
+  {{end}}
+{{end}}

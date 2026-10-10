@@ -1,0 +1,23 @@
+{{define "content"}}
+<section class="admin-card admin-login">
+  <h1>Sign in</h1>
+  {{if .NoOwner}}
+  <p>No owner account exists yet. On the server, run <code>amiga owner init</code>, then return here.</p>
+  {{else}}
+  <form method="post" action="/admin/login" class="admin-form" autocomplete="on">
+    <label>Username
+      <input name="username" value="{{.Username}}" autocomplete="username" required autofocus maxlength="64">
+    </label>
+    <label>Password
+      <input type="password" name="password" autocomplete="current-password" required maxlength="256">
+    </label>
+    <label>Authenticator code
+      <input name="code" inputmode="numeric" autocomplete="one-time-code" required maxlength="32" placeholder="123456">
+      <span class="admin-hint">Lost your authenticator? Enter one of your recovery codes here instead.</span>
+    </label>
+    <button type="submit" class="admin-btn admin-btn-primary">Sign in</button>
+  </form>
+  {{end}}
+</section>
+{{end}}
+{{template "admin_layout" .}}

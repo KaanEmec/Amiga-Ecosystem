@@ -1,0 +1,29 @@
+{{define "content"}}
+<h1 class="admin-h1">Settings</h1>
+<form method="post" action="/admin/settings" class="admin-form admin-card">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <h2>Public participation</h2>
+  <label class="admin-check"><input type="checkbox" name="submissions_paused" value="1"{{if .SubmissionsPaused}} checked{{end}}> Pause new suggestions</label>
+  <label class="admin-check"><input type="checkbox" name="voting_paused" value="1"{{if .VotingPaused}} checked{{end}}> Pause +1 voting</label>
+  <p class="admin-hint">Paused forms stay visible with a notice; existing suggestions and votes are kept.</p>
+  <div class="admin-actions"><button type="submit" class="admin-btn admin-btn-primary">Save settings</button></div>
+</form>
+<section class="admin-card">
+  <h2>Hidden spam <span class="admin-tag mono">{{.HiddenCount}}</span></h2>
+  {{if .Hidden}}
+  <p class="admin-hint">Hidden suggestions are gone from every public page and API; their votes are kept. Latest first:</p>
+  <ul class="admin-list">
+    {{range .Hidden}}<li><a href="/admin/suggestions/{{.ID}}" class="mono">#{{.ID}}</a> {{.Title}}
+      <span class="admin-muted">{{.Type}}, submitted {{date .CreatedAt}}</span>{{with .InternalNote}}<div class="admin-hint">{{.}}</div>{{end}}</li>{{end}}
+  </ul>
+  {{if gt .HiddenCount (len .Hidden)}}<p><a href="/admin/queue?status=hidden&amp;sort=newest">All hidden suggestions</a></p>{{end}}
+  {{else}}<p class="admin-muted">Nothing hidden.</p>{{end}}
+</section>
+<section class="admin-card">
+  <h2>Account recovery</h2>
+  <p>Password, authenticator and recovery codes are managed on the server with
+  <code>amiga owner reset-password</code>, <code>amiga owner reset-totp</code> and
+  <code>amiga owner recovery-codes</code>. Each signs out every session.</p>
+</section>
+{{end}}
+{{template "admin_layout" .}}

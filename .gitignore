@@ -1,0 +1,10 @@
+# Runtime data (database, media, secrets) lives outside Git.
+runtime/
+*.db
+*.db-wal
+*.db-shm
+
+# Build output
+dist/
+
+.DS_Store

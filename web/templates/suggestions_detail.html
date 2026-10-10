@@ -1,0 +1,77 @@
+{{define "content"}}
+<div class="sg-wrap sg-narrow">
+  <p class="sg-back"><a href="/suggestions">← All suggestions</a></p>
+  {{if .Created}}<p class="sg-ok" role="status"><b>Thank you.</b> Your suggestion is published as pending and will be reviewed. Share this page to gather support.</p>{{end}}
+  <header class="sg-head sg-dhead">
+    <span class="eyebrow">#{{.S.ID}} · {{.S.TypeLabel}}</span>
+    <h1>{{.S.Title}}</h1>
+    <div class="dmeta">
+      {{template "sg_status" .S}}
+      <span class="mono sg-date">Proposed {{date .S.CreatedAt}}</span>
+      {{if .S.EntryID}}{{if .EntryLive}}<a class="sg-entrylink" href="/#entry={{.S.EntryID}}">View entry in the catalogue ↗</a>{{else}}<span class="mono sg-date">Entry {{.S.EntryID}} is no longer listed</span>{{end}}{{end}}
+    </div>
+    <div class="sg-votebox">
+      {{template "sg_vote" .S}}
+      <span class="sg-votehelp">{{if .S.Open}}{{if .VotingPaused}}Voting is paused for the moment.{{else}}Support this suggestion. Click again to withdraw your +1.{{end}}{{else}}Voting closed when this suggestion was resolved.{{end}}</span>
+    </div>
+    <p class="sg-vote-msg" role="status" aria-live="polite" hidden></p>
+  </header>
+
+  {{if ne .S.Status "pending"}}
+  <section class="dsec sg-decision" data-status="{{.S.Status}}">
+    <span class="eyebrow">Decision</span>
+    <p class="sg-decision-line">{{template "sg_status" .S}}{{if .S.Decided}} <span class="mono sg-date">on {{date .S.Decided}}</span>{{end}}</p>
+    {{if eq .S.Status "accepted_edited"}}<p class="sg-edited">The editor accepted this suggestion <b>with edits</b>: the published version below differs from the original proposal.</p>{{end}}
+    {{if and (eq .S.Status "duplicate") .S.DupOf}}<p>This duplicates <a href="/suggestions/{{.S.DupOf}}">suggestion #{{.S.DupOf}}</a>; support it there. Votes are kept separately.</p>{{end}}
+    {{if .S.DecisionNote}}<p class="sg-note-text">{{.S.DecisionNote}}</p>{{end}}
+  </section>
+  {{end}}
+
+  {{if .S.Summary}}<section class="dsec"><span class="eyebrow">Summary</span><p>{{.S.Summary}}</p></section>{{end}}
+
+  <section class="dsec">
+    <span class="eyebrow">Original proposal</span>
+    {{if eq .S.Type "change"}}
+      <div class="sg-diff" role="table" aria-label="Proposed changes">
+        <div class="sg-dr sg-dh" role="row"><span role="columnheader">Field</span><span role="columnheader">At the time</span><span role="columnheader">Proposed</span></div>
+        {{range .Rows}}<div class="sg-dr" role="row"><span class="k" role="rowheader">{{.Label}}</span><span class="sg-old" role="cell">{{if .Current}}{{.Current}}{{else}}<i>empty</i>{{end}}</span><span class="sg-new" role="cell">{{if .Removed}}<i>remove this field</i>{{else}}{{.Proposed}}{{end}}</span></div>{{end}}
+      </div>
+    {{else if eq .S.Type "new"}}
+      <div class="dfacts">{{range .Rows}}<div class="dfact"><span class="k">{{.Label}}</span><span class="v">{{.Proposed}}</span></div>{{end}}</div>
+    {{else if eq .S.Type "image"}}
+      <div class="dfacts">
+        <div class="dfact"><span class="k">Image URL</span><span class="v"><a class="sg-url" href="{{.Image.URL}}" rel="nofollow noopener noreferrer ugc" target="_blank">{{.Image.URL}}</a></span></div>
+        <div class="dfact"><span class="k">Credit</span><span class="v">{{.Image.Credit}}</span></div>
+        {{if .Image.SourcePage}}<div class="dfact"><span class="k">Source page</span><span class="v"><a class="sg-url" href="{{.Image.SourcePage}}" rel="nofollow noopener noreferrer ugc" target="_blank">{{.Image.SourcePage}}</a></span></div>{{end}}
+      </div>
+      <p class="facethelp sg-help">Proposed images are shown as links only; the editor fetches and checks them before anything is published.</p>
+    {{else}}
+      <p>Remove <b>{{.EntryName}}</b> from the catalogue.</p>
+    {{end}}
+  </section>
+
+  {{if .S.Reason}}<section class="dsec"><span class="eyebrow">Reason</span><p class="sg-pre">{{.S.Reason}}</p></section>{{end}}
+
+  {{if .S.Sources}}
+  <section class="dsec"><span class="eyebrow">Sources</span>
+    <ul class="sg-sources">{{range .S.Sources}}<li><a class="sg-url" href="{{.}}" rel="nofollow noopener noreferrer ugc" target="_blank">{{.}}</a></li>{{end}}</ul>
+  </section>
+  {{end}}
+
+  {{if or (eq .S.Status "accepted") (eq .S.Status "accepted_edited")}}
+  <section class="dsec sg-final">
+    <span class="eyebrow">{{if eq .S.Status "accepted_edited"}}Published version (edited){{else}}Published version{{end}}</span>
+    {{if .FinalRows}}
+      <div class="dfacts">{{range .FinalRows}}<div class="dfact"><span class="k">{{.Label}}</span><span class="v">{{if .Proposed}}{{.Proposed}}{{else}}<i>removed</i>{{end}}</span></div>{{end}}</div>
+    {{else if eq .S.Type "remove"}}
+      <p>The entry was removed from the catalogue.</p>
+    {{else}}
+      <p>Published as proposed.</p>
+    {{end}}
+  </section>
+  {{end}}
+
+  {{if .SiteKey}}<div class="sg-vote-ts" data-sitekey="{{.SiteKey}}" data-action="vote"></div>{{end}}
+</div>
+{{end}}
+{{template "public_layout" .}}

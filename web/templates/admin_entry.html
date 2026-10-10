@@ -1,0 +1,110 @@
+{{define "content"}}
+<p class="admin-crumbs"><a href="/admin/entries">Entries</a>{{if not .IsNew}} / <span class="mono">{{.ID}}</span>{{end}}</p>
+<div class="admin-head">
+  <h1 class="admin-h1">{{if .IsNew}}New entry{{else}}{{.Form.Name}}{{end}}</h1>
+  {{if not .IsNew}}
+  <div class="admin-actions">
+    <span class="admin-tag mono">rev {{.Rev}}</span>
+    {{if .Deleted}}<span class="admin-tag admin-tag-off">removed</span>{{else}}
+    <a class="admin-btn" href="/admin/entries/{{.ID}}/remove">Remove…</a>{{end}}
+  </div>
+  {{end}}
+</div>
+
+{{if .Deleted}}
+<section class="admin-card admin-card-warn">
+  <h2>This entry is removed</h2>
+  <p>It is hidden from the public catalogue. Restoring publishes its last version as a new revision, after validating it against the live catalogue.</p>
+  <form method="post" action="/admin/entries/{{.ID}}/restore" class="admin-form">
+    <input type="hidden" name="csrf" value="{{.CSRF}}">
+    <label>Reason <input name="reason" maxlength="500"></label>
+    <div class="admin-actions">
+      <button type="submit" class="admin-btn admin-btn-primary">Restore</button>
+      {{if .Dangling}}<button type="submit" name="drop_missing" value="1" class="admin-btn">Restore without links to missing entries</button>{{end}}
+    </div>
+  </form>
+</section>
+{{end}}
+
+<form method="post" action="{{if .IsNew}}/admin/entries/new{{else}}/admin/entries/{{.ID}}{{end}}" class="admin-form admin-entry-form">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <input type="hidden" name="rev" value="{{.Rev}}">
+  <fieldset{{if .Deleted}} disabled{{end}}>
+  {{template "admin_entry_fields" .}}
+
+  <section class="admin-card">
+    <label>Reason for this change (kept in the revision history) <input name="reason" value="{{.Form.Reason}}" maxlength="500"></label>
+    <div class="admin-actions">
+      <button type="submit" class="admin-btn admin-btn-primary">{{if .IsNew}}Create and publish{{else}}Save and publish{{end}}</button>
+      {{if not .IsNew}}<a class="admin-btn" href="/admin/entries/{{.ID}}">Discard changes</a>{{end}}
+    </div>
+  </section>
+  </fieldset>
+</form>
+
+{{if and (not .IsNew) (not .Deleted)}}
+<form method="post" action="/admin/entries/{{.ID}}/image" class="admin-form admin-card">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <input type="hidden" name="rev" value="{{.Rev}}">
+  <h2>Fetch &amp; attach an image</h2>
+  <p class="admin-hint">The server downloads the image (JPEG, PNG, GIF or WebP; up to 8 MB and 16 megapixels; public hosts only),
+  stores a local copy under <code>images/suggested/</code> with its provenance, and sets it as this entry's image in a new revision.</p>
+  <div class="admin-grid">
+    <label>Image URL <input type="url" name="image_url" required maxlength="2048" class="mono" placeholder="https://…/photo.jpg"></label>
+    <label>Credit <input name="credit" maxlength="500" placeholder="Photo: Name, licence"></label>
+    <label>Source page <input type="url" name="source_page" maxlength="2048" placeholder="https://…"></label>
+  </div>
+  <div class="admin-actions"><button type="submit" class="admin-btn">Fetch &amp; attach</button></div>
+</form>
+{{end}}
+
+{{with .Images}}
+<section class="admin-card">
+  <h2>Fetched images</h2>
+  <ul class="admin-list">
+    {{range .}}<li><a href="/images/{{.Path}}" target="_blank" rel="noopener" class="mono">{{.Path}}</a>
+      <span class="admin-muted">{{.Width}}×{{.Height}}, {{.ContentType}}, {{date .CreatedAt}}</span>
+      <div class="admin-hint">from <span class="mono">{{.SourceURL}}</span>{{with .Credit}} · {{.}}{{end}}</div></li>{{end}}
+  </ul>
+</section>
+{{end}}
+
+{{if .Revisions}}
+<section class="admin-card">
+  <h2>Revision history</h2>
+  <ol class="admin-revs">
+  {{range .Revisions}}
+    <li>
+      <div class="admin-rev-head">
+        <span class="admin-tag mono">rev {{.Rev}}</span>
+        <span class="admin-tag">{{.Kind}}</span>
+        <span class="mono admin-muted">{{datetime .When}}</span>
+        <span class="admin-muted">by {{.Actor}}</span>
+        {{with .Reason}}<span>“{{.}}”</span>{{end}}
+      </div>
+      {{if .Changes}}
+      <details>
+        <summary>{{len .Changes}} field{{if ne (len .Changes) 1}}s{{end}} changed</summary>
+        <div class="admin-tablewrap">
+        <table class="admin-table admin-diff">
+          <thead><tr><th>Field</th><th>Before</th><th>After</th></tr></thead>
+          <tbody>{{range .Changes}}<tr><td class="mono">{{.Key}}</td><td class="admin-before">{{.Before}}</td><td class="admin-after">{{.After}}</td></tr>{{end}}</tbody>
+        </table>
+        </div>
+      </details>
+      {{end}}
+      {{if .CanUse}}
+      <form method="post" action="/admin/entries/{{$.ID}}/revert" class="admin-inline">
+        <input type="hidden" name="csrf" value="{{$.CSRF}}">
+        <input type="hidden" name="rev" value="{{$.Rev}}">
+        <input type="hidden" name="to" value="{{.Rev}}">
+        <button type="submit" class="admin-btn admin-btn-quiet">Restore this version</button>
+      </form>
+      {{end}}
+    </li>
+  {{end}}
+  </ol>
+</section>
+{{end}}
+{{end}}
+{{template "admin_layout" .}}

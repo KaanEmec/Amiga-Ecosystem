@@ -1,0 +1,30 @@
+# systemd unit for Amiga Constellation. Install to /etc/systemd/system/amiga.service
+# then: systemctl daemon-reload && systemctl enable --now amiga
+[Unit]
+Description=Amiga Constellation
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=amiga
+Group=amiga
+WorkingDirectory=/opt/amiga
+EnvironmentFile=/etc/amiga/amiga.env
+ExecStart=/opt/amiga/amiga serve
+Restart=on-failure
+RestartSec=3
+
+# Hardening: the app only needs to write its data dir.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+ReadWritePaths=/var/lib/amiga
+MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target
