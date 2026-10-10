@@ -1,6 +1,6 @@
 /* ==========================================================================
    The Amiga Constellation — actions.js
-   Loaded last by data.js. Adds "suggest" links to the entry dialog through
+   Loaded last by data.js. Adds "suggest" buttons under the entry title through
    the AMIGA_DETAIL_ACTIONS hook in detail.js, and opens an entry from a
    #entry=<id> link (used by the suggestion pages).
    ========================================================================== */
@@ -15,19 +15,17 @@ var ACTIONS = [
 
 window.AMIGA_DETAIL_ACTIONS = function(entry, container){
   if(!entry || !entry.id || !container) return;
-  var label = document.createElement('span');
-  label.className = 'eyebrow sg-dlg-label';
-  label.textContent = 'Improve this entry';
   var row = document.createElement('div');
-  row.className = 'linkrow sg-dlg-actions';
-  ACTIONS.forEach(function(a){
+  row.className = 'sg-dlg-actions';
+  row.setAttribute('aria-label', 'Improve this entry');
+  row.setAttribute('role', 'group');
+  ACTIONS.forEach(function(a, i){
     var link = document.createElement('a');
-    link.className = 'extlink';
+    if(i === 0) link.className = 'primary';
     link.textContent = a[0];
     link.href = '/suggestions/new?type=' + a[1] + '&entry=' + encodeURIComponent(entry.id);
     row.appendChild(link);
   });
-  container.appendChild(label);
   container.appendChild(row);
 };
 

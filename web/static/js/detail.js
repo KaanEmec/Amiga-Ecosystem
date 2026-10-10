@@ -254,6 +254,8 @@ function renderDetail(id){
   var title = el('h2', null, e.n); title.id = 'detail-title'; title.tabIndex = -1;
   ht.appendChild(title);
   if(e.by) ht.appendChild(el('div','by', e.by));
+  /* extension point: actions.js adds the "Suggest …" buttons under the title */
+  if(window.AMIGA_DETAIL_ACTIONS) window.AMIGA_DETAIL_ACTIONS(e, ht);
   h.appendChild(ht);
   var meta = el('div','dmeta');
   meta.appendChild(statusEl(e));
@@ -337,9 +339,6 @@ function renderDetail(id){
   if(!e.u) s6.appendChild(el('div','facethelp',
     'No verified official page for this entry — the searches above are the reliable route.'));
   b.appendChild(s6);
-  /* Phase 2 extension point: lets a later script add actions (e.g. "suggest a
-     change") to the links area. Nothing defines this hook yet. */
-  if(window.AMIGA_DETAIL_ACTIONS) window.AMIGA_DETAIL_ACTIONS(e, s6);
 
   if(e.imgCredit){
     var s7 = el('div','dsec');

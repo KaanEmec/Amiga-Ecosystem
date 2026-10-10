@@ -231,6 +231,15 @@ a:hover{color:var(--acc-soft);border-bottom-color:currentColor}
 }
 .iconbtn:hover{color:var(--acc);border-color:var(--acc);background:var(--acc-tint)}
 .iconbtn svg{width:19px;height:19px}
+.toplink{
+  display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--r);color:var(--ink-2);
+  font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  transition:color .12s,border-color .12s,background .12s;
+}
+.toplink:hover{color:var(--acc);border-color:var(--acc);background:var(--acc-tint)}
+.toplink svg{width:18px;height:18px;flex:0 0 auto}
+@media (max-width:760px){.toplink{width:40px;padding:0;justify-content:center}.toplink span{display:none}}
 #railtoggle{display:none}
 @media (max-width:860px){#railtoggle{display:grid}}
 
@@ -1453,8 +1462,16 @@ body.sg-body{overflow:auto;height:auto;min-height:100%;display:flex;flex-directi
 .sg-hints .mono{font-size:12px;color:var(--ink-3)}
 [data-for][hidden]{display:none}
 
-/* entry dialog: "Improve this entry" */
-.sg-dlg-label{display:block;margin:18px 0 8px}
+/* entry dialog: compact "Suggest …" actions under the title */
+.sg-dlg-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.sg-dlg-actions a{
+  display:inline-flex;align-items:center;padding:6px 11px;border-radius:var(--r);
+  font-family:var(--f-mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--acc-tint);border:1px solid var(--acc);color:var(--acc);
+}
+.sg-dlg-actions a:hover{background:var(--acc-fill);border-color:var(--acc-fill);color:#FFFFFF}
+.sg-dlg-actions a.primary{background:var(--acc-fill);border-color:var(--acc-fill);color:#FFFFFF}
+.sg-dlg-actions a.primary:hover{background:var(--acc-fill-2);border-color:var(--acc-fill-2)}
 
 @media (max-width:900px){
   .sg-layout{grid-template-columns:1fr}
