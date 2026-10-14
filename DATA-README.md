@@ -12,6 +12,7 @@ re-applied on restart or upgrade.
 | Change vocabularies, routes, domains or narrative | `amiga export > catalogue.json`, edit, then `amiga import --replace catalogue.json` (validated; refuses broken data) |
 | Add a picture | paste the URL in the entry's image field in `/admin` and use *Fetch & attach*, or accept a visitor's image suggestion; the file is stored locally under `images/suggested/` |
 | Restore an older version | open the entry's revision history in `/admin` and choose *Restore* |
+| Queue a batch of researched proposals for review | upload a JSON array of proposals (same keys as the public form: `type`, `entry_id`, `fields`, `reason`, `sources`, …) at `/admin/suggestions/import`; valid ones become pending suggestions, invalid ones are listed with their problems |
 
 The validation rules are the ones the old build script enforced, applied on every write:
 unique ids, `related` ids and tour steps that resolve, vocab values that exist in `meta`,

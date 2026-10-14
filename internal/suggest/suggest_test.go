@@ -395,6 +395,36 @@ func TestService_RateLimits(t *testing.T) {
 	}
 }
 
+func TestService_CreateOwner(t *testing.T) {
+	t.Parallel()
+	svc, st := newTestService(t, config.Config{RateSuggestPerDay: 1, RateSuggestPerDayIP: 1, RateVotePerHour: 1, RateVotePerHourIP: 1})
+	ctx := t.Context()
+	if err := st.Q().SetSetting(ctx, store.SettingSubmissionsPaused, "1"); err != nil {
+		t.Fatal(err)
+	}
+	// Past the per-day limit of 1 and despite the pause.
+	for i := range 3 {
+		p := newProposal()
+		p.Fields.Name = ptr(fmt.Sprintf("Owner Card %d", i))
+		id, err := svc.CreateOwner(ctx, p)
+		if err != nil {
+			t.Fatalf("CreateOwner #%d: %v", i, err)
+		}
+		sg, err := st.Q().GetSuggestion(ctx, id)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if sg.Status != store.StatusPending || sg.VoterID != OwnerVoterID || sg.IPHash != "" {
+			t.Errorf("stored status %q voter %q ip %q", sg.Status, sg.VoterID, sg.IPHash)
+		}
+	}
+	bad := newProposal()
+	bad.Fields.Category = ptr("nope")
+	if _, err := svc.CreateOwner(ctx, bad); !isValidation(err, "unknown category") {
+		t.Errorf("invalid proposal: error = %v", err)
+	}
+}
+
 func TestService_VotesPerSuggestionPerIP(t *testing.T) {
 	t.Parallel()
 	svc, _ := newTestService(t, config.Config{RateSuggestPerDay: 5, RateSuggestPerDayIP: 25, RateVotePerHour: 30,

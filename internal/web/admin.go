@@ -2,6 +2,7 @@ package web
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -12,6 +13,7 @@ import (
 	"amigaconstellation/internal/catalog"
 	"amigaconstellation/internal/images"
 	"amigaconstellation/internal/store"
+	"amigaconstellation/internal/suggest"
 )
 
 // adminDeps holds the owner authentication and private panel feature.
@@ -54,6 +56,8 @@ func (s *Server) registerAdminRoutes(mux *http.ServeMux) {
 	mux.Handle("POST /admin/entries/{id}/remove", owner(s.adminRemoveEntry))
 	mux.Handle("POST /admin/entries/{id}/restore", owner(s.adminRestoreEntry))
 	mux.Handle("GET /admin/queue", owner(s.reviewQueue))
+	mux.Handle("GET /admin/suggestions/import", owner(s.adminSuggestImportPage))
+	mux.Handle("POST /admin/suggestions/import", owner(s.adminSuggestImport))
 	mux.Handle("GET /admin/suggestions/{id}", owner(s.reviewPage))
 	mux.Handle("POST /admin/suggestions/{id}/accept", owner(s.reviewAccept))
 	mux.Handle("POST /admin/suggestions/{id}/reject", owner(s.reviewReject))
@@ -424,4 +428,82 @@ func (s *Server) adminImport(w http.ResponseWriter, r *http.Request) {
 	v.Stats = &stats
 	v.Notice = "Catalogue imported and published."
 	s.render(w, http.StatusOK, "admin_import.html", v)
+}
+
+// --- suggestion import --------------------------------------------------------
+
+type adminSuggestImportRow struct {
+	Index    int // 1-based position in the file
+	Type     string
+	Target   string // entry id, or the proposed name for a new entry
+	ID       int64  // created suggestion; 0 when not created
+	Problems []string
+}
+
+type adminSuggestImportView struct {
+	adminView
+	Rows             []adminSuggestImportRow
+	Created, Refused int
+}
+
+func (s *Server) adminSuggestImportPage(w http.ResponseWriter, r *http.Request) {
+	if s.suggest == nil {
+		http.NotFound(w, r)
+		return
+	}
+	s.render(w, http.StatusOK, "admin_suggestions_import.html", adminSuggestImportView{adminView: s.adminViewFor(r, "Import suggestions", "queue")})
+}
+
+// adminSuggestImport files every proposal of an uploaded JSON array as a
+// pending suggestion (suggest.CreateOwner), reporting each item's outcome.
+func (s *Server) adminSuggestImport(w http.ResponseWriter, r *http.Request) {
+	if s.suggest == nil {
+		http.NotFound(w, r)
+		return
+	}
+	v := adminSuggestImportView{adminView: s.adminViewFor(r, "Import suggestions", "queue")}
+	fail := func(msg string) {
+		v.Error = msg
+		s.render(w, http.StatusUnprocessableEntity, "admin_suggestions_import.html", v)
+	}
+	file, _, err := r.FormFile("proposals")
+	if err != nil {
+		fail("Choose a proposals JSON file (it must be under 1 MB).")
+		return
+	}
+	defer file.Close()
+	var items []json.RawMessage
+	if err := json.NewDecoder(file).Decode(&items); err != nil {
+		fail("Not imported: the file must be a JSON array of proposals (" + err.Error() + ").")
+		return
+	}
+	for i, raw := range items {
+		row := adminSuggestImportRow{Index: i + 1}
+		var p suggest.Proposal
+		if err := json.Unmarshal(raw, &p); err != nil {
+			row.Problems = []string{"Not a proposal object: " + err.Error()}
+		} else {
+			row.Type, row.Target = p.Type, p.EntryID
+			if p.Type == suggest.TypeNew && p.Fields.Name != nil {
+				row.Target = *p.Fields.Name
+			}
+			var ve *suggest.ValidationError
+			row.ID, err = s.suggest.svc.CreateOwner(r.Context(), p)
+			switch {
+			case errors.As(err, &ve):
+				row.Problems = ve.Problems
+			case err != nil:
+				s.log.ErrorContext(r.Context(), "suggestion import", "item", row.Index, "err", err)
+				row.Problems = []string{"Not stored: internal error (see the server log)."}
+			}
+		}
+		if row.ID > 0 {
+			v.Created++
+		} else {
+			v.Refused++
+		}
+		v.Rows = append(v.Rows, row)
+	}
+	v.Notice = fmt.Sprintf("%d of %d proposals added to the queue.", v.Created, len(items))
+	s.render(w, http.StatusOK, "admin_suggestions_import.html", v)
 }

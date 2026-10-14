@@ -1,0 +1,39 @@
+{{define "content"}}
+<h1 class="admin-h1">Import suggestions</h1>
+{{if .Rows}}
+<section class="admin-card">
+  <h2>Import result</h2>
+  <p class="mono">{{.Created}} added to the queue · {{.Refused}} not added</p>
+  <div class="admin-tablewrap">
+  <table class="admin-table">
+    <thead><tr><th>#</th><th>Type</th><th>Entry / name</th><th>Outcome</th></tr></thead>
+    <tbody>
+    {{range .Rows}}
+    <tr>
+      <td class="mono">{{.Index}}</td>
+      <td class="mono">{{.Type}}</td>
+      <td>{{.Target}}</td>
+      <td>{{if .ID}}<a href="/admin/suggestions/{{.ID}}">Suggestion #{{.ID}}</a>{{else}}<ul class="admin-problems">{{range .Problems}}<li>{{.}}</li>{{end}}</ul>{{end}}</td>
+    </tr>
+    {{end}}
+    </tbody>
+  </table>
+  </div>
+</section>
+{{end}}
+<form method="post" action="/admin/suggestions/import" enctype="multipart/form-data" class="admin-form admin-card">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <h2>Load proposals into the queue</h2>
+  <p>Upload a JSON array of proposals with the same keys as the public form:
+  <code>type</code> (new, change, remove, image), <code>entry_id</code>, <code>fields</code>, <code>image_url</code>,
+  <code>image_credit</code>, <code>image_source_page</code>, <code>summary</code>, <code>reason</code>, <code>sources</code>, <code>contact</code>.
+  Each item is validated like a visitor submission (without the pause or rate limits) and, if valid, added as pending;
+  invalid items are listed with their problems. Nothing is published: review them in the <a href="/admin/queue">queue</a>.
+  The upload must be under 1 MB.</p>
+  <label>Proposals JSON
+    <input type="file" name="proposals" accept="application/json,.json" required>
+  </label>
+  <div class="admin-actions"><button type="submit" class="admin-btn">Validate and add to queue</button></div>
+</form>
+{{end}}
+{{template "admin_layout" .}}

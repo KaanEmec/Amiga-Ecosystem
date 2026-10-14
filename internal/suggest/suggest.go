@@ -264,6 +264,25 @@ func (s *Service) Create(ctx context.Context, p Proposal, v Visitor) (int64, err
 	return id, nil
 }
 
+// OwnerVoterID is the voter_id stored on suggestions the owner imports.
+const OwnerVoterID = "owner-import"
+
+// CreateOwner validates a proposal like Create and stores it as pending for
+// the owner's bulk import: no submission pause, no rate limits, voter_id
+// OwnerVoterID and no IP hash.
+func (s *Service) CreateOwner(ctx context.Context, p Proposal) (int64, error) {
+	sg, err := s.build(ctx, p)
+	if err != nil {
+		return 0, err
+	}
+	sg.VoterID, sg.CreatedAt = OwnerVoterID, s.now().Unix()
+	id, err := s.store.Q().InsertSuggestion(ctx, sg)
+	if err != nil {
+		return 0, fmt.Errorf("creating suggestion: %w", err)
+	}
+	return id, nil
+}
+
 // problems collects validation messages.
 type problems []string
 

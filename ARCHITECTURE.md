@@ -76,7 +76,7 @@ Public: `GET /` (SPA shell), `/static/*`, `/images/*`, `GET /api/catalog` (ETag,
 Admin (session + CSRF token in forms, Origin checked on every mutation):
 `/admin/login`, `/admin` (dashboard), `/admin/queue`, `/admin/suggestions/{id}` (current / diff / final preview + decisions:
 `POST …/accept` (`edit=1` for Edit & accept), `…/reject`, `…/duplicate`, `…/hide`, `…/preview` (triggers the image fetch)),
-`/admin/staged/{name}` (owner-only staged preview), `/admin/entries`, `/admin/entries/{id}` (edit, remove with dependency summary, restore),
+`/admin/suggestions/import` (bulk-load proposals as pending), `/admin/staged/{name}` (owner-only staged preview), `/admin/entries`, `/admin/entries/{id}` (edit, remove with dependency summary, restore),
 `/admin/entries/new`, `/admin/stats` (visitors), `/admin/settings` (pauses, hidden spam).
 
 `/api/catalog` returns the same object shape as `data/amiga-data.json` (`meta`, `domains`, `tours`, `entries`),
@@ -111,6 +111,7 @@ excluding deleted entries and the `_readme` field guide (kept in exports). `data
 - Staleness is `entry.rev > base_rev` for change/remove/image; acceptance then needs `reviewed=1` (shown with the newer revisions' diffs and per-field "changed since" marks), and the form's `rev` still goes to `Update`/`Remove`, so a change made while reviewing is a plain stale error. Removal acceptance shows the same dependency partial and needs the same `confirm=1` as direct removal.
 - Image previews are staged only on an owner POST and kept in an in-memory map per suggestion (a restart forgets them; the files stay in the private staging dir). `/admin/staged/{name}` serves only names currently in that map, through `Fetcher.OpenStaged` (`os.Root` on the staging dir, sandbox CSP). Accept without a preview fetches first; the rev is checked before anything is fetched or moved. `Publish` moves the file into `media/suggested` just before the catalog transaction and returns a `Published` whose `Record` writes the `images` row as a `TxHook` inside it; if the publication fails (stale, validation, already decided) `Undo` removes the file it moved, so nothing public or in `images` is left behind. Reject, duplicate and hide discard the staged file; `serve` deletes staged files older than 24 h at startup.
 - Duplicates must name an existing, different suggestion that is neither a duplicate nor hidden; votes are not merged.
+- `/admin/suggestions/import` takes a multipart `proposals` file holding a JSON array of `suggest.Proposal` objects and files each through `Service.CreateOwner` (the same validation as `Create`, without the pause or rate limits; `voter_id` "owner-import", no IP hash); every item is attempted and the page lists each one's new suggestion or its problems, within the 1 MB body limit.
 
 ### Suggestions and voting
 

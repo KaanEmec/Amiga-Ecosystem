@@ -7,6 +7,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"net/netip"
@@ -676,4 +677,86 @@ func TestReview_ImageSuggestions(t *testing.T) {
 			t.Errorf("staging not empty after reject: %v", left)
 		}
 	})
+}
+
+func TestReview_ImportSuggestions(t *testing.T) {
+	t.Parallel()
+	env := newAdminEnv(t)
+	pending := func() int {
+		t.Helper()
+		_, n, err := env.st.Q().ListSuggestions(t.Context(), store.SuggestionFilter{Statuses: []string{store.StatusPending}, Limit: 1})
+		if err != nil {
+			t.Fatal(err)
+		}
+		return n
+	}
+	upload := func(cookie *http.Cookie, csrf string, content []byte) *httptest.ResponseRecorder {
+		var body bytes.Buffer
+		mw := multipart.NewWriter(&body)
+		_ = mw.WriteField("csrf", csrf)
+		fw, _ := mw.CreateFormFile("proposals", "proposals.json")
+		_, _ = fw.Write(content)
+		_ = mw.Close()
+		req := httptest.NewRequestWithContext(t.Context(), http.MethodPost, "/admin/suggestions/import", &body)
+		req.Header.Set("Content-Type", mw.FormDataContentType())
+		req.Header.Set("Origin", "http://example.com")
+		if cookie != nil {
+			req.AddCookie(cookie)
+		}
+		rr := httptest.NewRecorder()
+		env.h.ServeHTTP(rr, req)
+		return rr
+	}
+
+	if rec := env.request(t, http.MethodGet, "/admin/suggestions/import", nil, nil, nil); rec.Code != http.StatusSeeOther {
+		t.Errorf("anonymous GET: status %d", rec.Code)
+	}
+	if rec := upload(nil, "", []byte("[]")); rec.Code != http.StatusSeeOther {
+		t.Errorf("anonymous POST: status %d", rec.Code)
+	}
+	c := env.login(t)
+	if rec := upload(c.cookie, "", []byte("[]")); rec.Code != http.StatusForbidden {
+		t.Errorf("POST without CSRF: status %d", rec.Code)
+	}
+	if rec := c.get(t, "/admin/suggestions/import"); rec.Code != http.StatusOK || !strings.Contains(rec.Body.String(), "under 1 MB") {
+		t.Fatalf("import page: %d", rec.Code)
+	}
+	if rec := upload(c.cookie, c.csrf, []byte(`{"type":"new"}`)); rec.Code != http.StatusUnprocessableEntity {
+		t.Errorf("non-array file: status %d", rec.Code)
+	}
+
+	valid := suggest.Proposal{Type: suggest.TypeNew, Fields: newProposalFields(), Reason: "Researched"}
+	invalid := valid
+	invalid.Fields.Name, invalid.Fields.Category = sptr("Bad Card"), sptr("nope")
+	change := suggest.Proposal{Type: suggest.TypeChange, EntryID: "a2500", Fields: suggest.Fields{Version: sptr("9.9")}, Reason: "Researched"}
+	items := []any{valid, invalid, "not an object", change}
+	file, err := json.Marshal(items)
+	if err != nil {
+		t.Fatal(err)
+	}
+	before := pending()
+	rec := upload(c.cookie, c.csrf, file)
+	body := rec.Body.String()
+	if rec.Code != http.StatusOK {
+		t.Fatalf("import: %d %s", rec.Code, firstError(body))
+	}
+	if got := pending() - before; got != 2 {
+		t.Errorf("created %d pending suggestions, want 2", got)
+	}
+	ids := regexp.MustCompile(`href="/admin/suggestions/(\d+)">Suggestion #`).FindAllStringSubmatch(body, -1)
+	if len(ids) != 2 {
+		t.Fatalf("result links: %v", ids)
+	}
+	for _, m := range ids {
+		var id int64
+		_, _ = fmt.Sscan(m[1], &id)
+		if sg := env.suggestion(t, id); sg.VoterID != suggest.OwnerVoterID || sg.Status != store.StatusPending {
+			t.Errorf("suggestion %d: voter %q status %q", id, sg.VoterID, sg.Status)
+		}
+	}
+	for _, want := range []string{"2 of 4 proposals", "Amiga Review Card", "Bad Card", "Unknown category", "Not a proposal object", "a2500"} {
+		if !strings.Contains(body, want) {
+			t.Errorf("result page lacks %q", want)
+		}
+	}
 }

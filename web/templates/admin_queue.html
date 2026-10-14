@@ -1,5 +1,6 @@
 {{define "content"}}
 <h1 class="admin-h1">Review queue</h1>
+<p class="admin-muted"><a href="/admin/suggestions/import">Import suggestions</a> from a JSON file of proposals.</p>
 <form method="get" action="/admin/queue" class="admin-filter" role="search">
   <label>Type
     <select name="type">{{range .Types}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}</select>

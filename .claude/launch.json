@@ -1,6 +1,28 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "amiga", "runtimeExecutable": "go", "runtimeArgs": ["run", "./cmd/amiga", "serve"], "port": 8080 }
+    {
+      "name": "amiga",
+      "runtimeExecutable": "go",
+      "runtimeArgs": [
+        "run",
+        "./cmd/amiga",
+        "serve"
+      ],
+      "port": 8080
+    },
+    {
+      "name": "amiga-scratch",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "AMIGA_DATA_DIR=/private/tmp/claude-502/-Users-kaanemec-Documents-Amiga-Ecosystem/2138f1e2-49ae-4f46-8939-8d108a55ed92/scratchpad/devdata",
+        "AMIGA_ADDR=127.0.0.1:8096",
+        "go",
+        "run",
+        "./cmd/amiga",
+        "serve"
+      ],
+      "port": 8096
+    }
   ]
 }
