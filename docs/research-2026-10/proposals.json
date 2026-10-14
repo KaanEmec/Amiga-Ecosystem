@@ -722,6 +722,1361 @@
   ]
  },
  {
+  "type": "change",
+  "entry_id": "aeon",
+  "fields": {
+   "by": "Trevor Dickinson (A-EON); Matthew Leaman (AmigaKit)",
+   "what": "A-EON Technology is founded by Trevor Dickinson to commission new AmigaOS 4 hardware. Matthew Leaman's AmigaKit (formed in 2004) becomes its distribution and production partner, starting with the X1000 beta in 2009. Together they deliver the AmigaOne X1000 (2012), X5000 (2016) and A1222 Plus, the Enhancer Software stack and Warp3D Nova, and the AMIStore/AmiSphere platform that AmigaKit built for A-EON.",
+   "why": "For more than fifteen years, essentially all new AmigaOS 4 hardware has existed because of private patronage rather than a market."
+  },
+  "summary": "Research update: by, what, why",
+  "reason": "AmigaKit's own history shows it predates A-EON (formed in 2004) and acted as A-EON's chosen distributor and producer, not its retail arm. The rewrite fixes that relationship and the by-line, and credits AmigaKit with building AMIStore/AmiSphere. The proposed image is a CC-licensed photo of an A-EON stand with the X1000.\n\nResearch notes —\ncatalogue_fit: brand / event / active / 2009 is consistent with the other brand milestones (all use kind 'event'). A-EON Technology CVBA was already active in January 2009 (it approached AmigaKit then to distribute the X1000 beta), so 2009 holds.\ndescription: Factual problem: AmigaKit is not A-EON's 'retail and manufacturing arm'. AmigaKit was formed in June 2004 by Matthew Leaman as an independent dealer; A-EON selected it in 2009 as distributor and case/peripheral producer for the X1000 beta, and later the X5000. AmigaKit also built the AMIStore/AmiSphere infrastructure A-EON uses. Dickinson is A-EON's founder and an AmigaKit shareholder; Leaman owns AmigaKit. 'Fifteen years' is now 17 (2009-2026).\nurl: https://www.a-eon.com returns 200 and is the genuine company site. Keep.\ngoogle: 'A-EON Technology' returns the company site, Wikipedia (AmigaOne X1000/X5000) and amiga-news. Plain 'Aeon' is ambiguous, but the full name in the entry title avoids that.\nimage: No current image. Commons has a CC BY-SA 2.0 photo of the A-EON Technology and Hyperion stand showing the AmigaOne X1000 running AmigaOS 4.1 with '2010 The year we came back' posters. It is a stand shot rather than a clean product photo, but it shows the company itself, and the x1000 entry uses a different photo.",
+  "sources": [
+   "https://www.amigakit.com/history",
+   "https://www.a-eon.com/",
+   "https://commons.wikimedia.org/wiki/File:AmigaOne_X1000.jpg",
+   "https://amiga-news.de/en/news/AN-2023-10-00059-EN.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "aca12xx",
+  "fields": {
+   "what": "Individual Computers' A1200 trapdoor line: the ACA1234 (68030 at 25–50 MHz, 128 MB, CF slot, MapROM), the flagship ACA1240 and ACA1260 (68040 or 68060 at up to 100 MHz with 256 MB, in regular sale since 2025), plus the budget ACA1221lc and the ACA1211 RAM/IDE-speeder."
+  },
+  "summary": "Research update: what",
+  "reason": "The entry is accurate. The small edit adds the ACA1240/1260 top speed (up to 100 MHz), its 2025 start of regular sales and the ACA1234's CF slot, all from iComp's own pages. The US shipping stop is confirmed by iComp's 29 December 2025 notice. The manufacturer photo of the ACA1240/1260 is the clearest image of the family.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / shipping / 68k / 2010 are correct. iComp dates the first ACA1230 to 2010.\ndescription: Mostly accurate per iComp's product pages. ACA1234: 68030 at 25/33/40/50 MHz, 127 MB autoconfig plus 1 MB MapROM, local CF slot and 8 MB flash. ACA1240/1260: 68040 or 68060 at up to 100 MHz, always 256 MB, fan-cooled; regular sales opened in 2025 after long delays. ACA1221lc: 68EC020 with 16 MB physical RAM. ACA1211: RAM plus IDE speeder. The US note checks out: on 29 December 2025 iComp announced 'No more shipments to USA', leaving only freight forwarders paid by wire transfer. Small precision edit proposed.\nurl: https://icomp.de returns 200 and redirects to shop.icomp.de (genuine). Keep.\ngoogle: Searches for 'ACA1240' or 'ACA1234' return iComp, Amiga dealers and reviews, all on topic. 'ACA 12xx' as written is a family label, which is fine.\nimage: No current image. iComp's official 1500x1500 ACA1240/1260 product photo shows the flagship card with its heatsink and fan, clearly labelled.",
+  "sources": [
+   "https://shop.icomp.de/index.php/en/shop/product/ACA1234.html",
+   "https://shop.icomp.de/index.php/en/shop/product/ACA1240-1260.html",
+   "https://shop.icomp.de/index.php/en/shop/product/aca1221lc.html",
+   "https://shop.icomp.de/index.php/en/shop/product/aca1211.html",
+   "https://shop.icomp.de/index.php/en/33/items/no-more-shipments-to-usa.html",
+   "https://shop.icomp.de/index.php/en/33/items/aca1240-1260-now-in-regular-sales.html",
+   "https://wiki.icomp.de/wiki/Amiga_Accelerators"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "aca12xx",
+  "image_url": "https://shop.icomp.de/assets/images/f/aca1260_square-34f97eef.jpg",
+  "image_credit": "Product photo: Individual Computers",
+  "image_source_page": "https://shop.icomp.de/index.php/en/shop/product/ACA1240-1260.html",
+  "summary": "New image proposal",
+  "reason": "The entry is accurate. The small edit adds the ACA1240/1260 top speed (up to 100 MHz), its 2025 start of regular sales and the ACA1234's CF slot, all from iComp's own pages. The US shipping stop is confirmed by iComp's 29 December 2025 notice. The manufacturer photo of the ACA1240/1260 is the clearest image of the family.\n\nImage: No current image. iComp's official 1500x1500 ACA1240/1260 product photo shows the flagship card with its heatsink and fan, clearly labelled.\nLicence: Official manufacturer product photo, no free licence (the iComp wiki marks its content as not CC). Use as press/product material with credit.\nVerified: Downloaded (1500x1500) and viewed: purple ACA1240/1260 PCB with black heatsink, blower fan and an 'Individual Computers ACA1240/1260' label.",
+  "sources": [
+   "https://shop.icomp.de/index.php/en/shop/product/ACA1240-1260.html",
+   "https://shop.icomp.de/index.php/en/shop/product/ACA1234.html",
+   "https://shop.icomp.de/index.php/en/shop/product/ACA1240-1260.html",
+   "https://shop.icomp.de/index.php/en/shop/product/aca1221lc.html",
+   "https://shop.icomp.de/index.php/en/shop/product/aca1211.html",
+   "https://shop.icomp.de/index.php/en/33/items/no-more-shipments-to-usa.html",
+   "https://shop.icomp.de/index.php/en/33/items/aca1240-1260-now-in-regular-sales.html",
+   "https://wiki.icomp.de/wiki/Amiga_Accelerators"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "aca500",
+  "fields": {
+   "year": 2016,
+   "what": "An A500/A500+ side-slot expansion: a 68000-class CPU at 14 MHz (overclockable to 21, 28 or 42 MHz), 8 MB fast RAM, dual CF slots for boot and PC-format data exchange, flash holding Kickstart 1.2, 1.3 and 3.1 with an OS 3.1 installer and Action Replay, and a slot to piggyback ACA12xx accelerators.",
+   "why": "The most complete single upgrade for an unexpanded A500: CPU, RAM, storage and multiple Kickstarts in one board, with no need to open the case. Successor to the 2013 ACA500, shipping since December 2016.",
+   "url": "https://shop.icomp.de/index.php/en/shop/product/ACA500plus.html"
+  },
+  "summary": "Research update: year, what, why, url",
+  "reason": "The year 2013 is the original ACA500's; the ACA500plus went on order and started shipping in December 2016, which also matches the existing 'why'. The description gets iComp's exact clock steps and the bundled Kickstarts, Action Replay and installer. The URL points straight at the product page.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / shipping / 68k are right, but the year 2013 belongs to the original ACA500. The ACA500plus went on order in December 2016 (first boards before Christmas, the rest from 3 January 2017). The 'why' already says 'since 2017', which contradicts year 2013.\ndescription: Per iComp: the CPU is a 68(S)EC000 at 14.1 MHz as standard, overclockable to 21, 28 or 42 MHz (only 21 MHz guaranteed), with 8 MB RAM and 8 MB flash. Two CF slots (boot and PC-format aux), Kickstart 1.2/1.3/3.1 in flash with an OS 3.1 installer, Action Replay 3, and an A1200 CPU-card slot for ACA12xx (and with limits Blizzard) cards. '14/42 MHz' undersells the steps, and Kickstart 1.2/1.3/3.1 can be named.\nurl: icomp.de is genuine, but the product page https://shop.icomp.de/index.php/en/shop/product/ACA500plus.html (200) is more useful.\ngoogle: 'ACA500plus' returns iComp, its wiki and dealers; unambiguous.\nimage: No current image. iComp's own 1494x1500 photo of the board (a pre-production unit with an ACA1233 attached in the CPU slot) shows the 'ACA500plus (C) 2013-2016' silkscreen, CF slots and display.",
+  "sources": [
+   "https://shop.icomp.de/index.php/en/shop/product/ACA500plus.html",
+   "https://amiga-news.de/en/news/AN-2016-12-00033-EN.html",
+   "https://wiki.icomp.de/wiki/ACA500plus"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "aca500",
+  "image_url": "https://shop.icomp.de/assets/images/b/aca500p_pre_production-5a115a8b.jpg",
+  "image_credit": "Product photo: Individual Computers",
+  "image_source_page": "https://shop.icomp.de/index.php/en/shop/product/ACA500plus.html",
+  "summary": "New image proposal",
+  "reason": "The year 2013 is the original ACA500's; the ACA500plus went on order and started shipping in December 2016, which also matches the existing 'why'. The description gets iComp's exact clock steps and the bundled Kickstarts, Action Replay and installer. The URL points straight at the product page.\n\nImage: No current image. iComp's own 1494x1500 photo of the board (a pre-production unit with an ACA1233 attached in the CPU slot) shows the 'ACA500plus (C) 2013-2016' silkscreen, CF slots and display.\nLicence: Official manufacturer product photo, no free licence. Use as press/product material with credit.\nVerified: Downloaded (1494x1500) and viewed: black ACA500plus PCB with the 'ACA500plus (C) 2013-2016 J.Schoenfeld' silkscreen, CF slot labels and 7-segment display, with a 68030 ACA card plugged in.",
+  "sources": [
+   "https://shop.icomp.de/index.php/en/shop/product/ACA500plus.html",
+   "https://shop.icomp.de/index.php/en/shop/product/ACA500plus.html",
+   "https://amiga-news.de/en/news/AN-2016-12-00033-EN.html",
+   "https://wiki.icomp.de/wiki/ACA500plus"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "ahi",
+  "fields": {
+   "status": "active",
+   "url": "https://arp2.sourceforge.net/ahi/",
+   "what": "The retargetable audio standard: applications open ahi.device and audio routes to Paula or to any sound card through driver plug-ins. Martin Blom's final release, 6.0 (2006), covers 68020+ Amigas, PowerPC and AROS, while plain 68000 machines stay on v4.18. AmigaOS 4, MorphOS and AROS now ship and maintain their own builds."
+  },
+  "summary": "Research update: status, url, what",
+  "reason": "The current text implies 68k is stuck on 4.18 and v6 is only for the newer OSes. In fact AHI 6.0 (2006) shipped for 68020+ too, and only plain 68000 machines need 4.18. 'Shipping' fits a product on sale better than freely distributed, OS-maintained software, so 'active' is proposed. The official project page exists and loads.\n\nResearch notes —\ncatalogue_fit: tech / component / 68k-era 1996 are fine. Status 'shipping' (orderable from a vendor) does not fit free software. Martin Blom's last standalone release is 6.0 (June 2006), while AmigaOS 4, MorphOS and AROS ship and maintain their own builds, so 'active' fits better. Year 1996 could not be confirmed against a primary source (unsure).\ndescription: Inaccurate detail. AHI 6.0 is not only for the 'new' systems: it was released for m68k (68020+) as well as PowerPC (OS4, MorphOS) and AROS. 68000 owners stay on v4.18 because 6.0 dropped plain-68000 support. It is also not really a 'rewrite' but the same codebase extended to new architectures.\nurl: Martin Blom's official AHI page is https://arp2.sourceforge.net/ahi/ (200; lists 6.0 as current, last updated 2006). The old lysator.liu.se/ahi URL now redirects to a 404. Propose adding the sourceforge page.\ngoogle: 'AHI' alone is ambiguous (health institutes, etc.), but 'AHI Amiga' and the full name return Aminet, the AmigaOS wiki and the project page. The current name already disambiguates.\nimage: Current screenshot of the AHI preferences (510 px, AmigaOS Documentation Wiki) is relevant and clean. Keep.",
+  "sources": [
+   "https://arp2.sourceforge.net/ahi/",
+   "https://aminet.net/package/driver/audio/m68k-amigaos-ahiusr",
+   "https://aminet.net/package/dev/misc/ahidev_4.18",
+   "https://aminet.net/package/driver/audio/ahisrc"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "ammx",
+  "fields": {
+   "status": "active",
+   "url": "http://www.apollo-core.com"
+  },
+  "summary": "Research update: status, url",
+  "reason": "The stored HTTPS URL does not load because apollo-core.com serves only plain HTTP, so the link should change. The 68080 core gets regular releases, so 'active' fits better than 'shipping' for a concept entry. The proposed image is the team's own SysInfo capture identifying the 68080; it is smaller than ideal.\n\nResearch notes —\ncatalogue_fit: tech / concept / 2016 / fpga are fine. Status 'shipping' fits a product, not a concept; the core gets regular releases ('actively supported with quarterly updates'), so 'active' fits better.\ndescription: Accurate. Apollo claims performance 'application dependent: up to ~1000 MHz 68030 / 500 MHz 68040 / 250 MHz 68060', which supports 'well beyond any real 68060'. The core remains closed. No text change needed.\nurl: https://www.apollo-core.com fails (no HTTPS listener: curl gets no response on 443), but http://www.apollo-core.com returns 200 and is the genuine Apollo 68080 site. The catalogue URL should switch to http://, or to https://www.apollo-computer.com (200, the team's product site).\ngoogle: 'Apollo 68080' and 'AMMX' return apollo-core.com, Vampire reviews and EAB threads; on topic. 'Apollo core' alone can collide with the Apollo GraphQL server and Apollo Computer (1980s workstations).\nimage: No current image. The best on-topic, non-duplicating image is Apollo's own SysInfo screenshot reporting 'AC68080' with Dhrystone results (700x309, below the 800 px target). The Vampire boards are already pictured in vampirev2/v4sa.",
+  "sources": [
+   "http://www.apollo-core.com/",
+   "http://www.apollo-core.com/index.htm?page=products",
+   "https://www.apollo-computer.com/"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "ammx",
+  "image_url": "http://www.apollo-core.com/gfx/SYSINFO_RELEASE8.jpg",
+  "image_credit": "Screenshot: Apollo Team (apollo-core.com)",
+  "image_source_page": "http://www.apollo-core.com/index.htm?page=products",
+  "summary": "New image proposal",
+  "reason": "The stored HTTPS URL does not load because apollo-core.com serves only plain HTTP, so the link should change. The 68080 core gets regular releases, so 'active' fits better than 'shipping' for a concept entry. The proposed image is the team's own SysInfo capture identifying the 68080; it is smaller than ideal.\n\nImage: No current image. The best on-topic, non-duplicating image is Apollo's own SysInfo screenshot reporting 'AC68080' with Dhrystone results (700x309, below the 800 px target). The Vampire boards are already pictured in vampirev2/v4sa.\nLicence: Official project screenshot, no free licence stated. Use with credit.\nVerified: Downloaded (700x309) and viewed: SysInfo 4.4 showing CPU 'AC68080 99.26 MHz', FPU 68080 and speed comparisons. Under 800 px wide.",
+  "sources": [
+   "http://www.apollo-core.com/index.htm?page=products",
+   "http://www.apollo-core.com/",
+   "http://www.apollo-core.com/index.htm?page=products",
+   "https://www.apollo-computer.com/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "amissl",
+  "fields": {
+   "year": 1999,
+   "by": "Andrija Antonijevic (original); Jens Maus, Oliver Roberts & the AmiSSL Open Source Team",
+   "version": "5.27 (April 2026, OpenSSL 3.6)"
+  },
+  "summary": "Research update: year, by, version",
+  "reason": "AmiSSL v1 dates from 1999 and was created by Andrija Antonijevic; Maus and Roberts took over the open-source revival from 2012 and 2016. The year and by-line are corrected, and the version field records the current 5.27 release based on OpenSSL 3.6. The description stays as it is.\n\nResearch notes —\ncatalogue_fit: tech / component / active are right. The year should be 1999: AmiSSL v1 was released by Andrija Antonijevic in 1999 (the project's own history and the v5 copyright notices).\ndescription: Accurate in spirit. Current release is v5.27 (9 April 2026, based on OpenSSL 3.6); 5.25 (Oct 2025) and 5.26 (Jan 2026) came before it, so 'several times a year' holds. The 68k build needs a 68020+. The by-line should credit the originator: Antonijevic (v1 1999), Stefan Burström (v2/v3), then open-sourced by Jens Maus from 2012, with Oliver Roberts joining in 2016.\nurl: https://github.com/jens-maus/amissl is the genuine source repo (200, pushed Oct 2026). The project's home page amissl.org (200) redirects to https://www.ibrowse-dev.net/amissl/. Either works, so no change; the GitHub repo is fine.\ngoogle: 'AmiSSL' returns Aminet, GitHub and the ibrowse-dev page; unambiguous.\nimage: No current image. The only official artwork is the AmiSSL logo used in the GitHub README (280x82). It is relevant but small, and there is no better licensed image.",
+  "sources": [
+   "https://www.ibrowse-dev.net/amissl/",
+   "https://aminet.net/package/util/libs/AmiSSL-v5-OS3",
+   "https://aminet.net/util/libs/AmiSSL-v5-OS3.readme",
+   "https://github.com/jens-maus/amissl/releases"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "events",
+  "fields": {
+   "name": "Amiga37 / 38 / 40",
+   "what": "The German event series run by Markus Tillmann, which grew out of Amiga30 in Neuss (2015) and became the scene's centre of gravity after moving to Mönchengladbach. Amiga37 (October 2022, delayed a year by COVID) drew over 1,400 registered visitors and Amiga38 followed in October 2023. The 40th-anniversary Amiga40 (October 2025) filled two halls with more than 2,000 visitors, displayed the Lorraine prototype, and saw APC&TCP launch a new Amiga Joker issue and the games Phantom Leap and Freak Out."
+  },
+  "summary": "Research update: name, what",
+  "reason": "There was no Amiga39: the series runs every two years, and the organiser's announcements and heise's Amiga40 review jump from 38 (2023) to 40 (2025). The name and text are corrected. The unsupported claims ('thousands' at Amiga37, the A1200NG 'shown working' at Amiga40) are replaced with documented facts: over 1,400 registrations, over 2,000 visitors, and the Lorraine prototype on show. No licensed photo was found.\n\nResearch notes —\ncatalogue_fit: comm / event / active is fine (no future edition is confirmed yet; heise notes the organiser has not committed to one). Year 2022 matches Amiga37, though the series began with Amiga30 in Neuss in 2015.\ndescription: Factual errors. (1) There was no Amiga39: Tillmann announced in 2023 that after the COVID shift (36 to 37) the series 'returns to its old rhythm' of every two years, and heise's Amiga40 review lists 30, 32, 34, 37, 38 and 40. (2) Amiga37 (15–16 Oct 2022) had over 1,400 registrations; 'thousands' is not supported. Amiga40 (18–19 Oct 2025, RED BOX, two halls) did exceed 2,000 visitors. (3) No source shows the A1200NG being 'shown working' at Amiga40; it has been on sale since 2025. Coverage instead highlights the Lorraine A1000 prototype on display. APC&TCP's new 2025 Amiga Joker issue and the games Phantom Leap and Freak Out are confirmed.\nurl: The official site amigaevent.de currently serves an HTTP 503 parking page with an untrusted certificate, so it cannot be verified as live. Leave url null for now.\ngoogle: 'Amiga40' and 'Amiga37' return amiga-news, heise and AmigaKit coverage; on topic. 'Amiga39' returns nothing about an event, which confirms it did not happen.\nimage: No current image and no properly licensed photo found: nothing on Wikimedia Commons, no CC-licensed Flickr results, the heise and AmigaKit blog photos are not licensed for reuse, and the event site is offline. Left unresolved.",
+  "sources": [
+   "https://heise.de/-11088400",
+   "https://amigaland.de/?p=15539",
+   "https://amiga-news.de/en/news/AN-2023-03-00028-EN.html",
+   "https://amiga-news.de/en/news/AN-2022-10-00130-EN.html",
+   "https://amiga-news.de/en/news/AN-2025-10-00074-EN.html",
+   "https://amiga-news.de/en/news/AN-2025-10-00102-EN.html",
+   "https://theoasisbbs.com/events/amiga40-germany"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "os314",
+  "fields": {
+   "status": "historic",
+   "version": "3.1.4.1 (July 2019)",
+   "why": "It proved there was still a paying market for classic AmigaOS, and it put newly manufactured Kickstart chips back on dealers' shelves. Superseded by AmigaOS 3.2 in May 2021."
+  },
+  "summary": "Research update: status, version, why",
+  "reason": "AmigaOS 3.1.4 (2018, final update 3.1.4.1 in 2019) was replaced by AmigaOS 3.2 in May 2021, so 'shipping' overstates its status. Proposed: 'historic', the last version recorded, and a note on the successor. The description and screenshot are good as they are.\n\nResearch notes —\ncatalogue_fit: os / os / 68k / 2018 are correct (released 30 September 2018; 3.1.4.1 bug-fix update July 2019). Status 'shipping' is stale: AmigaOS 3.2 superseded it in May 2021 (now 3.2.x), and Hyperion's current offering is 3.2. 'historic' (no longer current, often still used) fits better. Whether old 3.1.4 stock remains at dealers could not be confirmed (unsure).\ndescription: Accurate. Forked from 3.1 because 3.5/3.9 code was not available to Hyperion; adds 68060 support, large-disk boot support, a modernised Workbench and new physical Kickstart ROMs. No text change needed beyond noting the successor.\nurl: https://www.hyperion-entertainment.com returns 200 and is genuine. Keep.\ngoogle: 'AmigaOS 3.1.4' returns Hyperion news, Wikipedia (AmigaOS) and amiga-news; on topic.\nimage: Current 641x511 screenshot of the OS 3.1.4 Workbench with the Prefs drawer and boing ball backdrop is clean and specific to 3.1.4. Keep.",
+  "sources": [
+   "https://hyperion-entertainment.com/index.php/news/1-latest-news/189-amigaos-314-for-68k-released",
+   "https://www.osnews.com/story/130316/amigaos-3-1-4-1-released/",
+   "https://www.hyperion-entertainment.com/index.php/news/1-latest-news?start=5"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "os40",
+  "fields": {
+   "what": "The PowerPC-native continuation of the official line, developed under Hyperion's November 2001 contract with Amiga Inc. A Developer Pre-release for AmigaOne owners shipped in April 2004, the \"Final Update\" in December 2006 and a version for classic Amigas with PowerUP cards in November 2007. It introduced the ExecSG kernel, licensed from its authors Thomas and Hans-Jörg Frieden, and the Petunia JIT, which runs system-friendly 68k software on PowerPC; hardware-banging games and demos still need UAE."
+  },
+  "summary": "Research update: what",
+  "reason": "The facts are right except that Petunia does not run all 68k software at native speed: it only handles system-friendly programs, and banging-the-hardware software needs UAE. The rewrite fixes that and adds the 2004/2006/2007 release milestones that explain why the year is 2004. The image is fine.\n\nResearch notes —\ncatalogue_fit: os / os / historic / ppc / 2004 correct: the Developer Pre-release went gold in April 2004; the 'Final Update' followed on 24 December 2006 and the classic-Amiga (PowerUP) release in November 2007.\ndescription: Contract year (2001) and ExecSG licensing from Thomas and Hans-Jörg Frieden check out. 'Petunia runs 68k applications at native speed' overstates it: Petunia is a 68020 JIT that runs system-friendly OS3.x software only, hardware-banging titles need UAE. Proposed rewording adds the release milestones.\nurl: hyperion-entertainment.com returns 200 and is the genuine publisher site; www.amigaos.net (Hyperion's AmigaOS site, 200) is an equally valid alternative. No change.\ngoogle: 'AmigaOS 4.0' results are Wikipedia's AmigaOS 4 article, Hyperion and review sites; no ambiguity.\nimage: Current 1024x768 AmiGANG screenshot of an OS4.0-era Workbench with the AmigaOS 4 logo is clean and on-topic. Wikipedia's OS4 screenshots are non-free, so there is no better licensed option. Keep.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/AmigaOS_4",
+   "https://www.hyperion-entertainment.com/index.php?option=com_content&view=article&id=68",
+   "http://www.amiga.hu/amigos/rachy/petunia.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "a1222",
+  "fields": {
+   "by": "A-EON Technology, AmigaKit and Amedia Computer (AAA Technology)"
+  },
+  "summary": "Research update: by",
+  "reason": "The entry is accurate. The only proposal is to credit the AAA Technology joint venture (A-EON, AmigaKit, Amedia) that actually produced and sells the board. Current availability could not be checked live because AmigaKit's shop blocks automated access.\n\nResearch notes —\ncatalogue_fit: hw-ng / compatible / shipping / ppc / 2024 fits: production began 29 June 2023 and boards went on general order in March 2024 (board EUR 1,199, complete system EUR 1,599). Shipping status could not be re-confirmed because the AmigaKit store is behind a proof-of-work bot wall; no evidence it was withdrawn.\ndescription: P1022 dual e500v2 at 1.2 GHz, SPE/no classic FPU and the Tabor history are accurate. Sales run through AAA Technology, a joint venture of A-EON, AmigaKit and Amedia Computer, with ACube Systems; the 'by' field could reflect that.\nurl: www.a-eon.com loads (200) but has no A1222 page; a1222plus.com no longer resolves; amigakit.com/a1222-plus exists but is bot-walled. Keeping a-eon.com is acceptable.\ngoogle: 'A1222 Plus' results are amiga-news.de, AmigaKit and reviews about this board; no ambiguity.\nimage: Current 1162x1197 official A-EON product shot (board in front of retail box) is clean and relevant. Keep.",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2024-03-00023-EN.html",
+   "https://intuitionbase.com/sites/default/files/2024-08/News_Release_A1222%2B_production_underway.pdf",
+   "https://amiga-news.de/en/news/AN-2019-12-00040-EN.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "x1000",
+  "fields": {
+   "year": 2012,
+   "url": "https://www.a-eon.com/?page=x1000"
+  },
+  "summary": "Research update: year, url",
+  "reason": "The year field records the 2010 announcement, but the machine reached customers in January 2012 (beta units in 2011), as the description itself says. A-EON's dedicated X1000 page is a better link. The proposed colour photo by the same Commons author shows the machine running AmigaOS 4.1 and reads far better than the current grayscale portrait.\n\nResearch notes —\ncatalogue_fit: Category/kind/status/arch fine, but year 2010 is the announcement (January 2010). Beta boards went to testers in August 2011, AmigaKit opened 'First Contact' pre-orders in October 2011 and customer deliveries began in January 2012, which the entry's own text calls the launch. Year should be 2012.\ndescription: PA6T-1682M 1.8 GHz, Xena XMOS XS1-L2 and Xorro slot correct; Varisys designed the board. The claim that community Linux builds still appeared in 2026 could not be confirmed (Christian Zigotzky's X1000 kernel builds are documented through Linux 6.16 in July 2025); unsure, not changed.\nurl: A-EON has a dedicated page, https://www.a-eon.com/?page=x1000 (200), more specific than the home page.\ngoogle: Results are Wikipedia, A-EON and reviews about this machine; no ambiguity.\nimage: Current image is the black-and-white Commons photo AmigaOne_X1000_01.jpg (portrait, 2421x3431). The same photographer's colour shot AmigaOne_X1000_02.jpg (3471x2504) shows the open case beside a monitor running AmigaOS 4.1 X1000 edition: more informative and same licence.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/AmigaOne_X1000",
+   "https://amiga-news.de/en/news/AN-2011-10-00041-EN.html",
+   "https://amiga-news.de/de/news/AN-2012-01-00070-DE.html",
+   "https://www.a-eon.com/?page=x1000",
+   "https://commons.wikimedia.org/wiki/File:AmigaOne_X1000_02.jpg",
+   "https://amiga-news.de/en/news/AN-2025-07-00116-EN.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "x1000",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/AmigaOne_X1000_02.jpg",
+  "image_credit": "Photo: Adam Kliczek / memoriesstay.com, CC BY-SA 3.0 PL (Wikimedia Commons)",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:AmigaOne_X1000_02.jpg",
+  "summary": "New image proposal",
+  "reason": "The year field records the 2010 announcement, but the machine reached customers in January 2012 (beta units in 2011), as the description itself says. A-EON's dedicated X1000 page is a better link. The proposed colour photo by the same Commons author shows the machine running AmigaOS 4.1 and reads far better than the current grayscale portrait.\n\nImage: Current image is the black-and-white Commons photo AmigaOne_X1000_01.jpg (portrait, 2421x3431). The same photographer's colour shot AmigaOne_X1000_02.jpg (3471x2504) shows the open case beside a monitor running AmigaOS 4.1 X1000 edition: more informative and same licence.\nLicence: CC BY-SA 3.0 PL\nVerified: Downloaded original (3471x2504) and viewed: AmigaOne X1000 case with Boing Ball side panel and X1000 badge next to a monitor showing the AmigaOS 4.1 X1000 desktop. Licence and author read from the Commons API.",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:AmigaOne_X1000_02.jpg",
+   "https://en.wikipedia.org/wiki/AmigaOne_X1000",
+   "https://amiga-news.de/en/news/AN-2011-10-00041-EN.html",
+   "https://amiga-news.de/de/news/AN-2012-01-00070-DE.html",
+   "https://www.a-eon.com/?page=x1000",
+   "https://commons.wikimedia.org/wiki/File:AmigaOne_X1000_02.jpg",
+   "https://amiga-news.de/en/news/AN-2025-07-00116-EN.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "x5000",
+  "fields": {
+   "what": "A-EON's flagship on the Varisys-designed \"Cyrus\" board: NXP QorIQ P5020 dual-core at 2.0 GHz, running AmigaOS 4.1, MorphOS and PowerPC Linux. A quad-core X5000/40 variant uses the 2.2 GHz P5040. Systems are built to order by resellers, availability is intermittent and the P5020 is end-of-life.",
+   "url": "https://www.a-eon.com/?page=x5000"
+  },
+  "summary": "Research update: what, url",
+  "reason": "The facts check out. The small rewrite mentions the quad-core X5000/40 variant and the current build-to-order reseller model, and the URL points to A-EON's dedicated X5000 page. The image is fine.\n\nResearch notes —\ncatalogue_fit: hw-ng / compatible / limited / ppc / 2016 correct: released October 2016 through distributors. 'limited' matches A-EON's page, which now routes orders to built-to-order resellers (Alinea, GGS Data, Amedia, Relec, ACube).\ndescription: P5020 dual-core 2.0 GHz and the 'Cyrus' board are correct (A-EON's wiki: Cyrus, designed with Varisys). Worth noting the quad-core X5000/40 (P5040, 2.2 GHz) sibling; proposed as a short addition.\nurl: A-EON has a dedicated page, https://www.a-eon.com/?page=x5000 (200), listing the current resellers.\ngoogle: Results are A-EON, the amiga.org wiki and reviews; no ambiguity.\nimage: Current 766x1200 product shot of the black X5000 tower with Boing Ball front is clean. Width is below 800 px but no better-licensed image was found (no Commons photo). Keep.",
+  "sources": [
+   "https://wiki.amiga.org/index.php?title=X5000",
+   "https://www.a-eon.com/?page=x5000",
+   "https://amiga-news.de/en/news/AN-2016-10-00014-EN.html",
+   "https://www.generationamiga.com/2023/01/29/the-amigaone-x5000-an-alternate-universe-where-the-amiga-never-died/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "amigagcc",
+  "fields": {
+   "what": "A GCC cross-compiler toolchain for AmigaOS, built on Linux, macOS or Windows, bundling binutils, libnix and other tools. It defaults to GCC 6.5.0b with extensive m68k optimisation work, with newer branches up to GCC 13.4, 15.2 and 16.1. Development moved off GitHub to the author's franke.ms server and Codeberg.",
+   "url": "https://codeberg.org/bebbo/amiga-gcc"
+  },
+  "summary": "Research update: what, url",
+  "reason": "The current GitHub link is dead: Bebbo emptied his GitHub account and the project moved to franke.ms with a synchronised Codeberg mirror, which is also the issue tracker. The description's version information is stale; current branches go up to GCC 15.2 and 16.1. No suitable image exists.\n\nResearch notes —\ncatalogue_fit: dev / tool / active / 68k / 2017 fine; the latest commit is dated 4 October 2026.\ndescription: Stale: the project now offers GCC 6.5.0b (default amiga6 branch) plus 10.4, 13.4, 15.2 and 16.1 branches, not 'experimental GCC 13.x'. It is a cross-compiler (Linux, macOS, Windows hosts) bundling binutils, libnix and other tools.\nurl: BROKEN: https://github.com/bebbo/amiga-gcc returns 404. Bebbo emptied his GitHub account in protest; the project now lives at https://franke.ms/git/bebbo/amiga-gcc (origin) and https://codeberg.org/bebbo/amiga-gcc (synchronised mirror, issue tracker and contribution point). Both return 200. Codeberg proposed as the public link.\ngoogle: Top results still include stale GitHub links and forks (mheyer32/amiga-gcc, codewiz); the new Codeberg/franke.ms homes rank lower, so the URL fix matters.\nimage: No image currently. The project has no logo or screenshots (franke.ms wiki has none); a generic GCC logo would not be specific. No candidate proposed.",
+  "sources": [
+   "https://codeberg.org/bebbo/amiga-gcc",
+   "https://franke.ms/git/bebbo/amiga-gcc",
+   "https://franke.ms/amiga/amiga-gcc.wiki",
+   "https://github.com/bebbo"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "classicwb",
+  "image_url": "http://classicwb.abime.net/classicweb/p96files/image001.png",
+  "image_credit": "Screenshot: ClassicWB P96 by Bloodwych (classicwb.abime.net)",
+  "image_source_page": "http://classicwb.abime.net/classicweb/p96pics.htm",
+  "summary": "New image proposal",
+  "reason": "The text matches the official site and needs no change. The proposed image comes from the project's own gallery, is larger, and shows the recognisable ClassicWB setup (Scalos menus and WHDLoad launcher) rather than a generic 3.1.4 desktop. The 2003 start year could not be confirmed.\n\nImage: Current 720x568 screenshot (Workbench 3.1.4, Scalos) has unclear provenance and may not be a stock ClassicWB edition. The official site's P96 edition screenshot (800x600) shows the signature ClassicWB desktop: Scalos window, RUN/WHDLoad popup menu, toolbar dock. Higher resolution and from the project itself.\nLicence: No explicit licence; screenshot published on the official ClassicWB site (project promotional use)\nVerified: Downloaded and viewed: 800x600 ClassicWB P96 desktop with System drawer, Scalos RUN menu showing WHDLoad > iGame/Games/Demos, and DirectoryOpus/PerfectPaint dock.",
+  "sources": [
+   "http://classicwb.abime.net/classicweb/p96pics.htm",
+   "http://classicwb.abime.net/",
+   "http://classicwb.abime.net/classicweb/introduction.htm",
+   "http://classicwb.abime.net/classicweb/p96pics.htm"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "cloanto",
+  "fields": {
+   "name": "Cloanto and Amiga Corporation reunite the Amiga IP",
+   "year": 2019,
+   "what": "Cloanto, long the publisher of Amiga Forever, completed its acquisition of the Commodore-era Amiga copyrights (works up to 1993, including AmigaOS 3.1 and earlier) from Amiga, Inc. in 2012. On 1 February 2019, C-A Acquisition Corp., led by Cloanto's Mike Battilana, bought Amiga, Inc.'s remaining IP including the trademarks, and was renamed Amiga Corporation in 2020. By 2026 Amiga Corporation held the copyrights and trademarks, with Cloanto as a licensee, and a settlement effective June 2026 ended its litigation with Hyperion: Hyperion keeps AmigaOS 4, and 68k AmigaOS returns to Amiga Corporation once Hyperion's AmigaOS 3.2/3.3 sales window closes.",
+   "why": "For the first time since 1994, the historic copyrights and the trademarks sit with one owner that actively licenses them, and the 2026 settlement finally separated the 68k and PowerPC AmigaOS lines after years of litigation.",
+   "url": "https://amiga.com"
+  },
+  "summary": "Research update: name, year, what, why, url",
+  "reason": "The year 2018 matches no event: the copyright transfer to Cloanto was completed in 2012 and the trademark purchase came in February 2019. The 2026 situation has also changed: Cloanto now describes Amiga Corporation as the owner and itself as a licensee, and the June 2026 Hyperion settlement split the 68k and OS4 lines. The proposed name, year, text and amiga.com link reflect the full consolidation story. The id can stay as it is.\n\nResearch notes —\ncatalogue_fit: brand / event / active / other. Year 2018 matches nothing: Battilana said the copyright transfer to Cloanto was completed in 2012, and the trademark purchase by C-A Acquisition Corp. was 1 February 2019. Since the entry's point is consolidation, 2019 fits best.\ndescription: Stale and partly wrong. Corrections: Cloanto's ownership of pre-1993 Commodore/Amiga copyrights dates to 2012. C-A Acquisition Corp. was renamed Amiga Corporation in 2020. As of 2026, Cloanto's own knowledge base (updated 2026-06-06) says the Amiga OS files are owned by Amiga Corporation, with Cloanto holding licences. A March 2026 interim deal and a settlement effective 5 June 2026 (signed 17 July, filed 3 August) ended the Hyperion litigation, leaving AmigaOS 4 with Hyperion and future 68k AmigaOS with Amiga Corporation after Hyperion's 3.2/3.3 sales window, which ends by 2027.\nurl: amigaforever.com is Cloanto's product site. The rights holder's own site is https://amiga.com (Amiga Corporation; amigacorp.com redirects there, 200).\ngoogle: Searching the title returns amiga-news.de, Wikipedia (Amiga, Inc.) and forum threads on the Cloanto/Hyperion dispute; the 2026 settlement coverage (Hyperion, Generation Amiga) now dominates.\nimage: No image currently. Amiga Corporation's official banner (866x466) shows its four marks (checkmark, slanted A, Boing Ball, flower): directly about this IP story.",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2015-02-00027-EN.html",
+   "https://en.wikipedia.org/wiki/Amiga,_Inc.",
+   "https://amiga-news.de/en/news/AN-2020-07-00032-EN.html",
+   "https://www.amigaforever.com/kb/13-122",
+   "https://amiga-news.de/en/news/AN-2026-03-00108-EN.html",
+   "https://www.hyperion-entertainment.com/index.php/news/38-corporate/331-hyperion-entertainment-bv-and-amiga-corporation-reach-settlement--all-ongoing-legal-disputes-ended",
+   "https://www.generationamiga.com/2026/08/05/amiga-and-hyperion-agreement-full-breakdown-of-amigaos-rights/",
+   "https://amiga.com/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "parties",
+  "fields": {
+   "what": "Where new Amiga demos actually premiere: Revision, held every Easter at the E-Werk in Saarbrücken and the world's biggest pure demoparty, with dedicated Amiga competitions, plus Sweden's Amiga-heavy Gerp in Skövde each January, Assembly, Evoke, and grassroots events like AmiParty and Amiga Rave-Craze."
+  },
+  "summary": "Research update: what",
+  "reason": "The specific 2026 dates are past and will keep going stale, so the rewrite describes Revision's fixed Easter slot instead and pins Gerp to Skövde. A freely licensed Revision 2025 photo fills the missing image.\n\nResearch notes —\ncatalogue_fit: comm / event / active / 2011 (first Revision) fine.\ndescription: '2026 edition 3–6 April' was correct (Revision 2026 ran 3–6 April at the E-Werk, Saarbrücken) but is now in the past and will date the text. Gerp confirmed as an Amiga-dominated January party in Skövde, Sweden (2025 and 2026 editions). Proposed rewording drops the dated edition.\nurl: revision-party.net redirects to the current edition site (2026.revision-party.net, 200). Fine.\ngoogle: 'Demoparty Revision' returns the party site and Wikipedia; 'Gerp' alone is ambiguous, but the name field gives context.\nimage: No image currently. Wikimedia Commons has 'Revision 2025 E-Werk Opening Ceremony' (5166x3416, CC BY 4.0): big screen, stage, and a hall of party-goers at their machines including a beige CRT. Clear and on-topic.",
+  "sources": [
+   "https://2026.revision-party.net/",
+   "https://amiga-news.de/en/news/AN-2025-02-00028-EN.html",
+   "https://commons.wikimedia.org/wiki/File:Revision_2025_E-Werk_Opening_Ceremony.png"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "parties",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Revision_2025_E-Werk_Opening_Ceremony.png/1920px-Revision_2025_E-Werk_Opening_Ceremony.png",
+  "image_credit": "Photo: OpenCatMap, CC BY 4.0 (Wikimedia Commons)",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:Revision_2025_E-Werk_Opening_Ceremony.png",
+  "summary": "New image proposal",
+  "reason": "The specific 2026 dates are past and will keep going stale, so the rewrite describes Revision's fixed Easter slot instead and pins Gerp to Skövde. A freely licensed Revision 2025 photo fills the missing image.\n\nImage: No image currently. Wikimedia Commons has 'Revision 2025 E-Werk Opening Ceremony' (5166x3416, CC BY 4.0): big screen, stage, and a hall of party-goers at their machines including a beige CRT. Clear and on-topic.\nLicence: CC BY 4.0\nVerified: Downloaded the 1920 px rendition and viewed it: Revision 2025 opening ceremony at E-Werk, with hosts on stage before a large projection and attendees at desks with monitors and a retro CRT. Licence and author read from the Commons API. Saved locally as JPEG.",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:Revision_2025_E-Werk_Opening_Ceremony.png",
+   "https://2026.revision-party.net/",
+   "https://amiga-news.de/en/news/AN-2025-02-00028-EN.html",
+   "https://commons.wikimedia.org/wiki/File:Revision_2025_E-Werk_Opening_Ceremony.png"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "demozoo",
+  "fields": {
+   "what": "The demoscene's primary databases: Demozoo, with about 190,000 productions, 136,000 music entries, 29,000 groups and 5,500 parties, edited daily and open source, and Pouët, with about 103,000 productions and over a million comments."
+  },
+  "summary": "Research update: what",
+  "reason": "The statistics have moved on, so the rewrite uses rounded current figures that will stay accurate longer. Demozoo's own logo card fills the missing image. The year could reasonably move to 2000 (Pouët's founding), but that is left for you to decide.\n\nResearch notes —\ncatalogue_fit: pres / archive / active fine. Year 2011 is unsure: Demozoo's code dates from May 2010 and Pouët from 2000 (single secondary source). A combined entry could arguably use 2000; not changed.\ndescription: Counts are stale: Demozoo now shows 189,810 productions, 136,172 music, 29,006 groups, 5,559 parties; Pouët 103,011 prods and 1,036,157 comments (14 Oct 2026). Proposed rounded figures so the text ages better.\nurl: demozoo.org loads in browsers (Cloudflare blocks curl with 403, WebFetch got the page); pouet.net returns 200. Fine.\ngoogle: Both names return their own sites first; no ambiguity.\nimage: No image currently. Demozoo's official social card (1200x627, white DEMOZOO wordmark on red) from the project's open-source GitHub repo is a clean logo image.",
+  "sources": [
+   "https://demozoo.org/",
+   "https://www.pouet.net/",
+   "https://github.com/demozoo/demozoo"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "demozoo",
+  "image_url": "https://raw.githubusercontent.com/demozoo/demozoo/main/demoscene/static/images/fb-1200x627.png",
+  "image_credit": "Logo: Demozoo (demozoo.org)",
+  "image_source_page": "https://github.com/demozoo/demozoo/blob/main/demoscene/static/images/fb-1200x627.png",
+  "summary": "New image proposal",
+  "reason": "The statistics have moved on, so the rewrite uses rounded current figures that will stay accurate longer. Demozoo's own logo card fills the missing image. The year could reasonably move to 2000 (Pouët's founding), but that is left for you to decide.\n\nImage: No image currently. Demozoo's official social card (1200x627, white DEMOZOO wordmark on red) from the project's open-source GitHub repo is a clean logo image.\nLicence: Official project logo/social card from the Demozoo source repository; no explicit licence file (logo use)\nVerified: Downloaded and viewed: 1200x627 PNG with the DEMOZOO wordmark in white on red.",
+  "sources": [
+   "https://github.com/demozoo/demozoo/blob/main/demoscene/static/images/fb-1200x627.png",
+   "https://demozoo.org/",
+   "https://www.pouet.net/",
+   "https://github.com/demozoo/demozoo"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "dopus4",
+  "fields": {
+   "year": 1992,
+   "status": "historic",
+   "by": "Jonathan Potter (published by Inovatronics); GPL release by GPSoftware",
+   "what": "The classic dual-pane file manager whose configurable button banks, filetypes and hotkeys became the power-user standard. Opus 4 (December 1992, published by Inovatronics) was the last of the original layout before Opus 5's listers. Jonathan Potter released the 4.12 source under the GPL in 2000, leading to community builds (4.16, the 4.17 betas) and ports to AmigaOS 4, MorphOS and AROS; the last AmigaOS 4 update, 4.18.48, appeared in 2015.",
+   "why": "So central to Amiga workflow that many users never moved on to Opus 5, and the GPL release kept it running on new Amiga platforms for well over a decade."
+  },
+  "summary": "Research update: year, status, by, what, why",
+  "reason": "Opus 4 was released in 1992 by Inovatronics, not 1990 by GPSoftware, and the 'lister' wording belongs to Opus 5. No new build since 2015, so 'historic' fits better than 'active'. The proposed Commons screenshot shows the whole interface and carries a clear GPL licence.\n\nResearch notes —\ncatalogue_fit: shell/shell fits. Year 1990 is Directory Opus 1; Opus 4 itself shipped 4 December 1992 (published by Inovatronics). Status 'active' is stale: the last core release was the AmigaOS 4 build 4.18.48 in August 2015 (68k: 4.16 in 2001 plus 4.17 betas); only small add-ons and a German manual have appeared on Aminet since, so 'historic' (still widely used) fits better.\ndescription: 'Lister-based' is DOpus 5 terminology; Opus 4 is the fixed dual-pane layout with button banks. GPSoftware is not the Opus 4 publisher (Inovatronics was; GPSoftware took over from Opus 5). GPL source (4.12) released January 2000 by Jonathan Potter is correct; ports exist for AmigaOS 4 (Joachim Birging), MorphOS (Ilkka Lehtoranta) and AROS, not only MorphOS. 'Another twenty-five years' overstates active life.\nurl: No official site. GPSoftware (gpsoft.com.au) now only sells the Windows product; the community 'Directory Opus 4 Research Project' (dopus.amigaworld.de) is historical. null is correct.\ngoogle: 'Directory Opus 4' results are mostly Aminet, Wikipedia and the research project; plain 'Directory Opus' is dominated by the current Windows product, so keeping the '4' in the name matters.\nimage: Current image is a tight crop (1038x437) of an unattributed screenshot. Wikimedia Commons DOpus.png (1024x768, GPL, Stefan Haubenthal) shows the full Opus 4.17 interface with both listers and the full button bank; the GPL About requester (German) sits in the middle, but it is properly licensed and complete.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Directory_Opus",
+   "https://aminet.net/util/dopus/dopus412-gpl.readme",
+   "https://aminet.net/package/util/dopus/DirectoryOpus-4.18.22",
+   "https://generic.aminet.net/util/dopus/dopus4-morphos.readme",
+   "https://dopus.amigaworld.de/download.php",
+   "https://www.commodore-news.com/news/item/4068/en/desktop",
+   "https://commons.wikimedia.org/wiki/File:DOpus.png"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "dopus4",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/DOpus.png",
+  "image_credit": "Screenshot: Stefan Haubenthal / Wikimedia Commons",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:DOpus.png",
+  "summary": "New image proposal",
+  "reason": "Opus 4 was released in 1992 by Inovatronics, not 1990 by GPSoftware, and the 'lister' wording belongs to Opus 5. No new build since 2015, so 'historic' fits better than 'active'. The proposed Commons screenshot shows the whole interface and carries a clear GPL licence.\n\nImage: Current image is a tight crop (1038x437) of an unattributed screenshot. Wikimedia Commons DOpus.png (1024x768, GPL, Stefan Haubenthal) shows the full Opus 4.17 interface with both listers and the full button bank; the GPL About requester (German) sits in the middle, but it is properly licensed and complete.\nLicence: GPL-2.0-or-later\nVerified: Downloaded 1024x768 PNG and viewed: Directory Opus 4.17 pre19 with two listers, full colour button bank and GPL About requester.",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:DOpus.png",
+   "https://en.wikipedia.org/wiki/Directory_Opus",
+   "https://aminet.net/util/dopus/dopus412-gpl.readme",
+   "https://aminet.net/package/util/dopus/DirectoryOpus-4.18.22",
+   "https://generic.aminet.net/util/dopus/dopus4-morphos.readme",
+   "https://dopus.amigaworld.de/download.php",
+   "https://www.commodore-news.com/news/item/4068/en/desktop",
+   "https://commons.wikimedia.org/wiki/File:DOpus.png"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "magellan",
+  "fields": {
+   "name": "Directory Opus 5 Magellan",
+   "by": "Jonathan Potter / GPSoftware; open source since 2012, maintained by Dimitris Panokostas",
+   "what": "Directory Opus 5 replaced Opus 4's fixed dual panes with free-floating listers, a configurable desktop and toolbars, and the Magellan releases (5.6 in 1997, Magellan II in 1998) can fully replace Workbench, taking over icons, menus and the desktop itself. GPSoftware open-sourced Magellan II under the AROS Public License in December 2012. The project, formerly dopus5allamigas and now dopus5, still ships regular releases for AmigaOS 3 (including plain 68000), AmigaOS 4, MorphOS and AROS, with FTPS and SFTP support added in 2026.",
+   "url": "https://github.com/BlitterStudio/dopus5",
+   "version": "5.102 (August 2026)"
+  },
+  "summary": "Research update: name, by, what, url, version",
+  "reason": "The open-source project has moved from SourceForge to GitHub (BlitterStudio/dopus5) and is busy again in 2026, so the URL, maintainer and version need updating. The new wording also fixes the suggestion that Magellan was a separate successor to Opus 5; it is a later Opus 5 release. Adding '5' to the name keeps it apart from the Windows Directory Opus.\n\nResearch notes —\ncatalogue_fit: shell/shell/active fit: releases continue in 2026. Year 1996 is between Opus 5 (April 1995), 5.5 (August 1996) and the first 'Magellan'-branded 5.6 (May 1997); left unchanged as unsure, though 1995 (start of the 5.x line) or 1997 (Magellan name) are defensible.\ndescription: Calling it 'DOpus 5's follow-up' is off: Magellan is a later version of Opus 5 (5.6, then Magellan II 5.8 in 1998). APL open-sourcing in December 2012 is correct (funded via power2people). The project has moved: formerly dopus5allamigas on SourceForge, it is now BlitterStudio/dopus5 on GitHub, maintained since 2023 by Dimitris Panokostas (midwan). Releases 5.98 to 5.102 came out April to August 2026; 5.100 added FTPS and the latest builds include SFTP, a plain-68000 OS3 build and AROS x86/x86_64/aarch64.\nurl: sourceforge.net/projects/dopus5allamigas returns 403 to scripted requests, and the README there calls it the 'historical project site'. The active official home is https://github.com/BlitterStudio/dopus5 (HTTP 200).\ngoogle: 'Directory Opus Magellan' searches get mixed with the current Windows Directory Opus (GPSoftware). Naming it 'Directory Opus 5 Magellan' (as the project itself does) reduces the ambiguity.\nimage: Current 721x564 screenshot of DOpus 5.82 on a Workbench screen, with two listers, the toolbar and a button bank, is accurate and representative. The dopus5 repository has no screenshots to replace it. Keep, though its licence is informal.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Directory_Opus",
+   "https://github.com/BlitterStudio/dopus5",
+   "https://github.com/BlitterStudio/dopus5/releases/tag/5.100",
+   "https://www.generationamiga.com/2026/04/28/new-directory-opus-5-100-update-adds-ftps-support-for-amiga-users/",
+   "https://sourceforge.net/p/dopus5allamigas/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "eabfs",
+  "fields": {
+   "name": "Turran FTP (EAB file server) & Retroplay packs",
+   "by": "Turran (Turranius) / Retroplay; originally the EAB FTP",
+   "what": "The community file server that began as the English Amiga Board FTP and was renamed TURRAN FTP by Turran, who has run it since July 2013. It is home to the canonical Retroplay WHDLoad game and demo packs, which continue Killergorilla's earlier work, plus OS packs, TOSEC sets and magazine scans. Anyone can browse and download anonymously, and active EAB members get upload accounts.",
+   "url": "https://ftp2.grandis.nu/turran/"
+  },
+  "summary": "Research update: name, by, what, url",
+  "reason": "The operator's FAQ says the EAB FTP was renamed TURRAN FTP and that downloads are anonymous, so the name, access wording and URL are out of date. grandis.nu itself is now just a placeholder page. The founding year 2005 could not be confirmed and is unchanged.\n\nResearch notes —\ncatalogue_fit: pres/archive/active fit. Year 2005 could not be verified: the server's own FAQ only says Turran took over hosting the EAB FTP on 24 July 2013. Left unchanged, unsure.\ndescription: Stale naming: the FAQ says the EAB FTP was renamed TURRAN FTP ('The Ultimate Retro Repository for Amiga Nuts') because EAB's owner RCK wanted to separate the EAB brand from it. Hosts are ftp2.grandis.nu (main) and ftp.grandis.nu (mirror). Downloads work anonymously (user 'ftp', with rate limits) and Retroplay WHDLoad downloads are free of ratios. Registered upload accounts go automatically to active EAB users, so 'with free registration' misdescribes access.\nurl: https://grandis.nu returns 200 but is only a one-line placeholder ('Drop the gunbelt, boy!'). The real front page is https://ftp2.grandis.nu/turran/ (HTTP 200), which links to the FAQ, Browse FTP and Search.\ngoogle: 'EAB file server' finds EAB forum threads; 'Turran FTP' and 'Retroplay WHDLoad' find the server and tools such as whdfetch and WHDSync. Adding 'Turran FTP' to the name matches what users search for today.\nimage: No current image. A headless-Chrome capture (1024x768) of the official Turran FTP landing page shows its 'TURRAN FTP: The Ultimate Retro Repository for Amiga Nuts' banner and navigation, in the same spirit as the HOL site capture. The logo alone (746x52) is too thin.",
+  "sources": [
+   "https://ftp2.grandis.nu/turran/",
+   "https://ftp2.grandis.nu/turran/faq",
+   "https://aminet.net/package/util/misc/whdfetch",
+   "https://github.com/mburetorp/whdsync"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "emu68",
+  "fields": {
+   "year": 2019,
+   "category": "emu",
+   "kind": "emulator",
+   "what": "A bare-metal 68k JIT translator for ARM. A Raspberry Pi on a PiStorm, PiStorm32-lite or PiStorm16 board boots straight into translated 68040-with-FPU code running real AmigaOS 3.x, with no Linux underneath. The stable 1.0 line reached 1.0.7 in December 2025. The 1.1 series (alpha February 2026, beta September 2026) adds PiStorm16 support, a 4-way JIT cache, faster code generation and early groundwork for PowerPC translation.",
+   "version": "1.0.7 stable (December 2025); 1.1.0-beta.1 (September 2026)"
+  },
+  "summary": "Research update: year, category, kind, what, version",
+  "reason": "GitHub shows the first public Emu68 release in November 2019. The headline features in the text belong to the 1.1 pre-releases, not the current stable 1.0.7, so the wording now separates the two. Emu68 is a CPU emulator rather than an operating system; moving it to Emulators is suggested, but that is a judgement call.\n\nResearch notes —\ncatalogue_fit: The first public release was v0.1-alpha-1 on GitHub on 8 November 2019 (2020 is when the PiStorm work began), so year should be 2019. Category 'os'/kind 'other' is odd: the project calls itself 'M68K emulation for ARM'. It is closest to emu/emulator, although it translates only the CPU and the real chipset does the rest. Suggest emu/emulator (or tech/component). Status active is correct. Arch would be ARM (AArch64).\ndescription: Mostly accurate but mixes stable and pre-release features. The stable line is 1.0.x (1.0 in March 2024, 1.0.7 on 8 December 2025). PiStorm16 support, the 4-way JIT cache and the (disabled) PowerPC-translation groundwork arrived in 1.1.0-alpha.1 (February 2026); 1.1.0-beta.1 (1 September 2026) adds GPT microSD support and FPU fixes. The WiFi SANA-II driver (wifipi.device) claim is fine.\nurl: https://github.com/michalsc/Emu68 loads (200), MPL-2.0. Correct; there is no separate website.\ngoogle: 'Emu68' results are all about this project (GitHub, amiga-news, PiStorm guides); no ambiguity.\nimage: Current image is docs/tutorials/img/p96/step_08.png from the Emu68 repo (MPL-2.0): an AmigaOS 3.2 Prefs window running under Emu68. It is legitimate but generic, since nothing on screen identifies Emu68. No better free image was found (the repo's only other image is a generic emu clip-art SVG; Commons has nothing). Keep for now.",
+  "sources": [
+   "https://github.com/michalsc/Emu68",
+   "https://github.com/michalsc/Emu68/releases/tag/v1.1.0-beta.1",
+   "https://github.com/michalsc/Emu68/releases/tag/v1.1.0-alpha.1",
+   "https://github.com/michalsc/Emu68/releases/tag/v1.0.7",
+   "https://amiga-news.de/en/news/AN-2025-07-00059-EN.html",
+   "https://www.prismnews.com/hobbies/retro-game-emulation/emu68-v110-alpha1-adds-4-way-jit-cache-ppc-to-arm-groundwork"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "greaseweazle",
+  "fields": {
+   "version": "Host tools v1.23 (December 2025); current hardware V4.1"
+  },
+  "summary": "Research update: version",
+  "reason": "The entry is accurate. It only gains a version note (host tools v1.23, V4.1 hardware). The current photo is too small (400 px), so the official high-resolution banner is offered instead. A large V4.1 product photo would beat both, but none with a clear licence was found.\n\nResearch notes —\ncatalogue_fit: pres/component/active fit. Year 2019 is correct (first release v0.1 tagged 17 October 2019; repo created March 2018).\ndescription: Accurate: Unlicense (GitHub reports 'The Unlicense'), USB flux reader/writer, reads 'any disk format' via raw flux and writes ADF, IPF, DSK, IMG, HFE and more. Host tools are at v1.23 (December 2025); V4.1 is the current board. Price range is plausible (Blue Pill/F1 builds near £10, V4.1 boards around £25 to £30) but vendor-dependent. No text change needed.\nurl: https://github.com/keirf/greaseweazle loads (200) and is the official home (the wiki is the documentation site).\ngoogle: 'Greaseweazle' results all concern this project; no ambiguity.\nimage: Current image is a real Greaseweazle F7 board photo but only 400x401. The official project banner from the GitHub wiki (1587x639: logo, weasel mascot, 'Harness the power of magnetic flux!') is sharp and authoritative but shows no hardware. Proposed as an upgrade for resolution; if the owner prefers a hardware photo, keep the current one.",
+  "sources": [
+   "https://github.com/keirf/greaseweazle",
+   "https://github.com/keirf/greaseweazle/wiki",
+   "https://github.com/keirf/greaseweazle/releases/tag/v1.23",
+   "https://github.com/keirf/greaseweazle/releases/tag/v0.1"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "greaseweazle",
+  "image_url": "https://raw.githubusercontent.com/wiki/keirf/greaseweazle/assets/banner2.jpg",
+  "image_credit": "Banner: Keir Fraser / Greaseweazle project",
+  "image_source_page": "https://github.com/keirf/greaseweazle/wiki",
+  "summary": "New image proposal",
+  "reason": "The entry is accurate. It only gains a version note (host tools v1.23, V4.1 hardware). The current photo is too small (400 px), so the official high-resolution banner is offered instead. A large V4.1 product photo would beat both, but none with a clear licence was found.\n\nImage: Current image is a real Greaseweazle F7 board photo but only 400x401. The official project banner from the GitHub wiki (1587x639: logo, weasel mascot, 'Harness the power of magnetic flux!') is sharp and authoritative but shows no hardware. Proposed as an upgrade for resolution; if the owner prefers a hardware photo, keep the current one.\nLicence: Project asset from the Greaseweazle GitHub wiki (project released under the Unlicense; the asset has no separate licence)\nVerified: Downloaded 1587x639 JPEG and viewed: Greaseweazle logo, weasel mascot and tagline on black. Alternative: keep current 400px F7 board photo.",
+  "sources": [
+   "https://github.com/keirf/greaseweazle/wiki",
+   "https://github.com/keirf/greaseweazle",
+   "https://github.com/keirf/greaseweazle/wiki",
+   "https://github.com/keirf/greaseweazle/releases/tag/v1.23",
+   "https://github.com/keirf/greaseweazle/releases/tag/v0.1"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "hollywood",
+  "fields": {
+   "version": "11 'Coderise' (January 2026)"
+  },
+  "summary": "Research update: version",
+  "reason": "The description is accurate. The proposal adds the current version (Hollywood 11, January 2026) and gives the entry its first image, the official IDE screenshot from the vendor's site.\n\nResearch notes —\ncatalogue_fit: dev/tool/shipping fit. Year 2002 correct (Hollywood 1.0 for 68k AmigaOS, November 2002).\ndescription: Accurate. The current release is Hollywood 11 'Coderise' (11 January 2026, a major update after about three years, with a new 'Miniwood' kernel for small executables). Targets confirmed: AmigaOS 3, AmigaOS 4, WarpOS, MorphOS, AROS, Windows, macOS (incl. arm64), Linux (incl. arm/arm64), Android and iOS. Hollywood Designer 7.0 (April 2024) still exists. Only a version field is worth adding.\nurl: https://www.hollywood-mal.com loads (200) and is the official site.\ngoogle: 'Hollywood' alone is hopelessly ambiguous; 'Hollywood MAL' or 'Hollywood Amiga' hits the product directly. Consider 'Hollywood (multimedia language)' if names can carry disambiguators; not proposed.\nimage: No current image. The official site's screenshots page provides ide.png (1680x1010), the Hollywood IDE with code, project tree and display settings. It is the clearest depiction of the product. An AmigaOS 4 Hollywood Designer 2.0 screenshot exists but is older.",
+  "sources": [
+   "https://www.hollywood-mal.com/",
+   "https://en.wikipedia.org/wiki/Hollywood_(programming_language)",
+   "https://forums.hollywood-mal.com/viewtopic.php?p=22537",
+   "https://www.hollywood-mal.com/screenshots.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "hollywood",
+  "image_url": "https://www.hollywood-mal.com/img/ide.png",
+  "image_credit": "Screenshot: Airsoft Softwair (hollywood-mal.com)",
+  "image_source_page": "https://www.hollywood-mal.com/screenshots.html",
+  "summary": "New image proposal",
+  "reason": "The description is accurate. The proposal adds the current version (Hollywood 11, January 2026) and gives the entry its first image, the official IDE screenshot from the vendor's site.\n\nImage: No current image. The official site's screenshots page provides ide.png (1680x1010), the Hollywood IDE with code, project tree and display settings. It is the clearest depiction of the product. An AmigaOS 4 Hollywood Designer 2.0 screenshot exists but is older.\nLicence: Official press screenshot, (c) Airsoft Softwair; publicity use\nVerified: Downloaded 1680x1010 PNG and viewed: Hollywood IDE (Windows) editing AsyncFX.hws with example tree, function list and display attributes.",
+  "sources": [
+   "https://www.hollywood-mal.com/screenshots.html",
+   "https://www.hollywood-mal.com/",
+   "https://en.wikipedia.org/wiki/Hollywood_(programming_language)",
+   "https://forums.hollywood-mal.com/viewtopic.php?p=22537",
+   "https://www.hollywood-mal.com/screenshots.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "hyperion-contract",
+  "fields": {
+   "what": "Amiga Inc. contracts Hyperion Entertainment of Belgium, founded in 1999 by Ben Hermans and Evert Carton, to develop AmigaOS 4 for the PowerPC AmigaOne boards, starting from the AmigaOS 3.1 sources.",
+   "why": "The contract that produced a real, shipping, official AmigaOS. After Amiga Inc. tried to end it in 2006, it led to the lawsuit whose 2009 settlement defined who owns what."
+  },
+  "summary": "Research update: what, why",
+  "reason": "The facts are right. The 'eight years later' line now says what happened: Amiga Inc. terminated the contract in 2006 and a lawsuit followed, settled in 2009. The description also notes that OS4 started from the AmigaOS 3.1 code. No properly licensed image exists.\n\nResearch notes —\ncatalogue_fit: brand/event/historic and year 2001 fit. No URL is appropriate for an event.\ndescription: 'What' is correct (Hyperion founded April 1999 by Ben Hermans and Evert Carton; contract with Amiga Inc. in 2001 to build a PowerPC AmigaOS 4 from the 3.1 sources). The 'why' line's 'eight years later, the lawsuit' compresses events: Amiga Inc. terminated the contract on 20 December 2006, sued in 2007, and the dispute was settled on 30 September 2009 (eight years after the contract). The 2009 settlement gave Hyperion exclusive rights to AmigaOS 4 and later versions. Suggest wording that names the 2009 settlement. Unverified reports of an August 2026 Amiga Corporation and Hyperion settlement belong to a different entry.\nurl: Event, so null is correct (Hyperion's own site, hyperion-entertainment.com, loads if a link is wanted).\ngoogle: Searching the event returns Wikipedia's Hyperion Entertainment and AmigaOS 4 articles; fine.\nimage: No free image found: Wikipedia's Hyperion logo is non-free (246x137, fair use) and there is no Commons photo of the signing. Recommend none, or reuse the catalogue's AmigaOS 4 image.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Hyperion_Entertainment",
+   "https://en.wikipedia.org/wiki/AmigaOS_4",
+   "https://en.wikipedia.org/wiki/File:Hyperionlogo.jpg"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "ibrowse",
+  "fields": {
+   "by": "Omnipresence International, then Stefan Burström; Oliver Roberts since 2019",
+   "what": "The long-lived native MUI web browser for AmigaOS 3.0 to 3.2, AmigaOS 4.1 and MorphOS, first released by Omnipresence in 1996. IBrowse 3.0 (November 2023) merged the 2.x and 3.x code with a new HTML parser and layout fixes, and 3.0a (December 2023) is the current release. HTTPS uses AmiSSL (OpenSSL 3, TLS 1.3), and tabbed browsing dates back to IBrowse 2. Its engine and JavaScript remain HTML 4.01-era.",
+   "why": "Nearly thirty years of commercial development, carried by a handful of developers, and still the browser most classic Amiga users reach for.",
+   "version": "3.0a (December 2023)"
+  },
+  "summary": "Research update: by, what, why, version",
+  "reason": "The current text credits 3.0a with features from older releases (OpenSSL 3 came in 2.5.6 and tabs in IBrowse 2), and it describes thirty years of work by one person when IBrowse passed from Omnipresence to Stefan Burström to Oliver Roberts. The corrections follow the official news log and copyright line. The proposed image is a clean IBrowse 3 screenshot from IntuitionBase.\n\nResearch notes —\ncatalogue_fit: soft/app/shipping and year 1996 (1.0 on 28 July 1996) fit.\ndescription: Several errors. (1) 'by Oliver Roberts' alone is wrong: the copyright line reads 1995-2001 Omnipresence International, 2001-2019 Stefan Burström, 2019-2026 Oliver Roberts. (2) 3.0a (22 December 2023) was a bug-fix release; IBrowse 3.0 came out on 19 November 2023. OpenSSL 3/AmiSSL v5 support arrived in 2.5.6 (February 2022), and tabbed browsing dates back to IBrowse 2 (1999). (3) The 'why' line's 'thirty years ... by one person' is wrong. Supported: AmigaOS 3.0 to 3.2, 4.1 FE and MorphOS; HTML 4.01/XHTML 1.0, TLS 1.3 via AmiSSL. Betas continue (build 30.12, June 2026, requiring AmiSSL v6).\nurl: https://www.ibrowse-dev.net loads (200), official.\ngoogle: 'IBrowse' results are all this browser (official site, Wikipedia, Aminet); no ambiguity.\nimage: No current image. Wikipedia's screenshot is non-free and only 342 px. The official site has only a preferences screenshot. IntuitionBase's 2024 software page has 1179x967 screenshots of IBrowse 3.0 on AmigaOS 4. IBrowse_2.png shows it rendering amiga-news.de with toolbar, hotlist buttons and SSL indicator (IBrowse_1 shows a user's registration e-mail, so it was avoided).",
+  "sources": [
+   "https://en.wikipedia.org/wiki/IBrowse",
+   "https://www.ibrowse-dev.net/news.php",
+   "https://www.ibrowse-dev.net/whatsnew/",
+   "https://lists.ibrowse-dev.net/pipermail/announce_lists.ibrowse-dev.net/2023-December/000011.html",
+   "https://www.ibrowse-dev.net/historylog/next.php",
+   "https://intuitionbase.com/software/networking/ibrowse-3"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "ibrowse",
+  "image_url": "https://intuitionbase.com/sites/default/files/2024-08/IBrowse_2.png",
+  "image_credit": "Screenshot: IntuitionBase (George Sokianos)",
+  "image_source_page": "https://intuitionbase.com/software/networking/ibrowse-3",
+  "summary": "New image proposal",
+  "reason": "The current text credits 3.0a with features from older releases (OpenSSL 3 came in 2.5.6 and tabs in IBrowse 2), and it describes thirty years of work by one person when IBrowse passed from Omnipresence to Stefan Burström to Oliver Roberts. The corrections follow the official news log and copyright line. The proposed image is a clean IBrowse 3 screenshot from IntuitionBase.\n\nImage: No current image. Wikipedia's screenshot is non-free and only 342 px. The official site has only a preferences screenshot. IntuitionBase's 2024 software page has 1179x967 screenshots of IBrowse 3.0 on AmigaOS 4. IBrowse_2.png shows it rendering amiga-news.de with toolbar, hotlist buttons and SSL indicator (IBrowse_1 shows a user's registration e-mail, so it was avoided).\nLicence: Website screenshot of commercial software; no stated licence (credit required, ask IntuitionBase if strict licensing needed)\nVerified: Downloaded 1179x967 PNG and viewed: IBrowse 3 window on AmigaOS 4 rendering https://amiga-news.de/ with navigation toolbar, hotlist buttons and 256-bit SSL status.",
+  "sources": [
+   "https://intuitionbase.com/software/networking/ibrowse-3",
+   "https://en.wikipedia.org/wiki/IBrowse",
+   "https://www.ibrowse-dev.net/news.php",
+   "https://www.ibrowse-dev.net/whatsnew/",
+   "https://lists.ibrowse-dev.net/pipermail/announce_lists.ibrowse-dev.net/2023-December/000011.html",
+   "https://www.ibrowse-dev.net/historylog/next.php",
+   "https://intuitionbase.com/software/networking/ibrowse-3"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "idecf",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/IDE_nach_Compact-Flash_Adapter.jpg",
+  "image_credit": "Photo: MOS6502 / Wikimedia Commons",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:IDE_nach_Compact-Flash_Adapter.jpg",
+  "summary": "New image proposal",
+  "reason": "The text is accurate and needs no changes. The entry gains its first image, a clean public-domain photo of a CF-to-IDE adapter with a card fitted.\n\nImage: No current image. Wikimedia Commons 'IDE nach Compact-Flash Adapter.jpg' (1024x768, public domain, MOS6502) is a clean close-up of a 40-pin IDE-to-CF board with a 512 MB card inserted, which is exactly the product class.\nLicence: Public domain\nVerified: Downloaded 1024x768 JPEG and viewed: green IDE-to-CF adapter PCB with 40-pin IDE header, power connector and a CnMemory 512 MB CompactFlash card inserted; clean grey background.",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:IDE_nach_Compact-Flash_Adapter.jpg",
+   "https://commons.wikimedia.org/wiki/File:IDE_nach_Compact-Flash_Adapter.jpg",
+   "https://swd.de/en/Sealevel-Inc/Sealevel-CF-IDE.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "icaros",
+  "fields": {
+   "url": "https://vmwaros.blogspot.com",
+   "version": "2.3 (December 2020, final)",
+   "related": [
+    "aros",
+    "janusuae",
+    "arosone"
+   ],
+   "why": "For over a decade the easiest way to actually use AROS. Development froze after 2.3 in 2020, downloads vanished in January 2025, and a November 2025 post, \"Until we meet again, Icaros Desktop\", retired the project and recommended that users move to AROS One."
+  },
+  "summary": "Research update: url, version, related, why",
+  "reason": "The catalogue's official link now goes to an unrelated spam site, because the icarosdesktop.org domain has lapsed and been taken over. It should point to the author's blog, which has always hosted the project. The farewell post points users to AROS One, not AROS World, so the \"why\" text and \"related\" field are corrected. The last version (2.3, 2020) is recorded.\n\nResearch notes —\ncatalogue_fit: distro / oslike / historic / x86 / 2007 correct: Paolo Besser started the distribution (as VmwAROS) in 2007, renamed Icaros Desktop in 2009; last release 2.3 on 22 December 2020; frozen and effectively retired in November 2025.\ndescription: \"what\" is accurate. \"why\" is wrong on one point: the 1 November 2025 farewell post recommends users switch to AROS One (it calls the 32-bit path a dead end), not \"the AROS World community\" (AROS World was only the 2023 support-forum move). Downloads have returned 404 since January 2025, when Google removed the hosted files.\nurl: CRITICAL: https://icarosdesktop.org now resolves (HTTP 200) to an unrelated spam site titled \"Biochemical Pathway Dynamics and Inhibitor Action\". The genuine project site is the blog https://vmwaros.blogspot.com (HTTP 200), which carries the farewell post and the version history; the domain used to redirect there.\ngoogle: Searches for \"Icaros Desktop\" are dominated by unrelated Icaros/Ikaros/Icarus products and festivals; adding AROS is needed. The current name is fine because \"Desktop\" plus the AROS context in \"what\" disambiguates.\nimage: Current image is the official 'About Icaros Desktop v2.2' hosted screenshot from the project's own About page (1475 px). It is clean and genuinely depicts the product, so keep it. The blog's other artwork is only a 1372x315 banner.",
+  "sources": [
+   "https://vmwaros.blogspot.com/2025/11/until-we-meet-again-icaros-desktop.html",
+   "https://vmwaros.blogspot.com/2025/01/its-been-long-love-story-but-it-had-to.html",
+   "https://vmwaros.blogspot.com/",
+   "https://en.wikipedia.org/wiki/Icaros_Desktop",
+   "http://web.archive.org/web/20251206135925/http://www.icarosdesktop.org/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "magicwb",
+  "fields": {
+   "by": "Martin Huttenloher (MagicWB), Nicola Salmoria and later Eric Sauvageau (NewIcons), Matt Chaput (GlowIcons)",
+   "what": "The three icon aesthetics that defined the Amiga desktop: Huttenloher's 8-colour MagicWB grey 3D look (1992–97), Salmoria's palette-independent NewIcons, and Chaput's 256-colour two-state GlowIcons introduced with AmigaOS 3.5 and still stock today."
+  },
+  "summary": "Research update: by, what",
+  "reason": "MagicWB was released in 1992 and finished in 1997, so the 1993–96 range in the text is corrected. Eric Sauvageau, who maintained NewIcons, is credited. The current picture shows only GlowIcons, although MagicWB is the entry's main subject. A freely licensed MagicWB screenshot is offered instead (crop off the browser bar). If you'd rather have a clean image than one that shows the MagicWB look, keep the current one.\n\nResearch notes —\ncatalogue_fit: shell / toolkit / historic / 68k / 1992 correct. MagicWB 1.0 was released on 27 June 1992 (Wikipedia).\ndescription: \"what\" gives MagicWB as 1993–96, but Wikipedia dates its development to 1992–1997 (final 2.1p, June 1997). NewIcons was created by Nicola Salmoria (later of MAME fame); versions 3 and 4 (1996–97) were done by Eric Sauvageau and Phil Vedovatti. GlowIcons by Matt Chaput shipped with AmigaOS 3.5 (1999). Fix the MagicWB dates.\nurl: No single official site exists for three different icon sets; null is correct.\ngoogle: 'MagicWB' results are all on-topic (Wikipedia, Aminet). NewIcons and GlowIcons need 'Amiga' to disambiguate.\nimage: Current image (amiga-look.org 'MyWorkbench', 1920x1080) is a GlowIcons collection on a blue desktop; it shows no MagicWB at all. The proposed Wikimedia Commons image shows the classic MagicWB XEN look (grey marble pattern, 8-colour palette, MagicWB icons) and is CC BY-SA 3.0. Its drawback is that it is a browser screenshot of TAWS with German labels, and cropping off the top 55 px of browser chrome is advised.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/MagicWB",
+   "https://en.wikipedia.org/wiki/NewIcons",
+   "https://en.wikipedia.org/wiki/Workbench_(AmigaOS)",
+   "https://commons.wikimedia.org/wiki/File:TAWS_MagicWB_XEN.png",
+   "https://amiga-look.org/artwork/glowicons-colletion2-update"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "mist",
+  "fields": {
+   "status": "limited"
+  },
+  "summary": "Research update: status",
+  "reason": "MiST is not a dead product. Lotharek still sells the board, and its firmware and cores were updated as recently as October 2026. 'Limited' describes the small-vendor, volunteer-maintained situation better than 'historic'. Text and image are good.\n\nResearch notes —\ncatalogue_fit: hw-fpga / fpga / fpga / 2013 correct. Status 'historic' is out of date: Lotharek still lists MiST 1.5/1.6 boards, and the mist-devel firmware and cores receive commits as of October 2026 (mist-firmware pushed 11 Oct 2026). 'limited' (small runs, volunteer-maintained) fits.\ndescription: Accurate. amiga-news (2013) confirms the board began as 'MiniST' (an Atari ST clone) and was renamed MiST (aMIga/ST). It uses an Altera Cyclone III EP3C25 (visible in the photo) and the TG68K soft CPU, and its Minimig-AGA core is Rok Krajnc's minimig-mist. MiSTer was directly inspired by it.\nurl: https://github.com/mist-devel loads (200) and is the de facto official home (firmware, cores, wiki).\ngoogle: 'MiST FPGA' gives on-topic results. Plain 'MiST' is hopelessly ambiguous, but the name is the product's real name; \"what\" already explains it.\nimage: Current photo (Ingmar's Retroblog, 5984 px) shows a clean MiST board in its case with an SD card. Excellent; keep. (The file carries GPS EXIF data; consider stripping it.)",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2013-06-00022-EN.html",
+   "https://github.com/mist-devel",
+   "https://github.com/mist-devel/mist-firmware",
+   "https://lotharek.pl/productdetail.php?id=96",
+   "https://en.wikipedia.org/wiki/Minimig"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "mirari",
+  "fields": {
+   "by": "Harald 'Geennaam' Kanning, with Dave 'Skateman' Koelman / VitaSys (NL)",
+   "what": "A brand-new micro-ATX PowerPC board designed independently of A-EON: NXP QorIQ T1042 (quad e5500, 1.4 GHz), one DDR3L SO-DIMM slot, dual NVMe, SATA, USB 3.x, PCIe, onboard audio and an Efinix Trion FPGA for I2S and S/PDIF. A pin-compatible T2081 variant with AltiVec 2.0 is planned. A 100-board Proto 2 run was being prepared in August 2026."
+  },
+  "summary": "Research update: by, what",
+  "reason": "The memory spec is corrected to the board's actual single DDR3L SO-DIMM slot, the FPGA's real role (audio interfaces) is clarified, and the August 2026 Proto 2 production status is added. Co-organiser Dave Koelman is credited. The entry had no picture; the official site's board image is clean and shows exactly this product.\n\nResearch notes —\ncatalogue_fit: hw-ng / compatible / planned / ppc / 2026 correct. A 5-board first batch existed in 2025, and Generation Amiga (19 August 2026) reports a 100-board 'Proto 2' run being prepared for assembly in the Netherlands. There is no retail date yet, so 'planned' stands.\ndescription: Mostly accurate. Corrections from the designer's own description (amiga-news, April 2025): memory is a single 1.35 V DDR3L SO-DIMM slot (not a fixed '8 GB DDR SODIMM'). The Efinix Trion FPGA mainly implements the I2S and S/PDIF audio controllers. The T2081 variant has AltiVec 2.0 but no SATA. The official site says AmigaOS 4.1 support is targeted, alongside MorphOS 3.20, which supports it, and PPC Linux, which boots from NVMe.\nurl: https://mirari.vitasys.nl loads (200) and is the official project site.\ngoogle: 'Mirari' alone returns Basque names and unrelated products; 'Mirari Amiga' or 'Mirari PowerPC' is on-topic. The name with T1042 is fine.\nimage: No current image. The official site's header image (1536x1183) shows the Mirari board layout, part render and part photo, with the logo. It is a clean, genuine product image.",
+  "sources": [
+   "https://mirari.vitasys.nl",
+   "https://amiga-news.de/en/news/AN-2025-04-00129-EN.html",
+   "https://www.generationamiga.com/2026/08/19/powerpc-hardware-gets-a-fresh-shot-with-the-mirari-proto-2/",
+   "https://www.morphos-team.net/news"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "mirari",
+  "image_url": "https://mirari.vitasys.nl/wp-content/uploads/2026/09/MirariBoard_Green_Purple_Header.jpg",
+  "image_credit": "Mirari project / VitaSys",
+  "image_source_page": "https://mirari.vitasys.nl",
+  "summary": "New image proposal",
+  "reason": "The memory spec is corrected to the board's actual single DDR3L SO-DIMM slot, the FPGA's real role (audio interfaces) is clarified, and the August 2026 Proto 2 production status is added. Co-organiser Dave Koelman is credited. The entry had no picture; the official site's board image is clean and shows exactly this product.\n\nImage: No current image. The official site's header image (1536x1183) shows the Mirari board layout, part render and part photo, with the logo. It is a clean, genuine product image.\nLicence: Official project press image (all rights reserved; used as product illustration)\nVerified: Downloaded (1536x1183 JPEG) and viewed: top view of the Mirari motherboard with Mirari logo, SO-DIMM DDR3 1.35V slot, two NVMe M.2 slots, PCIe x16, SATA, USB3/USB2 headers and the 'Designed by Geennaam' silkscreen.",
+  "sources": [
+   "https://mirari.vitasys.nl",
+   "https://mirari.vitasys.nl",
+   "https://amiga-news.de/en/news/AN-2025-04-00129-EN.html",
+   "https://www.generationamiga.com/2026/08/19/powerpc-hardware-gets-a-fresh-shot-with-the-mirari-proto-2/",
+   "https://www.morphos-team.net/news"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "morphos2",
+  "fields": {
+   "what": "The commercial standalone release, adding Efika support, a native TCP/IP stack, AltiVec, USB 2.0 and the Reggae multimedia framework — and then the celebrated second life on Apple hardware: the Mac mini G4 in 2.4 (2009), followed by the eMac in 2.5 and the Power Mac G4 in 2.6 (2010)."
+  },
+  "summary": "Research update: what",
+  "reason": "The text says Mac support began with both the Mac mini and the eMac in 2.4, but the eMac followed in 2.5 and the Power Mac G4 in 2.6. The sentence is reworded to give the correct sequence, and the other headline 2.0 features are added. The image is good.\n\nResearch notes —\ncatalogue_fit: os / amigalike / historic / ppc / 2008 correct (2.0 released 30 June 2008).\ndescription: Small factual fix: Mac mini G4 support arrived with 2.4 (October 2009), but the eMac came with 2.5 (June 2010) and the Power Mac G4 with 2.6 (October 2010). The current text implies 2.4 brought both the Mac mini and the eMac. Version 2.0 also added AltiVec, USB 2.0 and Reggae alongside Efika and the native TCP/IP stack.\nurl: https://www.morphos-team.net loads (200); correct.\ngoogle: On-topic.\nimage: Current screenshot (thetawelle.de, 1680x1050) is a MorphOS 2.x Ambient desktop on a Pegasos II G4, with an Italian locale. It is clean and relevant; keep.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/MorphOS",
+   "https://www.morphos-team.net"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "pfs3",
+  "fields": {
+   "status": "active",
+   "version": "3.1 (Aminet, October 2018); maintained on GitHub",
+   "by": "Michiel Pelt (PFS3); all-in-one port by Toni Wilen",
+   "what": "The Professional File System III, released as open source (BSD) by its author Michiel Pelt and rebuilt by Toni Wilen as a single \"all-in-one\" binary working from OS 1.x to 3.x on any 68000 or better, with TD64, NSD and SCSI-direct support and large partitions — much faster and far more crash-resistant than FFS."
+  },
+  "summary": "Research update: status, version, by, what",
+  "reason": "Toni Wilen did not open-source PFS3: Michiel Pelt released it under a BSD licence, and Wilen built the all-in-one port from it. The text and credits are corrected. As free software that still receives commits (August 2026), it is 'active' rather than 'shipping'. No suitable image exists.\n\nResearch notes —\ncatalogue_fit: tech / component / 68k correct. Status 'shipping' misfits: this is free software, not a vendor product, and the tonioni/pfs3aio repo had commits in August 2026, so 'active' is right. Year 2018 matches the GitHub repo (January 2018) and Aminet v3.1 (2 October 2018), but earlier pfs3aio builds existed (the v3.0 notes say 'smaller than previous pfs3aio'); I couldn't find the first date.\ndescription: Inaccurate attribution: PFS3 was open-sourced by its author Michiel Pelt (BSD 4-clause, versions 5.1 and 5.3 on Aminet around 2011), not by Toni Wilen. Wilen made the all-in-one port from those sources. Otherwise accurate (OS 1.x–3.x, 68000+, TD64/NSD/SCSI-direct, OS 3.1.4 mount flags).\nurl: https://aminet.net/package/disk/misc/pfs3aio loads (200) and is the canonical download; https://github.com/tonioni/pfs3aio is the source home. Either is fine; keeping Aminet.\ngoogle: 'PFS3' searches return mostly Amiga results; 'PFS3 AIO' is fully on-topic.\nimage: No current image and no good, licensed image found (Commons 'PFS logo' is an unrelated society). A filesystem has no natural photo; leave null or use a generic HDToolBox screenshot later.",
+  "sources": [
+   "https://aminet.net/package/disk/misc/pfs3aio",
+   "https://github.com/tonioni/pfs3aio",
+   "https://en.wikipedia.org/wiki/Professional_File_System",
+   "https://amiga-news.de/en/news/AN-2011-04-00036-EN.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "puae",
+  "image_url": "https://www.libretro.com/wp-content/uploads/2019/08/Prince_Of_Persia.jpg",
+  "image_credit": "Screenshot: libretro",
+  "image_source_page": "https://www.libretro.com/index.php/core-news-puae-amiga-emulator-and-vice-commodore-64/",
+  "summary": "New image proposal",
+  "reason": "The text is accurate; the WinUAE 5.3.1 base is confirmed by the project README. The live image is a blurry phone photo of a monitor rather than the libretro screenshot recorded in SOURCES.md. The clean official screenshot should replace it.\n\nImage: Current image is a phone photo of a laptop screen showing an AmigaDOS window in RetroArch PUAE 4.9.1, with moiré and a cluttered background. Poor quality, and it does not match the source recorded in SOURCES.md. Replace it with the official libretro.com core-news screenshot (1280x720) of Prince of Persia running in PUAE with its status bar.\nLicence: Official project press screenshot (libretro blog); game graphics © their owners\nVerified: Downloaded (1280x720 JPEG) and viewed: Prince of Persia Amiga running in the PUAE core, with PUAE's on-screen status bar (Joy, MSpd, LED indicators) at the top.",
+  "sources": [
+   "https://www.libretro.com/index.php/core-news-puae-amiga-emulator-and-vice-commodore-64/",
+   "https://github.com/libretro/libretro-uae",
+   "https://docs.libretro.com/library/puae/",
+   "https://www.libretro.com/index.php/core-news-puae-amiga-emulator-and-vice-commodore-64/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "pimiga",
+  "fields": {
+   "version": "5 (December 2025, announced as final)",
+   "what": "A popular Raspberry Pi and x86 \"instant Amiga\" image: Amiberry-based with a full desktop and large WHDLoad, demo and module libraries, distributed free by torrent. PiMiga 5 (late 2025), announced as the final release, runs on Pi 4/5-class machines, UEFI PCs and Intel Macs. The author and community stress that it should never be paid for.",
+   "why": "The most widely used turnkey Amiga image — and long a legal grey zone, since earlier builds included Kickstart, OS and game material, which is why mainstream Amiga archives do not host it. PiMiga 5 ships without Kickstart ROMs, which the user must supply."
+  },
+  "summary": "Research update: version, what, why",
+  "reason": "PiMiga 5 came out in December 2025 as the declared final release. It now ships without Kickstart ROMs and also boots on UEFI PCs and Intel Macs. The entry should reflect this, because it softens the licensing caveat. Status can stay 'limited' for now; consider 'historic' if no updates follow.\n\nResearch notes —\ncatalogue_fit: distro / oslike / 2020 fine. Status: PiMiga 5 (December 2025) was billed as the fifth and final release. 'limited' (free torrent, volunteer) can stay, but 'historic' could be argued once no further updates appear (unsure).\ndescription: Should be updated for PiMiga 5. It targets Raspberry Pi 4/400/5/500/500+ plus UEFI PCs and Intel Macs, ships without Kickstart ROMs (the user supplies a 3.1 ROM), and uses a Scalos desktop. It is distributed free via BitTorrent, and the author warns that anyone selling it is a red flag. The 'legal grey zone' remark is still valid historically.\nurl: No official website; the author's YouTube channel (Chris Edwards Restoration) is the only home. null is acceptable.\ngoogle: 'Pimiga' results are on-topic (theoasisbbs, YouTube, forums). Spelling in sources is mostly 'Pimiga'/'PiMiga' rather than 'PiMIGA'; the name could be normalised (unsure).\nimage: Current image is a PiMiga 5.0 Raspberry Pi edition desktop screenshot (1344x756, Scalos, Pimiga logo wallpaper). Clean and current; keep.",
+  "sources": [
+   "https://theoasisbbs.com/pimiga-5-setup-a-tour-of-the-final-release/",
+   "https://www.youtube.com/@ChrisEdwardsRestoration",
+   "https://theoasisbbs.com/how-to-update-pimiga-4-for-the-new-raspberry-pi-500-8gb-white-edition"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "poseidon",
+  "fields": {
+   "what": "The USB stack for classic Amigas, with Trident as its preferences GUI, supporting HID, mass storage, audio, network and printer classes on E3B's Highway, Subway, Deneb and Algor, Individual Computers' RapidRoad and the Pegasos's onboard USB. A 2008 community bounty funded an AROS port released under the AROS Public License; MorphOS bundles an integrated version, and the AROS-derived ApolloOS uses it for the Vampire V4's USB ports.",
+   "url": "https://github.com/aros-development-team/AROS/tree/master/rom/usb"
+  },
+  "summary": "Research update: what, url",
+  "reason": "The hardware list leaves out Highway, the card Poseidon was originally written for, and the open-sourcing deserves its actual mechanism (the 2008 AROS bounty, APL licence). The author's site is now an empty 'Watch this space' page, so the maintained AROS source tree is a more useful link. If you prefer an official-only policy, set url to null instead.\n\nResearch notes —\ncatalogue_fit: tech / component / 68k / 2002 fit: announced by Chris Hodges in April 2002 as the official stack for E3B's Highway and Subway, alpha builds shown May 2002. 'shipping' is defensible (4.x is licensed with E3B hardware and RapidRoad; the AROS fork is active).\ndescription: Mostly accurate, but the hardware list omits Highway (the original Zorro II target) and early Pegasos onboard USB support. The AROS port and APL source release came from a 2008 bounty (OSNews, May 2009), worth stating. ApolloOS is an AROS derivative, so 'three other operating systems' slightly double-counts AROS. 'why' is fine.\nurl: http://www.platon42.de returns 200 but the whole page is 'Watch this space.' There is no content, so it is effectively a placeholder. The live, maintained code is in the AROS repository (rom/usb). Proposed as url, medium confidence. The alternative is null.\ngoogle: 'Poseidon USB' finds Aminet packages and amiga-news items about this stack. A bare 'Poseidon' search is swamped by other uses, so the name 'Poseidon USB stack' is right.\nimage: No properly licensed image found: Aminet packages have no previews and there is no Commons file. A Trident screenshot taken in AROS/WinUAE would be the ideal self-made image.",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2002-04-00065-EN.html",
+   "https://amiga-news.de/en/news/AN-2002-05-00087-EN.html",
+   "https://aminet.net/package/driver/other/PoseidonMain",
+   "https://www.osnews.com/story/21548/poseidon-usb-stack-bounty-reached-open-source-aros-port/",
+   "https://www.platon42.de/",
+   "https://github.com/aros-development-team/AROS/tree/master/rom/usb"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "magazines",
+  "fields": {
+   "what": "Amiga still has print, on newsstands and by subscription: Amiga Future (bimonthly since 1998, in separate German and English editions; #182 appeared in September 2026), Amiga Addict (UK, glossy, roughly every six weeks; past #42 in 2026), Passione Amiga (Italy, bimonthly), Komoda & Amiga Plus (Poland, with an English edition), Boing (France, French/English; #11 in July 2026) and Fusion Retro Books' ZZAP! AMIGA annuals."
+  },
+  "summary": "Research update: what",
+  "reason": "Issue numbers in this entry were already out of date (Amiga Future #182 is September, Boing #11 is July, Amiga Addict is well past #40), and two numbers could not be verified. The rewrite keeps only confirmed anchors and describes cadence instead, so it stays true for longer. ZZAP! AMIGA is an annual, so it is now called one.\n\nResearch notes —\ncatalogue_fit: comm / media / active, year 1998 (Amiga Future's start) is fine.\ndescription: Several figures are stale or unverifiable. Amiga Future #182 was published 5 September 2026 (Sept/Oct), not August. Boing #11 is the July 2026 issue (not June). Amiga Addict reached #40 in November 2025 and #42 by spring 2026, so 'reached its 40th issue' is out of date. I could not verify Passione Amiga #32 or KA Plus #30 (latest found: PA #26 July 2025, bimonthly; KA Plus #27 early 2025). They are plausible by cadence but unconfirmed. ZZAP! AMIGA from Fusion Retro Books is an annual hardback, not a periodical. The proposed rewrite keeps only verified issue anchors so it ages better.\nurl: https://www.amigafuture.de answers 200 for browsers (403 only for bare curl) and is genuine. Keep.\ngoogle: A collective entry, not a searchable name. 'Amiga magazines 2026' gives fan-news coverage of these titles. No ambiguity.\nimage: No licensed group shot exists. Magazine covers are copyrighted, so I left it null. A self-shot photo of current issues would be ideal.",
+  "sources": [
+   "https://theoasisbbs.com/amiga-future-182-announced-for-september-5/",
+   "https://theoasisbbs.com/amiga-addict-42-brings-rj-mical-gravity-addict-and-new-amiga-features/",
+   "https://theoasisbbs.com/amiga-addict-issue-40-tribute-celebration/",
+   "https://theoasisbbs.com/boing-magazine-issue-11-covers-the-settlers-ii-and-more/",
+   "https://commodore-news.com/news/item/12632/en/desktop",
+   "https://theoasisbbs.com/ka-plus-issue-27-now-available",
+   "https://fusionretrobooks.com/collections/all/products/zzap-amiga-annual-2023",
+   "https://en.wikipedia.org/wiki/Amiga_Addict"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "rgbtohdmi",
+  "fields": {
+   "year": 2020,
+   "what": "An open adapter that taps the Amiga's 12-bit digital colour bus at the Denise socket (with A600 PLCC, video-slot and DB23 variants) and feeds it to a Raspberry Pi Zero running hoglet67's bare-metal RGBtoHDMI firmware, giving pixel-perfect, zero-lag HDMI from OCS and ECS Amigas in internal and external builds.",
+   "related": [
+    "a500",
+    "a600",
+    "a2000"
+   ]
+  },
+  "summary": "Research update: year, what, related",
+  "reason": "Amiga support in RGBtoHDMI arrived in mid-2020, not 2019. The solution only works on 12-bit OCS/ECS video, so linking it to the AGA A1200 is misleading, and A600/A2000 are better related machines. The proposed photo is a clean shot of the actual adapter, though its licence needs the author's OK.\n\nResearch notes —\ncatalogue_fit: Year looks wrong. RGBtoHDMI itself began in 2017 (BBC Micro), but Amiga support was added in August 2020 ('Initial support for c0pperdragon's Amiga board' commit, 7 Aug 2020), and the Amiga-Digital-Video repo was created July 2020. 2020 is the right year for this Amiga entry. hw-gfx / component / active fit.\ndescription: The 'what' describes only the Denise-socket tap. The project also covers A600 PLCC pickups, big-box video-slot adapters and a DB23 hack. More importantly it only works where video is 12-bit (OCS/ECS). AGA machines output 24-bit, so the related link to a1200 is misleading. 'Zero-lag' is the project's own claim and I left it alone.\nurl: https://github.com/c0pperdragon/Amiga-Digital-Video (200) is the right Amiga-specific landing page. The firmware lives at github.com/hoglet67/RGBtoHDMI (GPL-3.0).\ngoogle: 'RGBtoHDMI' results cover the whole multi-platform project (BBC Micro, Spectrum, Amiga). Adding 'Amiga' surfaces the c0pperdragon repo and derivatives. No naming change needed.\nimage: Proposed adapter.jpg from the c0pperdragon repo (1211x771): a clean photo of the Denise direct-adapter board with its Raspberry Pi header. The repo has no explicit licence, so attribution/permission from the author is advisable.",
+  "sources": [
+   "https://github.com/c0pperdragon/Amiga-Digital-Video",
+   "https://github.com/hoglet67/RGBtoHDMI",
+   "https://github.com/hoglet67/RGBtoHDMI/commits/master",
+   "https://linuxjedi.co.uk/design-of-the-amiga-500-cpld-rgbtohdmi/",
+   "https://github.com/Bloodmosher/Amiga-VideoSlot-RGBtoHDMI"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "rgbtohdmi",
+  "image_url": "https://raw.githubusercontent.com/c0pperdragon/Amiga-Digital-Video/master/direct_adapter/adapter.jpg",
+  "image_credit": "Photo: c0pperdragon (Reinhard Grafl), Amiga-Digital-Video project",
+  "image_source_page": "https://github.com/c0pperdragon/Amiga-Digital-Video/tree/master/direct_adapter",
+  "summary": "New image proposal",
+  "reason": "Amiga support in RGBtoHDMI arrived in mid-2020, not 2019. The solution only works on 12-bit OCS/ECS video, so linking it to the AGA A1200 is misleading, and A600/A2000 are better related machines. The proposed photo is a clean shot of the actual adapter, though its licence needs the author's OK.\n\nImage: Proposed adapter.jpg from the c0pperdragon repo (1211x771): a clean photo of the Denise direct-adapter board with its Raspberry Pi header. The repo has no explicit licence, so attribution/permission from the author is advisable.\nLicence: No explicit licence in repository (author's project photo); credit and ideally permission advised\nVerified: Downloaded and viewed: green PCB labelled RPi with 40-pin header and Denise pass-through socket, the RGBtoHDMI direct adapter. 1211x771.",
+  "sources": [
+   "https://github.com/c0pperdragon/Amiga-Digital-Video/tree/master/direct_adapter",
+   "https://github.com/c0pperdragon/Amiga-Digital-Video",
+   "https://github.com/hoglet67/RGBtoHDMI",
+   "https://github.com/hoglet67/RGBtoHDMI/commits/master",
+   "https://linuxjedi.co.uk/design-of-the-amiga-500-cpld-rgbtohdmi/",
+   "https://github.com/Bloodmosher/Amiga-VideoSlot-RGBtoHDMI"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "saga",
+  "fields": {
+   "what": "The FPGA chipset, branded SuperAGA, that accompanies the Apollo 68080: Isabel (video), Arne (16-voice, 16-bit audio) and Anni (DMA), up to 12 MB of chip RAM, 16 sprite DMA channels with 32-pixel-wide 16-colour sprites, all AGA modes except Super HiRes, a built-in RTG API with truecolour up to 1920x1080 over HDMI, and the Maggie 3D texture unit. On the V4 it also implements Atari ST, STe and Falcon modes.",
+   "why": "The most consequential revisionist project in the scene: rather than only reproducing Commodore silicon, it extends it, which is why \"compatible\" now spans faithful recreation through deliberate augmentation.",
+   "related": [
+    "vampirev2",
+    "v4sa",
+    "rtg"
+   ]
+  },
+  "summary": "Research update: what, why, related",
+  "reason": "The specs now match the Apollo Team's own feature list: more precise sprite capabilities, the Super HiRes exception and Atari modes. The markdown emphasis is removed from 'why' to keep it plain text. Adding the V4 Standalone as related reflects where SAGA ships today.\n\nResearch notes —\ncatalogue_fit: tech / component / shipping (in the V4 line) / 2016 fit (SAGA debuted on the Vampire V2 boards).\ndescription: Mostly right, with fixes against apollo-computer.com. Officially branded 'SuperAGA'. Sprites are '16 sprite DMA channels, up to 32 pixels wide, 16 colours each', not just '16 large sprites'. AGA support excludes Super HiRes. Arne is 16-voice 16-bit audio. It also implements Atari ST/STe/Falcon modes on V4. The 'why' uses markdown asterisks (*revisionist*), which violates the plain-text rule.\nurl: https://www.apollo-computer.com returns 200 and is genuine. Feature detail is on /features.php and /v4standalone.php. apollo-core.com timed out.\ngoogle: 'SAGA chipset' plus Amiga gives Apollo/Vampire results. Without Amiga, 'SAGA' is highly ambiguous, but the name 'SAGA chipset' is adequate. Adding 'SuperAGA' in the text helps.\nimage: Apollo's site has no standalone SAGA imagery (only banners), and no licensed screenshot was found. Left null. A V4 screenshot showing a SAGA RTG mode would be ideal.",
+  "sources": [
+   "https://www.apollo-computer.com/features.php",
+   "https://www.apollo-computer.com/v4standalone.php",
+   "https://www.apollo-computer.com/amiga.php"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "sps",
+  "fields": {
+   "what": "Founded in 2001 as the Classic Amiga Preservation Society (CAPS, renamed SPS in 2005) to preserve floppy software bit-perfectly, it created the IPF format, flux-derived images that include copy protection, and the CAPSimg library that lets WinUAE, FS-UAE, Amiberry and MAME read them. softpres.org currently shows only a placeholder promising an overhauled site."
+  },
+  "summary": "Research update: what",
+  "reason": "The facts hold up, but the site has changed from 'dormant' to an explicit 'overhaul, will return' placeholder, and the CAPS-to-SPS rename (2005) is worth a few words. The image is good and correctly licensed. Consider giving the same KryoFlux photo to the image-less kryoflux entry as well.\n\nResearch notes —\ncatalogue_fit: pres / org / limited / 2001 correct: founded 2001 as the Classic Amiga Preservation Society (CAPS), renamed SPS in August 2005.\ndescription: Accurate on IPF and CAPSimg. One stale detail: softpres.org is no longer a dormant archive but a single placeholder page saying the site 'is getting an overhaul and will return', signed 'Team Softpres & KryoFlux'. Worth stating the CAPS rename year.\nurl: http://www.softpres.org returns 200 and is genuine, though it is currently a placeholder. Keep.\ngoogle: 'Software Preservation Society' and 'SPS IPF' return softpres.org, KryoFlux and emulator docs. 'SPS' alone is ambiguous, so the current name with the CAPS alias is right.\nimage: Current image is the KryoFlux board photo (Gareth Halfacree, CC BY-SA 2.0, Commons, 3000x1995). It is clean, high-resolution and properly licensed, and KryoFlux is SPS's own hardware. Keep. The kryoflux entry has no image, though, and this photo fits that entry better if you want to avoid using it twice.",
+  "sources": [
+   "http://www.softpres.org/",
+   "https://softpres.org/news:2005-08-05",
+   "https://efgamp.eu/softpres/",
+   "https://amiga-news.de/en/news/AN-2005-08-00035-EN.html",
+   "https://commons.wikimedia.org/wiki/File:KryoFlux_(14672166661).png"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "thea1200",
+  "fields": {
+   "what": "A full-size Amiga 1200 recreation with a fully working keyboard. Emulates A1200 AGA plus selectable A500 OCS, A600 ECS and CD32 configurations, with HDMI, four USB ports, an RTG mode for higher-resolution software, Workbench 3.1 included, 25 built-in games, save states and WHDLoad sideloading. Launch is set for 4 December 2026 after a slip from June.",
+   "why": "Delayed past 2025 by the Hyperion litigation, it became an officially Amiga-branded licensed product in August 2026 following the settlement, the first mainstream Amiga computer in decades.",
+   "url": "https://retrogames.biz/products/thea1200/"
+  },
+  "summary": "Research update: what, why, url",
+  "reason": "The entry lacked the confirmed 4 December 2026 launch date and Workbench 3.1 detail. The exact '18 August' date for the Amiga branding could not be verified (coverage dates from 19 August), so 'August 2026' is safer. Linking the product page rather than the company homepage is more useful.\n\nResearch notes —\ncatalogue_fit: hw-fpga / appliance / planned / 2026 correct. Retro Games' page says 'Launching on Friday 4th December', after a slip from 16 June 2026 (chip shortages, plastic costs, OS polish). arch is not FPGA in reality (ARM SoC emulation), but category follows the appliance convention used for THEA500.\ndescription: Specs check out against Retro Games and retailer listings: four USB ports, selectable A500/A600/CD32 configurations, RTG mode, Workbench 3.1 included, 25 games, WHDLoad. The launch date is missing and should be added. In 'why', the official-Amiga-product announcement was reported 19 August 2026 (Generation Amiga) from an undated Retro Games Facebook post. I could not confirm the exact day '18 August', so 'August 2026' is safer.\nurl: https://retrogames.biz is genuine (200). The product page https://retrogames.biz/products/thea1200/ (200) is more specific and is proposed.\ngoogle: 'THEA1200' results are all about this product. No ambiguity.\nimage: Current image is a Retro Games marketing render with THEA1200 logo, keyboard, mouse and pad (1536x848). Clean and on-topic. Keep. Official 3840px packshots on retrogames.biz are transparent WebP with box art and add nothing.",
+  "sources": [
+   "https://retrogames.biz/products/thea1200/",
+   "https://retrohandhelds.gg/thea1200-delayed-again-amiga-replica-now-targeting-december-2026/",
+   "https://www.generationamiga.com/2026/07/10/thea1200-features-revealed-workbench-3-1-usb-loading-and-rtg-support/",
+   "https://www.generationamiga.com/2026/08/19/thea1200-is-now-an-official-amiga-product-ahead-of-december-launch/",
+   "https://www.timeextension.com/news/2026/08/the-a1200-is-officially-an-amiga-product",
+   "https://amiga-news.de/en/news/AN-2026-08-00022-EN.html",
+   "https://www.smythstoys.com/uk/en-gb/gaming-and-tech/retro-gaming/the-a1200/p/257606"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "tf12xx",
+  "fields": {
+   "what": "A1200 trapdoor accelerators: the TF1230 (50 MHz 68030, up to 128 MB, IDE via ehide.device, sources published under CC BY-ND) and the TF1260 (68060, 128 MB), the latter a closed design sold through authorised builders and one of the most popular modern 060 boards."
+  },
+  "summary": "Research update: what",
+  "reason": "Facts hold. The proposal only adds verified specs and the TF1230's actual licence (CC BY-ND, source-available rather than open source). No usable licensed photo exists, so the entry stays without an image.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / shipping (TF1230 and TF1260 sold by builders such as Retropassion) / 68k fine. 2020 is plausible for the family (TF1260 era; TF1230 sources posted to GitHub October 2021), but an exact first-release date was not found.\ndescription: Accurate. Minor additions verified from the TF1230 README: 50 MHz 68030, 64 MB (128 MB possible) SDRAM, IDE via ehide.device, sources published under CC BY-ND (no derivatives). TF1260: supplied CPU-less or with LC060, 128 MB, needs Kickstart 3.1 and an A1200 timing fix. Amiga Addict #42 reviewed a 'TF1232', which I could not otherwise confirm, so it is not added.\nurl: https://github.com/terriblefire returns 200 and is genuine. terriblefire.com sits behind Cloudflare Access (not public). Keep.\ngoogle: 'TF1260' / 'TerribleFire 1260' results are retailer listings and forum threads about this card. A bare 'Terrible Fire' search has unrelated hits.\nimage: No properly licensed TF1230/TF1260 photo found. The repos contain no images and retailer photos are not licensed. Left null.",
+  "sources": [
+   "https://github.com/terriblefire/tf1230",
+   "https://retropassion.co.uk/product/tf1260-amiga",
+   "https://retropassion.co.uk/product/terriblefire-tf1230-amiga-accelerator",
+   "https://theoasisbbs.com/amiga-addict-42-brings-rj-mical-gravity-addict-and-new-amiga-features/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "tf5xx",
+  "fields": {
+   "what": "68030 accelerators that plug into the 68000 socket of the A500, A2000 and CDTV: the original TF530, the TF534 (33 MHz, 4 MB, IDE) and its replacement, the TF536 (50 MHz, up to 128 MB SDRAM, IDE). Designs and CPLD logic are published on GitHub: the TF530 under GPL, the TF536 under CC BY-ND.",
+   "why": "TerribleFire proved a hobbyist could openly publish a competitive accelerator design and let others build it, reshaping the economics of the scene."
+  },
+  "summary": "Research update: what, why",
+  "reason": "The TF536's published licence is CC BY-ND, not an open-source licence, so the wording moves to 'openly published'. The A1000 is dropped because no source supports it, and the TF530 is added as the first member of the family. The photo is a genuine image of the TF530 from the project's own repository, though it should be cropped.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / shipping (TF536 sold by builders) / 2017 fits (TF530 in development late 2016, beta in 2017).\ndescription: Needs correction. The TF536 sources (released 2025) are CC BY-ND 4.0, a no-derivatives licence, and only the TF530 repo is GPL-2.0. So 'open-source' overstates it, and 'openly published' is accurate. Supported machines per the TF536 README are A500 and CDTV, and retailers sell TF534/TF536 as A500/A2000. I found no source for A1000 support, so it is removed. The TF534 (33 MHz, 4 MB, IDE) was replaced by the TF536 (50 MHz, up to 128 MB, IDE). The first board, the TF530, is missing.\nurl: https://github.com/terriblefire (200) is genuine. Keep.\ngoogle: 'TF536' / 'TF534 Amiga' results are retailer listings and build guides for these boards.\nimage: Proposed a 4032x3024 photo from the TF530 repository showing the red TF530 Rev 1 board (silkscreen '(C) 2016 S.J Leary', 68030 and 68882) installed on an A500 motherboard. Genuine and in a GPL-2.0 repo. It is a bench shot with a test-probe clip in frame, so crop to the board if used.",
+  "sources": [
+   "https://github.com/terriblefire/tf536",
+   "https://github.com/AmigaPorts/tf530",
+   "https://www.retropassion.co.uk/product/tf534-amiga-500-2000",
+   "https://www.retropassion.co.uk/product/tf536-accelerator-amiga-500-2000",
+   "https://amiga-news.de/en/news/AN-2016-12-00067-EN.html",
+   "https://www.commodore-news.com/news/item/5340/en/mobile"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "boingball",
+  "fields": {
+   "what": "The red-and-white checkered bouncing ball predates the Amiga's launch: Dale Luck and R.J. Mical finished it late at night during the January 1984 Winter CES to show off the Lorraine prototype. The rotation was faked cheaply with colour-register cycling and every bounce triggered a sampled impact sound, using almost no CPU time.",
+   "why": "Commodore chose the rainbow checkmark as official branding, which is precisely why the community adopted the Boing Ball as the true symbol. It has appeared on AmigaOS \"Boing Bags\", AmigaOne branding, magazines and event logos ever since, and the Boing Ball mark is among the trademarks confirmed as Amiga Corporation's in the 2026 settlement."
+  },
+  "summary": "Research update: what, why",
+  "reason": "The unsourced 'hardware-shaking boom through the hall PA' and the overstated 'overnight' are toned down to what sources support, and markdown emphasis is removed. The settlement claim is confirmed (the Boing Ball is listed among the covered marks). The proposed image is the authentic 1984 demo under CC0, but it is smaller than the current render, so keeping the render is a reasonable choice.\n\nResearch notes —\ncatalogue_fit: comm / concept / active / 1984 fine.\ndescription: Core facts are confirmed: Dale Luck and R.J. Mical, Winter CES January 1984, rotation by colour cycling, a sampled impact sound, the team preferring the ball over Commodore's checkmark. 'Coded overnight' is legend-level (sources say it was finished late at night at the show). The 'hardware-shaking boom through the hall PA' could not be sourced, so it is softened. The Boing Ball is confirmed among the marks in the June 2026 Amiga/Hyperion settlement (non-exclusive use for AmigaOS 4). The 'why' uses markdown asterisks (*real*), which violates the plain-text rule.\nurl: No official site, so null is correct.\ngoogle: 'Boing Ball' alone also returns the Boing Boing blog and the Boing! kids' brand. 'Boing Ball Amiga' is clean. The name 'The Boing Ball' is fine, and the text already says Amiga.\nimage: Current image is a 455x456 LightWave render credited to 'Amiga Geek' with no licence stated. Proposed instead: Commons 'Boing.png', a screenshot of the original Boing demo (ball, shadow, magenta grid), CC0, credited Dale Luck and RJ Mical. It is authentic and cleanly licensed but only 637x512, so this is a judgement call: keep the render if size and gloss matter more than provenance. The Commons 'Boing Ball.svg' was checked and rejected (crude traced edges).",
+  "sources": [
+   "https://dfarq.homeip.net/amigas-debut-demonstration-at-ces-1984/",
+   "https://www.generationamiga.com/2020/04/14/amiga-history-the-story-of-the-boing-ball/",
+   "https://www.sca.ch/amiga/guests/boing.html",
+   "https://theoasisbbs.com/amiga-hyperion-settlement-defines-amigaos-3-x-and-amigaos-4-rights/",
+   "https://commons.wikimedia.org/wiki/File:Boing.png"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "boingball",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Boing.png",
+  "image_credit": "Boing demo screenshot: Dale Luck & RJ Mical (via Wikimedia Commons)",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:Boing.png",
+  "summary": "New image proposal",
+  "reason": "The unsourced 'hardware-shaking boom through the hall PA' and the overstated 'overnight' are toned down to what sources support, and markdown emphasis is removed. The settlement claim is confirmed (the Boing Ball is listed among the covered marks). The proposed image is the authentic 1984 demo under CC0, but it is smaller than the current render, so keeping the render is a reasonable choice.\n\nImage: Current image is a 455x456 LightWave render credited to 'Amiga Geek' with no licence stated. Proposed instead: Commons 'Boing.png', a screenshot of the original Boing demo (ball, shadow, magenta grid), CC0, credited Dale Luck and RJ Mical. It is authentic and cleanly licensed but only 637x512, so this is a judgement call: keep the render if size and gloss matter more than provenance. The Commons 'Boing Ball.svg' was checked and rejected (crude traced edges).\nLicence: CC0\nVerified: Downloaded and viewed: original Boing demo frame, checkered ball with drop shadow on grey background and magenta perspective grid. 637x512.",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:Boing.png",
+   "https://dfarq.homeip.net/amigas-debut-demonstration-at-ces-1984/",
+   "https://www.generationamiga.com/2020/04/14/amiga-history-the-story-of-the-boing-ball/",
+   "https://www.sca.ch/amiga/guests/boing.html",
+   "https://theoasisbbs.com/amiga-hyperion-settlement-defines-amigaos-3-x-and-amigaos-4-rights/",
+   "https://commons.wikimedia.org/wiki/File:Boing.png"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "litigation",
+  "fields": {
+   "year": 2017,
+   "what": "Relations broke down after Amiga Inc.'s US Amiga trademark lapsed in 2016. Cloanto sued Hyperion in the US in December 2017, later joined by the other Amiga parties, and Hyperion counter-sued in March 2018 while shipping AmigaOS 3.1.4 (2018) and 3.2 (2021) for classic machines. Settlement terms reported to the court in January 2021 never closed; Hyperion won the first round in 2023, but the Ninth Circuit revived the copyright claims in 2025. After a pause in March 2026, Hyperion and Amiga Corporation signed a new settlement on 5 June 2026, announced on 4 August, which replaced the 2009 agreement and ended all their disputes.",
+   "why": "It froze parts of the ecosystem for most of a decade. AmigaOS 3.2 sales were interrupted, developers were caught between the parties, and in 2025 Retro Games Ltd publicly blamed the dispute for holding up its full-size Amiga, later THEA1200.",
+   "related": [
+    "cloanto",
+    "settlement2009",
+    "settlement2026",
+    "os314"
+   ]
+  },
+  "summary": "Research update: year, what, why, related",
+  "reason": "The entry still reads as if the dispute were open, with vague 'partial settlements'. In fact it began with Cloanto's December 2017 suit and ended with the June/August 2026 settlement. The rewrite gives the verified timeline and drops the A-EON/Enhancer/ExecSG clause, which no source supports (restore it if you have a reference). Year moves from 2018 to 2017.\n\nResearch notes —\ncatalogue_fit: brand / event / historic / 68k fits, and 'historic' is now correct because the dispute ended in 2026. Year should be 2017: Cloanto filed its US suit against Hyperion in December 2017, and Hyperion counter-sued in March 2018.\ndescription: Stale and partly inaccurate. The 'partial settlements around 2021-22' were really a January 2021 notice of agreed terms that never closed. Hyperion won the first round in 2023, the Ninth Circuit revived Cloanto's copyright claims in 2025, proceedings paused in March 2026, and a full settlement was signed on 5 June 2026 and announced on 4 August 2026. I could not verify the 'A-EON/AmigaKit Enhancer Software and ExecSG' dispute anywhere (the only documented ExecSG case is the Friedens' and Vallinotto's Brussels action of the 2000s), so the rewrite drops it. The THEA1200 claim is half-right: Retro Games blamed the litigation in March 2025, but the later slip to December 2026 was put down to chip shortages and OS readiness.\nurl: No official site for an event; null is correct. Hyperion's settlement press release is the best primary source.\ngoogle: 'Hyperion Cloanto lawsuit' returns amiga-news.de, Hyperion's news pages and Wikipedia's AmigaOS article, all on topic. 'Hyperion Software' (the unrelated Essbase company) shows up for bare 'Hyperion lawsuit' searches, so the name should keep 'Hyperion' tied to Amiga.\nimage: No image. There is no good licensed image for a legal dispute; leave null.",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2017-12-00052-EN.html",
+   "https://amiga-news.de/en/news/AN-2023-05-00030-EN.html",
+   "https://www.mlex.com/mlex/articles/2353226/cloanto-corporation-s-copyright-claims-reinstated-by-us-appeals-court",
+   "https://amiga-news.de/en/news/AN-2026-03-00108-EN.html",
+   "https://www.hyperion-entertainment.com/index.php/news/38-corporate/331-hyperion-entertainment-bv-and-amiga-corporation-reach-settlement--all-ongoing-legal-disputes-ended",
+   "https://theoasisbbs.com/amiga-hyperion-settlement-defines-amigaos-3-x-and-amigaos-4-rights/",
+   "https://timeextension.com/news/2025/03/full-size-amiga-replica-delayed-by-legal-action-will-be-called-the-a1200",
+   "https://timeextension.com/news/2026/05/the-os-isnt-yet-where-it-needs-to-be-the-full-size-amiga-replica-thea1200-has-been-delayed"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "whoowns",
+  "fields": {
+   "what": "Amiga trademarks (Amiga, AmigaOS, AmigaOne, Kickstart, Workbench, Boing Ball) and the historic Commodore and Amiga software copyrights, including AmigaOS 3.1 to 3.1.4 and Kickstart: Amiga Corporation (Mike Battilana). AmigaOS 4.x: developed and sold by Hyperion Entertainment under an exclusive, royalty-free licence from Amiga Corporation, which also licenses Hyperion the AmigaOne name; Hyperion keeps its own OS4 code. AmigaOS 3.2 and 3.3: sold by Hyperion as upgrades for a transition period ending no later than 31 December 2027, after which 68k AmigaOS passes to Amiga Corporation. The Commodore and C= marks: Commodore International Corporation, with no Amiga rights. MorphOS: the independent MorphOS Team. AROS: open source. The 1997-era hardware patents have expired."
+  },
+  "summary": "Research update: what",
+  "reason": "The card contains markdown bold, which the site renders as literal asterisks, and it slightly overstates Hyperion's position: AmigaOne and AmigaOS 4 are held under licence from Amiga Corporation, not owned. The rewrite keeps the same structure and voice, follows the settlement terms as reported, and spells out the AmigaOS 3.2/3.3 transition window.\n\nResearch notes —\ncatalogue_fit: brand / concept / active / 2026 fits, and the name still fits because the settlement was announced in August 2026.\ndescription: The text uses markdown bold (...), which the catalogue's plain-text rule forbids. Some points are imprecise next to the published settlement terms. Hyperion does not own the AmigaOne brand: Amiga Corporation owns it and licenses it exclusively to Hyperion. AmigaOS 4 is developed under an exclusive, royalty-free licence, and Hyperion keeps its own OS4 code. AmigaOS 3.2/3.3 sales are transitional: regular sales end on 31 Dec 2026 or 16 months after 3.3 ships, and never later than 31 Dec 2027. The Commodore International Corporation and MorphOS/AROS points check out.\nurl: No single official page. The Hyperion and Amiga Corporation settlement announcements are the primary sources; null is fine.\ngoogle: A generic phrase, so search results are not about this entry. That is expected for a reference/concept card.\nimage: None needed; leave null.",
+  "sources": [
+   "https://theoasisbbs.com/amiga-hyperion-settlement-defines-amigaos-3-x-and-amigaos-4-rights/",
+   "https://www.generationamiga.com/2026/08/04/hyperion-and-amiga-reach-settlement-over-amigaos-rights-and-development/",
+   "https://www.hyperion-entertainment.com/index.php/news/38-corporate/331-hyperion-entertainment-bv-and-amiga-corporation-reach-settlement--all-ongoing-legal-disputes-ended",
+   "https://amiga-news.de/en/news/AN-2026-08-00022-EN.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "amiganews",
+  "fields": {
+   "by": "Founded by Petra Struck; published by Christoph Gutjahr and Martin Heine"
+  },
+  "summary": "Research update: by",
+  "reason": "Petra Struck founded amiga-news.de but stepped back in 2003, and the masthead now lists Christoph Gutjahr and Martin Heine as publishers, so 'by' should credit both the founder and the current team. The description itself is accurate. I made a front-page screenshot to use as the image because the logo is tiny.\n\nResearch notes —\ncatalogue_fit: comm / org / active / 1998 all correct. The first item is dated 13 August 1998, and regular news started in September 1998.\ndescription: 'by' is out of date. Petra Struck founded the site and was publisher until September 2003, Nico Barbat until September 2010, and today Christoph Gutjahr and Martin Heine are publishers and editors. The 'what' and 'why' text is accurate.\nurl: https://www.amiga-news.de returns HTTP 200 and is the genuine site. Keep.\ngoogle: 'amiga-news.de' and 'amiga news' both put the site first; no ambiguity.\nimage: No current image. The site logo is only 300x65 px, so I made a 1280x900 headless-Chrome screenshot of the English front page (14 Oct 2026). It shows the masthead logo and the day's news list, cleanly framed.",
+  "sources": [
+   "https://www.amiga-news.de/en/static/impressum.html",
+   "https://amiga-news.de/en/news/AN-2013-09-00023-EN.html",
+   "https://amiga-news.de/en/news/AN-2003-10-00159-EN.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "peg2",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Pegasos_2_01.jpg",
+  "image_credit": "Photo: Moher of Invention (Flickr), via Wikimedia Commons",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:Pegasos_2_01.jpg",
+  "summary": "New image proposal",
+  "reason": "The text checks out, including the 2025 digital-download move and continued MorphOS support. The only proposal is a better image: a larger, clearly licensed (CC BY-SA 2.0) top-down photo of the board, replacing an 800 px photo of unclear licence.\n\nImage: The current 800x600 photo (credited to AmigaOS.net, licence unclear) is a real Pegasos II but small and angled. Proposed: Wikimedia Commons 'Pegasos 2 01.jpg', a 2055x1563 top-down shot of a Pegasos II/G4 (rev 1.0 2B3) with the MV64361 and VIA southbridge readable. CC BY-SA 2.0. The only weakness is the bubble-wrap background.\nLicence: CC BY-SA 2.0\nVerified: Downloaded the 2055x1563 original and viewed it: a Pegasos II board with Marvell MV64361 Discovery II northbridge, VIA southbridge, G4 CPU card slot, PCI/AGP slots.",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:Pegasos_2_01.jpg",
+   "https://en.wikipedia.org/wiki/Genesi_Pegasos",
+   "https://www.hyperion-entertainment.com/index.php/news/36-amigaos-4x/322-amigaos-41-final-edition-for-pegasos-2-is-now-available-digitally",
+   "https://amiga-news.de/en/news/AN-2025-09-00046-EN.html",
+   "https://www.osnews.com/story/145172/morphos-3-20-released/",
+   "https://commons.wikimedia.org/wiki/File:Pegasos_2_01.jpg"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "dreadengine",
+  "fields": {
+   "name": "Dread engine",
+   "year": 2020,
+   "what": "The \"Doom on an A500\" rendering technology by Krzysztof \"KK/Altair\" Kluczek, first shown in early 2020 development videos for the game Dread. In 2022 he handed the commercial game to John \"Tsak\" Tsakiris of Pixelglass, who continues it as GRIND for the Amiga 500, Atari ST and Mega Drive, while Kluczek keeps Dread as a separate non-commercial project. Playable GRIND demos go out to Patreon backers; a full release is still pending.",
+   "url": "https://pixelglass.org/#grind"
+  },
+  "summary": "Research update: name, year, what, url",
+  "reason": "Dread first appeared in February 2020, not 2021. The entry also does not explain that GRIND is a different developer's continuation of the engine, after KK/Altair handed the game over in 2022. The rewrite fixes the date, credits both people, and points to the developer's official GRIND page. A capitalised name helps, because 'dread engine' on its own finds only unrelated game and tabletop results.\n\nResearch notes —\ncatalogue_fit: dev / tool / active / 68k fits. Year should be 2020: KK/Altair's first Dread development videos and news coverage date from February 2020 (amiga-news.de, Slashdot April 2020), not 2021.\ndescription: Partly inaccurate. Dread was first shown in 2020, not in '2021 Dread demos'. In October 2022 Kluczek handed the commercial game to John 'Tsak' Tsakiris (Pixelglass), who continues it as GRIND for Amiga 500, Atari ST and Mega Drive; Kluczek kept Dread as a separate non-commercial project. GRIND playable demos go to Patreon backers (Dec 2024 and Mar 2025 updates), and there is still no full release.\nurl: The engine has no site of its own. Pixelglass's GRIND section (https://pixelglass.org/#grind, HTTP 200) is the developer's official page and links the Patreon and Discord; I propose it as url.\ngoogle: 'dread engine' alone returns D&D, Warhammer and Warframe results, nothing Amiga. The lowercase name is weak and ambiguous, so I propose capitalising it to 'Dread engine' and making the 'what' text name Dread and GRIND explicitly.\nimage: No current image. Proposed: an official GRIND in-game screenshot from pixelglass.org (640x466, native Amiga resolution upscaled; shows a textured corridor, an enemy, the weapon and the HUD). It is below the 800 px target because the source is native resolution.",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2020-02-00066-EN.html",
+   "https://games.slashdot.org/story/20/04/26/0156227/developer-attempts-doom-clone-for-the-amiga-500",
+   "https://amiga-news.de/en/news/AN-2022-10-00143-EN.html",
+   "https://www.patreon.com/Grind_Amiga/about",
+   "https://www.indieretronews.com/2025/03/grind-epic-first-person-shooter-for.html",
+   "https://pixelglass.org/"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "dreadengine",
+  "image_url": "https://pixelglass.org/images/Grind/1.png",
+  "image_credit": "Screenshot: GRIND by Pixelglass (Dread engine by KK/Altair)",
+  "image_source_page": "https://pixelglass.org/#grind",
+  "summary": "New image proposal",
+  "reason": "Dread first appeared in February 2020, not 2021. The entry also does not explain that GRIND is a different developer's continuation of the engine, after KK/Altair handed the game over in 2022. The rewrite fixes the date, credits both people, and points to the developer's official GRIND page. A capitalised name helps, because 'dread engine' on its own finds only unrelated game and tabletop results.\n\nImage: No current image. Proposed: an official GRIND in-game screenshot from pixelglass.org (640x466, native Amiga resolution upscaled; shows a textured corridor, an enemy, the weapon and the HUD). It is below the 800 px target because the source is native resolution.\nLicence: Developer promotional screenshot, all rights reserved; used for identification\nVerified: Downloaded and viewed: GRIND first-person view on Amiga, with textured walls, an armoured enemy, a gatling weapon and the ARMOR/LIFE/AMMO status bar.",
+  "sources": [
+   "https://pixelglass.org/#grind",
+   "https://amiga-news.de/en/news/AN-2020-02-00066-EN.html",
+   "https://games.slashdot.org/story/20/04/26/0156227/developer-attempts-doom-clone-for-the-amiga-500",
+   "https://amiga-news.de/en/news/AN-2022-10-00143-EN.html",
+   "https://www.patreon.com/Grind_Amiga/about",
+   "https://www.indieretronews.com/2025/03/grind-epic-first-person-shooter-for.html",
+   "https://pixelglass.org/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "blizzardppc",
+  "fields": {
+   "year": 1998,
+   "what": "A dual-processor A1200 trapdoor card placing a PowerPC 603e at 160-240 MHz alongside a 68LC040, 68040 or 68060, with up to 256 MB on two SIMMs, Fast SCSI-2 on the 603e+ model and a connector for the BVisionPPC graphics card."
+  },
+  "summary": "Research update: year, what",
+  "reason": "The BlizzardPPC was announced in 1997 but shipped in 1998, which is the year both hardware databases use. The proposed 'what' adds the documented memory, SCSI and CPU options without growing much. The proposed scan is three times wider and shows both processors, which is the board's defining feature.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / historic fits. Year: phase5 announced the board in 1997 (CU Amiga, February 1998, still quoted planned speeds), but it shipped in 1998, which is the Amiga Hardware Database's date. 1998 suits the 'first public release' convention. arch should arguably include both 68k and ppc if the schema allows.\ndescription: Accurate but slightly thin. The companion CPU could also be a 68LC040; the card holds up to 256 MB on two SIMMs; and the 603e+ model adds an NCR 53C710 Fast SCSI-2 controller. The 'why' text is fine.\nurl: phase5 is defunct; no official site. Null is correct.\ngoogle: 'BlizzardPPC' and 'Blizzard PPC' return AHD, BBoAH and Amiga forum results; no ambiguity.\nimage: The current AHD scan (624x413) is correct but shows the PowerPC hidden under the phase5 cooler. Proposed: BBoAH's 2000x1279 front scan of a Blizzard 603e+, showing the PowerPC 603e, the XC68040 and the NCR 53C710 SCSI chip. The 603e has some thermal-paste residue. The licence is the same unclear community-database status as the current image.",
+  "sources": [
+   "https://amiga.resource.cx/exp/blizzardppc",
+   "https://bigbookofamigahardware.com/bboah/Product.aspx?id=155",
+   "https://discmaster.textfiles.com/file/1092/CU%20Amiga%20Magazine%27s%20Super%20CD-ROM%2019%20%281998%29%28EMAP%20Images%29%28GB%29%5B%21%5D%5Bissue%201998-02%5D.iso/CUCD/Readers/DoubleClick/Phase5News.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "blizzardppc",
+  "image_url": "https://bigbookofamigahardware.com/bboah/media/download_photos/blizzppc040_front_big.jpg",
+  "image_credit": "Photo: Big Book of Amiga Hardware",
+  "image_source_page": "https://bigbookofamigahardware.com/bboah/product.aspx?id=155",
+  "summary": "New image proposal",
+  "reason": "The BlizzardPPC was announced in 1997 but shipped in 1998, which is the year both hardware databases use. The proposed 'what' adds the documented memory, SCSI and CPU options without growing much. The proposed scan is three times wider and shows both processors, which is the board's defining feature.\n\nImage: The current AHD scan (624x413) is correct but shows the PowerPC hidden under the phase5 cooler. Proposed: BBoAH's 2000x1279 front scan of a Blizzard 603e+, showing the PowerPC 603e, the XC68040 and the NCR 53C710 SCSI chip. The 603e has some thermal-paste residue. The licence is the same unclear community-database status as the current image.\nLicence: Community database image, no explicit licence (same status as the current AHD image)\nVerified: Downloaded the 2000x1279 file and viewed it: a BlizzardPPC 603e+ board with PowerPC 603e, XC68040RC25B, NCR 53C710 and the phase5 logo.",
+  "sources": [
+   "https://bigbookofamigahardware.com/bboah/product.aspx?id=155",
+   "https://amiga.resource.cx/exp/blizzardppc",
+   "https://bigbookofamigahardware.com/bboah/Product.aspx?id=155",
+   "https://discmaster.textfiles.com/file/1092/CU%20Amiga%20Magazine%27s%20Super%20CD-ROM%2019%20%281998%29%28EMAP%20Images%29%28GB%29%5B%21%5D%5Bissue%201998-02%5D.iso/CUCD/Readers/DoubleClick/Phase5News.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "cyberstormppc",
+  "image_url": "https://bigbookofamigahardware.com/bboah/media/download_photos/cyberppc_1_big.jpg",
+  "image_credit": "Photo: Big Book of Amiga Hardware",
+  "image_source_page": "https://bigbookofamigahardware.com/bboah/product.aspx?id=238",
+  "summary": "New image proposal",
+  "reason": "The text is accurate and needs no change. The proposed photo is much larger and shows both the PowerPC 604e and the 68060 side by side, so a viewer can see what makes this card special; the current scan hides the PowerPC under a fan.\n\nImage: The current AHD scan (700x342) is correct, but the 604e is hidden under the fan, so it looks like any 040 board. Proposed: BBoAH's 4288x2256 photo (local copy resized to 2400 px) of a CyberStormPPC with a 604e at 200 MHz and an XC68060RC50A. Both CPUs, the Symbios 53C770 and the four SIMM sockets are visible, on a plain blue background. The Commons alternative (CyberStormPPC604e_128MB_68060.jpg, 500 px, angled, fans covering the chips) is worse.\nLicence: Community database image, no explicit licence (same status as the current AHD image)\nVerified: Downloaded the 4288x2256 original and viewed it: a CyberStormPPC with exposed PowerPC 604e die, XC68060RC50A, Symbios 53C770 and four 72-pin SIMM sockets.",
+  "sources": [
+   "https://bigbookofamigahardware.com/bboah/product.aspx?id=238",
+   "https://amiga.resource.cx/exp/cyberstormppc",
+   "https://bigbookofamigahardware.com/bboah/product.aspx?id=238",
+   "https://en.wikipedia.org/wiki/Phase5"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "vamiga",
+  "fields": {
+   "what": "A from-scratch cycle-accurate emulator of the Amiga 500, 1000 and 2000 (OCS and ECS) with a native macOS interface, run-ahead and an extensive inspector and debugger suite. Version 4.5 (August 2026) is the current stable release; the 5.0 betas add AGA chipset and 68020 emulation, tested against a real A1200. A companion RetroVault dashboard for vAmiga and VirtualC64 is in beta.",
+   "version": "4.5 (5.0 beta with AGA)"
+  },
+  "summary": "Research update: what, version",
+  "reason": "vAmiga's biggest change in years is the AGA support in the 5.0 betas, which moves it toward A1200 emulation, and the entry does not mention it. The rewrite records the current stable 4.5 and the AGA beta, describes RetroVault correctly, and drops 'beautiful'. The image is already good.\n\nResearch notes —\ncatalogue_fit: emu / emulator / active / 2019 correct. The GitHub repo was created in January 2019 and v0.3x releases followed that summer. arch: x86 plus ARM (macOS) is fine.\ndescription: Stale. The current stable release is v4.5 (7 Aug 2026), and the v5.0 betas (b1 18 Aug, b2 1 Sep 2026) add AGA chipset support and 68020 instruction-cache emulation, with new tests run against a real A1200. So 'OCS and ECS only' will soon be outdated. RetroVault is a separate Qt/QML 'dashboard for vAmiga and VirtualC64' in 0.9 beta, not specifically a disk tool. 'Beautiful' is marketing tone.\nurl: https://dirkwhoffmann.github.io/vAmiga/ returns HTTP 200 and is the official page. Keep. vamiga.com is an unrelated parked domain.\ngoogle: 'vAmiga' returns the official GitHub Pages site, the GitHub repo and the App Store/news pages; no ambiguity.\nimage: The current image (1672x1506 screenshot of vAmiga's macOS window running Battle Chess) is excellent and on-topic. Keep.",
+  "sources": [
+   "https://github.com/dirkwhoffmann/vAmiga/releases",
+   "https://theoasisbbs.com/vamiga-5-0-beta-1-introduces-aga-support/",
+   "https://github.com/dirkwhoffmann/RetroVault",
+   "https://dirkwhoffmann.github.io/vAmiga/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "vasm",
+  "fields": {
+   "year": 2002,
+   "by": "Volker Barthelmann and Frank Wille",
+   "what": "A portable, retargetable assembler with Motorola/Devpac, GNU-style, MadMac and old 8-bit syntax modules, covering the M680x0 family (including the Apollo 68080), PowerPC, Z80, 6502, ARM, x86 and many other CPUs, and writing Amiga hunk, ELF and dozens of other formats. Frank Wille's vlink, developed since 1997, is the matching linker; both ship as part of the vbcc toolchain.",
+   "version": "vasm 2.0f (July 2026); vlink 0.18a (November 2025)",
+   "related": [
+    "vbcc"
+   ]
+  },
+  "summary": "Research update: year, by, what, version, related",
+  "reason": "vasm is Volker Barthelmann's assembler (from 2002) and vlink is Frank Wille's linker (from 1997), so crediting Frank Wille alone and using 1998 are both off. The rewrite fixes the credit and year, gives a truer picture of the CPU and format coverage, records the current versions, and links the entry to vbcc, whose toolchain it belongs to.\n\nResearch notes —\ncatalogue_fit: dev / tool / active / 68k fits. Year 1998 matches neither tool: vasm's source says '(c) 2002-2026 Volker Barthelmann' (first release 2002), and vlink's says '(c) 1997-2025 Frank Wille'. Since vasm leads the name, I propose 2002.\ndescription: 'by' is incomplete: vasm is Volker Barthelmann's (with Frank Wille writing the m68k/PPC modules and maintaining releases), and vlink is Frank Wille's. The CPU list in 'what' is far too narrow. vasm also covers ARM, x86, 6800/6809, Jaguar RISC, the Apollo 68080, PDP-11, VideoCore IV and more, plus MadMac syntax. Current versions are vasm 2.0f (10 Jul 2026) and vlink 0.18a (8 Nov 2025). Both are part of the vbcc toolchain.\nurl: http://sun.hasenbraten.de/vasm/ returns HTTP 200 and is the genuine official page (HTTP only). Keep. The vlink page is http://sun.hasenbraten.de/vlink/.\ngoogle: 'vasm vlink' returns amiga-news.de, Docker and Slackware build pages for this toolchain. Bare 'vasm' collides with Vector Linux's VASM admin tool, but the 'vasm / vlink' name avoids that.\nimage: No logo or meaningful official imagery exists; the official site is plain text. Leave null.",
+  "sources": [
+   "http://sun.hasenbraten.de/vasm/",
+   "http://sun.hasenbraten.de/vlink/",
+   "http://www.compilers.de/vasm.html",
+   "https://amiga-news.de/en/news/AN-2025-01-00005-EN.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "vbcc",
+  "fields": {
+   "year": 1995,
+   "what": "A portable, highly optimising ISO C compiler suite, used with its companions vasm and vlink, and the reference for OS-friendly 68k C. Amiga targets cover Kickstart 1.2/1.3, AmigaOS 2.x/3.x, AmigaOS 4, MorphOS, WarpOS and PowerUP, alongside Atari TOS/MiNT and many non-Amiga back ends.",
+   "version": "0.9h patch 3 (May 2022); newer source snapshots"
+  },
+  "summary": "Research update: year, what, version",
+  "reason": "vbcc dates from 1995, not 1996, per Wikipedia and the 1995 copyright line in its own documentation. The rewrite lists the Amiga targets as the support site names them and drops the 'AmigaOS 1.2 through 3.x, Kickstart 1.x' overlap. It also records the last packaged release, 0.9h patch 3 from 2022. A freely licensed toolchain diagram from Commons can fill the empty image slot.\n\nResearch notes —\ncatalogue_fit: dev / tool / active fit. Year should be 1995, not 1996: Wikipedia gives initial release 1995 and the compiler's own docs carry '(c) in 1995 by Volker Barthelmann'. Status active is justified: compilers.de offers a compiler source snapshot dated 10/01/2026 and the Amiga support page was edited in 2023.\ndescription: Facts are right but the target list is redundant ('AmigaOS 1.2 through 3.x, Kickstart 1.x'). The support site lists separate targets for Kickstart 1.2/1.3 and AmigaOS 2.x/3.x, plus AmigaOS 4, MorphOS, WarpOS, PowerUP and Atari. The last packaged release is 0.9h patch 3 (22 May 2022). Proposed a tidier 'what' that mentions vasm/vlink, plus a version field.\nurl: http://sun.hasenbraten.de/vbcc/ returns 200. It is Frank Wille's official Amiga/Atari support site and the right link for this catalogue. Volker Barthelmann's main page is http://www.compilers.de/vbcc.html (also 200). Keep the current URL.\ngoogle: 'vbcc' returns this compiler (Wikipedia, compilers.de, hasenbraten). No ambiguity.\nimage: No current image. Proposed the Wikimedia Commons toolchain diagram Vbcc.svg (by Polluks, CC BY 3.0 or GFDL, 1280 px PNG render). It shows vc -> vbccm68k/vbccppc -> vasm -> vlink -> Hunk/ELF. It is accurate and relevant, though a diagram rather than a screenshot.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Vbcc",
+   "http://sun.hasenbraten.de/vbcc/",
+   "http://www.compilers.de/vbcc.html",
+   "https://commons.wikimedia.org/wiki/File:Vbcc.svg"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "vbcc",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Vbcc.svg/1280px-Vbcc.svg.png",
+  "image_credit": "Diagram: Polluks / Wikimedia Commons",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:Vbcc.svg",
+  "summary": "New image proposal",
+  "reason": "vbcc dates from 1995, not 1996, per Wikipedia and the 1995 copyright line in its own documentation. The rewrite lists the Amiga targets as the support site names them and drops the 'AmigaOS 1.2 through 3.x, Kickstart 1.x' overlap. It also records the last packaged release, 0.9h patch 3 from 2022. A freely licensed toolchain diagram from Commons can fill the empty image slot.\n\nImage: No current image. Proposed the Wikimedia Commons toolchain diagram Vbcc.svg (by Polluks, CC BY 3.0 or GFDL, 1280 px PNG render). It shows vc -> vbccm68k/vbccppc -> vasm -> vlink -> Hunk/ELF. It is accurate and relevant, though a diagram rather than a screenshot.\nLicence: CC BY 3.0 (or GFDL 1.2+)\nVerified: Downloaded the 1280x1162 PNG and viewed it. It is a Graphviz diagram of the vbcc toolchain (vc, vbccm68k, vbccppc, vasm, vlink, Hunk/ELF output).",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:Vbcc.svg",
+   "https://en.wikipedia.org/wiki/Vbcc",
+   "http://sun.hasenbraten.de/vbcc/",
+   "http://www.compilers.de/vbcc.html",
+   "https://commons.wikimedia.org/wiki/File:Vbcc.svg"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "cybergraphx",
+  "fields": {
+   "status": "historic",
+   "what": "One of the two classic RTG systems, written by Thomas Sontowski and Frank Mariak, introduced in 1995 with phase5's CyberVision 64 and adopted as phase5's standard, but supporting many other graphics cards too. Its CGX API is still called by many applications and games. The 68k version stopped at V4 (with later 4.3 release candidates); MorphOS's graphics subsystem is CyberGraphX V5, its direct descendant.",
+   "why": "Free to owners of supported cards, it made true-colour Workbench screens commonplace and became the de facto RTG API, which Picasso96 and AROS later reimplemented. Frank Mariak carried the design forward into MorphOS."
+  },
+  "summary": "Research update: status, what, why",
+  "reason": "CyberGraphX is not 'shipping': the AmigaOS version has been unmaintained since V4, and only used copies circulate, so 'historic' is the right status. The text now names both authors, notes support beyond phase5's own cards, and replaces the shaky 'first RTG' claim with the well-sourced 'de facto standard / true-colour Workbench' point. MorphOS's CyberGraphX V5 stays in as the living descendant.\n\nResearch notes —\ncatalogue_fit: Status 'shipping' is wrong. The AmigaOS version is no longer maintained (V4 was the last, followed by 4.3 release candidates) and no current vendor sells it, so 'historic' fits: no longer current but still widely used. tech / component / 1995 are right: it was introduced with phase5's CyberVision 64 in 1995.\ndescription: 'tied to phase5's CyberVision cards' undersells it: phase5 adopted it as standard, but it also supported many other cards and was free to users of supported cards. The 'why' claim that it 'popularised retargetable screens first' is loose, since EGS and card-specific RTG came earlier. The defensible claim is that it was the first to make true-colour Workbench screens commonplace and became the de facto RTG standard. MorphOS still ships CyberGraphX V5.\nurl: No standalone official website exists, and Vision Factory's old pages are gone. Null is correct.\ngoogle: 'CyberGraphX' returns this software (Wikipedia, Aminet). The abbreviation 'CGX' is ambiguous, but the full name is not.\nimage: No current image. The only free image is the public-domain wordmark on English Wikipedia (Cybergraphx.png, 315x48), which is too small for a card. The install screenshot there (Cgxv4_install.jpg) is non-free fair use. No image proposed.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/CyberGraphX",
+   "https://aminet.net/package/driver/video/CyberGraphX_4.3rc4",
+   "https://amiga-news.de/en/news/AN-2006-01-00006-EN.html",
+   "https://en.wikipedia.org/wiki/Retargetable_graphics"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "gvp",
+  "fields": {
+   "what": "The largest US accelerator line: the A530 Turbo sidecar for the A500 (68EC030 at 40 MHz with SCSI), the G-Force 030 and 040 for the A2000, and the A1230 Turbo+ for the A1200. After GVP liquidated in 1995, successor GVP-M carried on with the G-Force 040/060, also sold as the TekMagic 2040/2060.",
+   "by": "Great Valley Products (US); later GVP-M"
+  },
+  "summary": "Research update: what, by",
+  "reason": "The TekMagic 060 was not a GVP product: it came from GVP-M, the company that took over the product rights after GVP liquidated in July 1995. The revised text credits it correctly and adds GVP-M to 'by'. The A530 Turbo photo from Commons is genuine and sharp, but its licence is GFDL 1.2-only, so decide whether that attribution model is acceptable.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / historic fits. Year 1989 is plausible: GVP was founded around 1988 and its A3001/G-Force 030 boards came around 1989/90. No primary source confirms the exact year, so it is unsure and left unchanged.\ndescription: The A530 Turbo specs are right per Wikipedia (1992, 68EC030 at 40 MHz, SCSI). But the TekMagic 060 was not a GVP product. GVP liquidated itself in July 1995, and the G-Force 040/060 for the A2000 was sold by successor GVP-M, also as the TekMagic 2040/2060 (1996, per the Amiga Hardware Database). The 'what' now says so.\nurl: GVP is defunct and there is no official site, so null is correct.\ngoogle: 'GVP Amiga' returns Great Valley Products pages. 'GVP' alone is ambiguous (many other companies), and the entry name 'GVP accelerator families' is clear enough in context.\nimage: No current image. Proposed the Wikimedia Commons photo of the GVP A530 Turbo, opened up to show the board (Johann H. Addicks, 3008x2000 original; using the 1280 px render). Note: its licence is GFDL 1.2-only or CC BY-NC-ND 3.0, which is restrictive, and a Wikipedia scale card sits in the top-left corner. Use it only if GFDL attribution is acceptable.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Great_Valley_Products",
+   "https://amiga.resource.cx/exp/tekmagic2060",
+   "https://www.math.uh.edu/~barrett/data/hardware/accelerators/GForce68040-060",
+   "https://commons.wikimedia.org/wiki/File:Amiga_GVP_A530Turbo_-_IMGP1118.JPG"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "yam",
+  "fields": {
+   "by": "Marcel Beck, then the YAM Open Source Team led by Jens Maus / Sebastian Bauer & Hynek Schlawack",
+   "what": "The classic open-source MUI mail clients. YAM (Yet Another Mailer), begun by Marcel Beck and open-sourced in 2000, offers POP3, SMTP, TLS, PGP and filters; its last stable release is 2.9p1 (2016), with 2.10 development builds still appearing. SimpleMail (from 2000, last release 0.45 in 2018) is the lighter alternative with basic IMAP. Builds exist for 68k AmigaOS, AmigaOS 4, MorphOS and AROS.",
+   "version": "YAM 2.9p1 (2016), 2.10 nightly; SimpleMail 0.45 (2018)"
+  },
+  "summary": "Research update: by, what, version",
+  "reason": "YAM's founder Marcel Beck and SimpleMail's co-founder Hynek Schlawack were missing from the credits. The text now gives each client's real release state: YAM 2.9p1 stable plus 2.10 nightlies still being built in 2026, and SimpleMail 0.45 from 2018. A GPL-licensed YAM screenshot from Commons fills the image slot, though it is small.\n\nResearch notes —\ncatalogue_fit: soft / app / active fits: YAM's GitHub nightly 2.10dev builds for AmigaOS3, AmigaOS4 and MorphOS were still being published in July/August 2026. Year 1996 is fine: Marcel Beck started it in 1995, and the first public release came in early 1996 (Wikipedia says 1995).\ndescription: 'by' leaves out YAM's original author Marcel Beck. Jens Maus (formerly Jens Langner) leads the YAM Open Source Team that took over after Beck released YAM 2.2 under the GPL in 2000. SimpleMail was started in December 2000 by Sebastian Bauer and Hynek Schlawack. Its last release is 0.45 (December 2018) and its last commit was in December 2023, so it is the dormant half of the pair. YAM's last stable release is 2.9p1 (April 2016). AROS builds exist for YAM 2.9p1; SimpleMail has had AROS builds in the past.\nurl: https://yam.ch returns 200 but redirects to https://github.com/jens-maus/yam, the official home. Keep it. SimpleMail's home is https://github.com/sba1/simplemail.\ngoogle: 'YAM Amiga' returns this program. Plain 'YAM' is ambiguous (yam the vegetable, YAM the Yet Another Mailer acronym, other YAMs), but the full name in 'what' covers it.\nimage: No current image. Proposed YAM_screenshot.png from Wikimedia Commons (author Jens Maus, GPLv2). It shows YAM 2.5-dev's main window and About box on AmigaOS 4. It is authentic and on-topic but only 507x404.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/YAM_(software)",
+   "https://github.com/jens-maus/yam",
+   "https://github.com/jens-maus/yam/releases",
+   "https://github.com/sba1/simplemail",
+   "https://aminet.net/package/comm/yam/YAM29p1-MorphOS",
+   "https://commodore-news.com/news/item/6775/en",
+   "https://amiga-news.de/en/news/AN-2000-12-00384-EN.html",
+   "https://commons.wikimedia.org/wiki/File:YAM_screenshot.png"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "yam",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/YAM_screenshot.png",
+  "image_credit": "Screenshot: Jens Maus / Wikimedia Commons",
+  "image_source_page": "https://commons.wikimedia.org/wiki/File:YAM_screenshot.png",
+  "summary": "New image proposal",
+  "reason": "YAM's founder Marcel Beck and SimpleMail's co-founder Hynek Schlawack were missing from the credits. The text now gives each client's real release state: YAM 2.9p1 stable plus 2.10 nightlies still being built in 2026, and SimpleMail 0.45 from 2018. A GPL-licensed YAM screenshot from Commons fills the image slot, though it is small.\n\nImage: No current image. Proposed YAM_screenshot.png from Wikimedia Commons (author Jens Maus, GPLv2). It shows YAM 2.5-dev's main window and About box on AmigaOS 4. It is authentic and on-topic but only 507x404.\nLicence: GPL-2.0\nVerified: Downloaded the 507x404 PNG and viewed it. It shows YAM 2.5-dev [OS4/PPC] with folder list, message list and the About YAM window ('Yet Another Mailer', (c) 1995-2000 Marcel Beck, YAM Open Source Team).",
+  "sources": [
+   "https://commons.wikimedia.org/wiki/File:YAM_screenshot.png",
+   "https://en.wikipedia.org/wiki/YAM_(software)",
+   "https://github.com/jens-maus/yam",
+   "https://github.com/jens-maus/yam/releases",
+   "https://github.com/sba1/simplemail",
+   "https://aminet.net/package/comm/yam/YAM29p1-MorphOS",
+   "https://commodore-news.com/news/item/6775/en",
+   "https://amiga-news.de/en/news/AN-2000-12-00384-EN.html",
+   "https://commons.wikimedia.org/wiki/File:YAM_screenshot.png"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "cyberstorm",
+  "fields": {
+   "year": 1994,
+   "what": "A3000/A4000 CPU-slot 68040 and 68060 boards: the A4000-only Mk I (1994, 68060 version 1995), the Mk II (1996) with an optional SCSI-2 module, and the Mk III (about 1998), a 68060 board with onboard Wide SCSI derived from the CyberStorm PPC."
+  },
+  "summary": "Research update: year, what",
+  "reason": "The first CyberStorm appeared in 1994, not 1993, per the Amiga Hardware Database and contemporary reviews. The rewrite dates each Mark and corrects the implication that the original fitted the A3000. A clean high-res Mk III scan from the Amiga Hardware Database is available with photographer credit, but the site states no licence, so treat it like the existing DraCo photo.\n\nResearch notes —\ncatalogue_fit: hw-accel / component / historic is fine. Year should be 1994: the Amiga Hardware Database dates the original CyberStorm (A4000 CPU-slot, 68040/40) to 1994 and the 68060 version to 1995, Mk II to 1996 and Mk III to 1998. Nothing supports 1993.\ndescription: Essentially right. The Mk I was an A4000 CPU-slot module (68040, then 68060 at 50 MHz) with an optional SCSI module. The Mk II (1996) added A3000 support via the CPU slot (the A3000 may need the INT2 mod for SCSI). The Mk III (about 1998) is a CyberStorm PPC without the PowerPC: a 68060 with an onboard Symbios 53C770 Wide SCSI controller. A light rewrite adds dates and the Mk I's A4000-only nature.\nurl: phase5 is defunct and there is no official site, so null is correct.\ngoogle: 'CyberStorm Amiga' returns this board family. 'CyberStorm' alone is ambiguous (games, PPC version), so the 'phase5' prefix in the name is good.\nimage: No current image. Proposed the Amiga Hardware Database high-res photo of the CyberStorm Mk III (1434x701, photo by Michael Rubisch): a clean flatbed scan showing the XC68060RC50 and the Symbios 53C770. Same source and credit style as the catalogue's DraCo image. The licence is not stated on the site.",
+  "sources": [
+   "https://amiga.resource.cx/exp/cyberstorm1",
+   "https://amiga.resource.cx/exp/cyberstorm2",
+   "https://amiga.resource.cx/exp/cyberstorm3",
+   "https://www.math.uh.edu/~barrett/data/all/CyberStorm68060",
+   "https://bigbookofamigahardware.com/amigareport/www.amigareport.com/ar508/news29.html"
+  ]
+ },
+ {
+  "type": "image",
+  "entry_id": "cyberstorm",
+  "image_url": "https://amiga.resource.cx/photos/gallery/cyberstorm3.jpg",
+  "image_credit": "Photo: Michael Rubisch / Amiga Hardware Database",
+  "image_source_page": "https://amiga.resource.cx/photos/cyberstorm3,1",
+  "summary": "New image proposal",
+  "reason": "The first CyberStorm appeared in 1994, not 1993, per the Amiga Hardware Database and contemporary reviews. The rewrite dates each Mark and corrects the implication that the original fitted the A3000. A clean high-res Mk III scan from the Amiga Hardware Database is available with photographer credit, but the site states no licence, so treat it like the existing DraCo photo.\n\nImage: No current image. Proposed the Amiga Hardware Database high-res photo of the CyberStorm Mk III (1434x701, photo by Michael Rubisch): a clean flatbed scan showing the XC68060RC50 and the Symbios 53C770. Same source and credit style as the catalogue's DraCo image. The licence is not stated on the site.\nLicence: Not stated (Amiga Hardware Database contributor photo, used with credit as for the DraCo entry)\nVerified: Downloaded the 1434x701 JPEG and viewed it. It shows the CyberStorm Mk III board with Motorola XC68060RC50, Symbios Logic 53C770 and four SIMM sockets; AHD captions it 'Phase 5 Digital Products CyberStorm Mk3 front side'.",
+  "sources": [
+   "https://amiga.resource.cx/photos/cyberstorm3,1",
+   "https://amiga.resource.cx/exp/cyberstorm1",
+   "https://amiga.resource.cx/exp/cyberstorm2",
+   "https://amiga.resource.cx/exp/cyberstorm3",
+   "https://www.math.uh.edu/~barrett/data/all/CyberStorm68060",
+   "https://bigbookofamigahardware.com/amigareport/www.amigareport.com/ar508/news29.html"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "amos",
+  "fields": {
+   "by": "François Lionet (with Constantin Sotiropoulos)",
+   "what": "The BASIC dialect for games and multimedia: AMOS (1990) and AMOS Professional (1992), published by Mandarin/Europress. AMOS Pro's source was released by its author under the MIT licence in 2020, and he now builds AOZ Studio, a transpiling modern AMOS targeting web and PC. New AMOS games still appear."
+  },
+  "summary": "Research update: by, what",
+  "reason": "The text now says what AMOS actually is (a BASIC for games), dates both versions, and names the 2020 MIT source release instead of the vague 'source was released'. Wikipedia credits Constantin Sotiropoulos as co-developer, so he is added to 'by'. The image is fine to keep, but its credit line may mislabel an AMOS 1.x editor as AMOS Professional.\n\nResearch notes —\ncatalogue_fit: dev / tool / 1990 right: AMOS The Creator came out in 1990 and AMOS Professional in 1992. 'limited' is reasonable for a scene still producing games, plus a niche commercial successor.\ndescription: Mostly right but vague. AMOS was written by François Lionet with Constantin Sotiropoulos and published by Mandarin/Europress. Clickteam released the AMOS 1.x sources under a BSD-style licence in about 2000. AMOS Pro's sources were made public in 2012, and Lionet officially released them under the MIT licence on 26 April 2020. AMOS 2 became AOZ Studio in 2020; version 1 shipped in 2022 and 'AOZ Studio AI' was announced in September 2024.\nurl: https://aoz.studio returns 200 and redirects to https://www.aoz.studio/, the genuine AOZ site (a Wix site). Keep.\ngoogle: 'AMOS Amiga' returns this. 'AMOS' alone is very ambiguous (the biblical prophet, the SPSS AMOS statistics package, Tori Amos), but the name 'AMOS & AOZ Studio' plus 'what' is clear enough.\nimage: The current image (720x568) is an empty AMOS editor with the teal 'AMOS' title bar, which looks like AMOS The Creator/1.3 rather than AMOS Professional. The credit says 'AMOS Professional screenshot', so the credit wording may be off. It is relevant and usable, so keep it. The Wikipedia AMOS Pro screenshot is non-free and small, and no freely licensed alternative was found.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/AMOS_(programming_language)",
+   "https://morphos.aminet.net/package/dev/amos/AMOSProfessional",
+   "https://amiga-news.de/en/news/AN-2020-09-00028-EN.html",
+   "https://www.aoz.studio/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "asmone",
+  "fields": {
+   "by": "HiSoft (Devpac), Rune Gram-Madsen (ASM-One), AsmPro team",
+   "what": "The native on-Amiga assembler environments of the late 1980s and 1990s: HiSoft's commercial Devpac, Rune Gram-Madsen's ASM-One (1990, published by DMV) and its spin-offs, each combining editor, assembler, debugger and monitor in one program. ASM-One 1.48 and the open-sourced AsmPro survive as freeware on Aminet."
+  },
+  "summary": "Research update: by, what",
+  "reason": "'various' is replaced with the actual makers. The description now reflects that Devpac predates the 1990s, and that both ASM-One and the open-sourced AsmPro remain freely downloadable from Aminet. The year is left at 1990, but 1988 would be justified if the entry should date its oldest member, Devpac.\n\nResearch notes —\ncatalogue_fit: dev / tool / historic fits. Year is unsure: ASM-One was written in 1990 and published by DMV in 1991, but HiSoft's Devpac Amiga predates it (Devpac Amiga Version 2 is dated 1988). Left at 1990 because the entry leads with ASM-One; 1988 would be defensible if the year should cover the whole group.\ndescription: 'by: various' can be made concrete: HiSoft (Devpac), Rune Gram-Madsen (ASM-One, later extended by TFA up to v1.48 in 2002) and the AsmPro team. AsmPro's source was opened in 2000 (V1.16f) and is on Aminet with the 1.18 source. 'of the 1990s' slightly misses Devpac's late-1980s origin.\nurl: There is no single official site for a bundled entry; ASM-One and AsmPro live on Aminet. Null is correct.\ngoogle: 'ASM-One' returns the Amiga assembler (Aminet, reviews). 'Devpac' is shared with HiSoft's Spectrum and Atari ST versions. The entry name is clear.\nimage: No current image and no freely licensed screenshot found on Commons. Aminet screenshots exist, but their licence is unclear. No image proposed.",
+  "sources": [
+   "https://aminet.net/package/dev/asm/ASM-One",
+   "https://aminet.net/package/dev/asm/AsmPro1.18src",
+   "https://en.everybodywiki.com/ASM-One_Macro_Assembler",
+   "https://www.computinghistory.org.uk/det/53207/Devpac-Amiga-Version-2/",
+   "https://en.wikipedia.org/wiki/HiSoft_Systems"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "aros68k",
+  "fields": {
+   "year": 2011,
+   "by": "AROS community (68k port by Jason McMullan, Kickstart replacement by Toni Wilen)",
+   "url": "https://aros.sourceforge.io/"
+  },
+  "summary": "Research update: year, by, url",
+  "reason": "AROS 68k was first released in 2011 as the result of the Kickstart-replacement bounty, not in 2007, so the year is corrected. The credit now names the people who made the port and the ROM. The https://www.aros.org link currently shows a certificate warning, so the SourceForge-hosted official site is suggested instead.\n\nResearch notes —\ncatalogue_fit: os / amigalike / active fit. Year 2007 is wrong. The m68k port and Kickstart-replacement bounty ran from 2009, and Toni Wilen completed its second stage in March 2011. Wikipedia dates the release to 31 March 2011, and the AROS/68k distribution with a WinUAE ROM went into the nightlies in 2011.\ndescription: Accurate in substance. 'by' could credit the key people: Jason McMullan did the m68k port and Toni Wilen did the Kickstart-replacement bounty.\nurl: https://www.aros.org fails TLS: its certificate is for secureprojects.sourceforge.net, so browsers show a warning; plain http://www.aros.org loads. https://aros.sourceforge.io serves the official AROS site with a valid certificate (200). Proposed switching to it, or keep http://www.aros.org if the owner prefers the canonical domain.\ngoogle: 'AROS 68k' returns AROS pages, AROS Vision/AROS One 68k distributions and wikibooks. No ambiguity.\nimage: The current 860x645 screenshot is an AROS One 68k desktop (a 68k AROS distribution) with Wanderer menus and FinalWriter. It is clean, relevant and representative. Keep.",
+  "sources": [
+   "https://amiga-news.de/en/news/AN-2010-11-00027-EN.html",
+   "https://amiga-news.de/en/news/AN-2011-03-00042-EN.html",
+   "https://amiga-news.de/en/news/AN-2009-12-00012-EN.html",
+   "https://en.wikibooks.org/wiki/Aros/Platforms/68k_support",
+   "https://en.wikipedia.org/wiki/AROS",
+   "https://aros.sourceforge.io/"
+  ]
+ },
+ {
+  "type": "change",
+  "entry_id": "draco",
+  "fields": {
+   "what": "A professional Amiga-compatible non-linear video editing workstation: 68060 (some 68040) at 50 MHz, unified memory to 128 MB, and no Commodore custom chipset at all. It ran AmigaOS 3.1 from an A3000 Kickstart with a modified SetPatch and drove MacroSystem's MovieShop software, with the Altais graphics card and video boards on fast DracoDirect slots beside five Zorro II slots."
+  },
+  "summary": "Research update: what",
+  "reason": "The DraCo entry is accurate. The only proposed tweak spells out the bus: Zorro II slots for ordinary cards plus DracoDirect local-bus slots for graphics and video, which is what made the machine fast. The year, status and image are all fine.\n\nResearch notes —\ncatalogue_fit: hw-ng / compatible / historic / 1994 correct per Wikipedia: introduced in 1994 at US$14,990, supported until 2000.\ndescription: Accurate per Wikipedia: Eltanin 68060 CPU card (some 68040) at 50 MHz, up to 128 MB, no custom chips, A3000 Kickstart 3.1 with a different SetPatch, 16 people in nine months. One refinement: the Rastaban backplane has five Zorro II slots plus three DracoDirect local-bus slots for the Altais graphics card and video boards. 'Proprietary DraCoBus' is a common name, but it misses the Zorro II slots. Small rewrite proposed.\nurl: MacroSystem is defunct and there is no official site, so null is correct.\ngoogle: 'DraCo Amiga' returns this machine. 'Draco' alone is ambiguous (constellation, Harry Potter, the Draco programming language), but 'MacroSystem DraCo' is clear.\nimage: The current 800x343 photo of the DraCo main board (Amiga Hardware Database, Tord and Valeria Magnussen) is sharp and relevant. A tower photo exists on Wikipedia (DraCo.png), but its licence is unverified. Keep.",
+  "sources": [
+   "https://en.wikipedia.org/wiki/DraCo",
+   "https://amiga.resource.cx/mod/draco.html",
+   "https://netbsd.org/docs/Hardware/Machines/MacroSystem"
+  ]
+ },
+ {
   "type": "new",
   "entry_id": "",
   "fields": {
