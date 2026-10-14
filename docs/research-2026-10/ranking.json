@@ -1,0 +1,3322 @@
+[
+ {
+  "id": "settlement2009",
+  "name": "2009 Amiga Inc. v. Hyperion settlement",
+  "category": "brand",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Sept 30 2009 settlement: Hyperion owns OS4, perpetual 3.1 licence; basis of later litigation. https://www.osnews.com/story/22360/hyperion-amiga-inc-reach-settlement-all-legal-issues-resolved/",
+  "note": null
+ },
+ {
+  "id": "aros",
+  "name": "AROS Research Operating System",
+  "category": "os",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Wikipedia article, large amiga.org/EAB/amiga-news presence, Icaros/AROS One/ApolloOS bases",
+  "note": null
+ },
+ {
+  "id": "amiberry",
+  "name": "Amiberry",
+  "category": "emu",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "De facto Amiga emulator for Raspberry Pi/ARM/macOS/Linux; very active GitHub, constant EAB/r/amiga/Batocera mentions, amiga-news coverage",
+  "note": null
+ },
+ {
+  "id": "a1000",
+  "name": "Amiga 1000",
+  "category": "hw-classic",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Flagship launch machine; large Wikipedia article, thousands of EAB/amiga.org threads",
+  "note": null
+ },
+ {
+  "id": "a1200",
+  "name": "Amiga 1200",
+  "category": "hw-classic",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Key AGA machine, huge community base, EAB/amiga.org core topic",
+  "note": null
+ },
+ {
+  "id": "a2000",
+  "name": "Amiga 2000",
+  "category": "hw-classic",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Major Wikipedia article, Zorro-II/video-toaster machine, very frequent EAB topic",
+  "note": null
+ },
+ {
+  "id": "a500",
+  "name": "Amiga 500",
+  "category": "hw-classic",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Best-selling Amiga; huge Wikipedia article and community presence",
+  "note": null
+ },
+ {
+  "id": "amigaforever",
+  "name": "Amiga Forever",
+  "category": "distro",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Cloanto's legal ROM/OS distribution; Wikipedia article, ubiquitous on EAB/r/amiga; the standard legal source of Kickstarts.",
+  "note": null
+ },
+ {
+  "id": "os1x",
+  "name": "AmigaOS / Workbench 1.x",
+  "category": "os",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Core Amiga OS; Wikipedia AmigaOS version history, ubiquitous on EAB/amiga.org",
+  "note": null
+ },
+ {
+  "id": "os3x",
+  "name": "AmigaOS 3.0 / 3.1",
+  "category": "os",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "3.0/3.1 the definitive classic OS; Kickstart 40.68 ubiquitous in EAB/WinUAE threads",
+  "note": null
+ },
+ {
+  "id": "os32",
+  "name": "AmigaOS 3.2",
+  "category": "os",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Wikipedia version history; AmigaOS 3.2 massively discussed on EAB/r/amiga/amiga-news since release and updates",
+  "note": null
+ },
+ {
+  "id": "aminet",
+  "name": "Aminet",
+  "category": "pres",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "World's largest Amiga software archive since 1992, globally mirrored; central to the scene. https://aminet.net https://en.wikipedia.org/wiki/Aminet",
+  "note": null
+ },
+ {
+  "id": "cbm-bankrupt",
+  "name": "Commodore bankruptcy",
+  "category": "brand",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Commodore went bankrupt April 1994; led to Escom, Gateway and the long IP saga. https://en.wikipedia.org/wiki/Commodore_International",
+  "note": null
+ },
+ {
+  "id": "commodore2025",
+  "name": "Commodore returns",
+  "category": "brand",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Christian Simpson relaunched Commodore brand 2025 (C64 Ultimate, Bill Herd et al). https://www.recalbox.com/blog/2025-06-29-rachat-commodore-lets-buy-retrogaming-actus-news/",
+  "note": "Not Amiga-specific; Amiga trademark held by Amiga Corporation."
+ },
+ {
+  "id": "eab",
+  "name": "English Amiga Board (EAB)",
+  "category": "comm",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "English Amiga Board: main English-language Amiga forum since 2001; hosts HOL/AMR, Retroplay. https://eab.abime.net",
+  "note": null
+ },
+ {
+  "id": "mui",
+  "name": "Magic User Interface (MUI)",
+  "category": "shell",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Wikipedia article; standard GUI toolkit for OS3, MorphOS, AROS, OS4; huge ecosystem on Aminet/OS4Depot",
+  "note": "MUI 1.0 released 1992-93; ok"
+ },
+ {
+  "id": "mister",
+  "name": "MiSTer FPGA",
+  "category": "hw-fpga",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "MiSTer has the most active Amiga FPGA ecosystem; EAB, Reddit, YouTube extensive",
+  "note": null
+ },
+ {
+  "id": "pistorm",
+  "name": "PiStorm",
+  "category": "hw-accel",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "PiStorm is the dominant low-cost Pi-based accelerator; huge Reddit/EAB/YouTube coverage",
+  "note": null
+ },
+ {
+  "id": "settlement2026",
+  "name": "The 2026 settlement",
+  "category": "brand",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Signed June 5 2026: Amiga Corp owns classic 3.x, Hyperion keeps OS4; 68K handover end 2027. https://www.generationamiga.com/2026/08/04/hyperion-and-amiga-reach-settlement-over-amigaos-rights-and-development/",
+  "note": "Secondary sources only; OSNews piece describes the 2009 deal."
+ },
+ {
+  "id": "demoscene",
+  "name": "The Amiga demoscene",
+  "category": "comm",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Core Amiga culture from 1988; Demozoo/Pouet. https://en.wikipedia.org/wiki/Demoscene https://demozoo.org",
+  "note": null
+ },
+ {
+  "id": "trackers",
+  "name": "Trackers & the MOD format",
+  "category": "comm",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Ultimate Soundtracker 1987 begat MOD/ProTracker; pt2-clone keeps it live. https://github.com/8bitbubsy/pt2-clone https://en.wikipedia.org/wiki/Module_file",
+  "note": null
+ },
+ {
+  "id": "uae",
+  "name": "UAE",
+  "category": "emu",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Original Unix Amiga Emulator (Bernd Schmidt); ancestor of nearly all emulators",
+  "note": null
+ },
+ {
+  "id": "vampirev2",
+  "name": "Vampire V2 accelerators",
+  "category": "hw-accel",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Vampire V2 most-sold modern accelerator line; massive EAB/YouTube/Reddit coverage",
+  "note": null
+ },
+ {
+  "id": "whdload",
+  "name": "WHDLoad",
+  "category": "pres",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Installs thousands of floppy games/demos to HD via slaves; backbone of modern Amiga play incl. Amiberry/MiSTer. https://en.wikipedia.org/wiki/WHDLoad https://www.whdload.de",
+  "note": null
+ },
+ {
+  "id": "winuae",
+  "name": "WinUAE",
+  "category": "emu",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Dominant Windows emulator, thousands of EAB threads, actively developed",
+  "note": null
+ },
+ {
+  "id": "workbench",
+  "name": "Workbench",
+  "category": "shell",
+  "current": 5,
+  "proposed": 5,
+  "confidence": "high",
+  "evidence": "Wikipedia 'Workbench (AmigaOS)' large article; Amiga's identity",
+  "note": "Overlaps with os1x (Workbench 1.x) and the OS version entries"
+ },
+ {
+  "id": "a4000",
+  "name": "Amiga 4000",
+  "category": "hw-classic",
+  "current": 4,
+  "proposed": 5,
+  "confidence": "medium",
+  "evidence": "en.wikipedia.org/wiki/Amiga_4000 plus separate A4000T article; flagship AGA Commodore desktop, ~11k units Germany. Iconic but not A500-level. https://en.wikipedia.org/wiki/Amiga_4000",
+  "note": null
+ },
+ {
+  "id": "os2x",
+  "name": "AmigaOS 2.x",
+  "category": "os",
+  "current": 4,
+  "proposed": 5,
+  "confidence": "medium",
+  "evidence": "Wikipedia AmigaOS version history; OSNews 'AmigaOS 2: the greatest upgrade'; the 2.04 ROM shipped in A500+/A600/A2000. https://www.osnews.com/story/145337/amigaos-2-the-greatest-upgrade/",
+  "note": null
+ },
+ {
+  "id": "p96",
+  "name": "P96 (Picasso96)",
+  "category": "tech",
+  "current": 4,
+  "proposed": 5,
+  "confidence": "medium",
+  "evidence": "Picasso96 is the RTG standard for AmigaOS 4, WinUAE, Amiga Forever and PiStorm; covered in Wikipedia 'Retargetable graphics' and amiga-news 2001. https://en.wikipedia.org/wiki/Retargetable_graphics",
+  "note": null
+ },
+ {
+  "id": "amikit",
+  "name": "AmiKit",
+  "category": "distro",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "amiga-news.de covered AmiKit releases 2008-2024 (v1.5 to 12.6, Win/Mac/Linux/PiStorm). https://amiga-news.de/en/news/AN-2024-09-00029-EN.html",
+  "note": null
+ },
+ {
+  "id": "os41fe",
+  "name": "AmigaOS 4.1 Final Edition",
+  "category": "os",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "amiga-news coverage of FE release Dec 2014, Update 1 2016, Update 2 2020; Hyperion flagship OS for next-gen. https://amiga-news.de/en/news/AN-2014-12-00028-EN.html",
+  "note": null
+ },
+ {
+  "id": "amigavision",
+  "name": "AmigaVision",
+  "category": "distro",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Actively released game/demo launcher (formerly MegaAGS) across MiSTer, Pocket, emulators, real HW; MiSTer forum release threads. https://www.misterfpga.org/viewtopic.php?p=106466",
+  "note": null
+ },
+ {
+  "id": "minimig",
+  "name": "Minimig",
+  "category": "hw-fpga",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Own English Wikipedia article (Dennis van Weeren FPGA Amiga, GPL 2007); ancestor of MiSTer Amiga core. https://en.wikipedia.org/wiki/Minimig",
+  "note": null
+ },
+ {
+  "id": "morphos3",
+  "name": "MorphOS 3.x",
+  "category": "os",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "MorphOS 3.x is the current series (Wikipedia MorphOS article; PowerPC Macs, G5 support in 3.2); regular amiga-news and OSNews coverage. https://en.wikipedia.org/wiki/MorphOS",
+  "note": null
+ },
+ {
+  "id": "pistorm32",
+  "name": "PiStorm32-Lite",
+  "category": "hw-accel",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "PiStorm32-Lite: Emu68 on Pi, up to 3 GHz A1200; The Register, Generation Amiga coverage, widely sold. https://www.theregister.com/2024/02/12/pistorm_accelerated_amiga_pi/",
+  "note": null
+ },
+ {
+  "id": "rtg",
+  "name": "RTG — Retargetable Graphics",
+  "category": "tech",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia 'Retargetable graphics' article covers concept; P96/CGX are the implementations that carry the weight. https://en.wikipedia.org/wiki/Retargetable_graphics",
+  "note": null
+ },
+ {
+  "id": "scorpion",
+  "name": "Scorpion Engine",
+  "category": "dev",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "indieretronews and amiga-news cover Scorpion Engine; used for Akumajou Dracula AGA, Wonderboy 1200 and others; big in new games scene. https://indieretronews.com/2019/08/the-scorpion-engine-next-best-creation.html",
+  "note": null
+ },
+ {
+  "id": "newgames",
+  "name": "The new games scene 2015–2026",
+  "category": "soft",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Steady stream of new releases: amiga-news 2025 items (Settlers II, Phantom Leap, Freak-Out), Amiga Future reviews. https://amiga-news.de/en/news/AN-2025-10-00074-EN.html",
+  "note": null
+ },
+ {
+  "id": "v4sa",
+  "name": "Vampire V4 Standalone",
+  "category": "hw-fpga",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "amiga-news covered Vampire V4 Standalone 2017-2022 (first boot, Amiga 34 debut, 549 EUR, I/O board). https://amiga-news.de/en/news/AN-2019-09-00043-EN.html",
+  "note": null
+ },
+ {
+  "id": "wayfarer",
+  "name": "Wayfarer",
+  "category": "soft",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "amiga-news covers Wayfarer releases 2020-2024 (WebKitGTK rebase through 2.44); the only modern MorphOS browser. https://amiga-news.de/en/news/AN-2024-10-00080-EN.html",
+  "note": null
+ },
+ {
+  "id": "amigadebug",
+  "name": "amiga-debug (VS Code)",
+  "category": "dev",
+  "current": 5,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Bartman's VS Code extension: many amiga-news release posts 2022-23, Evoke 2019 talk; de facto modern C/C++ workflow. https://amiga-news.de/en/news/AN-2023-05-00069-EN.html",
+  "note": null
+ },
+ {
+  "id": "aeon",
+  "name": "A-EON Technology & AmigaKit",
+  "category": "brand",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "A-EON/AmigaKit: AmigaOne X1000/X5000, Tabor; main OS4 hardware vendor. https://www.amigakit.com/history https://amiga-news.de/en/news/AN-2022-03-00067-EN.html",
+  "note": "Founding year 2009 not confirmed; merges A-EON and AmigaKit."
+ },
+ {
+  "id": "aca12xx",
+  "name": "ACA 12xx family",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "ACA 1221/1233/1234 widespread A1200 accelerators; Individual Computers sales",
+  "note": null
+ },
+ {
+  "id": "aca500",
+  "name": "ACA500plus",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "ACA500plus very common A500 expansion; widely discussed",
+  "note": null
+ },
+ {
+  "id": "ahi",
+  "name": "AHI — Audio Hardware Interface",
+  "category": "tech",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Standard audio abstraction on AmigaOS 3/4/MorphOS/AROS; near-ubiquitous, Wikipedia mention.",
+  "note": null
+ },
+ {
+  "id": "ammx",
+  "name": "AMMX & the Apollo 68080",
+  "category": "tech",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Apollo 68080 SIMD extension; highly discussed in Vampire context.",
+  "note": null
+ },
+ {
+  "id": "amissl",
+  "name": "AmiSSL",
+  "category": "tech",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Used by almost all modern networked Amiga software; active GitHub repo, widely discussed.",
+  "note": null
+ },
+ {
+  "id": "a3000",
+  "name": "Amiga 3000",
+  "category": "hw-classic",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia article, first 32-bit ECS/Workbench 2.0 machine, much EAB discussion",
+  "note": null
+ },
+ {
+  "id": "a600",
+  "name": "Amiga 600",
+  "category": "hw-classic",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia article, popular model, many EAB threads (IDE, PCMCIA)",
+  "note": null
+ },
+ {
+  "id": "cd32",
+  "name": "Amiga CD32",
+  "category": "hw-classic",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia article, 1993 console, strong community and Akiko/Lotus/retro coverage",
+  "note": null
+ },
+ {
+  "id": "events",
+  "name": "Amiga37 / 38 / 39 / 40",
+  "category": "comm",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Amiga37 (2022), Amiga38 (Oct 2023, Moenchengladbach), Amiga40 (Oct 2025) plus UK/Silicon Valley events. https://theoasisbbs.com/events/amiga40-germany",
+  "note": "Aggregate; Amiga39 unconfirmed; year range 2022 to 2025 should be checked."
+ },
+ {
+  "id": "amigados",
+  "name": "AmigaDOS",
+  "category": "shell",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "AmigaDOS/AmigaDOS manual; Wikipedia article; core subsystem of every Amiga OS",
+  "note": "Overlaps with amigashell and os entries; AmigaDOS originated in 1985 (TRIPOS port, Metacomco)"
+ },
+ {
+  "id": "os314",
+  "name": "AmigaOS 3.1.4",
+  "category": "os",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia version history; 3.1.4 first classic update since 3.9, widely discussed on EAB/amiga.org",
+  "note": null
+ },
+ {
+  "id": "os40",
+  "name": "AmigaOS 4.0",
+  "category": "os",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia article; widely discussed (controversy, A1/Sam/X1000); amiga.org and amiga-news heavy",
+  "note": null
+ },
+ {
+  "id": "a1222",
+  "name": "AmigaOne A1222 Plus",
+  "category": "hw-ng",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "A1222 Plus Tabor: pre-reg Dec 2019, production done Mar 2024, 1199 EUR; amiga-news coverage",
+  "note": "Year 2024 fits shipping; project dates from 2019"
+ },
+ {
+  "id": "x1000",
+  "name": "AmigaOne X1000",
+  "category": "hw-ng",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "A-EON X1000 Nemo, flagship OS4 machine; Wikipedia article, heavy coverage",
+  "note": null
+ },
+ {
+  "id": "x5000",
+  "name": "AmigaOne X5000/20",
+  "category": "hw-ng",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "AmigaOne X5000/20, OS4.1 FE flagship; major community coverage",
+  "note": null
+ },
+ {
+  "id": "a6000",
+  "name": "Apollo A6000 \"Unicorn\"",
+  "category": "hw-fpga",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wide press: Tom's Hardware, TechSpot, Time Extension, Bonedo covered A6000 (A600-style FPGA, 999 EUR batches 2025). https://www.techspot.com/news/109548-apollo-a6000-reimagines-legendary-amiga-modern-power.html",
+  "note": null
+ },
+ {
+  "id": "amigagcc",
+  "name": "Bebbo's amiga-gcc",
+  "category": "dev",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Bebbo's GCC 6.5/13 toolchain widely used for modern Amiga C/C++ (GitHub 500+ stars), VS Code integrations, EAB threads.",
+  "note": null
+ },
+ {
+  "id": "classicwb",
+  "name": "ClassicWB",
+  "category": "distro",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Very widely used WB 3.x HDF/UAE setups; many EAB threads, long-standing staple of emulation setups.",
+  "note": null
+ },
+ {
+  "id": "cloanto",
+  "name": "Cloanto acquires the OS copyrights",
+  "category": "brand",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Cloanto (Amiga Forever) holds copyrights to works up to 1993 (completed 2012), trademarks 2019. https://amiga-news.de/en/news/AN-2015-02-00027-EN.html https://en.wikipedia.org/wiki/Amiga,_Inc.",
+  "note": "Year 2018 wrong: copyrights c.2012, trademarks 2019 (via C-A Acquisition)."
+ },
+ {
+  "id": "parties",
+  "name": "Demoparties: Revision, Gerp & others",
+  "category": "comm",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Revision (Saarbruecken, since 2011, largest demoparty) has Amiga compos; Gerp is a Swedish party. https://archive.revision-party.net/about/ https://amiga-news.de/en/news/AN-2025-02-00028-EN.html",
+  "note": "Aggregate of several parties."
+ },
+ {
+  "id": "demozoo",
+  "name": "Demozoo & Pouët",
+  "category": "pres",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Demozoo (2011) is the main scene database; Pouet (2000) the demo-rating site; Amiga heavily covered. https://demozoo.org https://www.pouet.net",
+  "note": "Combines two sites with different founding years (Pouet 2000, Demozoo 2011)."
+ },
+ {
+  "id": "dopus4",
+  "name": "Directory Opus 4",
+  "category": "shell",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia Directory Opus article; most-used file manager 1990s; Aminet; GPL release (DOpus 4.18)",
+  "note": null
+ },
+ {
+  "id": "magellan",
+  "name": "Directory Opus Magellan",
+  "category": "shell",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia Directory Opus 5 article; Magellan 1996, open sourced 2012; very widely used on classic and MorphOS/AROS",
+  "note": null
+ },
+ {
+  "id": "eabfs",
+  "name": "EAB File Server & Retroplay packs",
+  "category": "pres",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "EAB file server at grandis.nu hosts Retroplay WHDLoad packs, used by HstWB/Amiberry setups. https://github-wiki-see.page/m/henrikstengaard/hstwb-installer/wiki/Prepare-WHDLoad-Packs",
+  "note": "Two distinct things (EAB FTP and Retroplay packs); year 2005 unverified."
+ },
+ {
+  "id": "emu68",
+  "name": "Emu68",
+  "category": "os",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Core of PiStorm and many 68k accelerators; huge EAB/amiga.org/r/amiga presence; Wikipedia mention",
+  "note": "Year: development began 2018, first public releases 2019-2020"
+ },
+ {
+  "id": "fsuae",
+  "name": "FS-UAE",
+  "category": "emu",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Popular cross-platform emulator by Frode Solheim, widely used; frequent EAB support",
+  "note": null
+ },
+ {
+  "id": "gotek",
+  "name": "Gotek + FlashFloppy",
+  "category": "hw-storage",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Gotek+FlashFloppy ubiquitous floppy replacement, constant EAB/r-amiga threads",
+  "note": "FlashFloppy firmware by Keir Fraser ~2016; Gotek hardware earlier"
+ },
+ {
+  "id": "greaseweazle",
+  "name": "Greaseweazle",
+  "category": "pres",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Keir Fraser's cheap open-source flux reader/writer; WinUAE/FloppyBridge, ADF/SCP/IPF; community default since 2019. https://amiga-news.de/en/news/AN-2019-11-00039-EN.html",
+  "note": null
+ },
+ {
+  "id": "hol",
+  "name": "Hall of Light",
+  "category": "pres",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Hall of Light: long-running game database (screenshots, credits, covers) run by EAB team; main games reference. https://amiga.abime.net",
+  "note": null
+ },
+ {
+  "id": "hollywood",
+  "name": "Hollywood",
+  "category": "dev",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "amiga-news covered Hollywood from 2002 launch to Designer 3.0 (2011) and commercial uses; long-running multi-platform language. https://amiga-news.de/en/news/AN-2002-11-00029-EN.html",
+  "note": null
+ },
+ {
+  "id": "hyperion-contract",
+  "name": "Hyperion contracted for AmigaOS 4",
+  "category": "brand",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Nov 2001 contract made Hyperion the AmigaOS 4 developer with Eyetech/AmigaOne. https://www.theregister.com/2004/03/16/amiga_flogs_off_classic_os/",
+  "note": null
+ },
+ {
+  "id": "ibrowse",
+  "name": "IBrowse",
+  "category": "soft",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia article, long-running commercial browser (v2.x/3.x), heavy EAB/amiga-news coverage; still sold.",
+  "note": null
+ },
+ {
+  "id": "idecf",
+  "name": "IDE-to-CF / SD adapters",
+  "category": "hw-storage",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "CF/SD via IDE adapters are the standard Amiga storage upgrade, ubiquitous on EAB/r-amiga",
+  "note": "Generic adapter, not a product"
+ },
+ {
+  "id": "icaros",
+  "name": "Icaros Desktop",
+  "category": "distro",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Wikipedia article; main AROS distro for years, many amiga-news/EAB threads.",
+  "note": null
+ },
+ {
+  "id": "indivision",
+  "name": "Indivision ECS / AGA",
+  "category": "hw-gfx",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Very popular flicker-fixer, Individual Computers, huge EAB/r-amiga coverage",
+  "note": "Indivision ECS 2008 ok; AGA variant came later (~2013-14)"
+ },
+ {
+  "id": "lorraine",
+  "name": "Lorraine prototype",
+  "category": "hw-classic",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Well-documented Wikipedia/Amiga history; Amiga Corp 1984 prototype, Jay Miner, widely covered (Obligement, Amiga Hall of Light)",
+  "note": null
+ },
+ {
+  "id": "zz9000",
+  "name": "MNT ZZ9000",
+  "category": "hw-gfx",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "MNT ZZ9000 Zorro III RTG/Ethernet/ARM card, very active community, lots of video coverage",
+  "note": null
+ },
+ {
+  "id": "magicwb",
+  "name": "MagicWB, NewIcons & GlowIcons",
+  "category": "shell",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "MagicWB/NewIcons/GlowIcons are universal theming across Amiga; Aminet/OS4Depot, EAB, YouTube heavy",
+  "note": "Three distinct products merged; MagicWB itself dates to ~1996 not 1992; NewIcons 1998; GlowIcons 2003 (OS 3.5+)"
+ },
+ {
+  "id": "mist",
+  "name": "MiST",
+  "category": "hw-fpga",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "MiST major FPGA retro platform with AGA Minimig; heavy EAB/amiga-news coverage",
+  "note": null
+ },
+ {
+  "id": "mirari",
+  "name": "Mirari T1042",
+  "category": "hw-ng",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "amiga-news (Apr/May 2025) and OSNews covered Mirari T1042; first new MorphOS board in years, official in 3.20; not yet widely shipped. https://amiga-news.de/en/news/AN-2025-04-00129-EN.html",
+  "note": null
+ },
+ {
+  "id": "morphos1",
+  "name": "MorphOS 1.x",
+  "category": "os",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Wikipedia MorphOS history; first Pegasos/PowerUP releases",
+  "note": "MorphOS 1.0 first public release was 2002 (Pegasos); 2000 is project start; 1.4.5 widely used 2003-2007"
+ },
+ {
+  "id": "morphos2",
+  "name": "MorphOS 2.x",
+  "category": "os",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Wikipedia MorphOS history; 2.0 (2008) introduced Efika/Mac mini support; amiga-news coverage",
+  "note": null
+ },
+ {
+  "id": "pfs3",
+  "name": "PFS3 / PFS3-AIO",
+  "category": "tech",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Common HDD filesystem; PFS3AIO standard in emulation and CF/SD setups; many threads.",
+  "note": "PFS1 dates to ~1996-97 and PFS3 ~1998; 2018 is PFS3-AIO only."
+ },
+ {
+  "id": "puae",
+  "name": "PUAE / libretro core",
+  "category": "emu",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Libretro core used via RetroArch/Batocera; large user base",
+  "note": null
+ },
+ {
+  "id": "pimiga",
+  "name": "PiMIGA",
+  "category": "distro",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Widely covered turnkey Pi image: Linux Magazine, odd.blog, RetroGameCoders, versions 1 to 5; grey-area content. https://www.linux-magazine.com/Issues/2022/255/PiMiga-1.5",
+  "note": null
+ },
+ {
+  "id": "picasso",
+  "name": "Picasso II / IV",
+  "category": "hw-gfx",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Village Tronic Zorro RTG, Wikipedia article, hundreds of EAB threads, widely used",
+  "note": null
+ },
+ {
+  "id": "poseidon",
+  "name": "Poseidon USB stack",
+  "category": "tech",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Standard USB stack for 68k/PPC (A1200/3000/4000 USB cards); widely discussed.",
+  "note": null
+ },
+ {
+  "id": "magazines",
+  "name": "Print magazines in 2026",
+  "category": "comm",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Amiga Future (since 1998, issue 179 in 2026, bimonthly) and Amiga Addict (UK) still in print. https://dragonbox.de/en-de/amiga-future https://en.wikipedia.org/wiki/Amiga_Addict",
+  "note": null
+ },
+ {
+  "id": "rgbtohdmi",
+  "name": "RGBtoHDMI",
+  "category": "hw-gfx",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Open-source Pi-based RGB->HDMI, widely recommended on r/amiga and EAB",
+  "note": "Not Amiga-specific, year 2019 ok"
+ },
+ {
+  "id": "saga",
+  "name": "SAGA chipset",
+  "category": "tech",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Apollo Core FPGA chipset; heavily discussed (and contested) on EAB/amiga.org; Vampire ecosystem.",
+  "note": null
+ },
+ {
+  "id": "sps",
+  "name": "Software Preservation Society (SPS/CAPS)",
+  "category": "pres",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "SPS (ex-CAPS) founded 2001 by Istvan Fabian; IPF format, ~10,000 games archived. https://efgamp.eu/softpres/ https://en.wikipedia.org/wiki/Amiga_Disk_File",
+  "note": null
+ },
+ {
+  "id": "thea1200",
+  "name": "THEA1200",
+  "category": "hw-fpga",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Mainstream coverage (heise, MusicTech, Guru3D): full-size Amiga 1200 recreation, 25 games, licensed Amiga product. https://heise.de/-10859819",
+  "note": null
+ },
+ {
+  "id": "thea500",
+  "name": "THEA500 Mini",
+  "category": "hw-fpga",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Retro Games THEA500 Mini: widely covered, major retailer sales, YouTube reviews",
+  "note": "THEA500 Mini is Arm SoC + emulation, not FPGA; announced 2021, shipped late 2022"
+ },
+ {
+  "id": "tf12xx",
+  "name": "TerribleFire 12xx family",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "TerribleFire TF1260 etc. popular A1200 accelerators",
+  "note": null
+ },
+ {
+  "id": "tf5xx",
+  "name": "TerribleFire 5xx family",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "TerribleFire TF536 etc. very popular A500 accelerators; EAB threads",
+  "note": null
+ },
+ {
+  "id": "boingball",
+  "name": "The Boing Ball",
+  "category": "comm",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Boing Ball demo (CES 1984) became the Amiga's emblem. https://en.wikipedia.org/wiki/Boing_Ball",
+  "note": null
+ },
+ {
+  "id": "litigation",
+  "name": "The Hyperion litigation era",
+  "category": "brand",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Cloanto/Amiga v Hyperion suit from Dec 2017; Ninth Circuit memorandum June 2025 on standing. https://cdn.ca9.uscourts.gov/datastore/memoranda/2025/06/12/23-35315.pdf",
+  "note": "Suit filed late 2017; settled 2026."
+ },
+ {
+  "id": "whoowns",
+  "name": "Who owns what, August 2026",
+  "category": "brand",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Synthesis of 2026 settlement: Amiga Corp (classic marks/3.x), Hyperion (OS4), Cloanto copyrights to 1993. https://en.wikipedia.org/wiki/Amiga,_Inc.",
+  "note": "Overlaps settlement2026/cloanto."
+ },
+ {
+  "id": "amiganews",
+  "name": "amiga-news.de",
+  "category": "comm",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "amiga-news.de: daily news site since 1998 with English edition and upload digests. https://www.amiga-news.de/en/news/AN-2026-03-00108-EN.html",
+  "note": null
+ },
+ {
+  "id": "peg2",
+  "name": "bplan Pegasos II",
+  "category": "hw-ng",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Pegasos II main MorphOS machine of the 2000s; Wikipedia article, big EAB/amigaworld presence",
+  "note": null
+ },
+ {
+  "id": "dreadengine",
+  "name": "dread engine",
+  "category": "dev",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Doom-style engine on stock A500 covered by amiga-news ('Dread becomes Grind'), Time Extension, IndieRetroNews. https://amiga-news.de/en/news/AN-2022-10-00143-EN.html",
+  "note": null
+ },
+ {
+  "id": "blizzard12xx",
+  "name": "phase5 Blizzard 12xx",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Blizzard 1230/1260 standard A1200 accelerators; Wikipedia and EAB mention",
+  "note": null
+ },
+ {
+  "id": "blizzardppc",
+  "name": "phase5 BlizzardPPC",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Blizzard PPC: phase5 PowerUP accelerators, Wikipedia mention, EAB threads",
+  "note": null
+ },
+ {
+  "id": "cyberstormppc",
+  "name": "phase5 CyberStormPPC",
+  "category": "hw-accel",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "CyberStorm PPC: flagship big-box PowerUP accelerator, constant coverage",
+  "note": null
+ },
+ {
+  "id": "vamiga",
+  "name": "vAmiga",
+  "category": "emu",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Active macOS-native cycle-exact emulator by Dirk Hoffmann; notable on amiga-news/EAB",
+  "note": null
+ },
+ {
+  "id": "vasm",
+  "name": "vasm / vlink",
+  "category": "dev",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Standard cross/native assembler (with vlink) for modern 68k/PPC; used in most new demos/games; frequent EAB mentions.",
+  "note": "vasm development began ~2002 rather than 1998 (low-medium confidence); vlink ~2002 as well."
+ },
+ {
+  "id": "vbcc",
+  "name": "vbcc",
+  "category": "dev",
+  "current": 4,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Standard portable C compiler for 68k/PPC Amiga; widely used in modern dev, huge EAB presence, Aminet downloads.",
+  "note": "Compiler started ~1995; first Amiga releases mid-90s."
+ },
+ {
+  "id": "cdtv",
+  "name": "Commodore CDTV",
+  "category": "hw-classic",
+  "current": 3,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Own English Wikipedia article (April 1991, A500 + CD-ROM, ~25.8k DE / 29k UK sales); precursor to CD32. https://en.wikipedia.org/wiki/CDTV",
+  "note": null
+ },
+ {
+  "id": "cybergraphx",
+  "name": "CyberGraphX",
+  "category": "tech",
+  "current": 3,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Own Wikipedia article: first true-colour RTG (1995, CyberVision64), de facto RTG standard; V5 still used by MorphOS. https://en.wikipedia.org/wiki/CyberGraphX",
+  "note": null
+ },
+ {
+  "id": "gvp",
+  "name": "GVP accelerator families",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Great Valley Products has Wikipedia article; Big Book of Amiga Hardware lists many GVP accelerators/controllers (A530, G-Force). https://en.wikipedia.org/wiki/Great_Valley_Products",
+  "note": null
+ },
+ {
+  "id": "yam",
+  "name": "YAM & SimpleMail",
+  "category": "soft",
+  "current": 3,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Own Wikipedia article (YAM, since 1995, GPL 2000, 2.9p1 2016); standard Amiga mail client across OS3/OS4/MorphOS/AROS. https://en.wikipedia.org/wiki/YAM_(software)",
+  "note": null
+ },
+ {
+  "id": "cyberstorm",
+  "name": "phase5 CyberStorm 040/060",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Amiga Report reviews call CyberStorm Mk II the most impressive 060 card; phase5 flagship for A3000/A4000. https://bigbookofamigahardware.com/amigareport/www.amigareport.com/ar601/review08.html",
+  "note": null
+ },
+ {
+  "id": "amos",
+  "name": "AMOS & AOZ Studio",
+  "category": "dev",
+  "current": 2,
+  "proposed": 4,
+  "confidence": "high",
+  "evidence": "Own Wikipedia article (AMOS BASIC, Europress 1990, main rival Blitz); AOZ Studio successor with itch.io/RetroGameCoders coverage. https://en.wikipedia.org/wiki/AMOS_(programming_language)",
+  "note": null
+ },
+ {
+  "id": "asmone",
+  "name": "ASM-One, AsmPro & Devpac",
+  "category": "dev",
+  "current": 2,
+  "proposed": 4,
+  "confidence": "medium",
+  "evidence": "Devpac was de facto standard assembler; ASM-One freeware with Aminet and amiga-news coverage; Wikipedia 'Amiga programming languages'. https://aminet.net/package/dev/asm/ASM-One",
+  "note": null
+ },
+ {
+  "id": "morphos320",
+  "name": "MorphOS 3.20",
+  "category": "os",
+  "current": 5,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Point release (May 2026) with Mirari support; amiga-news, OSNews, Generation Amiga covered it but it is an incremental MorphOS update. https://amiga-news.de/en/news/AN-2026-05-00135-EN.html",
+  "note": null
+ },
+ {
+  "id": "aros68k",
+  "name": "AROS 68k",
+  "category": "os",
+  "current": 4,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Wikipedia AROS lists m68k port (A1200, Icaros); ApolloOS fork targets 68k; niche relative to x86 AROS. https://en.wikipedia.org/wiki/AROS_Research_Operating_System",
+  "note": null
+ },
+ {
+  "id": "draco",
+  "name": "MacroSystem DraCo",
+  "category": "hw-ng",
+  "current": 4,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Own Wikipedia article and Big Book of Amiga Hardware entries; niche pro video workstation ($14,990, 1994-2000). https://en.wikipedia.org/wiki/DraCo",
+  "note": null
+ },
+ {
+  "id": "qemu",
+  "name": "QEMU AmigaNG targets",
+  "category": "emu",
+  "current": 4,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "QEMU docs page 'AmigaNG boards' (amigaone/pegasos2/sam460ex); amiga-news 2021 note on OS4 testing; developer-facing niche. https://qemu.org/docs/master/system/ppc/amigang.html",
+  "note": null
+ },
+ {
+  "id": "redpill",
+  "name": "REDPILL",
+  "category": "dev",
+  "current": 4,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "amiga-news covers REDPILL releases 2020-2023 (0.7 to 0.9.17, WHDLoad export); productive but niche freeware kit. https://amiga-news.de/en/news/AN-2022-04-00046-EN.html",
+  "note": null
+ },
+ {
+  "id": "reamiga1200",
+  "name": "ReAmiga 1200",
+  "category": "hw-fpga",
+  "current": 4,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Hackaday and amiga-news (Aug 2018) covered Chucky's A1200 PCB recreation; revisions to 1.7 on Oasis BBS. https://hackaday.com/2018/08/28/recreating-the-amiga-1200-pcb-from-pictures/",
+  "note": null
+ },
+ {
+  "id": "a1200ng",
+  "name": "A1200NG",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "AmigaKit A1200NG ARM-based (Orange Pi) motherboard; announced late 2024, on sale Dec 2024",
+  "note": "Year likely 2024 not 2025; ARM SBC, not FPGA"
+ },
+ {
+  "id": "a314",
+  "name": "A314",
+  "category": "hw-io",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Raspberry Pi Zorro-less A500 accelerator bridge, active GitHub and EAB threads",
+  "note": null
+ },
+ {
+  "id": "a500pp",
+  "name": "A500++ replica board",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "Modern A500 board replica; some EAB threads",
+  "note": "Verify naming and year"
+ },
+ {
+  "id": "a600gs",
+  "name": "A600GS",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "ARM-based A600GS, AmigaKit-linked, amiga-news coverage",
+  "note": "ARM SBC based like A1200NG, not FPGA"
+ },
+ {
+  "id": "aa3000",
+  "name": "AA3000+",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "AA3000+ replica of A3000 board, active community builds",
+  "note": "Verify creator and year"
+ },
+ {
+  "id": "ace",
+  "name": "ACE (Amiga C Engine)",
+  "category": "dev",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Amiga C Engine (AmigaPorts) used by modern C game devs; some tutorials, moderate GitHub interest.",
+  "note": null
+ },
+ {
+  "id": "sam440",
+  "name": "ACube Sam440ep",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "ACube Sam440ep first affordable AmigaOS 4 board; Wikipedia Sam440ep article; EAB/amigaworld threads",
+  "note": null
+ },
+ {
+  "id": "sam460",
+  "name": "ACube Sam460ex",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Sam460ex has Wikipedia article, main OS4 board post-2010",
+  "note": null
+ },
+ {
+  "id": "arosone",
+  "name": "AROS One",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Native x86 AROS distribution, actively maintained; noted on amiga-news and AROS-Exec.",
+  "note": null
+ },
+ {
+  "id": "ambient",
+  "name": "Ambient",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "MorphOS desktop; Wikipedia MorphOS article; amiga-news, regular releases",
+  "note": "Ambient dates to MorphOS 1.x (2002); 2001 is the earliest project mention"
+ },
+ {
+  "id": "amibench",
+  "name": "AmiBench",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "AmiBench: Workbench enhancements bundle from wiki.amiga.org (2024); recent, growing coverage",
+  "note": null
+ },
+ {
+  "id": "amiblitz",
+  "name": "AmiBlitz 3",
+  "category": "dev",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Open-source successor to Blitz Basic 2; active community, many games; GitHub project; EAB threads.",
+  "note": "AmiBlitz 3 open-sourced ~2010; Blitz Basic 2 originated 1993."
+ },
+ {
+  "id": "amiwest",
+  "name": "AmiWest",
+  "category": "comm",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "AmiWest in Sacramento since 1998 (26th in 2023, 27th 2024); longest-running Amiga show. https://theoasisbbs.com/events/amiwest-2024",
+  "note": "Year wrong: shows say 1998, entry says 1996."
+ },
+ {
+  "id": "amibian",
+  "name": "Amibian",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Linux + UAE4ARM Amiga-on-Pi distro by Cosmos; Pi-era EAB/YouTube coverage, since overtaken by Amiberry bundles.",
+  "note": null
+ },
+ {
+  "id": "a4000t",
+  "name": "Amiga 4000T",
+  "category": "hw-classic",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Tower AGA, rare but sought after; modest Wikipedia coverage and EAB threads",
+  "note": null
+ },
+ {
+  "id": "a500p",
+  "name": "Amiga 500 Plus",
+  "category": "hw-classic",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Shortest-lived Amiga model, weak sales; notable mainly for Kickstart 2.04; no standalone Wikipedia article found. https://www.homecomputermuseum.nl/en/collectie/commodore/commodore-a-500-plus/",
+  "note": null
+ },
+ {
+  "id": "amigaasm",
+  "name": "Amiga Assembly (VS Code)",
+  "category": "dev",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "VS Code assembly extension by prb28; widely used by assembly coders, GitHub ~300+ stars.",
+  "note": "Pairs with amiga-debug; consider mutual relation."
+ },
+ {
+  "id": "amr",
+  "name": "Amiga Magazine Rack",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Amiga Magazine Rack: scans and index of Amiga magazines, hosted by EAB/abime team; key for history. https://amr.abime.net",
+  "note": null
+ },
+ {
+  "id": "at95",
+  "name": "Amiga Technologies relaunch",
+  "category": "hw-classic",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Amiga Technologies / Escom relaunch is notable history but entry combines models",
+  "note": "Possibly mixed: Amiga Technologies A1200/A4000T relaunch 1995; Escom-era 1996 overlaps with walker; year/scope slightly fuzzy"
+ },
+ {
+  "id": "amigainc",
+  "name": "Amiga, Inc. (McEwen)",
+  "category": "brand",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Amino Development became Amiga, Inc. (McEwen) in 2000; AmigaOne, OS4 and later disputes. https://en.wikipedia.org/wiki/Amiga,_Inc.",
+  "note": "Deal Dec 31 1999 then renamed; possible overlap with kmos."
+ },
+ {
+  "id": "amigaamp",
+  "name": "AmigaAMP",
+  "category": "soft",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Popular 1990s-2000s MP3 player (WinAmp-style); Aminet staple, active development ongoing.",
+  "note": null
+ },
+ {
+  "id": "os35",
+  "name": "AmigaOS 3.5",
+  "category": "os",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Wikipedia version history; ReAction, first H&P/Amiga Inc update, commonly discussed",
+  "note": "Wikipedia lists 3.5 as 1999 (released Q4 1999/2000); year debatable"
+ },
+ {
+  "id": "os39",
+  "name": "AmigaOS 3.9",
+  "category": "os",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Wikipedia version history; last classic OS from H&P, BoingBag updates, common on EAB",
+  "note": null
+ },
+ {
+  "id": "a1se",
+  "name": "AmigaOne SE",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Eyetech AmigaOne SE, Wikipedia AmigaOne article; first AmigaOS 4 hardware",
+  "note": "Same family as a1xe; could be merged"
+ },
+ {
+  "id": "x5000-40",
+  "name": "AmigaOne X5000/40",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "X5000/40 quad-core variant, discussed alongside X5000/20",
+  "note": "Year 2020 questionable; /40 announced alongside X5000 around 2016-17"
+ },
+ {
+  "id": "a1xe",
+  "name": "AmigaOne XE",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "AmigaOne XE, sold by Eyetech/Hyperion for OS4; Wikipedia AmigaOne article",
+  "note": null
+ },
+ {
+  "id": "forums",
+  "name": "AmigaWorld, Amigans, MorphZone & a1k",
+  "category": "comm",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "AmigaWorld.net, Amigans, MorphZone, a1k.org: active AmigaOS 4/MorphOS/AROS forums. https://amigaworld.net",
+  "note": "Aggregate of several forums with differing start years."
+ },
+ {
+  "id": "amithlon",
+  "name": "Amithlon",
+  "category": "os",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Wikipedia article; amiga-news 2001 coverage; EAB threads on x86 AmigaOS 3.9 emulation-free bootstrapping",
+  "note": null
+ },
+ {
+  "id": "firebird",
+  "name": "Apollo Firebird V4",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Firebird V4 A500/A2000 accelerator; Apollo coverage",
+  "note": null
+ },
+ {
+  "id": "icedrake",
+  "name": "Apollo Icedrake V4",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Icedrake V4 A1200 accelerator; Apollo coverage",
+  "note": null
+ },
+ {
+  "id": "apolloos",
+  "name": "ApolloOS",
+  "category": "os",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "AROS-based, Vampire/Apollo Core 68080; big on Apollo Team forum, EAB debate",
+  "note": null
+ },
+ {
+  "id": "apolloosimg",
+  "name": "ApolloOS system image",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "ApolloOS is the AROS-based m68k image for Vampire V4; used by all V4 owners but niche in the wider community.",
+  "note": null
+ },
+ {
+  "id": "macmini",
+  "name": "Apple Mac mini G4",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "Wikipedia Mac mini notes MorphOS support; OSNews/Macworld call it easiest MorphOS install; niche platform. https://www.macworld.com/article/223588/turn-your-g4-era-mac-into-a-next-gen-amiga.html",
+  "note": null
+ },
+ {
+  "id": "macg4",
+  "name": "Apple Power Mac G4 family",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "MorphOS officially supports specific G4 Macs; amiga-news and MorphOS forum coverage",
+  "note": null
+ },
+ {
+  "id": "macg5",
+  "name": "Apple Power Mac G5",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "MorphOS supports Power Mac G5; active user base",
+  "note": null
+ },
+ {
+  "id": "pbg4",
+  "name": "Apple PowerBook / iBook G4",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "MorphOS supports PowerBook G4 (popular with users); EAB/MorphOS forum coverage",
+  "note": null
+ },
+ {
+  "id": "ags2",
+  "name": "Arcade Game Selector (AGS/AGS2)",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Arcade Game Selector popular for WHDLoad launchers; EAB/amiga.org threads",
+  "note": null
+ },
+ {
+  "id": "betterwb",
+  "name": "BetterWB / BestWB",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Popular WB 3.x pre-install for UAE (Lilliput); moderate EAB presence, below ClassicWB.",
+  "note": null
+ },
+ {
+  "id": "amigashell",
+  "name": "CLI / AmigaShell",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "CLI/Shell; Wikipedia AmigaDOS article section; ubiquitous but tied to AmigaDOS",
+  "note": null
+ },
+ {
+  "id": "checkmate",
+  "name": "Checkmate A1500 Plus",
+  "category": "hw-repair",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "Obscure modern A1500-style board/case; limited EAB/amiga-news coverage; not verified",
+  "note": "Identity/year unclear (Checkmate Digital A1500plus was a 1990s product vs 2019); verify"
+ },
+ {
+  "id": "reaction",
+  "name": "ClassAct / ReAction",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "ClassAct (1996) then ReAction in OS3.5+/OS4; Wikipedia article; EAB/OS4 dev talk",
+  "note": null
+ },
+ {
+  "id": "coffinos",
+  "name": "CoffinOS",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "CoffinOS: Amiga-style preconfigured WinUAE/Amiberry bundle; known on EAB/amiga.org, niche.",
+  "note": null
+ },
+ {
+  "id": "cybervision",
+  "name": "CyberVision 64 / 3D / PPC",
+  "category": "hw-gfx",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Phase5 Zorro RTG cards, Wikipedia mention, much EAB discussion, rare today",
+  "note": null
+ },
+ {
+  "id": "diagrom",
+  "name": "DiagROM",
+  "category": "hw-repair",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Standard repair diagnostic ROM, constantly recommended on EAB/r-amiga",
+  "note": null
+ },
+ {
+  "id": "books",
+  "name": "Documentaries & books",
+  "category": "comm",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Documentary From Bedrooms to Billions: The Amiga Years (2016); plus Amiga books. https://shop.rebellion.com/?p=59427",
+  "note": "Year 2012 questionable: Amiga Years doc is 2016 (first doc 2014)."
+ },
+ {
+  "id": "drawbridge",
+  "name": "DrawBridge / FloppyBridge",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Rob Smith's Arduino Amiga floppy reader/writer + FloppyBridge plugin (WinUAE 4.9+); cheap entry point. https://amiga.robsmithdev.co.uk/ https://github.com/RobSmithDev/ArduinoFloppyDiskReader",
+  "note": null
+ },
+ {
+  "id": "euae",
+  "name": "E-UAE",
+  "category": "emu",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "E-UAE fork widely used on Linux/AmigaOS 4/Mac in 2000s; Wikipedia mention",
+  "note": null
+ },
+ {
+  "id": "enhancer",
+  "name": "Enhancer Software",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "AmigaKit's Enhancer Software for OS 3.x/3.2 Workbench upgrades; sold with AmigaKit hardware.",
+  "note": "Enhancer Software line is older than 2016 (earlier OS 3.x releases); verify first-release year."
+ },
+ {
+  "id": "escom",
+  "name": "Escom / Amiga Technologies",
+  "category": "brand",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Escom bought Commodore assets April 1995, formed Amiga Technologies, re-released A1200/A4000T; bankrupt 1996. https://en.wikipedia.org/wiki/Amiga_4000T",
+  "note": null
+ },
+ {
+  "id": "exotica",
+  "name": "ExoticA, Modland & Kestra BitWorld",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "ExoticA (Amiga game music), Modland (modules), Kestra BitWorld; central to music preservation. https://www.exotica.org.uk",
+  "note": "Aggregate; year 2000 unverified."
+ },
+ {
+  "id": "modernfs",
+  "name": "FAT95, exFAT & NTFS support",
+  "category": "tech",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "FAT95 etc. are common utilities; entry aggregates several tools.",
+  "note": "Grouped entry; FAT95 ~1997, exFAT/NTFS later; year approximate."
+ },
+ {
+  "id": "replay",
+  "name": "FPGA Arcade Replay",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "FPGA Arcade Replay with Amiga core; EAB threads and amiga-news coverage; small run",
+  "note": null
+ },
+ {
+  "id": "gateway",
+  "name": "Gateway 2000 acquisition",
+  "category": "brand",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Gateway 2000 bought Amiga assets 1997, sold to Amino Dec 1999 retaining patents. https://en.wikipedia.org/wiki/Amiga,_Inc._(South_Dakota)",
+  "note": null
+ },
+ {
+  "id": "hstwb",
+  "name": "HstWB Installer",
+  "category": "distro",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Henrik Stengaard's HstWB Installer/Pi image builder; well known among Pi/A500 Mini/real-hardware setup users.",
+  "note": null
+ },
+ {
+  "id": "hxc",
+  "name": "HxC2001 floppy emulators",
+  "category": "hw-storage",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "HxC2001 floppy emulators known to collectors, long EAB history, overshadowed by Gotek",
+  "note": null
+ },
+ {
+  "id": "hyperion2024",
+  "name": "Hyperion under new ownership",
+  "category": "brand",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Dec 18 2024 shareholders appointed Timothy De Groote after largest shareholder bankrupt. https://forum-quelle.hyperion-entertainment.com/viewtopic.php?p=59461",
+  "note": "Announced Jan 2025; year 2024 acceptable."
+ },
+ {
+  "id": "archiveorg",
+  "name": "Internet Archive Amiga collections",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Internet Archive Amiga software library (ADFs, magazine collections); broad reach. https://archive.org/details/softwarelibrary_amiga",
+  "note": "Year unverified."
+ },
+ {
+  "id": "iris",
+  "name": "Iris",
+  "category": "soft",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Search: MorphOS-only IMAP client by jacadcaps, v1.0 Nov 2021 after betas; MorphOS-community importance, coverage on amiga-news.",
+  "note": "MorphOS only; 1.0 released 2021 (betas from ~2019)."
+ },
+ {
+  "id": "kryoflux",
+  "name": "KryoFlux",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Flux imager founded 2010 by SPS members to fund R&D; widely used for IPF/stream capture. https://efgamp.eu/softpres/ https://kryoflux.com",
+  "note": "Year: KryoFlux founded 2010 per efgamp.eu; entry says 2009."
+ },
+ {
+  "id": "lemon",
+  "name": "Lemon Amiga & OpenRetro",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Lemon Amiga: game/music database and forum; sibling of Lemon64; widely referenced. https://www.lemonamiga.com",
+  "note": "Year unverified."
+ },
+ {
+  "id": "patches",
+  "name": "MCP, MultiCX & the patch culture",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "MCP, MultiCX, PowerSnap common in Amiga setups; Aminet; EAB OS patching threads",
+  "note": "Umbrella entry with no single date"
+ },
+ {
+  "id": "mediator",
+  "name": "Mediator PCI & Prometheus",
+  "category": "hw-gfx",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Elbox PCI busboards, key for Voodoo/PCI on A1200/A4000, many EAB threads",
+  "note": "Prometheus is Matay (1998); Mediator 1999 ok"
+ },
+ {
+  "id": "ports",
+  "name": "Modern ports & conversions",
+  "category": "soft",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "Heretic II 2024 for 68k covered by Hyperion and amiga-news.de/en/news/AN-2024-08-00023-EN.html; modern ports are an active scene theme but aggregate entry, lacked other hits.",
+  "note": null
+ },
+ {
+  "id": "psu",
+  "name": "Modern power supplies",
+  "category": "hw-repair",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "PSU replacements frequently discussed in repair threads",
+  "note": "Aggregate"
+ },
+ {
+  "id": "nanomig",
+  "name": "NanoMig",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "NanoMig Minimig on Tang Nano FPGA; github and amiga-news coverage",
+  "note": null
+ },
+ {
+  "id": "national",
+  "name": "National communities",
+  "category": "comm",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Regional communities such as Poland's PPA, Germany's amigaland; regionally strong. https://www.ppa.pl",
+  "note": "Aggregate entry; year 2000 vague."
+ },
+ {
+  "id": "netsurf",
+  "name": "NetSurf",
+  "category": "soft",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Amiga port by Chris Young, active; NetSurf has Wikipedia article; Amiga-specific community use moderate.",
+  "note": "Amiga port dates from ~2008-2009 (2.x), not 2011; NetSurf itself is 2002."
+ },
+ {
+  "id": "cases",
+  "name": "New cases & keyboards",
+  "category": "hw-repair",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Modern case/keyboard clones (Amiga 600/1200 cases, mechanical keyboards), popular but scattered",
+  "note": "Aggregate"
+ },
+ {
+  "id": "os4depot",
+  "name": "OS4Depot, MorphOS Storage & AROS Archives",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Per-OS repositories: OS4Depot (2004), MorphOS Storage (1000+ archives by 2018), AROS Archives (2005). https://amiga-news.de/en/news/AN-2018-11-00037-EN.html",
+  "note": "Aggregate of three archives with different start years (OS4Depot 2004, AROS Archives 2005)."
+ },
+ {
+  "id": "owb",
+  "name": "Odyssey Web Browser",
+  "category": "soft",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Main WebKit-based browser for AmigaOS 4/MorphOS/AROS; frequent amiga-news and EAB threads.",
+  "note": null
+ },
+ {
+  "id": "pcmcia-net",
+  "name": "PCMCIA Ethernet & Wi-Fi",
+  "category": "hw-io",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "PCMCIA network cards (Ariadne, NE2000/Wi-Fi) are common A600/A1200 upgrades",
+  "note": "Aggregate; year ok-ish"
+ },
+ {
+  "id": "podcasts",
+  "name": "Podcasts, YouTube & streaming",
+  "category": "comm",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "The Retro Hour (EP542 in 2026) has frequent Amiga content; Amiga Bill, Everything Amiga, FairLight TV. https://commodore-news.com/news/podcast/4/en/desktop",
+  "note": "Aggregate; no URL; year 2014 unverified."
+ },
+ {
+  "id": "powerup",
+  "name": "PowerUP / WarpOS",
+  "category": "os",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Wikipedia PowerUP/WarpOS content; major in 68k+PPC accelerator era (CyberStorm PPC, Blizzard PPC)",
+  "note": "Combined entry for two competing kernels; year 1997 ok"
+ },
+ {
+  "id": "prisma",
+  "name": "Prisma Megamix",
+  "category": "hw-audio",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Modern Zorro II/III audio card (Prisma Megamix), notable but limited run",
+  "note": null
+ },
+ {
+  "id": "ripple",
+  "name": "RIPPLE IDE & lide.device",
+  "category": "hw-storage",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Recent open-source A500/A600/A1200 IDE project, lide.device widely recommended",
+  "note": "Check year; lide.device ~2022-23"
+ },
+ {
+  "id": "rapidroad",
+  "name": "RapidRoad USB",
+  "category": "hw-io",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "Zorro USB card, moderate discussion, less than Subway/Deneb",
+  "note": "Year unclear; RapidRoad was early 2000s (~2001-2) not 2014; verify"
+ },
+ {
+  "id": "reamiga-family",
+  "name": "ReAmiga 3000 / 4000 / A4000TX",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "ReAmiga 3000/4000/4000T family; builds discussed on EAB",
+  "note": null
+ },
+ {
+  "id": "recap",
+  "name": "Recapping & battery removal",
+  "category": "hw-repair",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Recapping and battery removal advice ubiquitous on EAB/r-amiga repair guides",
+  "note": "Concept entry"
+ },
+ {
+  "id": "roadshow",
+  "name": "Roadshow",
+  "category": "tech",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Olaf Barthel's TCP/IP stack, included in OS 3.2; modern default for OS 3.x networking.",
+  "note": null
+ },
+ {
+  "id": "scsi2sd",
+  "name": "SCSI2SD / ZuluSCSI / BlueSCSI",
+  "category": "hw-storage",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "SD-based SCSI emulation popular for A2091/A3000/A4000, many EAB threads",
+  "note": "Aggregate of SCSI2SD/ZuluSCSI/BlueSCSI; not Amiga-specific"
+ },
+ {
+  "id": "ndk",
+  "name": "SDKs & developer documentation",
+  "category": "dev",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "NDK/Autodocs essential reference for programmers, but a collective entry; widely referenced on EAB.",
+  "note": "Collective entry; year 2021 refers to restored/preserved SDK sets, NDK 3.9 is 1999-2002."
+ },
+ {
+  "id": "scalos",
+  "name": "Scalos",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Workbench replacement; Aminet/SourceForge; Wikipedia mention; moderate discussion",
+  "note": null
+ },
+ {
+  "id": "sae",
+  "name": "Scripted Amiga Emulator",
+  "category": "emu",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Listed as SAE developer in EN Wikipedia UAE article (en.wikipedia.org/wiki/UAE_(emulator)); used for archive.org Amiga library; amiga-news 2012-2019 items; scriptedamigaemulator.net.",
+  "note": null
+ },
+ {
+  "id": "tosec",
+  "name": "TOSEC",
+  "category": "pres",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "TOSEC DAT sets with many Amiga DATs (games, demos, coverdisks, CD32); naming standard. https://www.tosecdev.org/news/releases/157-tosec-release-2019-04-01",
+  "note": null
+ },
+ {
+  "id": "tf3xxx",
+  "name": "TerribleFire 3xxx/4xxx & CD32",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "TF3xxx/4xxx and CD32 boards; smaller audience",
+  "note": null
+ },
+ {
+  "id": "historicmags",
+  "name": "The historic magazines",
+  "category": "comm",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Amiga Format, CU Amiga, Amiga Power, Amiga Computing etc.; indexed by AMR. https://amr.abime.net",
+  "note": "Year 1986 start plausible; mixed UK/German titles."
+ },
+ {
+  "id": "uae4arm",
+  "name": "UAE4ARM",
+  "category": "emu",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Important ARM/Pandora/RPi predecessor of Amiberry; real use on Raspberry Pi",
+  "note": null
+ },
+ {
+  "id": "vinced",
+  "name": "ViNCEd",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Aminet; recommended shell console; EAB mentions; Thomas Richter's support",
+  "note": null
+ },
+ {
+  "id": "wanderer",
+  "name": "Wanderer",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "AROS Workbench clone; Wikipedia AROS; EAB AROS threads",
+  "note": null
+ },
+ {
+  "id": "warp",
+  "name": "Warp accelerator family",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "CS-LAB Warp1260/Warp560 68060 + ARM coprocessor, 2019-2020 amiga-news coverage",
+  "note": "Development announced 2018-19, sold 2020"
+ },
+ {
+  "id": "warp3d",
+  "name": "Warp3D",
+  "category": "tech",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Standard 3D API on classic Amiga/PPC; used by Quake, GL games and Mesa ports; steady EAB coverage.",
+  "note": null
+ },
+ {
+  "id": "warp3dnova",
+  "name": "Warp3D Nova & ogles2",
+  "category": "tech",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "A-EON/Hyperion Nova drivers and ogles2 for AmigaOS 4 (SAM/X5000); notable for OS4 but small audience.",
+  "note": null
+ },
+ {
+  "id": "wicher",
+  "name": "Wicher boards",
+  "category": "hw-accel",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Polish Wicher accelerators, modest coverage",
+  "note": "Verify year and board naming"
+ },
+ {
+  "id": "xsurf",
+  "name": "X-Surf / X-Surf 100",
+  "category": "hw-io",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Individual Computers Zorro II Ethernet, common upgrade, many EAB threads",
+  "note": "X-Surf ~1999-2000, X-Surf 100 ~2010 "
+ },
+ {
+  "id": "zune",
+  "name": "Zune",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "MUI-clone toolkit for AROS; Wikipedia AROS; key to ports",
+  "note": null
+ },
+ {
+  "id": "amitools",
+  "name": "amitools / xdftool",
+  "category": "dev",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "cnvogelg's Python toolkit (xdftool, vamos) used for ADF/HDF handling and CI; GitHub 200+ stars.",
+  "note": null
+ },
+ {
+  "id": "peg1",
+  "name": "bplan Pegasos I",
+  "category": "hw-ng",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Genesi/bplan Pegasos I, MorphOS first host; Wikipedia Pegasos article; niche sales",
+  "note": null
+ },
+ {
+  "id": "bsdsocket",
+  "name": "bsdsocket.library",
+  "category": "tech",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "TCP/IP socket API standard emulated in WinUAE; foundation of Amiga networking.",
+  "note": "Concept entry; stack-specific implementations (AmiTCP, Miami, Roadshow) provide it."
+ },
+ {
+  "id": "filesysbox",
+  "name": "filesysbox.library",
+  "category": "tech",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "FUSE-like filesystem layer for AmigaOS 4/MorphOS/AROS; moderately important for OS4 community.",
+  "note": null
+ },
+ {
+  "id": "igame",
+  "name": "iGame",
+  "category": "shell",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Popular WHDLoad game launcher; GitHub; EAB/Reddit mentions",
+  "note": null
+ },
+ {
+  "id": "vamigaweb",
+  "name": "vAmigaWeb",
+  "category": "emu",
+  "current": 3,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Browser version of vAmiga, handy for sharing; moderate coverage",
+  "note": null
+ },
+ {
+  "id": "aaa",
+  "name": "AAA chipset",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "high",
+  "evidence": "Dedicated EN Wikipedia article (en.wikipedia.org/wiki/Advanced_Amiga_Architecture_chipset); Filfre covers it in depth (filfre.net/?p=4214). Famous what-if, but never shipped.",
+  "note": null
+ },
+ {
+  "id": "aweb",
+  "name": "AWeb & Voyager",
+  "category": "soft",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "EN Wikipedia has AWeb article (en.wikipedia.org/wiki/AWeb); with Voyager and IBrowse it formed the 'browser triumvirate'; Voyager GPL source 2017 on amiga-news.de/en/news/AN-2017-10-00033-EN.html",
+  "note": null
+ },
+ {
+  "id": "amitcp",
+  "name": "AmiTCP & Genesis",
+  "category": "tech",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Origin of bsdsocket.library, the stack API all later stacks copy; amiga-news 2000 licensing dispute (amiga-news.de/en/news/AN-2000-12-00114-EN.html); no EN Wikipedia page.",
+  "note": null
+ },
+ {
+  "id": "a3000ux",
+  "name": "Amiga 3000UX",
+  "category": "hw-classic",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "EN Wikipedia has both Amiga_3000UX and Amiga_Unix articles (en.wikipedia.org/wiki/Amiga_3000UX); Big Book of Amiga Hardware product page; amigaunix.com wiki.",
+  "note": null
+ },
+ {
+  "id": "apollo-act",
+  "name": "Apollo / ACT accelerators",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "low",
+  "evidence": "Common A1200 accelerators; listed in Big Book of Amiga Hardware and amiga.resource.cx/exp/apollo1260. Little deep editorial coverage found, so borderline 2-3.",
+  "note": null
+ },
+ {
+  "id": "c-one",
+  "name": "C-One / Clone-A",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "EN Wikipedia article en.wikipedia.org/wiki/C-One; cpcwiki.eu/index.php/C-ONE; early FPGA computer (Ellsworth/Schoenfeld) with Amiga cores, mostly C64/other 8-bit.",
+  "note": null
+ },
+ {
+  "id": "hombre",
+  "name": "Hombre chipset",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Dedicated EN Wikipedia article en.wikipedia.org/wiki/Amiga_Hombre_chipset; openpa.net lists it; Aminet holds the 1993 Hombre docs. Cancelled vapourware but well documented.",
+  "note": null
+ },
+ {
+  "id": "linuxm68k",
+  "name": "Linux/m68k on Amiga",
+  "category": "os",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Official Debian release arch 2.0-3.1 per debian.org/ports/m68k/ and wiki.debian.org/M68k; Amiga one of the two best-supported targets. No dedicated Wikipedia article.",
+  "note": null
+ },
+ {
+  "id": "miami",
+  "name": "Miami / MiamiDX",
+  "category": "tech",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Many Aminet releases and SDK (aminet.net/package/comm/tcp/MiamiDx10c-MUI); ubiquitous late-90s stack, still used in MiSTer/FPGA forum threads (misterfpga.org/viewtopic.php?p=90891).",
+  "note": null
+ },
+ {
+  "id": "ppaint",
+  "name": "Personal Paint, IGNITION & productivity",
+  "category": "soft",
+  "current": 2,
+  "proposed": 3,
+  "confidence": "medium",
+  "evidence": "Cloanto product since 1992 (amigaforever.com/classic/ppaint-6-4/); A-EON takeover on amiga-news.de/en/news/AN-2014-06-00055-EN.html; generationamiga.com 2026 Deluxe Paint comparison.",
+  "note": null
+ },
+ {
+  "id": "amifox",
+  "name": "AmiFox",
+  "category": "soft",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "amiga-news.de covered releases in 2023-24 (amiga-news.de/en/news/AN-2023-03-00008-EN.html); clever but niche proxy browser built on WRP (github.com/alb42/wrp).",
+  "note": null
+ },
+ {
+  "id": "amigagpt",
+  "name": "AmigaGPT",
+  "category": "soft",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "On Aminet (aminet.net/package/util/misc/AmigaGPT), OpenAI forum post, magazine mentions; novelty client, no amiga-news/EAB hits found (theoasisbbs.com listing).",
+  "note": null
+ },
+ {
+  "id": "amigalive",
+  "name": "AmigaLive",
+  "category": "emu",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Covered by generationamiga.com (2016, 2020) and betanews.com/2023/07/04/amigalive; FS-UAE netplay launcher with small community; no amiga-news/EAB hits.",
+  "note": null
+ },
+ {
+  "id": "armiga",
+  "name": "Armiga",
+  "category": "hw-fpga",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Commercial ARM emulation appliance; sold via ami64.com/product-page/armiga-project-amiga and teodor.no/commodore/armiga; only vendor pages and anecdotal reviews, no independent coverage.",
+  "note": null
+ },
+ {
+  "id": "chrysalis",
+  "name": "Chrysalis",
+  "category": "distro",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Preconfigured MorphOS pack; recurring amiga-news items 2013-2022 (amiga-news.de/en/news/AN-2022-04-00096-EN.html) but single-OS add-on, last seen 3.16 in 2022.",
+  "note": null
+ },
+ {
+  "id": "denise",
+  "name": "Denise",
+  "category": "emu",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Cycle-exact emulator, mainly C64-focused; Amiga added v2.0 2023; amiga-news v2.5 (amiga-news.de/en/news/AN-2025-03-00016-EN.html); gametechwiki entry. No EAB/Reddit hits.",
+  "note": null
+ },
+ {
+  "id": "amigapcb",
+  "name": "amigapcb.org & hardware databases",
+  "category": "pres",
+  "current": 3,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "amigapcb.org: PCB scans/schematics database for hardware repair; niche but useful. https://www.amigapcb.org",
+  "note": "Year unverified."
+ },
+ {
+  "id": "a2000replica",
+  "name": "A2000 replica",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "A2000 replica board; niche",
+  "note": null
+ },
+ {
+  "id": "a3660",
+  "name": "A3660 & BFG9060",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "BFG9060 by Matthias Heinrichs for A3000/A4000, retail listings; A3660 was original CBM 040 card",
+  "note": "Name mixes Commodore A3660 (1992) with modern BFG9060; year 2020 misleading"
+ },
+ {
+  "id": "aca620",
+  "name": "ACA620 family",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "ACA620 for A600; modest coverage",
+  "note": "Year 2012 unverified"
+ },
+ {
+  "id": "acubeminimig",
+  "name": "ACube Minimig v1.1",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "ACube produced Minimig boards 2008; mostly historical",
+  "note": null
+ },
+ {
+  "id": "sam440flex",
+  "name": "ACube Sam440ep-flex",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Smaller Sam440 variant; limited coverage",
+  "note": "Variant of sam440, near-duplicate in significance"
+ },
+ {
+  "id": "sam460le",
+  "name": "ACube Sam460LE",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Pre-orders Feb 2022, sales 2023 per amiga-news; low-end Sam460",
+  "note": "Year 2020 looks wrong: pre-orders Feb 2022, available 2023"
+ },
+ {
+  "id": "sam460cr",
+  "name": "ACube Sam460cr",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "ACube cost-reduced Sam460 variant; modest coverage",
+  "note": "Year not verified"
+ },
+ {
+  "id": "aeros",
+  "name": "AEROS",
+  "category": "distro",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "archiveos.org/aeros and amiga-news.de/en/news/AN-2014-02-00046-EN.html (AresOne); still releasing AEROS 5 in Aug 2025, so not a footnote; niche hybrid, paid tier.",
+  "note": null
+ },
+ {
+  "id": "afaos",
+  "name": "AfA OS",
+  "category": "distro",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "amiga-news covered releases 2005-2019 (amiga-news.de/en/news/AN-2006-04-00040-EN.html, AN-2019-08-00016-EN.html AfA One); 14-year coverage, but niche 68k tweak.",
+  "note": null
+ },
+ {
+  "id": "amigus",
+  "name": "AmiGUS",
+  "category": "hw-audio",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Modern PCI-less audio card by Oliver Achten, active EAB thread",
+  "note": "Year looks wrong: AmiGUS shipped ~2021, not 2025"
+ },
+ {
+  "id": "amistart",
+  "name": "AmiStart",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "AmiStart started 2000 on Aminet; small",
+  "note": null
+ },
+ {
+  "id": "amitube",
+  "name": "AmiTube & BoingTube",
+  "category": "soft",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "alb42 YouTube client; niche utility with amiga-news coverage.",
+  "note": null
+ },
+ {
+  "id": "a1500",
+  "name": "Amiga 1500",
+  "category": "hw-classic",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "A2000 variant for UK/Germany with two floppy drives; short Wikipedia mention",
+  "note": null
+ },
+ {
+  "id": "a2500",
+  "name": "Amiga 2500",
+  "category": "hw-classic",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Minor A2000 variant (A2500/20, A2500UX); small Wikipedia coverage",
+  "note": "Arguably a variant of A2000; possible duplicate/overlap with a3000ux context"
+ },
+ {
+  "id": "a3000t",
+  "name": "Amiga 3000T",
+  "category": "hw-classic",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Tower variant of A3000; limited coverage, mentioned on Wikipedia A3000 page",
+  "note": null
+ },
+ {
+  "id": "amigade",
+  "name": "Amiga DE / Amiga Anywhere",
+  "category": "os",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Amiga Inc. Digital Environment / Amiga Anywhere; Wikipedia coverage thin, mostly historical",
+  "note": "Amiga DE announced 2000, Amiga Anywhere shipped 2003; two products merged"
+ },
+ {
+  "id": "amigatestkit",
+  "name": "Amiga Test Kit",
+  "category": "hw-repair",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Diagnostic bootable tool, moderate use",
+  "note": "Year may be ~2020 (Keir Fraser); verify"
+ },
+ {
+  "id": "amix",
+  "name": "Amiga UNIX (AMIX)",
+  "category": "os",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Wikipedia stub; Amiga 3000UX only, niche on EAB/amigaunix.com",
+  "note": null
+ },
+ {
+  "id": "walker",
+  "name": "Amiga Walker prototype",
+  "category": "hw-classic",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Unreleased Escom/AT prototype; occasional retrospective coverage",
+  "note": null
+ },
+ {
+  "id": "amigaosxl",
+  "name": "AmigaOS XL / AmigaXL",
+  "category": "os",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "amiga-news Oct 2001 / OSNews 2002 review; AmigaXL on QNX bundled with Amithlon; short-lived",
+  "note": null
+ },
+ {
+  "id": "a1500ng",
+  "name": "AmigaOne 500",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "AmigaOne 500 = Sam460ex in A500-style case sold by A-EON/ACube; small run",
+  "note": "Name vs product: AmigaOne 500 is Sam460ex-based; confirm id/year"
+ },
+ {
+  "id": "amigasys",
+  "name": "AmigaSYS",
+  "category": "distro",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Small 2000s preconfigured OS 3.x distro for UAE; few EAB mentions, no Wikipedia article.",
+  "note": null
+ },
+ {
+  "id": "pocket",
+  "name": "Analogue Pocket Amiga core",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Amiga core for Analogue Pocket; limited coverage",
+  "note": null
+ },
+ {
+  "id": "manticore",
+  "name": "Apollo Manticore & Salamander V4",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Manticore/Salamander V4 smaller niche boards",
+  "note": null
+ },
+ {
+  "id": "phoenixv4",
+  "name": "Apollo Phoenix V4",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Phoenix V4 newest Apollo board; limited coverage",
+  "note": null
+ },
+ {
+  "id": "imacg5",
+  "name": "Apple iMac G5 / eMac",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "MorphOS supports iMac G5/eMac; minor niche",
+  "note": null
+ },
+ {
+  "id": "boxer",
+  "name": "BoXeR motherboard",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Index Information BoXeR Amiga clone motherboard 1997; limited run, mostly historical interest",
+  "note": "Never shipped in volume; year is announcement date"
+ },
+ {
+  "id": "buddha",
+  "name": "Buddha IDE",
+  "category": "hw-storage",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Individual Computers Zorro IDE, known to collectors",
+  "note": "Year 2017 looks wrong; Buddha IDE dates to 1998 (Buddha Flash later)"
+ },
+ {
+  "id": "buffee",
+  "name": "Buffee",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "Buffee: planned, little coverage",
+  "note": null
+ },
+ {
+  "id": "caffeineos",
+  "name": "CaffeineOS",
+  "category": "distro",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "Preconfigured Amiga emulation bundle; limited discussion found.",
+  "note": null
+ },
+ {
+  "id": "classicscsi",
+  "name": "Classic SCSI controllers",
+  "category": "hw-storage",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "A2091/A590/GVP/Oktagon etc. well documented but aggregate",
+  "note": "Aggregate; A2091 launched 1988 ok"
+ },
+ {
+  "id": "conman",
+  "name": "ConMan",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Aminet console replacement; EAB shell-replacement threads",
+  "note": null
+ },
+ {
+  "id": "chipreplace",
+  "name": "Custom-chip replacements",
+  "category": "hw-repair",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "Concept entry; Agnus/Denise replacements (FPGA PiStorm?) discussed on EAB, limited",
+  "note": "Aggregate/concept"
+ },
+ {
+  "id": "e3b-usb",
+  "name": "Deneb, Subway & Algor",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "E3B Deneb/Subway/Algor USB cards, niche but known, Poseidon ecosystem",
+  "note": null
+ },
+ {
+  "id": "fastata",
+  "name": "Elbox FastATA",
+  "category": "hw-storage",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Elbox FastATA 1200/4000 cards, niche but known",
+  "note": null
+ },
+ {
+  "id": "fellow",
+  "name": "Fellow / WinFellow",
+  "category": "emu",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Alternative emulator, small user base compared with UAE; WinFellow GitHub project",
+  "note": null
+ },
+ {
+  "id": "amigaexplorer",
+  "name": "File-transfer bridges",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "Generic file-transfer topic (null-modem, serial, Ethernet), id name unclear",
+  "note": "id 'amigaexplorer' mismatches name 'File-transfer bridges'; consider renaming"
+ },
+ {
+  "id": "flowerpot",
+  "name": "Flower Pot",
+  "category": "distro",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Search (OSNews) confirms Flower Pot is an AmigaOS 4.1 install tool for WinUAE on Windows/macOS, not an OS distro.",
+  "note": "Not a distro: installer tool for AmigaOS 4 classic in WinUAE; category/kind may be misleading."
+ },
+ {
+  "id": "framethrower",
+  "name": "Framethrower / FT600",
+  "category": "hw-gfx",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Niche HDMI-out scaler card; some EAB/r-amiga threads, little wiki coverage",
+  "note": null
+ },
+ {
+  "id": "furia",
+  "name": "Furia EC020",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Furia EC020 for A500/2000; limited coverage",
+  "note": null
+ },
+ {
+  "id": "gba1000",
+  "name": "GBA1000",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "GBA1000 is replacement A1000 board using original chips, by George Braun, ~2008, group buy 2013",
+  "note": "Not FPGA; year 2005 looks wrong (~2008)"
+ },
+ {
+  "id": "efika",
+  "name": "Genesi EFIKA 5200B",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Genesi Efika 5200B, MorphOS-supported low-cost PPC board; small following",
+  "note": null
+ },
+ {
+  "id": "janusuae",
+  "name": "Janus-UAE",
+  "category": "emu",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Niche UAE variant integrating Janus-style Amiga/Windows; small footprint",
+  "note": "Janus-UAE dates to ~1998-99 and was hosted until ~2008; year looks like end of dev, not first release"
+ },
+ {
+  "id": "kmos",
+  "name": "KMOS / Amiga, Inc. (Delaware)",
+  "category": "brand",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "KMOS acquired Itec's AmigaOS rights (agreement 2003, announced March 2004), honoured Hyperion deal. https://www.theregister.com/2004/03/16/amiga_flogs_off_classic_os/",
+  "note": "Year looks off: KMOS deal 2003/2004, not 2005."
+ },
+ {
+  "id": "keyrah",
+  "name": "Keyrah & AmiKey",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Keyboard-to-USB adapter, well known among A1200/C64 users",
+  "note": null
+ },
+ {
+  "id": "kicksmash",
+  "name": "KickSmash32",
+  "category": "hw-repair",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "New Kickstart ROM flasher, little coverage so far",
+  "note": null
+ },
+ {
+  "id": "kingcon",
+  "name": "KingCON",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Aminet console handler; older than ViNCEd; small mentions",
+  "note": null
+ },
+ {
+  "id": "llvmm68k",
+  "name": "LLVM/Clang m68k backend",
+  "category": "dev",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "m68k LLVM backend (upstream in LLVM 16); limited Amiga-specific adoption compared with GCC/vbcc.",
+  "note": "Upstream m68k backend merged 2022-23; Amiga-targeted work from 2021."
+ },
+ {
+  "id": "mame",
+  "name": "MAME Amiga systems",
+  "category": "emu",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "MAME Amiga driver exists but rarely used by Amiga community; mostly arcade/CD32 compat",
+  "note": "Year 2000 is MAME's start; Amiga driver (amiga.c) was added much later; also MAME emulates only A1000/A500/A2000-ish and CD32/CDTV"
+ },
+ {
+  "id": "mhi",
+  "name": "MHI — MPEG Hardware Interface",
+  "category": "tech",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Small MPEG decoding abstraction layer; used by a few players; minor.",
+  "note": null
+ },
+ {
+  "id": "zz9000ax",
+  "name": "MNT ZZ9000AX",
+  "category": "hw-audio",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Audio add-on for ZZ9000, limited run, some EAB discussion",
+  "note": "Possibly merge-worthy with zz9000"
+ },
+ {
+  "id": "megachip",
+  "name": "MegAChip & chip-RAM expansion",
+  "category": "hw-repair",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Chip RAM expanders for A500/A600, some EAB threads",
+  "note": "Year 1992 looks too early; MegAChip is a 2010s board"
+ },
+ {
+  "id": "microa1",
+  "name": "MicroA1-C",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Eyetech MicroA1-C Mini-ITX AmigaOne; short-lived, small sales",
+  "note": null
+ },
+ {
+  "id": "netbsd",
+  "name": "NetBSD/amiga",
+  "category": "os",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "NetBSD ports page; occasional EAB/Obligement mentions",
+  "note": null
+ },
+ {
+  "id": "ranger",
+  "name": "Ranger prototype",
+  "category": "hw-classic",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Little standalone coverage; 1985 CES-era prototype name, mentioned in Amiga history pages",
+  "note": "Name/year possibly muddled: 'Ranger' was the pre-A1000 1985 CES board (Lorraine renamed); may overlap with lorraine/a1000 history"
+ },
+ {
+  "id": "classicrtg",
+  "name": "Retina, Merlin, Piccolo & other RTG",
+  "category": "hw-gfx",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Aggregate of Retina/Merlin/Piccolo/Spectrum cards; niche but well known to RTG collectors",
+  "note": "Aggregate entry; Picasso/CyberVision are separate; year 1992 is earliest (Retina) ok"
+ },
+ {
+  "id": "sfs",
+  "name": "SFS / SFS2",
+  "category": "tech",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Smart File System; niche alternative filesystem, MorphOS default.",
+  "note": "SFS first release ~1998; verify year."
+ },
+ {
+  "id": "scalers",
+  "name": "Scandoublers & external scalers",
+  "category": "hw-gfx",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Generic category (OSSC, RetroTINK, Framemeister, Micomsoft); heavily discussed but not Amiga-specific",
+  "note": "Aggregate; overlaps indivision/rgbtohdmi/framethrower"
+ },
+ {
+  "id": "sidi",
+  "name": "SiDi / SiDi128",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "SiDi is MiST-compatible clone with niche following",
+  "note": null
+ },
+ {
+  "id": "sirion",
+  "name": "Sirion & ANAIS",
+  "category": "tech",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Sirion USB stack/ANAIS audio; small niche.",
+  "note": null
+ },
+ {
+  "id": "fluxtools",
+  "name": "SuperCard Pro, FluxEngine & Applesauce",
+  "category": "pres",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Generic flux hardware (SCP, FluxEngine, Applesauce) used by Amiga preservers, not Amiga-specific. https://github.com/davidgiven/fluxengine",
+  "note": "Aggregate entry, no URL; year 2011 is SuperCard Pro only."
+ },
+ {
+  "id": "tankmouse",
+  "name": "Tank mouse & controller remakes",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Tank mouse remakes, retro-community popular but small",
+  "note": null
+ },
+ {
+  "id": "060supply",
+  "name": "The 68060 supply problem",
+  "category": "hw-accel",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "68060 shortage discussed repeatedly on EAB; a topic not a product",
+  "note": "Concept entry"
+ },
+ {
+  "id": "clockport",
+  "name": "The A1200 clockport",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Concept entry; Wikipedia coverage of A1200 expansion port, well documented in Big Book",
+  "note": "Concept not product; year 1992 ok"
+ },
+ {
+  "id": "tinygl",
+  "name": "TinyGL & MiniGL",
+  "category": "tech",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "TinyGL/MiniGL OpenGL wrappers; niche but used by Quake-class ports.",
+  "note": "MiniGL dates to ~1999; TinyGL port ~2000."
+ },
+ {
+  "id": "tinylauncher",
+  "name": "TinyLauncher",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "TinyLauncher WHDLoad front-end; some EAB and YouTube coverage",
+  "note": null
+ },
+ {
+  "id": "toccata",
+  "name": "Toccata, Prelude & Delfina",
+  "category": "hw-audio",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Zorro II 16-bit audio cards, niche, some Wikipedia/Aminet-era mention",
+  "note": "Aggregate of three cards (Toccata, Prelude, Delfina DSP)"
+ },
+ {
+  "id": "chameleon",
+  "name": "Turbo Chameleon 64",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Turbo Chameleon 64 hosts Minimig port; C64 centric",
+  "note": null
+ },
+ {
+  "id": "uae4all",
+  "name": "UAE4All / UAE4ALL2",
+  "category": "emu",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Small ports for handhelds/iOS/Android; low community discussion",
+  "note": "UAE4All first appeared ~2008 (Chui, GP2X/Dingoo/iPhone), not 2004 - verify"
+ },
+ {
+  "id": "unamiga",
+  "name": "UnAmiga / neptUNO",
+  "category": "hw-fpga",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "UnAmiga/neptUNO low-cost FPGA boards with Minimig cores; limited",
+  "note": "Entry bundles two boards with different years"
+ },
+ {
+  "id": "wshell",
+  "name": "WShell",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Aminet shell replacement by William Hawes; Wikipedia mention; small user base",
+  "note": null
+ },
+ {
+  "id": "wazp3d",
+  "name": "Wazp3D",
+  "category": "tech",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Alain Thellier's software Warp3D layer; niche but used in 68k UAE/real-hardware gaming.",
+  "note": null
+ },
+ {
+  "id": "xbench",
+  "name": "X-bEnCh",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "X-bEnCh launcher; limited discussion",
+  "note": "Not verified; check that X-bEnCh (launcher) is correctly described and not confused with an unrelated benchmark tool"
+ },
+ {
+  "id": "fastram",
+  "name": "ZorRAM & fast-memory boards",
+  "category": "hw-repair",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "low",
+  "evidence": "Aggregate of ZorRAM/ModRAM etc., aggregate entry and low coverage",
+  "note": "Aggregate"
+ },
+ {
+  "id": "amiwm",
+  "name": "amiwm",
+  "category": "shell",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Wikipedia article; X11 window manager emulating Workbench; niche, mostly Unix/X11 users",
+  "note": "amiwm by Marcus Comstedt, originated ~1995; 1998 likely release of fuller 0.19+"
+ },
+ {
+  "id": "mouster",
+  "name": "mouSTer",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Niche USB-to-Amiga mouse/joystick adapter, small community",
+  "note": null
+ },
+ {
+  "id": "abox",
+  "name": "phase5 A\\BOX",
+  "category": "hw-ng",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "phase5 A\\BOX PPC Amiga prototype, never sold; some retro-history coverage",
+  "note": "Name contains a literal backslash (A\\BOX); check escaping is not doubled"
+ },
+ {
+  "id": "plipbox",
+  "name": "plipbox",
+  "category": "hw-io",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Niche parallel-port to Ethernet bridge, small active community",
+  "note": null
+ },
+ {
+  "id": "qemuuae",
+  "name": "qemu-uae (PPC plugin)",
+  "category": "emu",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "high",
+  "evidence": "Plugin enabling PPC cards in FS-UAE/WinUAE; niche",
+  "note": "Related to fsuae/qemu entries (not duplicate)"
+ },
+ {
+  "id": "smbfs",
+  "name": "smbfs & smb2fs",
+  "category": "tech",
+  "current": 2,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "SMB client for Amiga; useful but niche.",
+  "note": "smbfs (Olaf Barthel) is older than 2019; 2019 may refer to smb2fs."
+ },
+ {
+  "id": "broadway",
+  "name": "AROS Broadway",
+  "category": "distro",
+  "current": 1,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Listed on EN Wikipedia AROS article (en.wikipedia.org/wiki/AROS_Research_Operating_System); amiga-news.de 2010-2015 release items (AN-2015-03-00051-EN); latest 2016 preview, defunct.",
+  "note": null
+ },
+ {
+  "id": "aspireos",
+  "name": "AspireOS",
+  "category": "distro",
+  "current": 1,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "amiga-news.de covered 2011-2013 releases (amiga-news.de/en/news/AN-2012-09-00088-EN.html); archiveos.org/aspireos lists v2.22 (2018); niche AROS netbook distro.",
+  "note": null
+ },
+ {
+  "id": "classic-accel-others",
+  "name": "M-Tec, DKB, CSA & others",
+  "category": "hw-accel",
+  "current": 1,
+  "proposed": 2,
+  "confidence": "medium",
+  "evidence": "Big Book of Amiga Hardware documents DKB Wildfire 060 (bigbookofamigahardware.com/bboah/product.aspx?id=176) as most powerful A2000 accelerator; collective niche, kept at 2.",
+  "note": null
+ },
+ {
+  "id": "a3500",
+  "name": "Amiga 3500 prototype",
+  "category": "hw-classic",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "Prototype footnote; only in Amiga Hall of Light/rare-hardware notes",
+  "note": null
+ },
+ {
+  "id": "cdtvcr",
+  "name": "CDTV-CR prototype",
+  "category": "hw-classic",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "Cost-reduced CDTV prototype, footnote-level coverage",
+  "note": null
+ },
+ {
+  "id": "friendos",
+  "name": "FriendOS",
+  "category": "os",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "FriendUP/Friend OS web-desktop 'Amiga-inspired'; minimal Amiga-community discussion",
+  "note": "Friend OS originated ~2014 as FriendUP and is not an Amiga OS; status 'historic' ok"
+ },
+ {
+  "id": "illuwatar",
+  "name": "Illuwatar Mini-ITX Minimig",
+  "category": "hw-fpga",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "Mini-ITX Minimig variant; very obscure",
+  "note": null
+ },
+ {
+  "id": "mcc216",
+  "name": "MCC-216",
+  "category": "hw-fpga",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "low",
+  "evidence": "Obscure Minimig-based board",
+  "note": "Check it is distinct from other Minimig boards"
+ },
+ {
+  "id": "melody",
+  "name": "Melody & MPEG audio cards",
+  "category": "hw-audio",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "MPEG audio card footnote, little community discussion",
+  "note": null
+ },
+ {
+  "id": "sdbox",
+  "name": "SDBox & parallel-port storage",
+  "category": "hw-storage",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "low",
+  "evidence": "Obscure parallel-port/SD storage tool, few discussions",
+  "note": null
+ },
+ {
+  "id": "zshell",
+  "name": "ZShell",
+  "category": "shell",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "Obscure shell; Aminet only; minimal discussion",
+  "note": null
+ },
+ {
+  "id": "pos",
+  "name": "pOS",
+  "category": "os",
+  "current": 1,
+  "proposed": 1,
+  "confidence": "medium",
+  "evidence": "Haage&Partner/phase5 OS; short Wikipedia article, very little community discussion",
+  "note": "Year 1997 is the announcement; pOS never shipped publicly in finished form"
+ }
+]
