@@ -109,7 +109,7 @@ function buildShell(){
     '<div class="detail-panel">'+
       '<div class="detail-toolbar">'+
         '<button class="btn ghost" id="detail-back" type="button" disabled>← Back</button>'+
-        '<span class="eyebrow">Object details</span>'+
+        '<span class="eyebrow" id="detail-kicker">Object details</span>'+
         '<button class="iconbtn" id="detail-close" type="button" aria-label="Close details" autofocus>'+ICON.x+'</button>'+
       '</div>'+
       '<div class="dscroll" id="detail-content"></div>'+

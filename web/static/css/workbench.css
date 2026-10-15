@@ -284,9 +284,21 @@
   }
   .detail-toolbar { border-bottom: 3px double var(--wb-blue); }
   .detail-media { border: 1px solid var(--wb-blue); }
+  .detail-plate { background: var(--wb-tint); }
+  .detail-plate-cap { border-top-color: var(--wb-blue); color: var(--wb-black); }
+  .detail-plate-cap a { color: var(--wb-blue); }
   .dhead h2 { font-size: 32px; line-height: 1.25; }
   .dsec.why { border: 1px solid var(--wb-blue); border-left: 4px solid var(--era, var(--wb-blue)); }
   .dfacts { border-color: var(--wb-blue); background: var(--wb-blue); }
+  .dlineage { background: var(--wb-tint); border-bottom: 2px solid var(--wb-blue); }
+  .dlin-year { background: var(--wb-tint); }
+  :is(.dlin-spine::before, .relbtn::after) { background: var(--wb-blue); }
+  .relbtn .arrow { color: var(--wb-blue); }
+  .dlink { color: var(--wb-blue); text-decoration: underline; text-underline-offset: .2em; }
+  .dlink:hover { color: var(--wb-blue-deep); }
+  .dhead .sg-dlg-actions a { border: 1px solid var(--wb-blue); padding: 3px 8px; background: var(--wb-white); color: var(--wb-blue); }
+  .dlink-none { border: 1px dashed var(--wb-blue); color: var(--wb-black); }
+  .dfoot { border-top: 1px solid var(--wb-blue); }
   .warnbox { background: #fff2df; color: var(--wb-black); border: 2px solid var(--wb-orange-ink); }
   .scrim { background: rgb(0 34 68 / .65); }
   .skip, .skip:focus { background: var(--wb-white); color: var(--wb-blue); border: 2px solid var(--wb-blue); }
