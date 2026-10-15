@@ -44,8 +44,11 @@ const (
 	MaxBytes     = 8 << 20    // download cap
 	MaxPixels    = 16_000_000 // width * height cap
 	MaxRedirects = 3
-	Timeout      = 10 * time.Second
+	Timeout      = 10 * time.Second // per attempt
+	RetryWait    = 2 * time.Second  // before the one retry after HTTP 429 or 503
+	MaxRetryWait = 10 * time.Second // cap on a server's Retry-After
 	maxURLLen    = 2048
+	userAgent    = "AmigaConstellation-ImageFetcher/1.0"
 )
 
 // Errors returned by Stage and Publish.
@@ -93,6 +96,8 @@ type Fetcher struct {
 	client     *http.Client
 	now        func() time.Time
 	sem        chan struct{}
+	userAgent  string        // names AMIGA_BASE_URL as the contact when set
+	retryWait  time.Duration // RetryWait (tests shorten it)
 
 	// vet decides whether an address may be dialled (tests relax it).
 	vet func(netip.Addr) error
@@ -109,10 +114,16 @@ func New(cfg config.Config, st *store.Store, mediaDir string, opts ...Option) *F
 		stagingDir: cfg.StagingDir(),
 		now:        time.Now,
 		sem:        make(chan struct{}, 1),
+		userAgent:  userAgent,
+		retryWait:  RetryWait,
 		vet:        vetAddr,
 		lookup: func(ctx context.Context, host string) ([]netip.Addr, error) {
 			return net.DefaultResolver.LookupNetIP(ctx, "ip", host)
 		},
+	}
+	if cfg.BaseURL != "" {
+		// Wikimedia's User-Agent policy asks for a contact URL.
+		f.userAgent += " (+" + cfg.BaseURL + ")"
 	}
 	for _, opt := range opts {
 		opt(f)
@@ -286,39 +297,27 @@ func (f *Fetcher) Stage(ctx context.Context, sourceURL string) (Staged, error) {
 	case <-ctx.Done():
 		return Staged{}, ctx.Err()
 	}
-	ctx, cancel := context.WithTimeout(ctx, Timeout)
-	defer cancel()
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
+	// A rate-limited or briefly unavailable host gets one retry.
+	data, finalURL, wait, retry, err := f.get(ctx, u)
+	if retry {
+		t := time.NewTimer(wait)
+		select {
+		case <-t.C:
+		case <-ctx.Done():
+			t.Stop()
+			return Staged{}, ctx.Err()
+		}
+		data, finalURL, _, _, err = f.get(ctx, u)
+	}
 	if err != nil {
-		return Staged{}, ErrURL
-	}
-	req.Header.Set("User-Agent", "AmigaConstellation-ImageFetcher/1.0")
-	req.Header.Set("Accept", "image/jpeg, image/png, image/gif, image/webp")
-	resp, err := f.client.Do(req)
-	if err != nil {
-		return Staged{}, fmt.Errorf("fetching image: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return Staged{}, fmt.Errorf("fetching image: HTTP %d", resp.StatusCode)
-	}
-	if resp.ContentLength > MaxBytes {
-		return Staged{}, ErrTooLarge
-	}
-	data, err := io.ReadAll(io.LimitReader(resp.Body, MaxBytes+1))
-	if err != nil {
-		return Staged{}, fmt.Errorf("reading image: %w", err)
-	}
-	if len(data) > MaxBytes {
-		return Staged{}, ErrTooLarge
+		return Staged{}, err
 	}
 	info, err := inspect(data)
 	if err != nil {
 		return Staged{}, err
 	}
 	info.SourceURL = u.String()
-	info.FinalURL = resp.Request.URL.String()
+	info.FinalURL = finalURL
 
 	name, err := randomName(info.Ext)
 	if err != nil {
@@ -332,6 +331,56 @@ func (f *Fetcher) Stage(ctx context.Context, sourceURL string) (Staged, error) {
 	}
 	info.Name = name
 	return info, nil
+}
+
+// get makes one GET of u with its own timeout and returns the capped body
+// and the URL after redirects. retry reports an HTTP 429 or 503, with the
+// delay to wait first.
+func (f *Fetcher) get(ctx context.Context, u *url.URL) (data []byte, finalURL string, wait time.Duration, retry bool, err error) {
+	ctx, cancel := context.WithTimeout(ctx, Timeout)
+	defer cancel()
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
+	if err != nil {
+		return nil, "", 0, false, ErrURL
+	}
+	req.Header.Set("User-Agent", f.userAgent)
+	req.Header.Set("Accept", "image/jpeg, image/png, image/gif, image/webp")
+	resp, err := f.client.Do(req)
+	if err != nil {
+		return nil, "", 0, false, fmt.Errorf("fetching image: %w", err)
+	}
+	defer resp.Body.Close()
+	switch resp.StatusCode {
+	case http.StatusOK:
+	case http.StatusTooManyRequests, http.StatusServiceUnavailable:
+		return nil, "", retryDelay(resp.Header.Get("Retry-After"), f.retryWait, f.now()), true,
+			fmt.Errorf("fetching image: HTTP %d", resp.StatusCode)
+	default:
+		return nil, "", 0, false, fmt.Errorf("fetching image: HTTP %d", resp.StatusCode)
+	}
+	if resp.ContentLength > MaxBytes {
+		return nil, "", 0, false, ErrTooLarge
+	}
+	data, err = io.ReadAll(io.LimitReader(resp.Body, MaxBytes+1))
+	if err != nil {
+		return nil, "", 0, false, fmt.Errorf("reading image: %w", err)
+	}
+	if len(data) > MaxBytes {
+		return nil, "", 0, false, ErrTooLarge
+	}
+	return data, resp.Request.URL.String(), 0, false, nil
+}
+
+// retryDelay reads a Retry-After header (seconds or an HTTP date), falling
+// back to def, and caps it at MaxRetryWait.
+func retryDelay(h string, def time.Duration, now time.Time) time.Duration {
+	d := def
+	if secs, err := strconv.Atoi(strings.TrimSpace(h)); err == nil && secs >= 0 {
+		d = time.Duration(secs) * time.Second
+	} else if t, err := http.ParseTime(h); err == nil {
+		d = max(t.Sub(now), 0)
+	}
+	return min(d, MaxRetryWait)
 }
 
 // inspect sniffs and decodes the image header.

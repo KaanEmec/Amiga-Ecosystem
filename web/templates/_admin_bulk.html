@@ -1,0 +1,22 @@
+{{define "review_bulk"}}
+<form method="post" action="/admin/queue/bulk" id="bulk" class="admin-form admin-card admin-bulk">
+  <input type="hidden" name="csrf" value="{{.CSRF}}">
+  <input type="hidden" name="back" value="{{.Self}}">
+  <h2 class="admin-h3">Selected suggestions</h2>
+  <div class="admin-filter">
+    <label>Action
+      <select name="action">
+        <option value="accept">Accept</option>
+        <option value="reject">Reject</option>
+        {{if .BulkHide}}<option value="hide">Hide as spam</option>{{end}}
+      </select>
+    </label>
+    <label class="admin-grow">Public decision note <span class="admin-muted">(optional; accept and reject)</span>
+      <input name="decision_note" maxlength="1000">
+    </label>
+    <button type="submit" class="admin-btn admin-btn-primary">Apply to selected</button>
+  </div>
+  <p class="admin-hint">Accept publishes each proposal as its final preview shows it, with the default weight and no edits.
+  Stale proposals, removals and anything else that needs a confirmation are skipped and listed; open them to review.</p>
+</form>
+{{end}}

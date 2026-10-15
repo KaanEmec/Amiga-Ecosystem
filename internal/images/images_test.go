@@ -15,7 +15,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync/atomic"
 	"testing"
+	"time"
 
 	"amigaconstellation/internal/config"
 	"amigaconstellation/internal/store"
@@ -347,5 +349,73 @@ func TestFetcher_Stage_TooManyRedirects(t *testing.T) {
 	})
 	if _, err := f.Stage(t.Context(), srv.URL+"/r"); err == nil || !strings.Contains(err.Error(), "redirects") {
 		t.Errorf("err = %v, want too many redirects", err)
+	}
+}
+
+func TestFetcher_Stage_RetriesAfter429(t *testing.T) {
+	t.Parallel()
+	f, _, _ := newTestFetcher(t, true)
+	f.retryWait = 10 * time.Millisecond
+	body := pngBytes(t, 4, 3)
+	var hits atomic.Int32
+	var agents []string
+	srv := serve(t, func(w http.ResponseWriter, r *http.Request) {
+		agents = append(agents, r.Header.Get("User-Agent"))
+		if hits.Add(1) == 1 {
+			http.Error(w, "slow down", http.StatusTooManyRequests)
+			return
+		}
+		_, _ = w.Write(body)
+	})
+	staged, err := f.Stage(t.Context(), srv.URL+"/img.png")
+	if err != nil {
+		t.Fatalf("Stage after one 429: %v", err)
+	}
+	if hits.Load() != 2 || staged.Width != 4 {
+		t.Errorf("hits %d, staged %+v", hits.Load(), staged)
+	}
+	if agents[0] != userAgent {
+		t.Errorf("User-Agent %q without a base URL", agents[0])
+	}
+
+	// A second 429 or 503 is not retried again.
+	hits.Store(0)
+	srv2 := serve(t, func(w http.ResponseWriter, r *http.Request) {
+		hits.Add(1)
+		w.Header().Set("Retry-After", "0")
+		http.Error(w, "busy", http.StatusServiceUnavailable)
+	})
+	if _, err := f.Stage(t.Context(), srv2.URL+"/img.png"); err == nil || !strings.Contains(err.Error(), "HTTP 503") || hits.Load() != 2 {
+		t.Errorf("err %v after %d requests", err, hits.Load())
+	}
+}
+
+func TestFetcher_UserAgentNamesBaseURL(t *testing.T) {
+	t.Parallel()
+	f := New(config.Config{DataDir: t.TempDir(), BaseURL: "https://amiga.example"}, nil, t.TempDir())
+	if want := "AmigaConstellation-ImageFetcher/1.0 (+https://amiga.example)"; f.userAgent != want {
+		t.Errorf("User-Agent %q, want %q", f.userAgent, want)
+	}
+}
+
+func TestRetryDelay(t *testing.T) {
+	t.Parallel()
+	now := time.Date(2026, 10, 15, 12, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		h    string
+		want time.Duration
+	}{
+		{"", 2 * time.Second},
+		{"3", 3 * time.Second},
+		{"0", 0},
+		{"120", MaxRetryWait},
+		{"soon", 2 * time.Second},
+		{now.Add(5 * time.Second).Format(http.TimeFormat), 5 * time.Second},
+		{now.Add(-time.Minute).Format(http.TimeFormat), 0},
+		{now.Add(time.Hour).Format(http.TimeFormat), MaxRetryWait},
+	} {
+		if got := retryDelay(tc.h, RetryWait, now); got != tc.want {
+			t.Errorf("retryDelay(%q) = %v, want %v", tc.h, got, tc.want)
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -12,16 +13,13 @@ import (
 	"amigaconstellation/internal/catalog"
 )
 
-const indexPath = "templates/index.html"
-
-// handleIndex serves the SPA shell. It is revalidated on every load so a
-// deploy is picked up immediately.
+// handleIndex serves the SPA shell (rendered at startup with versioned
+// asset links). It is revalidated on every load so a deploy is picked up
+// immediately.
 func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-cache")
-	if etag, ok := s.etags[indexPath]; ok {
-		w.Header().Set("ETag", etag)
-	}
-	http.ServeFileFS(w, r, s.assets, indexPath)
+	w.Header().Set("ETag", s.templates.indexETag)
+	http.ServeContent(w, r, "index.html", time.Time{}, bytes.NewReader(s.templates.index))
 }
 
 // staticHandler serves embedded static/ files. Requests carrying a version

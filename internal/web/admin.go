@@ -21,12 +21,15 @@ type adminDeps struct {
 	auth   *auth.Service
 	images *images.Fetcher
 	staged reviewStaging // image previews fetched for pending suggestions
+	// stageSem serialises on-demand staging (GET /admin/staged/suggestion/{id})
+	// so concurrent requests for one suggestion fetch it once.
+	stageSem chan struct{}
 }
 
 // WithAdmin enables /admin: owner sign-in, catalogue management and the
 // owner-triggered image fetcher.
 func WithAdmin(a *auth.Service, f *images.Fetcher) Option {
-	return func(s *Server) { s.admin = &adminDeps{auth: a, images: f} }
+	return func(s *Server) { s.admin = &adminDeps{auth: a, images: f, stageSem: make(chan struct{}, 1)} }
 }
 
 // adminActor is recorded as the actor of every owner publication.
@@ -56,6 +59,8 @@ func (s *Server) registerAdminRoutes(mux *http.ServeMux) {
 	mux.Handle("POST /admin/entries/{id}/remove", owner(s.adminRemoveEntry))
 	mux.Handle("POST /admin/entries/{id}/restore", owner(s.adminRestoreEntry))
 	mux.Handle("GET /admin/queue", owner(s.reviewQueue))
+	mux.Handle("POST /admin/queue/bulk", owner(s.reviewBulk))
+	mux.Handle("GET /admin/queue/images", owner(s.reviewImages))
 	mux.Handle("GET /admin/suggestions/import", owner(s.adminSuggestImportPage))
 	mux.Handle("POST /admin/suggestions/import", owner(s.adminSuggestImport))
 	mux.Handle("GET /admin/suggestions/{id}", owner(s.reviewPage))
@@ -65,6 +70,7 @@ func (s *Server) registerAdminRoutes(mux *http.ServeMux) {
 	mux.Handle("POST /admin/suggestions/{id}/hide", owner(s.reviewHide))
 	mux.Handle("POST /admin/suggestions/{id}/preview", owner(s.reviewPreview))
 	mux.Handle("GET /admin/staged/{name}", owner(s.reviewStagedFile))
+	mux.Handle("GET /admin/staged/suggestion/{id}", owner(s.reviewStagedSuggestion))
 	mux.Handle("GET /admin/stats", owner(s.adminStats))
 	mux.Handle("GET /admin/settings", owner(s.adminSettingsPage))
 	mux.Handle("POST /admin/settings", owner(s.adminSaveSettings))

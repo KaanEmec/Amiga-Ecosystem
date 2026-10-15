@@ -1,6 +1,6 @@
 {{/* Public layout for server-rendered pages (suggestions). Pages define
      "content" and call {{template "public_layout" .}} with data that embeds
-     suggestLayout (Title, Section, SiteKey, CSSURL, WBCSSURL, ThemeURL, JSURL). */}}
+     suggestLayout (Title, Section, SiteKey). Static links go through "asset". */}}
 {{define "public_layout"}}<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +9,13 @@
 <title>{{.Title}} · Amiga Constellation</title>
 <meta name="color-scheme" content="light dark">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<script src="{{.ThemeURL}}"></script>
+<script src="{{asset "/static/js/theme.js"}}"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Public+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
-<link rel="stylesheet" href="{{.CSSURL}}">
-<link rel="stylesheet" href="{{.WBCSSURL}}">
-<script src="{{.JSURL}}" defer></script>
+<link rel="stylesheet" href="{{asset "/static/css/styles.css"}}">
+<link rel="stylesheet" href="{{asset "/static/css/workbench.css"}}">
+<script src="{{asset "/static/js/suggest.js"}}" defer></script>
 {{if .SiteKey}}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>{{end}}
 </head>
 <body class="sg-body" data-section="{{.Section}}">

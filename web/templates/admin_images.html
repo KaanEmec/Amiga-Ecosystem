@@ -1,0 +1,59 @@
+{{define "content"}}
+<p class="admin-crumbs"><a href="/admin/queue">Queue</a> / <span>Image triage</span></p>
+<h1 class="admin-h1">Image triage</h1>
+<p class="admin-muted">{{.Total}} pending image suggestion{{if ne .Total 1}}s{{end}}{{if gt .Pages 1}}, page {{.Page}} of {{.Pages}}{{end}}, newest first.
+Proposed images are fetched privately through the safe fetcher, one at a time, as the page loads.</p>
+{{if .Cards}}
+<label class="admin-check" hidden><input type="checkbox" data-select-all="bulk"> Select all on this page</label>
+<div class="admin-icards">
+{{range $c := .Cards}}
+  <article class="admin-card admin-icard">
+    <header class="admin-icard-head">
+      <input type="checkbox" name="ids" value="{{.ID}}" form="bulk" aria-label="Select #{{.ID}}">
+      <span class="mono">#{{.ID}}</span>
+      <a href="/admin/suggestions/{{.ID}}" class="admin-icard-name">{{.EntryName}}</a>
+      <span class="mono admin-muted admin-icard-id">{{.EntryID}}</span>
+      {{if .Stale}}<span class="admin-tag admin-tag-warn">stale</span>{{end}}
+      {{if ne .EntryState "live"}}<span class="admin-tag admin-tag-off">entry {{.EntryState}}</span>{{end}}
+    </header>
+    <div class="admin-icard-pair">
+      <figure class="admin-pane">
+        <figcaption class="admin-small">Current</figcaption>
+        <div class="admin-pane-box">{{with .Current}}<img src="{{.}}" alt="Current image of {{$c.EntryName}}">{{else}}<span>no image yet</span>{{end}}</div>
+      </figure>
+      <figure class="admin-pane">
+        <figcaption class="admin-small">Proposed</figcaption>
+        <div class="admin-pane-box"><img src="/admin/staged/suggestion/{{.ID}}" alt="preview failed" decoding="async"></div>
+      </figure>
+    </div>
+    <p class="admin-icard-credit">{{with .Image.Credit}}{{.}}{{else}}<span class="admin-muted">no credit</span>{{end}}{{with .Image.SourcePage}} · <a href="{{.}}" rel="noopener noreferrer nofollow ugc" target="_blank" class="mono">{{.}}</a>{{end}}</p>
+    {{with .Reason}}<details class="admin-icard-why"><summary>Why</summary><p class="admin-pre">{{.}}</p></details>{{end}}
+    <footer class="admin-actions admin-icard-foot">
+      <form method="post" action="/admin/suggestions/{{.ID}}/accept" class="admin-inline">
+        <input type="hidden" name="csrf" value="{{$.CSRF}}">
+        <input type="hidden" name="back" value="{{$.Self}}">
+        <input type="hidden" name="rev" value="{{.EntryRev}}">
+        <button type="submit" class="admin-btn admin-btn-primary">Accept</button>
+      </form>
+      <form method="post" action="/admin/suggestions/{{.ID}}/reject" class="admin-inline">
+        <input type="hidden" name="csrf" value="{{$.CSRF}}">
+        <input type="hidden" name="back" value="{{$.Self}}">
+        <button type="submit" class="admin-btn">Reject</button>
+      </form>
+    </footer>
+  </article>
+{{end}}
+</div>
+{{if or .PrevURL .NextURL}}
+<nav class="admin-actions admin-pager" aria-label="Pages">
+  {{with .PrevURL}}<a class="admin-btn" href="{{.}}" rel="prev">Previous</a>{{end}}
+  {{with .NextURL}}<a class="admin-btn" href="{{.}}" rel="next">Next</a>{{end}}
+</nav>
+{{end}}
+<div class="admin-bulkbar">{{template "review_bulk" .}}</div>
+{{else}}
+<p class="admin-muted">No pending image suggestions.</p>
+{{if .PrevURL}}<nav class="admin-actions admin-pager" aria-label="Pages"><a class="admin-btn" href="{{.PrevURL}}" rel="prev">Previous</a></nav>{{end}}
+{{end}}
+{{end}}
+{{template "admin_layout" .}}

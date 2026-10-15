@@ -1,8 +1,10 @@
 package web
 
 import (
+	"bytes"
 	"encoding/json"
 	"net/http"
+	"regexp"
 	"strings"
 	"testing"
 )
@@ -19,6 +21,37 @@ func TestServer_handleIndex(t *testing.T) {
 	}
 	if ct := rec.Header().Get("Content-Type"); !strings.HasPrefix(ct, "text/html") {
 		t.Errorf("Content-Type = %q", ct)
+	}
+	body := rec.Body.String()
+	for _, p := range []string{"/static/css/styles.css", "/static/css/workbench.css", "/static/js/theme.js", "/static/js/data.js"} {
+		if !regexp.MustCompile(regexp.QuoteMeta(p) + `\?v=[0-9a-f]{8}"`).MatchString(body) {
+			t.Errorf("index.html links %s without an 8-hex version query", p)
+		}
+	}
+	if !regexp.MustCompile(`<script src="/static/js/data\.js\?v=[0-9a-f]{8}" data-v="[0-9a-f]{8}"`).MatchString(body) {
+		t.Error("the data.js tag lacks data-v with 8 hex chars")
+	}
+	etag := rec.Header().Get("ETag")
+	if rec := do(t, h, http.MethodGet, "/", map[string]string{"If-None-Match": etag}); etag == "" || rec.Code != http.StatusNotModified {
+		t.Errorf("index revalidation: etag %q, status %d", etag, rec.Code)
+	}
+}
+
+func TestServer_assetVersionServesSameBytes(t *testing.T) {
+	t.Parallel()
+	_, h := newTestServer(t)
+	m := regexp.MustCompile(`href="(/static/css/styles\.css)\?v=([0-9a-f]{8})"`).FindStringSubmatch(do(t, h, http.MethodGet, "/", nil).Body.String())
+	if m == nil {
+		t.Fatal("index.html has no versioned stylesheet link")
+	}
+	plain := do(t, h, http.MethodGet, m[1], nil).Body.Bytes()
+	for _, q := range []string{"?v=" + m[2], "?v=00000000"} {
+		if got := do(t, h, http.MethodGet, m[1]+q, nil).Body.Bytes(); len(plain) == 0 || !bytes.Equal(got, plain) {
+			t.Errorf("%s%s serves different bytes", m[1], q)
+		}
+	}
+	if _, err := assetFunc(map[string]string{})("/static/css/nope.css"); err == nil {
+		t.Error("asset accepted an unknown file")
 	}
 }
 

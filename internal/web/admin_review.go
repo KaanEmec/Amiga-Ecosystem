@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -109,6 +110,9 @@ type reviewQueueView struct {
 	Rows                      []reviewQueueRow
 	Total, Page, Pages        int
 	PrevURL, NextURL          string
+	Self                      string // this filtered page, the bulk form's "back"
+	AnyPending                bool   // rows that bulk actions apply to
+	BulkHide                  bool   // the bulk form offers Hide
 }
 
 var reviewStatusFilters = []adminMetaItem{
@@ -144,6 +148,10 @@ func (s *Server) reviewQueue(w http.ResponseWriter, r *http.Request) {
 		Status:    reviewKnown(reviewStatusFilters, q.Get("status"), store.StatusPending),
 		Sort:      reviewKnown(reviewSorts, q.Get("sort"), "oldest"),
 		Entry:     strings.TrimSpace(q.Get("entry")),
+		BulkHide:  true,
+	}
+	if msg := reviewBulkNotice(q); msg != "" {
+		v.Notice = msg
 	}
 	typeItems := []adminMetaItem{{ID: "", Label: "Any type"}}
 	for _, t := range suggest.Types {
@@ -190,6 +198,7 @@ func (s *Server) reviewQueue(w http.ResponseWriter, r *http.Request) {
 			}
 			row.Stale = rev > *sg.BaseRev
 		}
+		v.AnyPending = v.AnyPending || sg.Status == store.StatusPending
 		v.Rows = append(v.Rows, row)
 	}
 	link := func(page int) string {
@@ -202,6 +211,7 @@ func (s *Server) reviewQueue(w http.ResponseWriter, r *http.Request) {
 		}
 		return "/admin/queue?" + u.Encode()
 	}
+	v.Self = link(v.Page)
 	if v.Page > 1 {
 		v.PrevURL = link(v.Page - 1)
 	}
@@ -649,19 +659,108 @@ func (s *Server) reviewPending(w http.ResponseWriter, r *http.Request) (store.Su
 	return sg, true
 }
 
+// reviewDone redirects after a decision: to the review page, or to a
+// validated owner-panel path given as "back" (the image triage page).
 func reviewDone(w http.ResponseWriter, r *http.Request, id int64, ok string) {
+	if back := reviewBack(r); back != "" {
+		http.Redirect(w, r, reviewWithParams(back, url.Values{"ok": {ok}}), http.StatusSeeOther)
+		return
+	}
 	http.Redirect(w, r, fmt.Sprintf("/admin/suggestions/%d?ok=%s", id, ok), http.StatusSeeOther)
+}
+
+// reviewRefusal is a decision that did not proceed for a reason the owner
+// can act on. code names the reason in bulk notices.
+type reviewRefusal struct {
+	code   string
+	status int
+	msg    string
+}
+
+func (e *reviewRefusal) Error() string { return e.msg }
+
+var (
+	reviewNeedsReview = &reviewRefusal{code: "stale", status: http.StatusConflict,
+		msg: "Not published: the entry changed after this proposal was made. Review the newer revisions and tick “I reviewed the newer changes”."}
+	reviewNeedsConfirm = &reviewRefusal{code: "confirm", status: http.StatusUnprocessableEntity,
+		msg: "Tick the confirmation box to remove this entry and clean up its links."}
+)
+
+// reviewDecisionError shows a failed decision on the review page.
+func (s *Server) reviewDecisionError(w http.ResponseWriter, r *http.Request, id int64, err error, keep *adminForm) {
+	var rf *reviewRefusal
+	if errors.As(err, &rf) {
+		s.reviewFail(w, r, id, rf.status, rf.msg, nil, keep)
+		return
+	}
+	s.reviewPublishError(w, r, id, err, keep)
+}
+
+// reviewAcceptOptions are the owner's inputs to Accept. With Defaults it is
+// plain Accept as the review page pre-fills it (live owner fields, weight 2
+// for new entries, the current rev) and never confirms anything.
+type reviewAcceptOptions struct {
+	Decision           store.Decision // notes and time; Accept sets Status
+	Rev                int64          // entry rev the owner reviewed (change, remove, image)
+	Reviewed           bool           // confirmed the newer revisions of a stale proposal
+	Confirm            bool           // confirmed a removal and its cleanup
+	Defaults           bool
+	Weight             string // owner-only fields (new, change)
+	Unverified         bool
+	Edit               bool      // Edit & accept
+	Form               adminForm // edited entry (new, change)
+	Credit, SourcePage string    // edited image fields (image)
+}
+
+// reviewAcceptRequest reads the Accept and Edit & accept forms.
+func reviewAcceptRequest(r *http.Request, sg store.Suggestion) reviewAcceptOptions {
+	o := reviewAcceptOptions{
+		Decision: reviewDecision(r, store.StatusAccepted),
+		Rev:      adminExpectedRev(r),
+		Reviewed: r.PostFormValue("reviewed") == "1",
+		Confirm:  r.PostFormValue("confirm") == "1",
+		Weight:   r.PostFormValue("weight"), Unverified: r.PostFormValue("unverified") == "1",
+		Edit: r.PostFormValue("edit") == "1",
+	}
+	if o.Edit {
+		switch sg.Type {
+		case suggest.TypeNew, suggest.TypeChange:
+			o.Form = adminFormFromRequest(r)
+			if sg.Type == suggest.TypeChange {
+				o.Form.ID = sg.EntryID
+			}
+		case suggest.TypeImage:
+			o.Credit = strings.TrimSpace(r.PostFormValue("credit"))
+			o.SourcePage = strings.TrimSpace(r.PostFormValue("source_page"))
+		}
+	}
+	return o
 }
 
 // reviewAccept handles Accept and, with edit=1, Edit & accept.
 func (s *Server) reviewAccept(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
 	sg, ok := s.reviewPending(w, r)
 	if !ok {
 		return
 	}
-	edit := r.PostFormValue("edit") == "1"
-	rev := adminExpectedRev(r)
+	o := reviewAcceptRequest(r, sg)
+	status, err := s.reviewAcceptDecide(r.Context(), sg, o)
+	if err != nil {
+		var keep *adminForm
+		if o.Edit && (sg.Type == suggest.TypeNew || sg.Type == suggest.TypeChange) {
+			keep = &o.Form
+		}
+		s.reviewDecisionError(w, r, sg.ID, err, keep)
+		return
+	}
+	reviewDone(w, r, sg.ID, status)
+}
+
+// reviewAcceptDecide publishes a pending suggestion and records the decision
+// in the same transaction. It returns the status recorded (accepted or
+// accepted_edited). Stale proposals need o.Reviewed and removals o.Confirm;
+// otherwise it refuses with reviewNeedsReview / reviewNeedsConfirm.
+func (s *Server) reviewAcceptDecide(ctx context.Context, sg store.Suggestion, o reviewAcceptOptions) (string, error) {
 	reason := fmt.Sprintf("suggestion #%d accepted", sg.ID)
 
 	// change, remove and image act on a live entry and may be stale.
@@ -670,45 +769,36 @@ func (s *Server) reviewAccept(w http.ResponseWriter, r *http.Request) {
 		var err error
 		live, err = s.store.Q().GetEntry(ctx, sg.EntryID)
 		if errors.Is(err, store.ErrNotFound) {
-			s.reviewPublishError(w, r, sg.ID, catalog.ErrNotFound, nil)
-			return
+			return "", catalog.ErrNotFound
 		}
 		if err != nil {
-			s.adminFail(w, r, err)
-			return
+			return "", err
 		}
 		if live.DeletedAt != nil {
-			s.reviewPublishError(w, r, sg.ID, catalog.ErrDeleted, nil)
-			return
+			return "", catalog.ErrDeleted
 		}
-		if sg.BaseRev != nil && live.Rev > *sg.BaseRev && r.PostFormValue("reviewed") != "1" {
-			var keep *adminForm
-			if edit && sg.Type == suggest.TypeChange {
-				f := adminFormFromRequest(r)
-				f.ID = sg.EntryID
-				keep = &f
-			}
-			s.reviewFail(w, r, sg.ID, http.StatusConflict,
-				"Not published: the entry changed after this proposal was made. Review the newer revisions and tick “I reviewed the newer changes”.", nil, keep)
-			return
+		if o.Defaults {
+			o.Rev = live.Rev
+		}
+		if sg.BaseRev != nil && live.Rev > *sg.BaseRev && !o.Reviewed {
+			return "", reviewNeedsReview
 		}
 	}
+	if o.Defaults {
+		o.Weight, o.Unverified = reviewOwnerFields(live.Doc)
+	}
 
-	d := reviewDecision(r, store.StatusAccepted)
+	d := o.Decision
+	d.Status = store.StatusAccepted
 	switch sg.Type {
 	case suggest.TypeNew, suggest.TypeChange:
-		weight, unverified := r.PostFormValue("weight"), r.PostFormValue("unverified") == "1"
-		var form adminForm
-		if edit {
-			form = adminFormFromRequest(r)
-			if sg.Type == suggest.TypeChange {
-				form.ID = sg.EntryID
-			}
+		weight, unverified, form := o.Weight, o.Unverified, o.Form
+		if o.Edit {
 			weight, unverified = form.Weight, form.Unverified
 		}
 		proposed, problems := reviewMerge(sg, live.Doc, weight, unverified)
 		doc := proposed
-		if edit {
+		if o.Edit {
 			var base json.RawMessage
 			if sg.Type == suggest.TypeChange {
 				base = live.Doc
@@ -720,93 +810,77 @@ func (s *Server) reviewAccept(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		if len(problems) > 0 {
-			s.reviewPublishError(w, r, sg.ID, &catalog.ValidationError{Problems: problems}, reviewKeep(edit, form))
-			return
+			return "", &catalog.ValidationError{Problems: problems}
 		}
 		d.Final = doc
 		var err error
 		if sg.Type == suggest.TypeNew {
 			id := form.ID
-			if !edit {
+			if !o.Edit {
 				e, perr := catalog.ParseEntry(doc)
 				if perr != nil {
-					s.reviewPublishError(w, r, sg.ID, &catalog.ValidationError{Problems: []string{perr.Error()}}, nil)
-					return
+					return "", &catalog.ValidationError{Problems: []string{perr.Error()}}
 				}
 				id = e.ID
 			}
 			_, err = s.catalog.Create(ctx, doc, adminActor, reason, &sg.ID, reviewDecideHook(sg, id, d))
 		} else {
-			_, err = s.catalog.Update(ctx, sg.EntryID, doc, rev, adminActor, reason, &sg.ID, reviewDecideHook(sg, sg.EntryID, d))
+			_, err = s.catalog.Update(ctx, sg.EntryID, doc, o.Rev, adminActor, reason, &sg.ID, reviewDecideHook(sg, sg.EntryID, d))
 		}
 		if err != nil {
-			s.reviewPublishError(w, r, sg.ID, err, reviewKeep(edit, form))
-			return
+			return "", err
 		}
 
 	case suggest.TypeRemove:
-		if r.PostFormValue("confirm") != "1" {
-			s.reviewFail(w, r, sg.ID, http.StatusUnprocessableEntity, "Tick the confirmation box to remove this entry and clean up its links.", nil, nil)
-			return
+		if !o.Confirm {
+			return "", reviewNeedsConfirm
 		}
-		if _, err := s.catalog.Remove(ctx, sg.EntryID, rev, adminActor, reason, &sg.ID, reviewDecideHook(sg, sg.EntryID, d)); err != nil {
-			s.reviewPublishError(w, r, sg.ID, err, nil)
-			return
+		if _, err := s.catalog.Remove(ctx, sg.EntryID, o.Rev, adminActor, reason, &sg.ID, reviewDecideHook(sg, sg.EntryID, d)); err != nil {
+			return "", err
 		}
 
 	case suggest.TypeImage:
-		if !s.reviewAcceptImage(w, r, sg, live, rev, edit, &d, reason) {
-			return
+		img := reviewImagePayload(sg)
+		credit, sourcePage := img.Credit, img.SourcePage
+		if o.Edit {
+			credit, sourcePage = o.Credit, o.SourcePage
+		}
+		if err := s.reviewAcceptImage(ctx, sg, live, o.Rev, credit, sourcePage, &d, reason); err != nil {
+			return "", err
 		}
 
 	default:
-		s.reviewFail(w, r, sg.ID, http.StatusUnprocessableEntity, "Unknown proposal type.", nil, nil)
-		return
+		return "", &reviewRefusal{code: "type", status: http.StatusUnprocessableEntity, msg: "Unknown proposal type."}
 	}
-	reviewDone(w, r, sg.ID, d.Status)
-}
-
-func reviewKeep(edit bool, f adminForm) *adminForm {
-	if !edit {
-		return nil
-	}
-	return &f
+	return d.Status, nil
 }
 
 // reviewAcceptImage publishes the staged image (fetching it first when the
-// owner did not preview) and sets it as the entry's image. A failed fetch
-// leaves the suggestion pending and the catalogue unchanged.
-func (s *Server) reviewAcceptImage(w http.ResponseWriter, r *http.Request, sg store.Suggestion, live store.Entry, rev int64, edit bool, d *store.Decision, reason string) bool {
-	ctx := r.Context()
+// owner did not preview) and sets it as the entry's image. A credit or
+// source page that differs from the proposal records accepted_edited. A
+// failed fetch leaves the suggestion pending and the catalogue unchanged.
+func (s *Server) reviewAcceptImage(ctx context.Context, sg store.Suggestion, live store.Entry, rev int64, credit, sourcePage string, d *store.Decision, reason string) error {
 	img := reviewImagePayload(sg)
-	credit, sourcePage := img.Credit, img.SourcePage
-	if edit {
-		credit = strings.TrimSpace(r.PostFormValue("credit"))
-		sourcePage = strings.TrimSpace(r.PostFormValue("source_page"))
-		if credit != img.Credit || sourcePage != img.SourcePage {
-			d.Status = store.StatusAcceptedEdited
-			reason += " with edits"
-		}
+	if credit != img.Credit || sourcePage != img.SourcePage {
+		d.Status = store.StatusAcceptedEdited
+		reason += " with edits"
 	}
 	// Check the rev before downloading or moving anything into media/.
 	if live.Rev != rev {
-		s.reviewPublishError(w, r, sg.ID, &catalog.StaleError{ID: live.ID, Expected: rev, Current: live.Rev}, nil)
-		return false
+		return &catalog.StaleError{ID: live.ID, Expected: rev, Current: live.Rev}
 	}
 	staged, ok := s.admin.staged.take(sg.ID)
 	if !ok {
 		var err error
 		if staged, err = s.admin.images.Stage(ctx, img.URL); err != nil {
 			s.log.InfoContext(ctx, "image fetch refused", "suggestion", sg.ID, "err", err)
-			s.reviewFail(w, r, sg.ID, http.StatusUnprocessableEntity, "Image not fetched; the suggestion stays pending: "+err.Error(), nil, nil)
-			return false
+			return &reviewRefusal{code: "fetch", status: http.StatusUnprocessableEntity, msg: "Image not fetched; the suggestion stays pending: " + err.Error()}
 		}
 	}
 	pub, err := s.admin.images.Publish(staged, sg.EntryID, credit, sourcePage, &sg.ID)
 	if err != nil {
 		_ = s.admin.images.Discard(staged)
-		s.reviewFail(w, r, sg.ID, http.StatusUnprocessableEntity, "Image not published; the suggestion stays pending: "+err.Error(), nil, nil)
-		return false
+		return &reviewRefusal{code: "publish", status: http.StatusUnprocessableEntity, msg: "Image not published; the suggestion stays pending: " + err.Error()}
 	}
 	// The provenance row is written in the catalogue transaction; on any
 	// failure the moved file is removed again.
@@ -819,24 +893,21 @@ func (s *Server) reviewAcceptImage(w http.ResponseWriter, r *http.Request, sg st
 	fields := []catalog.Field{{Key: "image", Value: pub.Path}, {Key: "imageCredit", Value: credit, Remove: credit == ""}}
 	doc, err := catalog.Patch(live.Doc, fields...)
 	if err != nil {
-		s.adminFail(w, r, err)
-		return false
+		return err
 	}
 	final := map[string]string{"image": pub.Path}
 	if credit != "" {
 		final["imageCredit"] = credit
 	}
 	if d.Final, err = json.Marshal(final); err != nil {
-		s.adminFail(w, r, err)
-		return false
+		return err
 	}
 	if _, err := s.catalog.Update(ctx, sg.EntryID, doc, rev, adminActor, reason+" (image from "+staged.SourceURL+")", &sg.ID,
 		pub.Record, reviewDecideHook(sg, sg.EntryID, *d)); err != nil {
-		s.reviewPublishError(w, r, sg.ID, err, nil)
-		return false
+		return err
 	}
 	published = true
-	return true
+	return nil
 }
 
 // undoImage removes a published image file whose catalogue publication failed.
@@ -857,16 +928,26 @@ func (s *Server) reviewDecideOnly(ctx context.Context, sg store.Suggestion, d st
 	})
 }
 
+// reviewRejectDecide rejects a pending suggestion (store.ErrNotPending
+// otherwise) and discards its staged preview.
+func (s *Server) reviewRejectDecide(ctx context.Context, sg store.Suggestion, d store.Decision) error {
+	d.Status = store.StatusRejected
+	if err := s.reviewDecideOnly(ctx, sg, d, nil); err != nil {
+		return err
+	}
+	s.reviewDiscardStaged(ctx, sg.ID)
+	return nil
+}
+
 func (s *Server) reviewReject(w http.ResponseWriter, r *http.Request) {
 	sg, ok := s.reviewPending(w, r)
 	if !ok {
 		return
 	}
-	if err := s.reviewDecideOnly(r.Context(), sg, reviewDecision(r, store.StatusRejected), nil); err != nil {
+	if err := s.reviewRejectDecide(r.Context(), sg, reviewDecision(r, store.StatusRejected)); err != nil {
 		s.reviewPublishError(w, r, sg.ID, err, nil)
 		return
 	}
-	s.reviewDiscardStaged(r.Context(), sg.ID)
 	reviewDone(w, r, sg.ID, store.StatusRejected)
 }
 
@@ -908,16 +989,9 @@ func (s *Server) reviewDuplicate(w http.ResponseWriter, r *http.Request) {
 	reviewDone(w, r, sg.ID, store.StatusDuplicate)
 }
 
-// reviewHide hides a suggestion of any status as spam. An empty internal
-// note keeps the existing one.
-func (s *Server) reviewHide(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	id, ok := reviewID(r)
-	if !ok {
-		http.NotFound(w, r)
-		return
-	}
-	note := strings.TrimSpace(r.PostFormValue("internal_note"))
+// reviewHideDecide hides suggestion id (any status) as spam and discards its
+// staged preview. An empty note keeps the existing internal note.
+func (s *Server) reviewHideDecide(ctx context.Context, id int64, note string) error {
 	err := s.store.Tx(ctx, func(tx *sql.Tx) error {
 		q := store.NewQueries(tx)
 		sg, err := q.GetSuggestion(ctx, id)
@@ -933,6 +1007,21 @@ func (s *Server) reviewHide(w http.ResponseWriter, r *http.Request) {
 		}
 		return reviewLog(ctx, q, sg, sg.EntryID, store.StatusHidden, map[string]any{"previous_status": sg.Status}, at)
 	})
+	if err != nil {
+		return err
+	}
+	s.reviewDiscardStaged(ctx, id)
+	return nil
+}
+
+// reviewHide hides a suggestion of any status as spam.
+func (s *Server) reviewHide(w http.ResponseWriter, r *http.Request) {
+	id, ok := reviewID(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	err := s.reviewHideDecide(r.Context(), id, strings.TrimSpace(r.PostFormValue("internal_note")))
 	if errors.Is(err, store.ErrNotFound) {
 		http.NotFound(w, r)
 		return
@@ -941,16 +1030,28 @@ func (s *Server) reviewHide(w http.ResponseWriter, r *http.Request) {
 		s.adminFail(w, r, err)
 		return
 	}
-	s.reviewDiscardStaged(ctx, id)
 	reviewDone(w, r, id, store.StatusHidden)
 }
 
 // --- image preview ----------------------------------------------------------------
 
-// reviewPreview fetches a pending image suggestion's URL through the safe
-// fetcher into the private staging dir (owner-triggered only).
+// reviewStagePreview fetches a pending image suggestion's URL through the
+// safe fetcher (one fetch at a time) into the private staging dir and keeps
+// it as the suggestion's preview, replacing an older one.
+func (s *Server) reviewStagePreview(ctx context.Context, sg store.Suggestion) error {
+	staged, err := s.admin.images.Stage(ctx, reviewImagePayload(sg).URL)
+	if err != nil {
+		s.log.InfoContext(ctx, "image fetch refused", "suggestion", sg.ID, "err", err)
+		return &reviewRefusal{code: "fetch", status: http.StatusUnprocessableEntity, msg: "Image not fetched; the suggestion stays pending: " + err.Error()}
+	}
+	if old, replaced := s.admin.staged.put(sg.ID, staged); replaced {
+		_ = s.admin.images.Discard(old)
+	}
+	return nil
+}
+
+// reviewPreview stages a pending image suggestion's image (owner-triggered only).
 func (s *Server) reviewPreview(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
 	sg, ok := s.reviewPending(w, r)
 	if !ok {
 		return
@@ -959,14 +1060,9 @@ func (s *Server) reviewPreview(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	staged, err := s.admin.images.Stage(ctx, reviewImagePayload(sg).URL)
-	if err != nil {
-		s.log.InfoContext(ctx, "image fetch refused", "suggestion", sg.ID, "err", err)
-		s.reviewFail(w, r, sg.ID, http.StatusUnprocessableEntity, "Image not fetched; the suggestion stays pending: "+err.Error(), nil, nil)
+	if err := s.reviewStagePreview(r.Context(), sg); err != nil {
+		s.reviewDecisionError(w, r, sg.ID, err, nil)
 		return
-	}
-	if old, replaced := s.admin.staged.put(sg.ID, staged); replaced {
-		_ = s.admin.images.Discard(old)
 	}
 	reviewDone(w, r, sg.ID, "staged")
 }
@@ -979,6 +1075,64 @@ func (s *Server) reviewStagedFile(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	s.reviewServeStaged(w, r, name)
+}
+
+// reviewStagedSuggestion serves the staged preview of a pending image
+// suggestion, staging it first when there is none (the triage page's
+// <img src>). A GET with a side effect is acceptable here: the admin
+// cookie is SameSite=Strict, so only the owner's own same-site page loads
+// trigger it, and the only effect is a file in the private staging dir
+// fetched through the same guarded, one-at-a-time fetcher as Preview.
+func (s *Server) reviewStagedSuggestion(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	id, ok := reviewID(r)
+	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+	st, ok := s.admin.staged.get(id)
+	if !ok {
+		sg, err := s.store.Q().GetSuggestion(ctx, id)
+		if errors.Is(err, store.ErrNotFound) || (err == nil && (sg.Status != store.StatusPending || sg.Type != suggest.TypeImage)) {
+			http.NotFound(w, r)
+			return
+		}
+		if err != nil {
+			s.adminFail(w, r, err)
+			return
+		}
+		// Requests queue here (and on the fetcher's own semaphore); give a
+		// queued one more than the server's default write timeout.
+		_ = http.NewResponseController(w).SetWriteDeadline(time.Now().Add(3 * time.Minute))
+		select {
+		case s.admin.stageSem <- struct{}{}:
+		case <-ctx.Done():
+			return
+		}
+		st, ok = s.admin.staged.get(id) // staged while this request waited
+		if !ok {
+			if err = s.reviewStagePreview(ctx, sg); err == nil {
+				st, ok = s.admin.staged.get(id)
+			}
+		}
+		<-s.admin.stageSem
+		if !ok {
+			msg := "preview failed"
+			if err != nil {
+				msg += ": " + err.Error()
+			}
+			w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+			w.WriteHeader(http.StatusBadGateway)
+			_, _ = io.WriteString(w, reviewExcerpt(msg, 200)+"\n")
+			return
+		}
+	}
+	s.reviewServeStaged(w, r, st.Name)
+}
+
+// reviewServeStaged writes a staged file with its image type and a sandbox CSP.
+func (s *Server) reviewServeStaged(w http.ResponseWriter, r *http.Request, name string) {
 	f, err := s.admin.images.OpenStaged(name)
 	if err != nil {
 		http.NotFound(w, r)

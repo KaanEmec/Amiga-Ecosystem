@@ -12,6 +12,8 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"slices"
+	"strings"
 	"sync/atomic"
 	"time"
 
@@ -72,7 +74,7 @@ func New(cfg config.Config, st *store.Store, cat *catalog.Catalog, logger *slog.
 		_ = media.Close()
 		return nil, fmt.Errorf("embedded static dir: %w", err)
 	}
-	tmpl, err := parseTemplates(assets.FS)
+	tmpl, err := parseTemplates(assets.FS, etags)
 	if err != nil {
 		_ = media.Close()
 		return nil, err
@@ -150,6 +152,23 @@ func (s *Server) ListenAndServe(ctx context.Context) error {
 		return fmt.Errorf("http server: %w", err)
 	}
 	return nil
+}
+
+// dirVersion returns the first 8 hex chars of a hash over the ETags of every
+// embedded file under prefix (e.g. "static/js/"), in path order.
+func dirVersion(etags map[string]string, prefix string) string {
+	var paths []string
+	for p := range etags {
+		if strings.HasPrefix(p, prefix) {
+			paths = append(paths, p)
+		}
+	}
+	slices.Sort(paths)
+	h := sha256.New()
+	for _, p := range paths {
+		fmt.Fprintf(h, "%s %s\n", p, etags[p])
+	}
+	return hex.EncodeToString(h.Sum(nil))[:8]
 }
 
 // hashFiles computes a strong ETag for every embedded file.

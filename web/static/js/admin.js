@@ -29,7 +29,26 @@
     });
   }
 
+  /* "Select all" for the bulk forms: toggles every ids checkbox that
+     belongs to the form named by data-select-all (form attribute included). */
+  function initSelectAll(all) {
+    var formID = all.getAttribute('data-select-all');
+    function boxes() {
+      return Array.prototype.filter.call(document.querySelectorAll('input[type=checkbox][name=ids]'), function (b) {
+        return b.form && b.form.id === formID;
+      });
+    }
+    if (!boxes().length) return;
+    all.hidden = false;
+    var label = all.closest('label');
+    if (label) label.hidden = false;
+    all.addEventListener('change', function () {
+      boxes().forEach(function (b) { b.checked = all.checked; });
+    });
+  }
+
   function init() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-select-all]'), initSelectAll);
     Array.prototype.forEach.call(document.querySelectorAll('[data-picker]'), initPicker);
     Array.prototype.forEach.call(document.querySelectorAll('form.admin-entry-form'), guardUnsaved);
   }

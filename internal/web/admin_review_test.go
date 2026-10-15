@@ -3,6 +3,7 @@ package web
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -19,6 +20,7 @@ import (
 	"sync/atomic"
 	"testing"
 
+	"amigaconstellation/internal/catalog"
 	"amigaconstellation/internal/images"
 	"amigaconstellation/internal/store"
 	"amigaconstellation/internal/suggest"
@@ -645,14 +647,13 @@ func TestReview_ImageSuggestions(t *testing.T) {
 			t.Fatalf("direct edit: %d", rec.Code)
 		}
 		sg := env.suggestion(t, id)
-		req := httptest.NewRequestWithContext(t.Context(), http.MethodPost, suggestionPath(id, "accept"), nil)
-		rec := httptest.NewRecorder()
-		d := reviewDecision(req, store.StatusAccepted)
-		if env.srv.reviewAcceptImage(rec, req, sg, live, live.Rev, false, &d, "accepted") {
+		d := store.Decision{Status: store.StatusAccepted, At: 1}
+		err := env.srv.reviewAcceptImage(t.Context(), sg, live, live.Rev, "CC0", "", &d, "accepted")
+		if err == nil {
 			t.Fatal("stale image accept succeeded")
 		}
-		if rec.Code != http.StatusConflict {
-			t.Errorf("stale image accept: %d", rec.Code)
+		if !errors.Is(err, catalog.ErrStale) {
+			t.Errorf("stale image accept: %v", err)
 		}
 		published, _ := filepath.Glob(filepath.Join(env.cfg.MediaDir(), "suggested", "a3000-*"))
 		if len(published) != 0 {
@@ -758,5 +759,232 @@ func TestReview_ImportSuggestions(t *testing.T) {
 		if !strings.Contains(body, want) {
 			t.Errorf("result page lacks %q", want)
 		}
+	}
+}
+
+// followNotice follows a bulk redirect and returns the page's ok flash.
+func followNotice(t *testing.T, c *adminClient, rec *httptest.ResponseRecorder) string {
+	t.Helper()
+	if rec.Code != http.StatusSeeOther {
+		t.Fatalf("status %d, body %s", rec.Code, firstError(rec.Body.String()))
+	}
+	body := c.get(t, rec.Header().Get("Location")).Body.String()
+	m := regexp.MustCompile(`(?s)admin-flash-ok" role="status">(.*?)</p>`).FindStringSubmatch(body)
+	if m == nil {
+		t.Fatalf("no notice after redirect to %s", rec.Header().Get("Location"))
+	}
+	return m[1]
+}
+
+func TestReview_BulkReject(t *testing.T) {
+	t.Parallel()
+	env := newAdminEnv(t)
+	c := env.login(t)
+	a := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a2500", Fields: suggest.Fields{Year: sptr(1991)}})
+	b := env.propose(t, suggest.Proposal{Type: suggest.TypeRemove, EntryID: "cdtv"})
+	done := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a3000", Fields: suggest.Fields{Year: sptr(1992)}})
+	wantRedirect(t, c.post(t, suggestionPath(done, "reject"), nil), done, store.StatusRejected)
+
+	page := c.get(t, "/admin/queue?status=all").Body.String()
+	for _, want := range []string{`action="/admin/queue/bulk"`, fmt.Sprintf(`name="ids" value="%d"`, a), `data-select-all="bulk"`, `href="/admin/queue/images"`} {
+		if !strings.Contains(page, want) {
+			t.Errorf("queue lacks %q", want)
+		}
+	}
+	if strings.Contains(page, fmt.Sprintf(`name="ids" value="%d"`, done)) {
+		t.Error("decided row has a bulk checkbox")
+	}
+	if !strings.Contains(c.get(t, "/admin").Body.String(), `href="/admin/queue/images"`) {
+		t.Error("dashboard does not link the image triage")
+	}
+
+	back := "/admin/queue?page=1&sort=newest&status=all&type=change"
+	form := url.Values{"action": {"reject"}, "decision_note": {"Bulk no."}, "back": {back}, "ids": {itoa(a), itoa(b), itoa(done)}}
+	if rec := env.request(t, http.MethodPost, "/admin/queue/bulk", form, c.cookie, sameOrigin); rec.Code != http.StatusForbidden {
+		t.Errorf("bulk without CSRF: %d", rec.Code)
+	}
+	rec := c.post(t, "/admin/queue/bulk", form)
+	loc, _ := url.Parse(rec.Header().Get("Location"))
+	if loc == nil || loc.Path != "/admin/queue" || loc.Query().Get("type") != "change" || loc.Query().Get("sort") != "newest" {
+		t.Errorf("redirect %q does not keep the filter", rec.Header().Get("Location"))
+	}
+	notice := followNotice(t, c, rec)
+	if want := fmt.Sprintf("2 rejected, 1 skipped: #%d already decided.", done); notice != want {
+		t.Errorf("notice %q, want %q", notice, want)
+	}
+	for _, id := range []int64{a, b} {
+		if sg := env.suggestion(t, id); sg.Status != store.StatusRejected || sg.DecisionNote != "Bulk no." || !env.decisionLogged(t, id, store.StatusRejected) {
+			t.Errorf("#%d = %s %q", id, sg.Status, sg.DecisionNote)
+		}
+	}
+
+	ids := make([]string, reviewBulkMax+1)
+	for i := range ids {
+		ids[i] = itoa(int64(i + 1))
+	}
+	if rec := c.post(t, "/admin/queue/bulk", url.Values{"action": {"reject"}, "ids": ids}); rec.Code != http.StatusRequestEntityTooLarge {
+		t.Errorf("over the cap: %d", rec.Code)
+	}
+}
+
+func TestReview_BulkAccept(t *testing.T) {
+	t.Parallel()
+	env := newAdminEnv(t)
+	c := env.login(t)
+	stale := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a3000", Fields: suggest.Fields{Year: sptr(1991)}})
+	form := entryForm(t, env, "a3000")
+	form.Set("by", "Commodore (owner)")
+	if rec := c.post(t, "/admin/entries/a3000", form); rec.Code != http.StatusSeeOther {
+		t.Fatalf("direct edit: %d", rec.Code)
+	}
+	staleRev := env.entry(t, "a3000").Rev
+	fresh := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a2500", Fields: suggest.Fields{Year: sptr(1990)}})
+	newID := env.propose(t, suggest.Proposal{Type: suggest.TypeNew, Fields: newProposalFields()})
+	removal := env.propose(t, suggest.Proposal{Type: suggest.TypeRemove, EntryID: "cdtv"})
+
+	rec := c.post(t, "/admin/queue/bulk", url.Values{"action": {"accept"}, "ids": {itoa(stale), itoa(fresh), itoa(newID), itoa(removal)}})
+	notice := followNotice(t, c, rec)
+	if want := fmt.Sprintf("2 accepted, 2 skipped: #%d stale, #%d needs confirmation.", stale, removal); notice != want {
+		t.Errorf("notice %q, want %q", notice, want)
+	}
+	if e := env.published(t, "a2500"); e["year"] != 1990.0 {
+		t.Errorf("fresh change not published: %v", e)
+	}
+	if e := env.published(t, "amiga-review-card"); e == nil || e["weight"] != 2.0 {
+		t.Errorf("new entry = %v", e)
+	}
+	for id, want := range map[int64]string{fresh: store.StatusAccepted, newID: store.StatusAccepted, stale: store.StatusPending, removal: store.StatusPending} {
+		if sg := env.suggestion(t, id); sg.Status != want {
+			t.Errorf("#%d status %s, want %s", id, sg.Status, want)
+		}
+	}
+	if env.entry(t, "a3000").Rev != staleRev || env.published(t, "a3000")["year"] == 1991.0 {
+		t.Error("stale change was published")
+	}
+	if env.published(t, "cdtv") == nil {
+		t.Error("removal was published without confirmation")
+	}
+}
+
+func TestReview_AcceptBack(t *testing.T) {
+	t.Parallel()
+	env := newAdminEnv(t)
+	c := env.login(t)
+	accept := func(back string) (int64, *httptest.ResponseRecorder) {
+		id := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a2500", Fields: suggest.Fields{Version: sptr("rev " + back)}})
+		return id, c.post(t, suggestionPath(id, "accept"), url.Values{"rev": {itoa(env.entry(t, "a2500").Rev)}, "back": {back}})
+	}
+	_, rec := accept("/admin/queue/images?page=2")
+	if loc := rec.Header().Get("Location"); rec.Code != http.StatusSeeOther || loc != "/admin/queue/images?ok=accepted&page=2" {
+		t.Errorf("valid back: %d %q", rec.Code, loc)
+	}
+	for _, back := range []string{"https://evil.example/admin/queue", "//evil.example/admin/", "/\\evil.example/admin/", "/admin/../suggestions", "/suggestions", "javascript:alert(1)"} {
+		id, rec := accept(back)
+		wantRedirect(t, rec, id, store.StatusAccepted)
+	}
+}
+
+func TestReview_ImageTriage(t *testing.T) {
+	t.Parallel()
+	pngData := reviewPNG(t)
+	var hits atomic.Int32
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hits.Add(1)
+		if r.URL.Path != "/a.png" {
+			http.NotFound(w, r)
+			return
+		}
+		w.Header().Set("Content-Type", "image/png")
+		_, _ = w.Write(pngData)
+	}))
+	defer srv.Close()
+	env := newAdminEnvWith(t, images.WithAddrPolicy(func(a netip.Addr) error {
+		if a.IsLoopback() {
+			return nil
+		}
+		return images.DefaultAddrPolicy(a)
+	}))
+	c := env.login(t)
+	good := env.propose(t, suggest.Proposal{Type: suggest.TypeImage, EntryID: "a2500", ImageURL: srv.URL + "/a.png",
+		ImageCredit: "Photo: Tester, CC0", ImageSourcePage: "https://example.org/photos", Reason: "A sharper photo of the board."})
+	bad := env.propose(t, suggest.Proposal{Type: suggest.TypeImage, EntryID: "a3000", ImageURL: srv.URL + "/missing.png", ImageCredit: "CC0"})
+	decided := env.propose(t, suggest.Proposal{Type: suggest.TypeImage, EntryID: "a3000", ImageURL: srv.URL + "/a.png?old", ImageCredit: "CC0"})
+	wantRedirect(t, c.post(t, suggestionPath(decided, "reject"), nil), decided, store.StatusRejected)
+	change := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a2500", Fields: suggest.Fields{Year: sptr(1990)}})
+
+	rec := c.get(t, "/admin/queue/images")
+	body := rec.Body.String()
+	if rec.Code != http.StatusOK {
+		t.Fatalf("triage: %d", rec.Code)
+	}
+	srcs := map[string]bool{}
+	for _, m := range regexp.MustCompile(`<img[^>]*\ssrc="([^"]*)"`).FindAllStringSubmatch(body, -1) {
+		srcs[m[1]] = true
+		if strings.Contains(m[1], srv.URL) || strings.Contains(m[1], "127.0.0.1") {
+			t.Errorf("remote proposed URL in <img src>: %q", m[1])
+		}
+	}
+	for _, id := range []int64{good, bad} {
+		if !srcs[fmt.Sprintf("/admin/staged/suggestion/%d", id)] || !strings.Contains(body, fmt.Sprintf(`href="/admin/suggestions/%d"`, id)) {
+			t.Errorf("triage card #%d lacks its staged preview or review link", id)
+		}
+	}
+	for _, id := range []int64{decided, change} {
+		if strings.Contains(body, fmt.Sprintf(`href="/admin/suggestions/%d"`, id)) {
+			t.Errorf("triage lists #%d", id)
+		}
+	}
+	for _, want := range []string{`alt="preview failed"`, "<summary>Why</summary>", "Photo: Tester, CC0", `name="back" value="/admin/queue/images?page=1"`, `class="admin-bulkbar"`} {
+		if !strings.Contains(body, want) {
+			t.Errorf("triage lacks %q", want)
+		}
+	}
+	if hits.Load() != 0 {
+		t.Fatal("triage page itself fetched images")
+	}
+
+	// On demand: the first request stages, the second serves the staged copy.
+	preview := fmt.Sprintf("/admin/staged/suggestion/%d", good)
+	for i := range 2 {
+		rec := c.get(t, preview)
+		if rec.Code != http.StatusOK || rec.Header().Get("Content-Type") != "image/png" || !bytes.Equal(rec.Body.Bytes(), pngData) {
+			t.Fatalf("request %d: %d %s", i, rec.Code, rec.Header().Get("Content-Type"))
+		}
+	}
+	if hits.Load() != 1 {
+		t.Errorf("image fetched %d times, want 1", hits.Load())
+	}
+	if _, ok := env.srv.admin.staged.get(good); !ok {
+		t.Error("good image not staged")
+	}
+	if rec := c.get(t, fmt.Sprintf("/admin/staged/suggestion/%d", bad)); rec.Code != http.StatusBadGateway || !strings.HasPrefix(rec.Header().Get("Content-Type"), "text/plain") {
+		t.Errorf("failing fetch: %d %s", rec.Code, rec.Header().Get("Content-Type"))
+	}
+	for _, id := range []int64{decided, change, 9999} {
+		if rec := c.get(t, fmt.Sprintf("/admin/staged/suggestion/%d", id)); rec.Code != http.StatusNotFound {
+			t.Errorf("#%d: %d", id, rec.Code)
+		}
+	}
+	if rec := env.request(t, http.MethodGet, preview, nil, nil, nil); rec.Code != http.StatusSeeOther {
+		t.Errorf("anonymous on-demand preview: %d", rec.Code)
+	}
+	fetched := hits.Load()
+
+	// Accepting after the preview reuses the staged copy.
+	rec = c.post(t, "/admin/queue/bulk", url.Values{"action": {"accept"}, "ids": {itoa(good)}, "back": {"/admin/queue/images?page=1"}})
+	if notice := followNotice(t, c, rec); notice != "1 accepted." {
+		t.Errorf("notice %q", notice)
+	}
+	if hits.Load() != fetched {
+		t.Error("accept downloaded the image again")
+	}
+	if e := env.published(t, "a2500"); !strings.HasPrefix(fmt.Sprint(e["image"]), "images/suggested/a2500-") {
+		t.Errorf("image not published: %v", e["image"])
+	}
+	if sg := env.suggestion(t, good); sg.Status != store.StatusAccepted {
+		t.Errorf("status %s", sg.Status)
+	}
+	if rec := c.get(t, preview); rec.Code != http.StatusNotFound {
+		t.Errorf("preview of a decided suggestion: %d", rec.Code)
 	}
 }
