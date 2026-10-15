@@ -7,6 +7,7 @@ import (
 	"errors"
 	"io/fs"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -22,13 +23,28 @@ func (s *Server) handleIndex(w http.ResponseWriter, r *http.Request) {
 	http.ServeContent(w, r, "index.html", time.Time{}, bytes.NewReader(s.templates.index))
 }
 
-// staticHandler serves embedded static/ files. Requests carrying a version
-// query (?v=...) are cacheable forever; others for a day, revalidated by
-// ETag afterwards.
+// staticVersioned matches the version segment of /static/v-<8 hex>/<path>.
+var staticVersioned = regexp.MustCompile(`^/static/v-[0-9a-f]{8}/`)
+
+// staticHandler serves embedded static/ files. /static/v-<8 hex>/<path>
+// (what the "asset" template function links) serves the same file as
+// /static/<path> and is cacheable forever: the version is in the path, so a
+// CDN that ignores query strings still keys on it. Requests carrying a
+// version query (?v=...) are also cacheable forever; others for a day,
+// revalidated by ETag afterwards.
 func (s *Server) staticHandler() http.Handler {
 	files := http.StripPrefix("/static/", http.FileServerFS(filesOnly{s.static}))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Query().Has("v") {
+		versioned := false
+		if loc := staticVersioned.FindStringIndex(r.URL.Path); loc != nil {
+			r2 := new(http.Request)
+			*r2 = *r
+			u := *r.URL
+			u.Path, u.RawPath = "/static/"+r.URL.Path[loc[1]:], ""
+			r2.URL = &u
+			r, versioned = r2, true
+		}
+		if versioned || r.URL.Query().Has("v") {
 			w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
 		} else {
 			w.Header().Set("Cache-Control", "public, max-age=86400")

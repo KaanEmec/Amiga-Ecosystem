@@ -28,16 +28,17 @@ type templateSet struct {
 }
 
 // assetFunc returns the template function "asset": the static path with a
-// short content version, e.g. /static/css/styles.css?v=1a2b3c4d, so a deploy
-// busts browser caches (versioned requests are cached as immutable). An
-// unknown path is an error, so a typo fails rendering instead of shipping.
+// short content version as a path segment, e.g.
+// /static/v-1a2b3c4d/css/styles.css, so a deploy busts browser and CDN
+// caches (versioned paths are cached as immutable). An unknown path is an
+// error, so a typo fails rendering instead of shipping.
 func assetFunc(etags map[string]string) func(string) (string, error) {
 	return func(p string) (string, error) {
 		e := strings.Trim(etags[strings.TrimPrefix(p, "/")], `"`)
 		if !strings.HasPrefix(p, "/static/") || len(e) < 8 {
 			return "", fmt.Errorf("asset %q: not an embedded static file", p)
 		}
-		return p + "?v=" + e[:8], nil
+		return "/static/v-" + e[:8] + "/" + strings.TrimPrefix(p, "/static/"), nil
 	}
 }
 
@@ -63,7 +64,9 @@ var templateFuncs = template.FuncMap{
 }
 
 func parseTemplates(root fs.FS, etags map[string]string) (*templateSet, error) {
-	jsVersion := dirVersion(etags, "static/js/") // data.js versions the scripts it loads
+	// data.js is linked as /static/v-<jsVersion>/js/data.js and loads its
+	// sibling scripts from its own directory, so they share that version.
+	jsVersion := dirVersion(etags, "static/js/")
 	funcs := template.FuncMap{"asset": assetFunc(etags), "assetVersion": func() string { return jsVersion }}
 	entries, err := fs.ReadDir(root, "templates")
 	if err != nil {

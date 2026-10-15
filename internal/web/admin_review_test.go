@@ -479,27 +479,48 @@ func TestReview_DoubleAcceptAndStale(t *testing.T) {
 		}
 	})
 
-	t.Run("stale change needs review", func(t *testing.T) {
+	t.Run("conflicting change needs review", func(t *testing.T) {
 		id := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a3000", Fields: suggest.Fields{Year: sptr(1991)}})
-		// The owner edits the entry directly after the proposal.
+		// The owner edits the proposal's own field directly after the proposal.
 		form := entryForm(t, env, "a3000")
+		form.Set("year", "1989")
 		form.Set("by", "Commodore (owner)")
 		if rec := c.post(t, "/admin/entries/a3000", form); rec.Code != http.StatusSeeOther {
 			t.Fatalf("direct edit: %d", rec.Code)
 		}
 		cur := env.entry(t, "a3000")
 		page := c.get(t, suggestionPath(id, "")).Body.String()
-		if !strings.Contains(page, "Conflict: the entry changed") || !strings.Contains(page, `name="reviewed"`) || !strings.Contains(page, "Commodore (owner)") {
+		if !strings.Contains(page, "Conflict: the proposed fields changed") || !strings.Contains(page, `name="reviewed"`) || !strings.Contains(page, "Commodore (owner)") {
 			t.Error("review page lacks the conflict notice")
+		}
+		if !strings.Contains(c.get(t, "/admin/queue").Body.String(), ">conflict</span>") {
+			t.Error("queue lacks the conflict tag")
 		}
 		accept := url.Values{"rev": {itoa(cur.Rev)}, "weight": {"4"}}
 		rec := c.post(t, suggestionPath(id, "accept"), accept)
 		if rec.Code != http.StatusConflict || env.entry(t, "a3000").Rev != cur.Rev || env.suggestion(t, id).Status != store.StatusPending {
-			t.Fatalf("stale accept without review: %d", rec.Code)
+			t.Fatalf("conflicting accept without review: %d", rec.Code)
 		}
 		accept.Set("reviewed", "1")
 		wantRedirect(t, c.post(t, suggestionPath(id, "accept"), accept), id, store.StatusAccepted)
 		if e := env.published(t, "a3000"); e["year"] != 1991.0 || e["by"] != "Commodore (owner)" {
+			t.Errorf("merged entry = %v", e)
+		}
+	})
+
+	t.Run("newer edits to other fields do not block", func(t *testing.T) {
+		id := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a3000", Fields: suggest.Fields{Version: sptr("rev 7")}})
+		form := entryForm(t, env, "a3000")
+		form.Set("by", "Commodore (second edit)")
+		if rec := c.post(t, "/admin/entries/a3000", form); rec.Code != http.StatusSeeOther {
+			t.Fatalf("direct edit: %d", rec.Code)
+		}
+		page := c.get(t, suggestionPath(id, "")).Body.String()
+		if !strings.Contains(page, "The entry changed after this proposal") || strings.Contains(page, `name="reviewed"`) {
+			t.Error("non-conflicting stale proposal should be informational only")
+		}
+		wantRedirect(t, c.post(t, suggestionPath(id, "accept"), url.Values{"rev": {itoa(env.entry(t, "a3000").Rev)}}), id, store.StatusAccepted)
+		if e := env.published(t, "a3000"); e["version"] != "rev 7" || e["by"] != "Commodore (second edit)" {
 			t.Errorf("merged entry = %v", e)
 		}
 	})
@@ -832,8 +853,9 @@ func TestReview_BulkAccept(t *testing.T) {
 	env := newAdminEnv(t)
 	c := env.login(t)
 	stale := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a3000", Fields: suggest.Fields{Year: sptr(1991)}})
+	untouched := env.propose(t, suggest.Proposal{Type: suggest.TypeChange, EntryID: "a3000", Fields: suggest.Fields{Version: sptr("rev 8")}})
 	form := entryForm(t, env, "a3000")
-	form.Set("by", "Commodore (owner)")
+	form.Set("year", "1989") // the first proposal's own field: a conflict; the second one's is untouched
 	if rec := c.post(t, "/admin/entries/a3000", form); rec.Code != http.StatusSeeOther {
 		t.Fatalf("direct edit: %d", rec.Code)
 	}
@@ -842,9 +864,9 @@ func TestReview_BulkAccept(t *testing.T) {
 	newID := env.propose(t, suggest.Proposal{Type: suggest.TypeNew, Fields: newProposalFields()})
 	removal := env.propose(t, suggest.Proposal{Type: suggest.TypeRemove, EntryID: "cdtv"})
 
-	rec := c.post(t, "/admin/queue/bulk", url.Values{"action": {"accept"}, "ids": {itoa(stale), itoa(fresh), itoa(newID), itoa(removal)}})
+	rec := c.post(t, "/admin/queue/bulk", url.Values{"action": {"accept"}, "ids": {itoa(stale), itoa(fresh), itoa(untouched), itoa(newID), itoa(removal)}})
 	notice := followNotice(t, c, rec)
-	if want := fmt.Sprintf("2 accepted, 2 skipped: #%d stale, #%d needs confirmation.", stale, removal); notice != want {
+	if want := fmt.Sprintf("3 accepted, 2 skipped: #%d conflict (the proposed fields changed since; open to review); #%d needs confirmation.", stale, removal); notice != want {
 		t.Errorf("notice %q, want %q", notice, want)
 	}
 	if e := env.published(t, "a2500"); e["year"] != 1990.0 {
@@ -853,13 +875,13 @@ func TestReview_BulkAccept(t *testing.T) {
 	if e := env.published(t, "amiga-review-card"); e == nil || e["weight"] != 2.0 {
 		t.Errorf("new entry = %v", e)
 	}
-	for id, want := range map[int64]string{fresh: store.StatusAccepted, newID: store.StatusAccepted, stale: store.StatusPending, removal: store.StatusPending} {
+	for id, want := range map[int64]string{fresh: store.StatusAccepted, untouched: store.StatusAccepted, newID: store.StatusAccepted, stale: store.StatusPending, removal: store.StatusPending} {
 		if sg := env.suggestion(t, id); sg.Status != want {
 			t.Errorf("#%d status %s, want %s", id, sg.Status, want)
 		}
 	}
-	if env.entry(t, "a3000").Rev != staleRev || env.published(t, "a3000")["year"] == 1991.0 {
-		t.Error("stale change was published")
+	if e := env.published(t, "a3000"); env.entry(t, "a3000").Rev != staleRev+1 || e["year"] != 1989.0 || e["version"] != "rev 8" {
+		t.Errorf("a3000 = %v: want only the untouched change published", e)
 	}
 	if env.published(t, "cdtv") == nil {
 		t.Error("removal was published without confirmation")
@@ -969,6 +991,13 @@ func TestReview_ImageTriage(t *testing.T) {
 		t.Errorf("anonymous on-demand preview: %d", rec.Code)
 	}
 	fetched := hits.Load()
+
+	// A text change accepted on the same entry moves its rev but does not
+	// touch "image", so the image proposal is not a conflict.
+	wantRedirect(t, c.post(t, suggestionPath(change, "accept"), url.Values{"rev": {itoa(env.entry(t, "a2500").Rev)}}), change, store.StatusAccepted)
+	if strings.Contains(c.get(t, "/admin/queue/images").Body.String(), ">conflict</span>") {
+		t.Error("image proposal flagged as a conflict after an unrelated change")
+	}
 
 	// Accepting after the preview reuses the staged copy.
 	rec = c.post(t, "/admin/queue/bulk", url.Values{"action": {"accept"}, "ids": {itoa(good)}, "back": {"/admin/queue/images?page=1"}})

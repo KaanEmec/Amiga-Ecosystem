@@ -11,13 +11,10 @@
 
 var SCRIPTS = ['core.js', 'catalog.js', 'detail.js', 'lineage.js', 'app.js', 'actions.js'];
 
-/* resolve siblings relative to this file, so the loader is not tied to /static/js/ */
+/* resolve siblings relative to this file, so the loader is not tied to /static/js/;
+   the page links it as /static/v-<version>/js/data.js, so the scripts share that version */
 var current = document.currentScript;
 var BASE = current && current.src ? current.src.replace(/[^\/]*$/, '') : '/static/js/';
-/* version of the js/ directory (data-v from the page, else this file's ?v=), so a deploy busts every script */
-var VERSION = (current && current.getAttribute('data-v')) ||
-  ((current && current.src || '').match(/[?&]v=([^&#]*)/) || [])[1] || '';
-var QUERY = VERSION ? '?v=' + encodeURIComponent(VERSION) : '';
 
 function fail(message){
   console.error('[amiga] ' + message);
@@ -35,7 +32,7 @@ function fail(message){
 function loadScripts(i){
   if(i >= SCRIPTS.length) return;
   var s = document.createElement('script');
-  s.src = BASE + SCRIPTS[i] + QUERY;
+  s.src = BASE + SCRIPTS[i];
   s.async = false;
   s.onload = function(){ loadScripts(i + 1); };
   s.onerror = function(){ fail('could not load ' + SCRIPTS[i]); };

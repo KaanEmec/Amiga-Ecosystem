@@ -6,7 +6,7 @@
       <textarea name="internal_note" rows="2" maxlength="1000">{{.Internal}}</textarea></label>
   </div>
 {{end}}
-{{define "review_reviewed"}}{{if .Stale}}
+{{define "review_reviewed"}}{{if .Conflict}}
   <label class="admin-check admin-confirm"><input type="checkbox" name="reviewed" value="1" required> I reviewed the newer changes (rev {{.S.BaseRev}} → {{.EntryRev}}) and want to publish over them.</label>
 {{end}}{{end}}
 {{define "content"}}
@@ -17,7 +17,8 @@
     <span class="admin-tag">{{.TypeLabel}}</span>
     <span class="admin-tag{{if or .Hidden (eq .S.Status "rejected")}} admin-tag-off{{end}}">{{.StatusLabel}}</span>
     <span class="admin-tag mono">+{{.S.Votes}}</span>
-    {{if .Stale}}<span class="admin-tag admin-tag-warn">stale</span>{{end}}
+    {{if .Stale}}<span class="admin-tag{{if .Conflict}} admin-tag-warn{{end}}">stale</span>{{end}}
+    {{if .Conflict}}<span class="admin-tag admin-tag-warn">conflict</span>{{end}}
     {{if not .Hidden}}<a class="admin-btn admin-btn-quiet" href="/suggestions/{{.S.ID}}">Public page</a>{{end}}
   </div>
 </div>
@@ -38,10 +39,10 @@
 </section>
 
 {{if .Stale}}
-<section class="admin-card admin-card-warn" role="note">
-  <h2>Conflict: the entry changed after this proposal</h2>
+<section class="admin-card{{if .Conflict}} admin-card-warn{{end}}" role="note">
+  <h2>{{if .Conflict}}Conflict: the proposed fields changed after this proposal{{else}}The entry changed after this proposal{{end}}</h2>
   <p>The visitor saw rev {{.S.BaseRev}}; the entry is now at rev {{.EntryRev}}. Fields marked <span class="admin-tag admin-tag-warn">changed since</span> were edited in between.
-  Accepting requires confirming that you reviewed these newer revisions.</p>
+  {{if .Conflict}}Accepting requires confirming that you reviewed these newer revisions.{{else}}None of them is a field this proposal changes, so Accept applies it on top of the newer revision.{{end}}</p>
   <ol class="admin-revs">
   {{range .Newer}}
     <li>

@@ -72,19 +72,20 @@ func reviewWithParams(back string, set url.Values) string {
 // reviewSkipReasons are the fixed texts of skip codes in bulk notices; the
 // notice is rebuilt from ids and codes, so no submitted text is reflected.
 var reviewSkipReasons = map[string]string{
-	"stale":   "stale",
-	"confirm": "needs confirmation",
-	"decided": "already decided",
-	"hidden":  "already hidden",
-	"invalid": "does not validate",
-	"exists":  "id already exists",
-	"removed": "entry removed",
-	"missing": "not found",
-	"fetch":   "image not fetched",
-	"publish": "image not published",
-	"type":    "unsupported type",
-	"time":    "not attempted (time limit; apply again)",
-	"error":   "failed (see the log)",
+	"stale":    "stale (the entry changed meanwhile; apply again)",
+	"conflict": "conflict (the proposed fields changed since; open to review)",
+	"confirm":  "needs confirmation",
+	"decided":  "already decided",
+	"hidden":   "already hidden",
+	"invalid":  "does not validate",
+	"exists":   "id already exists",
+	"removed":  "entry removed",
+	"missing":  "not found",
+	"fetch":    "image not fetched",
+	"publish":  "image not published",
+	"type":     "unsupported type",
+	"time":     "not attempted (time limit; apply again)",
+	"error":    "failed (see the log)",
 }
 
 var reviewBulkVerbs = map[string]string{
@@ -149,18 +150,30 @@ func reviewBulkNotice(q url.Values) string {
 		return ""
 	}
 	n, _ := strconv.Atoi(q.Get("n"))
-	var skips []string
+	// Group the skipped ids by reason, in order of first appearance.
+	var order []string
+	byReason := map[string][]string{}
+	skipped := 0
 	for part := range strings.SplitSeq(q.Get("skip"), ",") {
 		raw, code, found := strings.Cut(part, ".")
 		id, err := strconv.ParseInt(raw, 10, 64)
 		reason, known := reviewSkipReasons[code]
-		if found && err == nil && known {
-			skips = append(skips, fmt.Sprintf("#%d %s", id, reason))
+		if !found || err != nil || !known {
+			continue
 		}
+		if _, seen := byReason[reason]; !seen {
+			order = append(order, reason)
+		}
+		byReason[reason] = append(byReason[reason], fmt.Sprintf("#%d", id))
+		skipped++
 	}
 	msg := fmt.Sprintf("%d %s", max(n, 0), verb)
-	if len(skips) > 0 {
-		msg += fmt.Sprintf(", %d skipped: %s", len(skips), strings.Join(skips, ", "))
+	if skipped > 0 {
+		groups := make([]string, len(order))
+		for i, reason := range order {
+			groups[i] = strings.Join(byReason[reason], ", ") + " " + reason
+		}
+		msg += fmt.Sprintf(", %d skipped: %s", skipped, strings.Join(groups, "; "))
 	}
 	return msg + "."
 }
@@ -255,7 +268,7 @@ type reviewImageCard struct {
 	Current    string // src of the live entry's image, "" for none
 	Image      imageView
 	Reason     string
-	Stale      bool
+	Conflict   bool
 }
 
 type reviewImagesView struct {
@@ -358,7 +371,7 @@ func (s *Server) reviewImages(w http.ResponseWriter, r *http.Request) {
 				c.EntryName = doc.Name
 			}
 			c.Current = reviewCurrentImage(e.Doc)
-			c.Stale = sg.BaseRev != nil && e.Rev > *sg.BaseRev
+			c.Conflict = reviewConflict(sg, *e)
 		}
 		v.Cards = append(v.Cards, c)
 	}

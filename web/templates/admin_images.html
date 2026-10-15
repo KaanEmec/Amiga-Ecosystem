@@ -13,7 +13,7 @@ Proposed images are fetched privately through the safe fetcher, one at a time, a
       <span class="mono">#{{.ID}}</span>
       <a href="/admin/suggestions/{{.ID}}" class="admin-icard-name">{{.EntryName}}</a>
       <span class="mono admin-muted admin-icard-id">{{.EntryID}}</span>
-      {{if .Stale}}<span class="admin-tag admin-tag-warn">stale</span>{{end}}
+      {{if .Conflict}}<span class="admin-tag admin-tag-warn">conflict</span>{{end}}
       {{if ne .EntryState "live"}}<span class="admin-tag admin-tag-off">entry {{.EntryState}}</span>{{end}}
     </header>
     <div class="admin-icard-pair">

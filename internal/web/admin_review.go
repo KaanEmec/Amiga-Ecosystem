@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
 	"encoding/json"
@@ -100,7 +101,7 @@ type reviewQueueRow struct {
 	StatusLabel string
 	Votes       int
 	Created     int64
-	Stale       bool
+	Conflict    bool // pending, and the fields it changes were edited since (reviewConflict)
 }
 
 type reviewQueueView struct {
@@ -179,24 +180,27 @@ func (s *Server) reviewQueue(w http.ResponseWriter, r *http.Request) {
 	}
 	v.Total = total
 	v.Pages = max((total+reviewPageSize-1)/reviewPageSize, 1)
-	revs := map[string]int64{}
+	entries := map[string]*store.Entry{}
 	for _, sg := range rows {
 		row := reviewQueueRow{
 			ID: sg.ID, Type: sg.Type, TypeLabel: typeLabel(sg.Type), Title: sg.Title, Summary: sg.Summary,
 			EntryID: sg.EntryID, Status: sg.Status, StatusLabel: reviewStatusLabel(sg.Status), Votes: sg.Votes, Created: sg.CreatedAt,
 		}
 		if sg.Status == store.StatusPending && sg.BaseRev != nil && sg.EntryID != "" {
-			rev, ok := revs[sg.EntryID]
+			e, ok := entries[sg.EntryID]
 			if !ok {
-				e, err := st.GetEntry(ctx, sg.EntryID)
-				if err != nil && !errors.Is(err, store.ErrNotFound) {
+				row, err := st.GetEntry(ctx, sg.EntryID)
+				switch {
+				case errors.Is(err, store.ErrNotFound):
+				case err != nil:
 					s.adminFail(w, r, err)
 					return
+				default:
+					e = &row
 				}
-				rev = e.Rev
-				revs[sg.EntryID] = rev
+				entries[sg.EntryID] = e
 			}
-			row.Stale = rev > *sg.BaseRev
+			row.Conflict = e != nil && reviewConflict(sg, *e)
 		}
 		v.AnyPending = v.AnyPending || sg.Status == store.StatusPending
 		v.Rows = append(v.Rows, row)
@@ -254,7 +258,8 @@ type reviewView struct {
 	Deps                   *catalog.Dependencies
 	Image                  *imageView
 	Staged                 *images.Staged
-	Stale                  bool
+	Stale                  bool // the entry has newer revisions than the proposal saw (information)
+	Conflict               bool // fields the proposal changes were edited since: Accept needs reviewed=1
 	Newer                  []adminRevision
 	Final                  []reviewRow
 	FinalNote              string
@@ -415,7 +420,7 @@ func (s *Server) reviewLoad(r *http.Request, id int64) (reviewView, error) {
 
 	// Staleness: the entry moved on since the visitor saw it.
 	if v.Pending && sg.BaseRev != nil && v.EntryState != "missing" && live.Rev > *sg.BaseRev {
-		v.Stale = true
+		v.Stale, v.Conflict = true, reviewConflict(sg, live)
 		revs, err := q.ListRevisions(ctx, sg.EntryID)
 		if err != nil {
 			return reviewView{}, err
@@ -612,6 +617,41 @@ func reviewLog(ctx context.Context, q store.Queries, sg store.Suggestion, entryI
 	return err
 }
 
+// reviewConflict reports whether a pending proposal conflicts with the live
+// entry. change: a key of the payload has a different value in the live
+// document than in the snapshot the visitor saw (raw JSON, compacted; absent
+// on both sides is equal). image: the live "image" differs from the
+// snapshot's. remove: any newer revision (base_rev < rev). Other newer
+// edits do not conflict: Accept applies the proposal on top of them.
+func reviewConflict(sg store.Suggestion, live store.Entry) bool {
+	switch sg.Type {
+	case suggest.TypeChange:
+		cur, snap := decodeObject(live.Doc), decodeObject(sg.Snapshot)
+		for k := range decodeObject(sg.Payload) {
+			if !reviewSameRaw(cur[k], snap[k]) {
+				return true
+			}
+		}
+	case suggest.TypeImage:
+		return !reviewSameRaw(decodeObject(live.Doc)["image"], decodeObject(sg.Snapshot)["image"])
+	case suggest.TypeRemove:
+		return sg.BaseRev != nil && live.Rev > *sg.BaseRev
+	}
+	return false
+}
+
+// reviewSameRaw compares two raw JSON values byte-wise after compacting.
+func reviewSameRaw(a, b json.RawMessage) bool {
+	if len(a) == 0 || len(b) == 0 {
+		return len(a) == len(b)
+	}
+	var x, y bytes.Buffer
+	if json.Compact(&x, a) != nil || json.Compact(&y, b) != nil {
+		return bytes.Equal(a, b)
+	}
+	return bytes.Equal(x.Bytes(), y.Bytes())
+}
+
 // reviewDecideHook flips the suggestion's status and logs the decision
 // inside the publication transaction; a suggestion that is no longer
 // pending fails with store.ErrNotPending and rolls the publication back.
@@ -682,6 +722,8 @@ func (e *reviewRefusal) Error() string { return e.msg }
 var (
 	reviewNeedsReview = &reviewRefusal{code: "stale", status: http.StatusConflict,
 		msg: "Not published: the entry changed after this proposal was made. Review the newer revisions and tick “I reviewed the newer changes”."}
+	reviewHasConflict = &reviewRefusal{code: "conflict", status: http.StatusConflict,
+		msg: "Not published: fields this proposal changes were edited after it was made. Review the newer revisions and tick “I reviewed the newer changes”."}
 	reviewNeedsConfirm = &reviewRefusal{code: "confirm", status: http.StatusUnprocessableEntity,
 		msg: "Tick the confirmation box to remove this entry and clean up its links."}
 )
@@ -702,7 +744,7 @@ func (s *Server) reviewDecisionError(w http.ResponseWriter, r *http.Request, id 
 type reviewAcceptOptions struct {
 	Decision           store.Decision // notes and time; Accept sets Status
 	Rev                int64          // entry rev the owner reviewed (change, remove, image)
-	Reviewed           bool           // confirmed the newer revisions of a stale proposal
+	Reviewed           bool           // confirmed the newer revisions of a conflicting proposal
 	Confirm            bool           // confirmed a removal and its cleanup
 	Defaults           bool
 	Weight             string // owner-only fields (new, change)
@@ -758,12 +800,14 @@ func (s *Server) reviewAccept(w http.ResponseWriter, r *http.Request) {
 
 // reviewAcceptDecide publishes a pending suggestion and records the decision
 // in the same transaction. It returns the status recorded (accepted or
-// accepted_edited). Stale proposals need o.Reviewed and removals o.Confirm;
-// otherwise it refuses with reviewNeedsReview / reviewNeedsConfirm.
+// accepted_edited). A conflict (reviewConflict) needs o.Reviewed and a
+// removal o.Confirm; otherwise it refuses with reviewHasConflict /
+// reviewNeedsReview (removals) / reviewNeedsConfirm. Newer revisions that
+// leave the proposed fields alone do not block it.
 func (s *Server) reviewAcceptDecide(ctx context.Context, sg store.Suggestion, o reviewAcceptOptions) (string, error) {
 	reason := fmt.Sprintf("suggestion #%d accepted", sg.ID)
 
-	// change, remove and image act on a live entry and may be stale.
+	// change, remove and image act on a live entry and may conflict with it.
 	var live store.Entry
 	if sg.Type != suggest.TypeNew {
 		var err error
@@ -780,8 +824,11 @@ func (s *Server) reviewAcceptDecide(ctx context.Context, sg store.Suggestion, o 
 		if o.Defaults {
 			o.Rev = live.Rev
 		}
-		if sg.BaseRev != nil && live.Rev > *sg.BaseRev && !o.Reviewed {
-			return "", reviewNeedsReview
+		if !o.Reviewed && reviewConflict(sg, live) {
+			if sg.Type == suggest.TypeRemove {
+				return "", reviewNeedsReview
+			}
+			return "", reviewHasConflict
 		}
 	}
 	if o.Defaults {

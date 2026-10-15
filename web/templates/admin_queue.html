@@ -30,7 +30,7 @@
     <td class="mono">{{with .EntryID}}<a href="/admin/entries/{{.}}">{{.}}</a>{{else}}<span class="admin-muted">new</span>{{end}}</td>
     <td class="mono">+{{.Votes}}</td>
     <td class="mono admin-nowrap">{{date .Created}}</td>
-    <td><span class="admin-tag{{if eq .Status "hidden" "rejected"}} admin-tag-off{{end}}">{{.StatusLabel}}</span>{{if .Stale}} <span class="admin-tag admin-tag-warn">stale</span>{{end}}</td>
+    <td><span class="admin-tag{{if eq .Status "hidden" "rejected"}} admin-tag-off{{end}}">{{.StatusLabel}}</span>{{if .Conflict}} <span class="admin-tag admin-tag-warn">conflict</span>{{end}}</td>
   </tr>
   {{else}}
   <tr><td colspan="8" class="admin-muted">No suggestions match.</td></tr>

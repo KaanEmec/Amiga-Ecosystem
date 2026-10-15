@@ -23,13 +23,13 @@ func TestServer_handleIndex(t *testing.T) {
 		t.Errorf("Content-Type = %q", ct)
 	}
 	body := rec.Body.String()
-	for _, p := range []string{"/static/css/styles.css", "/static/css/workbench.css", "/static/js/theme.js", "/static/js/data.js"} {
-		if !regexp.MustCompile(regexp.QuoteMeta(p) + `\?v=[0-9a-f]{8}"`).MatchString(body) {
-			t.Errorf("index.html links %s without an 8-hex version query", p)
+	for _, p := range []string{"css/styles.css", "css/workbench.css", "js/theme.js", "js/data.js"} {
+		if !regexp.MustCompile(`"/static/v-[0-9a-f]{8}/` + regexp.QuoteMeta(p) + `"`).MatchString(body) {
+			t.Errorf("index.html does not link %s under /static/v-<8 hex>/", p)
 		}
 	}
-	if !regexp.MustCompile(`<script src="/static/js/data\.js\?v=[0-9a-f]{8}" data-v="[0-9a-f]{8}"`).MatchString(body) {
-		t.Error("the data.js tag lacks data-v with 8 hex chars")
+	if strings.Contains(body, "?v=") || strings.Contains(body, "data-v") {
+		t.Error("index.html still uses a version query or data-v")
 	}
 	etag := rec.Header().Get("ETag")
 	if rec := do(t, h, http.MethodGet, "/", map[string]string{"If-None-Match": etag}); etag == "" || rec.Code != http.StatusNotModified {
@@ -40,15 +40,28 @@ func TestServer_handleIndex(t *testing.T) {
 func TestServer_assetVersionServesSameBytes(t *testing.T) {
 	t.Parallel()
 	_, h := newTestServer(t)
-	m := regexp.MustCompile(`href="(/static/css/styles\.css)\?v=([0-9a-f]{8})"`).FindStringSubmatch(do(t, h, http.MethodGet, "/", nil).Body.String())
+	m := regexp.MustCompile(`href="/static/(v-[0-9a-f]{8})/css/styles\.css"`).FindStringSubmatch(do(t, h, http.MethodGet, "/", nil).Body.String())
 	if m == nil {
 		t.Fatal("index.html has no versioned stylesheet link")
 	}
-	plain := do(t, h, http.MethodGet, m[1], nil).Body.Bytes()
-	for _, q := range []string{"?v=" + m[2], "?v=00000000"} {
-		if got := do(t, h, http.MethodGet, m[1]+q, nil).Body.Bytes(); len(plain) == 0 || !bytes.Equal(got, plain) {
-			t.Errorf("%s%s serves different bytes", m[1], q)
+	bare := do(t, h, http.MethodGet, "/static/css/styles.css", nil)
+	if bare.Code != http.StatusOK || bare.Body.Len() == 0 || strings.Contains(bare.Header().Get("Cache-Control"), "immutable") {
+		t.Fatalf("bare: %d %q", bare.Code, bare.Header().Get("Cache-Control"))
+	}
+	for _, v := range []string{m[1], "v-00000000"} { // the current version and an unknown one
+		rec := do(t, h, http.MethodGet, "/static/"+v+"/css/styles.css", nil)
+		if rec.Code != http.StatusOK || !bytes.Equal(rec.Body.Bytes(), bare.Body.Bytes()) {
+			t.Errorf("/static/%s/css/styles.css: %d, serves different bytes", v, rec.Code)
 		}
+		if got := rec.Header().Get("Cache-Control"); got != "public, max-age=31536000, immutable" {
+			t.Errorf("/static/%s/ Cache-Control = %q", v, got)
+		}
+		if rec.Header().Get("ETag") != bare.Header().Get("ETag") {
+			t.Errorf("/static/%s/ ETag differs", v)
+		}
+	}
+	if rec := do(t, h, http.MethodGet, "/static/v-xyz/css/styles.css", nil); rec.Code != http.StatusNotFound {
+		t.Errorf("malformed version segment: %d", rec.Code)
 	}
 	if _, err := assetFunc(map[string]string{})("/static/css/nope.css"); err == nil {
 		t.Error("asset accepted an unknown file")
