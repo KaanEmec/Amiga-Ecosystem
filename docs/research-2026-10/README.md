@@ -1,17 +1,17 @@
 # Content research, October 2026
 
-Research pass over all 332 entries (significance), the top 100 by that ranking (facts,
-catalogue fit, official sites, Google relevance, images; 30 in round one, 70 more in
-round two), and recent Amiga news (missing entries). Done 14 Oct 2026 with web
+Research pass over all 332 entries (significance), the top 150 by that ranking (facts,
+catalogue fit, official sites, Google relevance, images; 30 in round one, 70 in
+round two, 50 in round three on 15 Oct), and recent Amiga news (missing entries). Done 14 Oct 2026 with web
 research; every proposal carries its sources.
 
 | File | What it is | How to use it |
 |---|---|---|
-| `proposals.json` | 142 proposals in the import format: 93 field changes, 32 image replacements, 17 new entries | `/admin/suggestions/import` → upload → review each in the queue (accept, edit & accept, reject) |
+| `proposals.json` | 216 proposals in the import format: 139 field changes, 60 image replacements, 17 new entries | `/admin/suggestions/import` → upload → review each in the queue (accept, edit & accept, reject) |
 | `ranking.md` / `ranking.json` | Proposed significance (1–5) for every entry, with evidence and factual notes | Weights are owner-only, so apply any you agree with on `/admin/entries/<id>`; 48 entries differ from the current weight |
 
 Notes for review:
-- Image proposals name the licence in the reason. Roughly a third are manufacturer or project material with no explicit licence (iComp, Apollo, MNT, MorphOS team, Big Book of Amiga Hardware scans, Epsilon's World); the reason text says which, and the rest are Wikimedia Commons, public-domain or GitHub repo images. Six candidate images were rejected during verification for quality (cluttered photos, a tiny logo, a web-simulator screenshot).
+- Image proposals name the licence in the reason. Roughly a third are manufacturer or project material with no explicit licence (iComp, Apollo, MNT, MorphOS team, Big Book of Amiga Hardware scans, Epsilon's World); the reason text says which, and the rest are Wikimedia Commons, public-domain or GitHub repo images. Ten candidate images were rejected during verification for quality (cluttered photos, tiny or soft images, a web-simulator screenshot) and four more because the agent could only capture them locally.
 - New entries carry a suggested weight in the reason; set it on Accept.
 - The rankers' "Factual notes" section in `ranking.md` lists year/name doubts outside the top 30 (e.g. Buddha IDE 1998 not 2017, MagicWB ~1996, NetSurf Amiga port ~2008, AmiWest since 1998) that were not turned into proposals; they are leads, not verified facts.
 
@@ -21,6 +21,13 @@ Notes for review:
 - `amigagcc`: the GitHub repo is gone (404); the proposal points to the maintainer's Codeberg mirror.
 - `aros` / `aros68k`: aros.org serves a mismatched certificate; the proposal uses aros.sourceforge.io.
 - `eabfs`, `sps`, `poseidon`: original sites are placeholders now; proposals give the current homes.
+
+## Round three notes (ranks 101–150)
+
+- Wrong-board entries: `a500pp` described an open A500 remake but is Bob's Bits' commercial A500 Plus replica; `aa3000` is rewritten from forum summaries only (medium confidence).
+- Year corrections with sources: Icedrake 2022, AmiBlitz 2008, AmiWest 1998, AMR 2007, AmigaAMP 1997, REDPILL 2016, ReAmiga 1200 2018, ACE 2016, BetterWB 2011, CoffinOS 2016.
+- The four Apple Mac entries credited "community" drivers; MorphOS support was the MorphOS Team's own releases (2.4 to 3.2).
+- Unresolved: `x5000-40` year (no source for 2020), `ags2` needs a fresh AGS2 screenshot (its current image shows an unrelated game collection), `arosone` maker credit unconfirmed.
 
 ## Essentials revisit (weight 5)
 
