@@ -55,7 +55,7 @@ and what it descends from. The lineage links turn that into a graph you can walk
 
 | | |
 |:--|:--|
-| **Overview** | The front page: what this is, how to read it, and six guided routes through the collection. |
+| **Overview** | The front page: a drawn slice of the map, first releases by year, the twelve cluster rings, selected objects with photographs, the six guided routes, and how to read it all. |
 | **Catalogue** | Everything in numbered sections and plates, with a five-dimensional filter rail whose counts never offer an empty result. |
 | **Lineage** | A canvas map with five arrangements (Domain, Era, Architecture, Status, Kind), cluster boards, and the full radial constellation. |
 

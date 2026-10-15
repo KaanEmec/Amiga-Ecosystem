@@ -76,6 +76,7 @@ ALL.forEach(function(e){
 if(problems.length) console.warn('[data] '+problems.length+' issue(s):\n'+problems.join('\n'));
 
 var ERA_OF = {}; M.eras.forEach(function(x){ ERA_OF[x.id] = x; });
+function isLive(e){ return e.st === 'shipping' || e.st === 'active'; }
 function eraColor(id){ var i = M.eras.findIndex(function(x){return x.id===id;}); return 'var(--e'+(i+1)+')'; }
 function eraTint(id){ var i = M.eras.findIndex(function(x){return x.id===id;}); return 'var(--e'+(i+1)+'-t)'; }
 

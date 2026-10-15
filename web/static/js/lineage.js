@@ -464,9 +464,7 @@ function drawMedallion(cx, h, dim, hover, eraCols, matchText){
   cx.strokeStyle = hover ? accC : lineC;
   cx.stroke();
 
-  var live = h.members.filter(function(n){
-    return n.e.st === 'shipping' || n.e.st === 'active';
-  }).length;
+  var live = h.members.filter(function(n){ return isLive(n.e); }).length;
 
   cx.textAlign = 'center';
   var numPx = Math.max(19, Math.min(30, R * 0.60));
@@ -540,7 +538,7 @@ function matchN2(hubs, match){
    without opening it. It never takes the pointer, so there is no hover trap. */
 function peekHTML(h){
   var ms = h.members.map(function(n){ return n.e; });
-  var live = ms.filter(function(e){ return e.st==='shipping'||e.st==='active'; }).length;
+  var live = ms.filter(isLive).length;
   var ys = ms.map(function(e){ return e.y; });
   var span = ys.length ? Math.min.apply(null, ys) + '—' + Math.max.apply(null, ys) : '';
   var top = ms.slice().sort(function(a,b){ return (b.wt||0)-(a.wt||0) || a.y-b.y; }).slice(0,5)
@@ -911,7 +909,7 @@ function lineageRender(){
   if(pane) pane.setAttribute('data-lf','1');
 
   /* ---- breadcrumb + cluster brief ---- */
-  var live = members.filter(function(e){ return e.st==='shipping'||e.st==='active'; }).length;
+  var live = members.filter(isLive).length;
   var years = members.map(function(e){ return e.y; });
   var span  = years.length ? Math.min.apply(null, years) + '—' + Math.max.apply(null, years) : '';
   var archN = {};
@@ -989,7 +987,7 @@ function lineageRender(){
       c.setAttribute('data-id', e.id);
       if(e.id === LF.sel) c.setAttribute('aria-current','true');
       else if(chain[e.id]) c.setAttribute('data-chain','1');
-      var liveDot = (e.st==='shipping'||e.st==='active');
+      var liveDot = isLive(e);
       c.innerHTML =
         '<span class="lfspine"></span>'+
         '<span class="lfbody">'+

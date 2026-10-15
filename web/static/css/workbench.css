@@ -96,7 +96,8 @@
   :is(h1, h2, h3, h4) { font-weight: 400; letter-spacing: 0; }
   :is(.eyebrow, .cardspec, .fpspec, .grouplbl, .lflab, .lfst, .st, .haslink,
       .tourtitle, .dfact .k, .sortwrap label, .glbl, .glegend .legttl, .facet > summary,
-      .fstat .k, .froute-n, .froute-go, .peek-go, .sg-th, .sg-dr .k, .sg-dh,
+      .fstatline, .fmap-chip, .fmap-leg, .faxis, .fera-n, .fera-go, .fcl-live, .fcl-g,
+      .froute-n, .froute-go, .peek-go, .sg-th, .sg-dr .k, .sg-dh,
       .viewtoggle button, .sg-nav a, .gdetail button, .toplink, .themebtn, .btn, .lfback, #resetall,
       .sg-dlg-actions a) {
     text-transform: none; letter-spacing: 0;
@@ -206,16 +207,19 @@
 
   /* ---- stage: blue desk, white documents ---- */
   :is(.stage, .scroll, .lfocus, .lfboard) { background: var(--wb-blue); }
-  :is(.card, .fplate, .fera, .froute, .lfcard) {
+  :is(.card, .fcard, .fera, .lfcard) {
     border: 2px solid var(--wb-blue); outline: 1px solid var(--wb-white); outline-offset: 0;
     border-radius: 0; background: var(--wb-white); color: var(--wb-black);
     box-shadow: var(--wb-shadow); transition: none;
   }
-  :is(.card, .fplate, .fera, .froute, .lfcard):hover {
+  :is(.card, .fcard, .fera, .lfcard):hover {
     border-color: var(--wb-blue); outline: 2px solid var(--wb-orange); box-shadow: var(--wb-shadow); transform: none;
   }
   :is(.card, .lfcard)[aria-current="true"] { border: 2px solid var(--wb-blue); outline: 2px solid var(--wb-orange); box-shadow: var(--wb-shadow); }
-  :is(.card, .fplate, .fera, .froute, .lfcard):focus-visible { outline: 3px solid var(--wb-orange); outline-offset: 3px; }
+  :is(.card, .fcard, .fera, .lfcard):focus-visible { outline: 3px solid var(--wb-orange); outline-offset: 3px; }
+  /* the map panel stays dark: a framed window, with the same orange hover ring */
+  .fmap { border: 2px solid var(--wb-white); box-shadow: var(--wb-shadow); transition: none; }
+  .fmap:hover { outline: 2px solid var(--wb-orange); transform: none; }
   :is(.plate, .detail-media, .thumb) { border-radius: 0; }
   .plate::before { height: 2px; }
   :is(.st i, .lfdot) { border-radius: 0; }
@@ -242,7 +246,7 @@
     --acc: #fff; --acc-soft: var(--wb-orange-pale); --focus: var(--wb-orange);
     color: var(--wb-white);
   }
-  :is(.fstats, .ftax, .fcautions, .fhow, .fplate, .fera, .froute) {
+  :is(.fyears, .ftax, .fcautions, .fcard, .fera) {
     --ink: #000; --ink-2: #172b40; --ink-3: #43556a; --ink-4: #526275;
     --acc: var(--wb-blue); --acc-soft: var(--wb-blue-deep); --focus: var(--wb-blue);
     color: var(--wb-black);
@@ -251,11 +255,10 @@
   .flede { font-size: 16px; }
   .fsect { border-bottom: 2px solid var(--wb-white); }
   .fsect h2 { font-size: 32px; line-height: 1.25; }
-  :is(.fstats, .ftax, .fcautions, .fhow) { border: 2px solid var(--wb-white); background: var(--wb-white); box-shadow: var(--wb-shadow); }
-  .fhow { padding: 20px; }
-  .fstat .v { font-size: 32px; }
-  :is(.fpn, .fera h3, .froute h3, .fthesis h3, .ftaxrow b, .fhow-s h3) { font-size: 16px; line-height: 1.5; }
-  .fhow-n { border-radius: 0; }
+  :is(.fyears, .ftax, .fcautions) { border: 2px solid var(--wb-white); background: var(--wb-white); box-shadow: var(--wb-shadow); }
+  :is(.fyears-head h2, .fcl-n) { font-size: 32px; line-height: 1.25; }
+  :is(.fpn, .fera h3, .froute h3, .fway h3, .fcl-l, .fmap-cap-t, .fthesis h3, .ftaxrow b) { font-size: 16px; line-height: 1.5; }
+  :is(.fdot, .fmap-leg i) { border-radius: 0; }
   .ffoot code { background: var(--wb-white); color: var(--wb-blue); }
 
   /* ---- lineage: white map paper, white requesters ---- */
@@ -352,7 +355,7 @@
   }
   @media (forced-colors: active) {
     body::after, .detail-dialog::after { content: none; }
-    :is(.card, .fplate, .fera, .froute, .lfcard, .detail-panel, .sg-wrap) { box-shadow: none; }
+    :is(.card, .fcard, .fera, .fmap, .lfcard, .detail-panel, .sg-wrap) { box-shadow: none; }
   }
   @media print {
     body::after { content: none; }

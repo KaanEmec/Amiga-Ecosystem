@@ -423,135 +423,241 @@ function renderOverview(){
   if(host.getAttribute('data-built')) return;
   host.setAttribute('data-built','1');
 
-  var live  = ALL.filter(function(e){ return e.st==='shipping'||e.st==='active'; }).length;
-  var links = ALL.reduce(function(a,e){ return a + (e.rel||[]).length; }, 0);
-  var wrap  = el('div','scroll ovscroll');
-  var r     = el('div','front');
+  var links  = ALL.reduce(function(a,e){ return a + (e.rel||[]).length; }, 0);
+  var first  = M.eras[0], last = M.eras[M.eras.length-1];
+  var span   = first.from+'–'+last.to;
+  var wrap   = el('div','scroll ovscroll');
+  var r      = el('div','front');
+  function section(num, title, note, body){
+    var s = el('section','fsec');
+    s.appendChild(sectionHead(num, title, note));
+    s.appendChild(body);
+    r.appendChild(s);
+  }
 
-  /* ---------------- hero ---------------- */
+  /* ---------------- hero: the words on the left, the map on the right ---------------- */
   var hero = el('div','fhero');
-  hero.innerHTML =
-    '<div class="fmark">'+rainbowMark(92,'rb-hero')+'</div>'+
-    '<div class="fheadline">'+
-      '<div class="eyebrow">A field guide · snapshot August 2026</div>'+
-      '<h1>A computer that outlived<br>its manufacturer by<br>30+ years.</h1>'+
-      '<p class="flede">Commodore went bankrupt in April 1994. The Amiga did not. This is a map of what '+
-      'happened instead — the accelerators, replica boards and FPGA recreations that kept the hardware '+
-      'running, the operating systems still in development, the emulators that quietly became '+
-      'infrastructure, and the archives that made all of it usable.</p>'+
+  var hl = el('div','fhero-l');
+  hl.innerHTML =
+    '<div class="eyebrow">A field guide · snapshot August 2026</div>'+
+    '<h1>A computer that outlived<br>its manufacturer by<br>30+ years.</h1>'+
+    '<p class="flede">Commodore went bankrupt in April 1994. The Amiga did not. This is a map of what '+
+    'happened instead — the accelerators, replica boards and FPGA recreations that kept the hardware '+
+    'running, the operating systems still in development, the emulators that quietly became '+
+    'infrastructure, and the archives that made all of it usable.</p>'+
+    '<div class="fctas">'+
+      '<button class="btn" type="button" id="fcta-map">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'+
+        '<circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/>'+
+        '<circle cx="6" cy="19" r="2"/><circle cx="19" cy="18" r="2"/>'+
+        '<path d="M6 7l4 3M18 7l-4 3M7 18l3-4M17 17l-3-3"/></svg>Open the lineage map</button>'+
+      '<button class="btn ghost" type="button" id="fcta-cat">Browse the catalogue</button>'+
+    '</div>'+
+    '<div class="fstatline mono">'+
+      [[ALL.length,'entries'],[links,'lineage links'],[DOMAINS.length,'clusters'],
+       [TOURS.length,'guided routes'],[span,'']].map(function(p){
+        return '<span><b>'+p[0]+'</b>'+(p[1] ? ' '+p[1] : '')+'</span>';
+      }).join('')+
     '</div>';
+  hl.querySelector('#fcta-map').addEventListener('click', function(){ setView('graph'); });
+  hl.querySelector('#fcta-cat').addEventListener('click', function(){ setView('catalog'); });
+  hero.appendChild(hl);
+
+  /* The panel is a drawing of the map, not a live one, and it is dark in both
+     themes; it opens the constellation with every entry showing. */
+  var map = el('button','fmap'); map.type = 'button';
+  map.setAttribute('aria-label', 'Open the lineage map: '+ALL.length+
+    ' entries arranged as a constellation around '+DOMAINS.length+' clusters');
+  map.innerHTML =
+    '<span class="fmap-art">'+heroMapSVG()+
+      '<span class="fmap-chip l mono">Lineage · three of '+DOMAINS.length+' clusters</span>'+
+      '<span class="fmap-chip r mono">Open the map →</span>'+
+    '</span>'+
+    '<span class="fmap-cap">'+
+      '<span class="fmap-cap-b">'+
+        '<span class="fmap-cap-t">'+ALL.length+' entries, '+links+' links, '+DOMAINS.length+' clusters.</span>'+
+        '<span class="fmap-cap-h">Drag, zoom, open any dot. Arrange by domain, era, architecture, status or kind.</span>'+
+      '</span>'+
+      '<span class="fmap-leg mono">'+M.eras.map(function(x){
+        return '<span><i style="background:'+eraColor(x.id)+'"></i>'+esc(x.label)+'</span>';
+      }).join('')+'</span>'+
+    '</span>';
+  map.addEventListener('click', function(){ setView('graph'); pressGraphButton('#glvl-a'); });
+  var hr = el('div','fhero-r'); hr.appendChild(map);
+  hero.appendChild(hr);
   r.appendChild(hero);
 
-  /* Three hundred and thirty entries is a lot to be handed at once. This says
-     what the thing is and how to work it, in about fifteen seconds. */
-  var howto = el('div','fhow');
-  howto.innerHTML =
-    '<div class="fhow-lead">'+
-      '<span class="eyebrow">What this is</span>'+
-      '<p>A catalogue of <b>'+ALL.length+' things</b> — machines, boards, operating systems, '+
-      'shells, emulators, distributions and archives — with what each one is, who makes it, '+
-      'whether it still ships, and what it descends from. Nothing is sold here and nothing is '+
-      'tracked; it is one file you can keep.</p>'+
-    '</div>'+
-    '<div class="fhow-steps">'+
-      '<div class="fhow-s"><span class="fhow-n mono">1</span>'+
-        '<div><h3>Browse the Catalogue</h3>'+
-        '<p>Everything, in numbered sections. Open a section to see its plates; click any plate '+
-        'for the full entry. The column on the left narrows by processor, era, status or kind '+
-        '&mdash; the counts tell you what is left before you click.</p></div></div>'+
-      '<div class="fhow-s"><span class="fhow-n mono">2</span>'+
-        '<div><h3>Use the Lineage to see how things connect</h3>'+
-        '<p>Twelve clusters, each showing how many entries it holds and how they spread across '+
-        'the eras. Open one and its members lay out in time order, joined to whatever they '+
-        'descend from.</p></div></div>'+
-      '<div class="fhow-s"><span class="fhow-n mono">3</span>'+
-        '<div><h3>Or follow a route</h3>'+
-        '<p>Six guided paths through the collection, each a story told in order &mdash; the 68k '+
-        'continuum, the PowerPC branch, the FPGA rebirth. They are the fastest way in if you do '+
-        'not know what you are looking for.</p></div></div>'+
-    '</div>';
-  r.appendChild(howto);
-
-  var rb = el('div','frule'); r.appendChild(rb);
-
-  /* ---------------- headline numbers ---------------- */
-  var stats = el('div','fstats');
-  [[String(ALL.length),'entries catalogued'],[String(live),'shipping or active'],
-   [String(M.groups.reduce(function(a,g){ return a + g.cats.length; },0)),'sections'],
-   [String(links),'lineage links'],['1984—2026','years covered']]
-  .forEach(function(pr){
-    var d = el('div','fstat');
-    d.innerHTML = '<div class="v">'+pr[0]+'</div><div class="k">'+pr[1]+'</div>';
-    stats.appendChild(d);
+  /* ---------------- first releases by year, and the four eras ---------------- */
+  var years = el('div','fyears');
+  var byYear = {};
+  ALL.forEach(function(e){ byYear[e.y] = (byYear[e.y]||0) + 1; });
+  var eraOf = function(y){
+    var x = M.eras.find(function(z){ return y >= z.from && y <= z.to; });
+    return x ? x.id : last.id;
+  };
+  var bars = '', axis = [];
+  for(var y = first.from; y <= last.to; y++){
+    var n = byYear[y] || 0;
+    bars += '<div class="fbar" data-era="'+eraOf(y)+'" title="'+y+' · '+n+(n===1?' entry':' entries')+
+      '" style="height:'+Math.max(3, n*6)+'px;background:'+eraColor(eraOf(y))+'"></div>';
+    if(y === first.from || y === last.to || (y % 5 === 0 && y - first.from > 1 && last.to - y > 1))
+      axis.push('<span>'+y+'</span>');
+  }
+  years.innerHTML =
+    '<div class="fyears-head"><h2>First releases, year by year</h2>'+
+    '<p>One bar per year. Pick an era below to light up its years; click again to clear.</p></div>'+
+    '<div class="fbars">'+bars+'</div>'+
+    '<div class="faxis mono">'+axis.join('')+'</div>';
+  var eras = el('div','feras');
+  M.eras.forEach(function(x){
+    var n = ALL.filter(function(e){ return e.era===x.id; }).length;
+    var d = el('div','fera');
+    d.setAttribute('data-era', x.id);
+    d.style.setProperty('--era', eraColor(x.id));
+    d.style.setProperty('--era-t', eraTint(x.id));
+    var pick = el('button','fera-pick'); pick.type='button';
+    pick.setAttribute('aria-pressed','false');
+    pick.innerHTML =
+      '<span class="fera-n mono">'+x.range+'</span>'+
+      '<h3>'+esc(x.label)+'</h3>'+
+      '<p>'+esc(x.note)+'</p>'+
+      '<span class="fera-c"><b class="mono">'+n+'</b> entries</span>';
+    pick.addEventListener('click', function(){
+      var on = years.getAttribute('data-hl') === x.id;
+      if(on) years.removeAttribute('data-hl'); else years.setAttribute('data-hl', x.id);
+      eras.querySelectorAll('.fera-pick').forEach(function(b){
+        b.setAttribute('aria-pressed', !on && b === pick ? 'true' : 'false');
+      });
+    });
+    var go = el('button','fera-go mono', 'Browse '+n+' entries →'); go.type='button';
+    go.addEventListener('click', function(){
+      DIMS.forEach(function(d){ S.f[d] = {}; });
+      S.f.era[x.id] = 1; setView('catalog');
+    });
+    d.appendChild(pick); d.appendChild(go);
+    eras.appendChild(d);
   });
-  r.appendChild(stats);
+  years.appendChild(eras);
+  r.appendChild(years);
 
-  /* ---------------- featured plates ----------------
+  /* ---------------- three ways in ---------------- */
+  var ways = el('div','fways');
+  var sections = M.groups.reduce(function(a,g){ return a + g.cats.length; }, 0);
+  var withImg  = ALL.filter(function(e){ return e.img; }).length;
+  /* screenshots live outside the versioned path: they change without the JS
+     hash changing, and the plain path is ETag-revalidated */
+  [
+    {shot:'lineage-dark', pos:'20% 0', era:'e3',
+     alt:'The Lineage view: twelve cluster rings arranged under Hardware, System software and Practice and stewardship',
+     eyebrow:'Lineage · clusters', title:'See how things connect',
+     body:'Twelve clusters, each ring coloured by the eras it spans. Open one and its members lay out in time order, joined to whatever they descend from.',
+     go:function(){ setView('graph'); }},
+    {shot:'catalog-dark', pos:'0 0', era:'e2',
+     alt:'The Catalogue view: numbered sections with a filter rail for architecture, status and era',
+     eyebrow:'Catalogue · '+sections+' sections', title:'Browse everything, in plates',
+     body:'Numbered sections and plates. The rail narrows by processor, era, status or kind, and its counts never lead to an empty result.',
+     go:function(){ setView('catalog'); }},
+    {shot:'detail-light', pos:'50% 12%', era:'e4',
+     alt:'An entry dialog for the Vampire V4 Standalone with photo, facts and the three suggestion actions',
+     eyebrow:'Entry · '+withImg+' with photographs', title:'Open any plate for the full story',
+     body:'What it is, who makes it, whether it still ships, why it matters, and what it descends from. Spotted a mistake? Suggest a change from right there.',
+     go:function(b){ if(BY_ID.v4sa) openDetail('v4sa', b); else setView('catalog'); }}
+  ].forEach(function(w){
+    var b = el('button','fway fcard'); b.type='button';
+    b.style.setProperty('--era', eraColor(w.era));
+    b.innerHTML =
+      '<img class="fshot" src="/static/img/'+w.shot+'.jpg" alt="'+esc(w.alt)+'" '+
+        'loading="lazy" decoding="async" style="object-position:'+w.pos+'">'+
+      '<span class="fway-t"><span class="eyebrow">'+esc(w.eyebrow)+'</span>'+
+      '<h3 class="flift">'+esc(w.title)+'</h3><p>'+esc(w.body)+'</p></span>';
+    b.addEventListener('click', function(){ w.go(b); });
+    ways.appendChild(b);
+  });
+  section('01','Three ways in','Every screen below is live on the site. Click one to go there.', ways);
+
+  /* ---------------- the clusters, as era-composition rings ---------------- */
+  var cl = el('div','fclusters');
+  DOMAINS.forEach(function(d){
+    var members = ALL.filter(function(e){ return d.cats.indexOf(e.cat) >= 0; });
+    var live = members.filter(isLive).length;
+    var mix = M.eras.map(function(x){ return members.filter(function(e){ return e.era===x.id; }).length; });
+    var total = members.length || 1, acc = 0, stops = [];
+    mix.forEach(function(n, i){
+      if(!n) return;
+      var from = acc/total*100, to = (acc+n)/total*100, cut = Math.max(from, to-1.6);
+      stops.push(eraColor(M.eras[i].id)+' '+from.toFixed(1)+'% '+cut.toFixed(1)+'%');
+      stops.push('transparent '+cut.toFixed(1)+'% '+to.toFixed(1)+'%');
+      acc += n;
+    });
+    var b = el('button','fcl fcard'); b.type='button';
+    b.innerHTML =
+      '<span class="fcl-ring" style="background:conic-gradient(from -90deg, '+stops.join(', ')+')">'+
+        '<span class="fcl-core"><span class="fcl-n">'+members.length+'</span>'+
+        '<span class="fcl-live mono">'+live+' live</span></span></span>'+
+      '<span class="fcl-l flift">'+esc(d.label)+'</span>'+
+      '<span class="fcl-g mono">'+esc(CAT_GROUP[d.cats[0]] || '')+'</span>';
+    b.addEventListener('click', function(){ openCluster(d.id); });
+    cl.appendChild(b);
+  });
+  section('02','The clusters',
+    'Each ring is coloured by the eras its entries come from. Click one to open it on the map.', cl);
+
+  /* ---------------- selected objects ----------------
      A deliberate front-page cross-section: classic hardware, modern
      accelerators, graphics, interfaces, distributions, emulation and
      preservation. Keep the order editorial rather than data-driven. */
-  r.appendChild(sectionHead('01','Selected objects',
-    'Twelve of the three hundred and thirty-three. Any plate opens its full entry.'));
   var picked = [
     'a1200', 'v4sa', 'pistorm32', 'picasso', 'workbench',
     'amithlon', 'pimiga', 'uae', 'whdload', 'amos', 'amigaforever', 'a6000'
-  ].map(function(id){ return BY_ID[id]; }).filter(Boolean);
+  ].map(function(id){ return BY_ID[id]; }).filter(function(e){ return e && e.img; }).slice(0,8);
   var fg = el('div','fplates');
   picked.forEach(function(e){
-    var b = el('button','fplate'); b.type='button';
+    var b = el('button','fplate fcard'); b.type='button';
     b.style.setProperty('--era', eraColor(e.era));
-    b.style.setProperty('--era-t', eraTint(e.era));
-    b.appendChild(plateEl(e,'front'));
-    var t = el('div','fplate-t');
-    t.innerHTML = '<div class="fpline"><span class="fpn">'+esc(e.n)+'</span>'+
-      '<span class="yr mono">'+e.y+'</span></div>'+
-      '<div class="fpspec">'+esc(CAT_LABEL[e.cat])+'</div>';
+    var box = el('span','fplate-img');
+    if(e.imgBg) box.style.background = e.imgBg;
+    if(e.imgFit === 'contain') box.style.padding = '18px';
+    var im = document.createElement('img');
+    im.alt = e.n; im.loading = 'lazy'; im.decoding = 'async';
+    im.style.objectFit = e.imgFit; im.style.objectPosition = e.imgPos;
+    im.src = e.img;
+    box.appendChild(im);
+    b.appendChild(box);
+    var t = el('span','fplate-t');
+    t.innerHTML = '<span class="fpline"><span class="fpn flift">'+esc(e.n)+'</span>'+
+      '<span class="yr mono">'+e.y+'</span></span>'+
+      '<span class="fpspec">'+esc(CAT_LABEL[e.cat])+'</span>';
     b.appendChild(t);
     b.addEventListener('click', function(){ openDetail(e.id, b); });
     fg.appendChild(b);
   });
-  r.appendChild(fg);
-
-  /* ---------------- eras ---------------- */
-  r.appendChild(sectionHead('02','Four eras','Choose one and the catalogue filters to it.'));
-  var eras = el('div','feras');
-  M.eras.forEach(function(x,i){
-    var n = ALL.filter(function(e){ return e.era===x.id; }).length;
-    var b = el('button','fera'); b.type='button';
-    b.style.setProperty('--era','var(--e'+(i+1)+')');
-    b.style.setProperty('--era-t','var(--e'+(i+1)+'-t)');
-    b.innerHTML =
-      '<div class="fera-n mono">'+x.range+'</div>'+
-      '<h3>'+esc(x.label)+'</h3>'+
-      '<p>'+esc(x.note)+'</p>'+
-      '<div class="fera-c"><b class="mono">'+n+'</b> entries</div>';
-    b.addEventListener('click', function(){
-      DIMS.forEach(function(d){ S.f[d] = {}; });
-      S.f.era[x.id] = 1; setView('catalog');
-    });
-    eras.appendChild(b);
-  });
-  r.appendChild(eras);
+  section('03','Selected objects',
+    picked.length+' of the '+ALL.length+'. Any plate opens its full entry.', fg);
 
   /* ---------------- guided routes ---------------- */
   if(TOURS.length){
-    r.appendChild(sectionHead('03','Guided routes',
-      'Six paths through the lineage, each one a story told in order.'));
     var tg = el('div','froutes');
     TOURS.forEach(function(t){
-      var b = el('button','froute'); b.type='button';
-      b.innerHTML = '<span class="froute-n mono">'+pad2(t.steps.length)+' stops</span>'+
-        '<h3>'+esc(t.label)+'</h3>'+
-        '<span class="froute-go">Follow the route &rarr;</span>';
+      var stops = t.steps.map(function(s){ return BY_ID[s.id]; }).filter(Boolean);
+      if(!stops.length) return;
+      var a = stops[0], z = stops[stops.length-1];
+      var b = el('button','froute fcard'); b.type='button';
+      b.innerHTML = '<span class="froute-n mono">'+pad2(t.steps.length)+' stops · '+a.y+'–'+z.y+'</span>'+
+        '<h3 class="flift">'+esc(t.label)+'</h3>'+
+        '<span class="ftrack">'+stops.map(function(e, i){
+          return '<span class="fstop"><i class="fdot" style="background:'+eraColor(e.era)+'"></i>'+
+            (i < stops.length-1 ? '<i class="fseg"></i>' : '')+'</span>';
+        }).join('')+'</span>'+
+        '<span class="froute-ends">'+esc(a.n)+' <span>→</span> '+esc(z.n)+'</span>'+
+        '<span class="froute-go mono">Follow the route →</span>';
       b.addEventListener('click', function(){ setView('graph'); tourStart(t.id); });
       tg.appendChild(b);
     });
-    r.appendChild(tg);
+    section('04','Guided routes',
+      'Each one walks the map stop by stop. The fastest way in if you do not know what you are looking for.', tg);
   }
 
   /* ---------------- taxonomy ---------------- */
-  r.appendChild(sectionHead('04','How to read this',
-    'Six kinds of thing are constantly confused for one another. The Kind filter keeps them apart.'));
   var tax = el('div','ftax');
   ['original','replica','fpga','emulator','compatible','oslike'].forEach(function(id){
     var k = M.kinds.find(function(x){ return x.id===id; });
@@ -560,10 +666,10 @@ function renderOverview(){
     d.innerHTML = '<b>'+esc(k.label)+'</b><span>'+esc(k.note)+'</span>';
     tax.appendChild(d);
   });
-  r.appendChild(tax);
+  section('05','How to read this',
+    'Six kinds of thing are constantly confused for one another. The Kind filter keeps them apart.', tax);
 
   /* ---------------- theses ---------------- */
-  r.appendChild(sectionHead('05','Six things this map shows', null));
   var th = el('div','ftheses');
   M.theses.forEach(function(t,i){
     var d = el('div','fthesis');
@@ -571,17 +677,16 @@ function renderOverview(){
       '<div><h3>'+esc(t.t)+'</h3><p>'+esc(t.b)+'</p></div>';
     th.appendChild(d);
   });
-  r.appendChild(th);
+  section('06','Six things this map shows', null, th);
 
   /* ---------------- cautions ---------------- */
-  r.appendChild(sectionHead('06','Cautions','This is a snapshot, not a guarantee.'));
-  var cl = el('div','fcautions');
+  var cs = el('div','fcautions');
   M.cautions.forEach(function(c){
     var d = el('div','fcaution');
     d.innerHTML = '<b>'+esc(c[0])+'</b><span>'+esc(c[1])+'</span>';
-    cl.appendChild(d);
+    cs.appendChild(d);
   });
-  r.appendChild(cl);
+  section('07','Cautions','This is a snapshot, not a guarantee.', cs);
 
   var f = el('div','ffoot');
   f.innerHTML = '<div class="frule frule-sm"></div>'+
@@ -596,6 +701,69 @@ function renderOverview(){
 
   wrap.appendChild(r);
   host.appendChild(wrap);
+}
+
+/* The graph toolbar owns the level and arrangement switches; the front page
+   presses the same buttons, so the map ends up as a visitor would leave it. */
+function pressGraphButton(sel){
+  var b = $(sel);
+  if(b && b.getAttribute('aria-pressed') !== 'true') b.click();
+}
+function openCluster(id){
+  setView('graph');
+  pressGraphButton('#glvl-c');
+  pressGraphButton('#garrange [data-groupby="domain"]');
+  /* on a first visit the map is laid out on the next frame; do it now so the
+     hubs exist (the queued frame relays out harmlessly, without closing this) */
+  if(!GRAPH.laidOut) graphResize();
+  var hub = (GRAPH.hubs||[]).find(function(h){ return h.bucketId === id; });
+  if(hub) lineageOpen(hub);
+}
+/* A drawing of three clusters, hand-placed: the hero's picture of the map.
+   Colours are the dark theme's, as the panel is dark in both themes. */
+function heroMapSVG(){
+  return '<svg class="fmap-svg" viewBox="0 0 600 440" aria-hidden="true">'+
+    '<g fill="#4A5058" opacity=".55">'+
+      '<circle cx="40" cy="60" r="2"/><circle cx="70" cy="300" r="2"/><circle cx="120" cy="400" r="2"/><circle cx="560" cy="40" r="2"/><circle cx="580" cy="250" r="2"/><circle cx="530" cy="380" r="2"/><circle cx="330" cy="40" r="2"/><circle cx="260" cy="30" r="2"/><circle cx="40" cy="220" r="2"/><circle cx="590" cy="170" r="2"/><circle cx="480" cy="420" r="2"/><circle cx="200" cy="420" r="2"/><circle cx="560" cy="330" r="2"/><circle cx="30" cy="380" r="2"/>'+
+    '</g>'+
+    '<g stroke="#33383F" stroke-width="1.5" fill="none">'+
+      '<path d="M160 150L440 130"/><path d="M160 150L300 330"/><path d="M440 130L300 330"/>'+
+    '</g>'+
+    '<g stroke="#4A5058" stroke-width="1" fill="none" opacity=".8">'+
+      '<path d="M232 150L382 172"/><path d="M182 218L242 288"/><path d="M462 198L322 262"/><path d="M372 330L489 165"/>'+
+    '</g>'+
+    '<g stroke="#33383F" stroke-width="1" fill="none">'+
+      '<path d="M160 150L232 150M160 150L209 185M160 150L182 218M160 150L141 207M160 150L102 192M160 150L100 150M160 150L102 108M160 150L141 93M160 150L182 82M160 150L209 115"/>'+
+      '<path d="M440 130L512 130M440 130L489 165M440 130L462 198M440 130L421 187M440 130L382 172M440 130L380 130M440 130L382 88M440 130L421 73M440 130L462 62M440 130L489 95"/>'+
+      '<path d="M300 330L372 330M300 330L349 365M300 330L322 398M300 330L281 387M300 330L242 372M300 330L240 330M300 330L242 288M300 330L281 273M300 330L322 262M300 330L349 295"/>'+
+    '</g>'+
+    '<g>'+
+      '<circle cx="232" cy="150" r="5" fill="#E8AF52"/><circle cx="209" cy="185" r="4" fill="#E8AF52"/><circle cx="182" cy="218" r="5" fill="#E8AF52"/><circle cx="141" cy="207" r="4" fill="#E8AF52"/><circle cx="102" cy="192" r="5" fill="#E8AF52"/><circle cx="100" cy="150" r="4" fill="#E8AF52"/><circle cx="102" cy="108" r="5" fill="#5CC98F"/><circle cx="141" cy="93" r="4" fill="#E8AF52"/><circle cx="182" cy="82" r="5" fill="#E8AF52"/><circle cx="209" cy="115" r="4" fill="#5CC98F"/>'+
+      '<circle cx="512" cy="130" r="5" fill="#CCA2E6"/><circle cx="489" cy="165" r="4" fill="#CCA2E6"/><circle cx="462" cy="198" r="5" fill="#79BEF0"/><circle cx="421" cy="187" r="4" fill="#CCA2E6"/><circle cx="382" cy="172" r="5" fill="#79BEF0"/><circle cx="380" cy="130" r="4" fill="#CCA2E6"/><circle cx="382" cy="88" r="5" fill="#CCA2E6"/><circle cx="421" cy="73" r="4" fill="#79BEF0"/><circle cx="462" cy="62" r="5" fill="#CCA2E6"/><circle cx="489" cy="95" r="4" fill="#CCA2E6"/>'+
+      '<circle cx="372" cy="330" r="5" fill="#5CC98F"/><circle cx="349" cy="365" r="4" fill="#79BEF0"/><circle cx="322" cy="398" r="5" fill="#CCA2E6"/><circle cx="281" cy="387" r="4" fill="#79BEF0"/><circle cx="242" cy="372" r="5" fill="#5CC98F"/><circle cx="240" cy="330" r="4" fill="#5CC98F"/><circle cx="242" cy="288" r="5" fill="#CCA2E6"/><circle cx="281" cy="273" r="4" fill="#79BEF0"/><circle cx="322" cy="262" r="5" fill="#CCA2E6"/><circle cx="349" cy="295" r="4" fill="#5CC98F"/>'+
+    '</g>'+
+    '<g fill="#E4E7EB" font-family="\'Public Sans\', Helvetica, Arial, sans-serif" font-size="11" font-weight="600">'+
+      '<text x="243" y="154">Amiga 1200</text>'+
+      '<text x="499" y="91">MiSTer FPGA</text>'+
+      '<text x="230" y="334" text-anchor="end">WinUAE</text>'+
+    '</g>'+
+    '<g>'+
+      '<circle cx="160" cy="150" r="36" fill="#1E2126" stroke="#E8AF52" stroke-width="2.5"/>'+
+      '<circle cx="160" cy="150" r="31" fill="none" stroke="#33383F" stroke-width="1"/>'+
+      '<text x="160" y="146" text-anchor="middle" fill="#FFFFFF" font-family="\'Instrument Serif\', Georgia, serif" font-size="12.5">Classic</text>'+
+      '<text x="160" y="159" text-anchor="middle" fill="#FFFFFF" font-family="\'Instrument Serif\', Georgia, serif" font-size="12.5">machines</text>'+
+      '<text x="160" y="170" text-anchor="middle" fill="#B9BFC7" font-family="\'JetBrains Mono\', Menlo, monospace" font-size="7.5" letter-spacing=".08em">21 ENTRIES</text>'+
+      '<circle cx="440" cy="130" r="36" fill="#1E2126" stroke="#CCA2E6" stroke-width="2.5"/>'+
+      '<circle cx="440" cy="130" r="31" fill="none" stroke="#33383F" stroke-width="1"/>'+
+      '<text x="440" y="126" text-anchor="middle" fill="#FFFFFF" font-family="\'Instrument Serif\', Georgia, serif" font-size="12.5">FPGA &amp;</text>'+
+      '<text x="440" y="139" text-anchor="middle" fill="#FFFFFF" font-family="\'Instrument Serif\', Georgia, serif" font-size="12.5">replicas</text>'+
+      '<text x="440" y="150" text-anchor="middle" fill="#B9BFC7" font-family="\'JetBrains Mono\', Menlo, monospace" font-size="7.5" letter-spacing=".08em">26 ENTRIES</text>'+
+      '<circle cx="300" cy="330" r="36" fill="#1E2126" stroke="#5CC98F" stroke-width="2.5"/>'+
+      '<circle cx="300" cy="330" r="31" fill="none" stroke="#33383F" stroke-width="1"/>'+
+      '<text x="300" y="333" text-anchor="middle" fill="#FFFFFF" font-family="\'Instrument Serif\', Georgia, serif" font-size="12.5">Emulators</text>'+
+      '<text x="300" y="345" text-anchor="middle" fill="#B9BFC7" font-family="\'JetBrains Mono\', Menlo, monospace" font-size="7.5" letter-spacing=".08em">18 ENTRIES</text>'+
+    '</g>'+
+  '</svg>';
 }
 
 function esc(t){
