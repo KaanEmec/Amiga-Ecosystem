@@ -279,6 +279,8 @@ function renderDetail(id){
   }
 
   sc.appendChild(b);
+  /* extension point: actions.js counts the view */
+  if(window.AMIGA_DETAIL_VIEW) window.AMIGA_DETAIL_VIEW(e);
 }
 function closeDetail(){
   if(!detailOpen() || DETAIL.closing) return;

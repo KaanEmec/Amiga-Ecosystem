@@ -107,8 +107,9 @@ func (s *Server) Handler() http.Handler {
 	mux.Handle("GET /images/", s.mediaHandler())
 	mux.HandleFunc("GET /api/catalog", s.handleCatalog)
 	mux.HandleFunc("GET /healthz", s.handleHealth)
-	s.registerSuggestRoutes(mux) // no-op until WithSuggest is used
-	s.registerAdminRoutes(mux)   // no-op until WithAdmin is used
+	mux.HandleFunc("POST /api/view", s.handleAPIView) // analytics.go
+	s.registerSuggestRoutes(mux)                      // no-op until WithSuggest is used
+	s.registerAdminRoutes(mux)                        // no-op until WithAdmin is used
 
 	var h http.Handler = mux
 	h = s.recordPageviews(h)

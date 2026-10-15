@@ -1,6 +1,6 @@
 {{define "content"}}
 <h1 class="admin-h1">Visitors</h1>
-<p class="admin-muted">Counts are cookie-free: visitor ids are a hash that rotates every UTC day (a returning visitor counts once per day), and nothing identifying is stored.</p>
+<p class="admin-muted">Counts are cookie-free: visitor ids are a hash that rotates every UTC day (a returning visitor counts once per day), and nothing identifying is stored. The catalogue is a single page, so each entry opened in its detail dialog counts as a view of <code>/#entry=…</code>.</p>
 {{range .Periods}}
 <h2 class="admin-h3">{{.Label}}</h2>
 <div class="admin-stats">

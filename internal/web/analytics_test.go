@@ -2,6 +2,7 @@ package web
 
 import (
 	"net/http"
+	"net/url"
 	"strings"
 	"testing"
 )
@@ -90,5 +91,44 @@ func TestAdmin_Stats(t *testing.T) {
 	rec = c.get(t, "/admin")
 	if !strings.Contains(rec.Body.String(), `href="/admin/stats"><b class="mono">1</b>`) {
 		t.Errorf("dashboard lacks the 7-day visitors tile: %s", rec.Body)
+	}
+}
+
+func TestPageviews_ViewBeacon(t *testing.T) {
+	t.Parallel()
+	env := newAdminEnv(t)
+	count := func(path string) int {
+		t.Helper()
+		var n int
+		if err := env.st.DB().QueryRowContext(t.Context(), "SELECT COUNT(*) FROM pageviews WHERE path = ?", path).Scan(&n); err != nil {
+			t.Fatal(err)
+		}
+		return n
+	}
+	post := func(id string, header map[string]string) int {
+		t.Helper()
+		h := map[string]string{"User-Agent": browserUA, "Sec-Fetch-Site": "same-origin", "X-Requested-With": "fetch"}
+		for k, v := range header {
+			h[k] = v
+		}
+		return env.request(t, http.MethodPost, "/api/view", url.Values{"entry": {id}}, nil, h).Code
+	}
+	if got := post("amiga-500", nil); got != http.StatusNoContent || count("/#entry=amiga-500") != 1 {
+		t.Fatalf("beacon: status %d, rows %d", got, count("/#entry=amiga-500"))
+	}
+	if got := post("amiga-500", map[string]string{"X-Requested-With": ""}); got != http.StatusForbidden {
+		t.Errorf("without X-Requested-With: %d", got)
+	}
+	if got := post("amiga-500", map[string]string{"Sec-Fetch-Site": "cross-site"}); got != http.StatusForbidden {
+		t.Errorf("cross-site: %d", got)
+	}
+	if got := post("Amiga 500", nil); got != http.StatusBadRequest {
+		t.Errorf("bad id: %d", got)
+	}
+	if got := post("a1200", map[string]string{"User-Agent": "curl/8.0"}); got != http.StatusNoContent || count("/#entry=a1200") != 0 {
+		t.Errorf("bot beacon: status %d, rows %d", got, count("/#entry=a1200"))
+	}
+	if count("/#entry=amiga-500") != 1 {
+		t.Errorf("refused beacons were recorded: %d rows", count("/#entry=amiga-500"))
 	}
 }

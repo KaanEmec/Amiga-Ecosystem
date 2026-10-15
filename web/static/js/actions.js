@@ -29,6 +29,15 @@ window.AMIGA_DETAIL_ACTIONS = function(entry, container){
   container.appendChild(row);
 };
 
+/* Cookie-free view counter: the catalogue is one page, so each entry opened
+   in the detail dialog is reported as the virtual path /#entry=<id>. */
+window.AMIGA_DETAIL_VIEW = function(entry){
+  if(!entry || !entry.id || typeof fetch !== 'function') return;
+  fetch('/api/view', {method: 'POST', credentials: 'same-origin', keepalive: true,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'fetch'},
+    body: 'entry=' + encodeURIComponent(entry.id)}).catch(function(){});
+};
+
 function openFromHash(){
   var m = /^#entry=([a-z0-9-]{1,64})$/.exec(window.location.hash);
   if(!m || typeof openDetail !== 'function' || typeof BY_ID === 'undefined' || !BY_ID[m[1]]) return;

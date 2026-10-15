@@ -31,12 +31,20 @@ func isPageviewPath(path string) bool {
 	return path == "/" || path == "/suggestions" || strings.HasPrefix(path, "/suggestions/")
 }
 
+// entryIDPattern matches catalogue entry ids posted to /api/view.
+var entryIDPattern = regexp.MustCompile(`^[a-z0-9-]{1,64}$`)
+
+// countable reports whether the request's User-Agent looks like a browser.
+func countable(r *http.Request) bool {
+	ua := r.UserAgent()
+	return ua != "" && !botUA.MatchString(ua)
+}
+
 // recordPageviews records successful public page views after the response
 // is written. A failed write is logged and never affects the response.
 func (s *Server) recordPageviews(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ua := r.UserAgent()
-		if r.Method != http.MethodGet || !isPageviewPath(r.URL.Path) || ua == "" || botUA.MatchString(ua) {
+		if r.Method != http.MethodGet || !isPageviewPath(r.URL.Path) || !countable(r) {
 			next.ServeHTTP(w, r)
 			return
 		}
@@ -46,33 +54,58 @@ func (s *Server) recordPageviews(next http.Handler) http.Handler {
 			return
 		}
 		_ = http.NewResponseController(w).Flush()
-
-		now := time.Now().UTC()
-		day := now.Format(time.DateOnly)
-		h := sha256.New()
-		h.Write(s.cfg.Secret)
-		h.Write([]byte(day + "\x00" + s.visitorIP(r) + "\x00" + ua))
-		pv := store.Pageview{
-			At:       now.Unix(),
-			Day:      day,
-			Path:     truncate(r.URL.Path, pageviewMaxLen),
-			Visitor:  hex.EncodeToString(h.Sum(nil))[:16],
-			Referrer: truncate(s.referrerHost(r), pageviewMaxLen),
-		}
-		ctx, cancel := context.WithTimeout(context.WithoutCancel(r.Context()), pageviewTimeout)
-		defer cancel()
-		q := s.store.Q()
-		if err := q.InsertPageview(ctx, pv); err != nil {
-			s.log.WarnContext(ctx, "recording pageview", "err", err)
-			return
-		}
-		if last := s.pageviewsPruned.Load(); now.Unix()-last >= int64(pageviewPruneEvery/time.Second) &&
-			s.pageviewsPruned.CompareAndSwap(last, now.Unix()) {
-			if err := q.PrunePageviews(ctx, now.Add(-pageviewRetain).Unix()); err != nil {
-				s.log.WarnContext(ctx, "pruning pageviews", "err", err)
-			}
-		}
+		s.recordPageview(r, r.URL.Path)
 	})
+}
+
+// handleAPIView is the beacon the catalogue page sends when an entry's
+// detail dialog opens: the catalogue is a single page, so these in-page
+// views are counted as the virtual path "/#entry=<id>" (a shareable link).
+func (s *Server) handleAPIView(w http.ResponseWriter, r *http.Request) {
+	if !s.sameOriginMutation(r, false) || r.Header.Get("X-Requested-With") != "fetch" {
+		writeJSON(w, http.StatusForbidden, apiErr{Error: "cross-origin request refused"})
+		return
+	}
+	id := r.FormValue("entry")
+	if !entryIDPattern.MatchString(id) {
+		writeJSON(w, http.StatusBadRequest, apiErr{Error: "invalid entry id"})
+		return
+	}
+	w.Header().Set("Cache-Control", "no-store")
+	w.WriteHeader(http.StatusNoContent)
+	if countable(r) {
+		s.recordPageview(r, "/#entry="+id)
+	}
+}
+
+// recordPageview writes one pageviews row for the request's visitor and
+// prunes old rows at most hourly.
+func (s *Server) recordPageview(r *http.Request, path string) {
+	now := time.Now().UTC()
+	day := now.Format(time.DateOnly)
+	h := sha256.New()
+	h.Write(s.cfg.Secret)
+	h.Write([]byte(day + "\x00" + s.visitorIP(r) + "\x00" + r.UserAgent()))
+	pv := store.Pageview{
+		At:       now.Unix(),
+		Day:      day,
+		Path:     truncate(path, pageviewMaxLen),
+		Visitor:  hex.EncodeToString(h.Sum(nil))[:16],
+		Referrer: truncate(s.referrerHost(r), pageviewMaxLen),
+	}
+	ctx, cancel := context.WithTimeout(context.WithoutCancel(r.Context()), pageviewTimeout)
+	defer cancel()
+	q := s.store.Q()
+	if err := q.InsertPageview(ctx, pv); err != nil {
+		s.log.WarnContext(ctx, "recording pageview", "err", err)
+		return
+	}
+	if last := s.pageviewsPruned.Load(); now.Unix()-last >= int64(pageviewPruneEvery/time.Second) &&
+		s.pageviewsPruned.CompareAndSwap(last, now.Unix()) {
+		if err := q.PrunePageviews(ctx, now.Add(-pageviewRetain).Unix()); err != nil {
+			s.log.WarnContext(ctx, "pruning pageviews", "err", err)
+		}
+	}
 }
 
 // referrerHost is the Referer's host, or "" when absent or our own site.
