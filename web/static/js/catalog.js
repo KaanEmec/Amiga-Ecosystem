@@ -464,7 +464,7 @@ function renderOverview(){
   hero.appendChild(hl);
 
   /* The panel is a drawing of the map, not a live one, and it is dark in both
-     themes; it opens the constellation with every entry showing. */
+     themes; it opens the Lineage view at cluster level. */
   var map = el('button','fmap'); map.type = 'button';
   map.setAttribute('aria-label', 'Open the lineage map: '+ALL.length+
     ' entries arranged as a constellation around '+DOMAINS.length+' clusters');
@@ -482,7 +482,7 @@ function renderOverview(){
         return '<span><i style="background:'+eraColor(x.id)+'"></i>'+esc(x.label)+'</span>';
       }).join('')+'</span>'+
     '</span>';
-  map.addEventListener('click', function(){ setView('graph'); pressGraphButton('#glvl-a'); });
+  map.addEventListener('click', function(){ setView('graph'); pressGraphButton('#glvl-c'); });
   var hr = el('div','fhero-r'); hr.appendChild(map);
   hero.appendChild(hr);
   r.appendChild(hero);
